@@ -7,9 +7,9 @@
 <br/>
 
 ### 과제 번호
-- 미션1 : **2. JPA 소개(단일 엔티티를 이용한 CRUD를 구현)** - base:`username/main` ← compare : `username/m1`
-- 미션2 : **3. 영속성컨텍스트(customer 엔티티를 이용하여 생명주기 실습)** - base:`username/main` ← `compare : username/m2`
-- 미션3 : **4-2. 연관관계매핑(order, order_item, item의 연관관계 매핑 실습)** - base:`username/main` ← `compare : username/m3`    
+- 미션1 : **2. JPA 소개(단일 엔티티를 이용한 CRUD를 구현)** 
+- 미션2 : **3. 영속성컨텍스트(customer 엔티티를 이용하여 생명주기 실습)**
+- 미션3 : **4-2. 연관관계매핑(order, order_item, item의 연관관계 매핑 실습)**    
 <br/>
 
 ### 코드리뷰 할 과제
