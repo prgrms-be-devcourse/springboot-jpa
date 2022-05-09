@@ -30,10 +30,18 @@ class CustomerRepositoryTest {
   }
 
   @Test
-  @DisplayName("고객 엔티티 Create 구현 테스트")
+  @DisplayName("고객 엔티티 Create 테스트")
   void testCreate() {
     repository.save(customer);
     Optional<Customer> found = repository.findById(1L);
     assertThat(found.isPresent()).isTrue();
+  }
+
+  @Test
+  @DisplayName("고객 엔티티 Delete 테스트")
+  void testDelete() {
+    repository.delete(customer);
+    Optional<Customer> found = repository.findById(1L);
+    assertThat(found.isEmpty()).isTrue();
   }
 }
