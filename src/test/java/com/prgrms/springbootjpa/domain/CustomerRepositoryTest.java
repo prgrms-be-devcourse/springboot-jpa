@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
@@ -52,6 +53,22 @@ class CustomerRepositoryTest {
     assertThat(found.getId()).isEqualTo(customer.getId());
     assertThat(found.getFirstName()).isEqualTo(customer.getFirstName());
     assertThat(found.getLastName()).isEqualTo(customer.getLastName());
+  }
+
+  @Test
+  @DisplayName("고객 엔티티 Update 테스트")
+  void testUpdate() {
+    repository.save(customer);
+
+    String newLastName = "new";
+    Optional<Customer> found = repository.findById(1L);
+    found.ifPresent(updateCustomer -> {
+      updateCustomer.setLastName(newLastName);
+      repository.save(updateCustomer);
+    });
+
+    found = repository.findById(1L);
+    assertThat(found.get().getLastName()).isEqualTo(newLastName);
   }
 
   @Test
