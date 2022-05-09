@@ -1,5 +1,6 @@
 package com.study.springbootJpa.domain;
 
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -33,5 +34,23 @@ public class Customer {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Customer)) {
+            return false;
+        }
+        Customer customer = (Customer) o;
+        return getId() == customer.getId() && Objects.equals(getFirstName(),
+            customer.getFirstName()) && Objects.equals(getLastName(), customer.getLastName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getFirstName(), getLastName());
     }
 }
