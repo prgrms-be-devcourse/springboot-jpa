@@ -46,7 +46,7 @@ class CustomerRepositoryTest {
 
   @Test
   @DisplayName("고객 엔티티 Read 테스트")
-  void testead() {
+  void testRead() {
     repository.save(customer);
     Customer found = repository.findById(1L).get();
     assertThat(found.getId()).isEqualTo(customer.getId());
