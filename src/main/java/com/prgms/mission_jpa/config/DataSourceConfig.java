@@ -36,6 +36,7 @@ public class DataSourceConfig {
         adapter.setDatabasePlatform(jpaProperties.getDatabasePlatform());
         adapter.setGenerateDdl(jpaProperties.isGenerateDdl());
 
+
         return adapter;
     }
 
@@ -43,7 +44,7 @@ public class DataSourceConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, JpaVendorAdapter jpaVendorAdapter, JpaProperties jpaProperties) {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
-        em.setPackagesToScan("com.prgms.mission_jpa");
+        em.setPackagesToScan("com.prgms.mission_jpa.customer");
         em.setJpaVendorAdapter(jpaVendorAdapter);
 
         Properties properties = new Properties();
