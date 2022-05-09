@@ -5,6 +5,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.example.springboot_jpa.entity.Customer;
@@ -49,7 +51,7 @@ class CustomerControllerTest {
 
     String json = "{\"id\":1}";
     // Given
-    var customerArgument = ArgumentCaptor.forClass(Long.class);
+    var idArgument = ArgumentCaptor.forClass(Long.class);
 
     // When
     mockMvc.perform(
@@ -57,9 +59,26 @@ class CustomerControllerTest {
         .andExpect(status().is2xxSuccessful());
 
     // Then
-    verify(repository, times(1)).deleteById(customerArgument.capture());
-    var usedCustomerId = customerArgument.getValue();
+    verify(repository, times(1)).deleteById(idArgument.capture());
+    var usedCustomerId = idArgument.getValue();
     assertThat(usedCustomerId).isEqualTo(1);
+  }
+
+  @Test
+  void should_update_customer_using_posted_json() throws Exception {
+    // Given
+    var updatedCustomer = new Customer(1, "Sam", "Jones");
+    var updatedJson = objectMapper.writeValueAsString(updatedCustomer);
+    // When
+    mockMvc.perform(
+            put("/api/v1/customers").contentType(MediaType.APPLICATION_JSON).content(updatedJson))
+        .andExpect(status().is2xxSuccessful()).andExpect(content().json(updatedJson));
+
+    // then
+    var customerArgumentCaptor = ArgumentCaptor.forClass(Customer.class);
+    verify(repository, times(1)).save(customerArgumentCaptor.capture());
+    assertThat(customerArgumentCaptor.getValue()).isEqualTo(updatedCustomer);
+
   }
 
 }

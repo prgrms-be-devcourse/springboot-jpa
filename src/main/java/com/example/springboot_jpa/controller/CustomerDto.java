@@ -4,7 +4,7 @@ import com.example.springboot_jpa.entity.Customer;
 import lombok.Data;
 
 @Data
-public class CustomerRequest {
+public class CustomerDto {
 
   private long id;
   private String firstName;
