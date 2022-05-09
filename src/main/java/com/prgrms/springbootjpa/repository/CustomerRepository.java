@@ -1,5 +1,6 @@
-package com.prgrms.springbootjpa.domain;
+package com.prgrms.springbootjpa.repository;
 
+import com.prgrms.springbootjpa.domain.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
