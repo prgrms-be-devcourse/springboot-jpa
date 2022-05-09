@@ -46,6 +46,21 @@ class CustomerRepositoryTest {
     assertThat(savedCustomer.getLastName()).isEqualTo(customer.getLastName());
   }
 
+  @Test
+  void update_customers_by_saving_same_id_entity() {
+
+    // Given
+    repository.save(customer);
+    var duplicatedCustomer = new Customer(1L, "duplicated", "duplicated!");
+    // When
+    repository.save(duplicatedCustomer);
+
+    // Then
+    assertThat(repository.findAll()).hasSize(1);
+    assertThat(repository.findById(customer.getId())).isNotEmpty().get()
+        .isEqualTo(duplicatedCustomer);
+  }
+
   @ParameterizedTest
   @CsvSource({"yaho,bro", "minsu,kim"})
   @Transactional
