@@ -30,6 +30,9 @@ public class CustomerRepositoryTest {
         customer2.setId(2L);
         customer2.setFirstName("ho");
         customer2.setLastName("bbang");
+
+        customerRepository.save(customer1);
+        customerRepository.save(customer2);
     }
 
     @Test
@@ -52,8 +55,6 @@ public class CustomerRepositoryTest {
     @DisplayName("모든 Customer List가 return 되어야함 ")
     void findAll_test() {
         //given
-        customerRepository.save(customer1);
-        customerRepository.save(customer2);
         List<Customer> customers = List.of(customer1, customer2);
         //when
         var findAll = customerRepository.findAll();
@@ -66,7 +67,6 @@ public class CustomerRepositoryTest {
     @DisplayName("해당 Id의 Customer가 return 되어야함")
     void findById_test() {
         //given
-        customerRepository.save(customer1);
         var id = customer1.getId();
         //when
         var findCustomerOrEmpty = customerRepository.findById(id);
@@ -90,7 +90,6 @@ public class CustomerRepositoryTest {
     @DisplayName("해당 Id의 Customer가 삭제 되어야함")
     void deleteById_test() {
         //given
-        customerRepository.save(customer1);
         var id = customer1.getId();
         //when
         customerRepository.deleteById(id);
@@ -103,7 +102,6 @@ public class CustomerRepositoryTest {
     @DisplayName("Customer의 FirstName과 LastName이 수정되어야함")
     void update_test() {
         //given
-        customerRepository.save(customer1);
         var customer = customerRepository.findById(1L).get();
         customer.setFirstName("test");
         customer.setLastName("update");
