@@ -3,7 +3,9 @@ package com.example.springboot_jpa.controller;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -12,6 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.example.springboot_jpa.entity.Customer;
 import com.example.springboot_jpa.repository.CustomerRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,6 +81,22 @@ class CustomerControllerTest {
     var customerArgumentCaptor = ArgumentCaptor.forClass(Customer.class);
     verify(repository, times(1)).save(customerArgumentCaptor.capture());
     assertThat(customerArgumentCaptor.getValue()).isEqualTo(updatedCustomer);
+
+  }
+
+  @Test
+  void should_return_all_customer() throws Exception {
+
+    // Given
+    var customerList = List.of(new Customer(1, "미성", "균"), new Customer(2, "Steven", "Strange"));
+    var expectedResponseJson = objectMapper.writeValueAsString(customerList);
+
+    // When
+    when(repository.findAll()).thenReturn(customerList);
+
+    mockMvc.perform(get("/api/v1/customers"))
+        // Then
+        .andExpectAll(status().is2xxSuccessful(), content().json(expectedResponseJson));
 
   }
 

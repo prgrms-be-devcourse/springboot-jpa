@@ -1,8 +1,10 @@
 package com.example.springboot_jpa.controller;
 
 import com.example.springboot_jpa.repository.CustomerRepository;
+import java.util.List;
 import java.util.Map;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,5 +39,11 @@ public class CustomerController {
     repository.save(customerDto.translate());
 
     return customerDto;
+  }
+
+  @GetMapping("/api/v1/customers")
+  public List<CustomerDto> getAllCustomers() {
+
+    return CustomerDto.translateAll(repository.findAll());
   }
 }
