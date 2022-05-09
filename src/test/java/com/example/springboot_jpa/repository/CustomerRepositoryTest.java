@@ -3,24 +3,38 @@ package com.example.springboot_jpa.repository;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.example.springboot_jpa.entity.Customer;
+import javax.transaction.Transactional;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class CustomerRepositoryTest {
 
-  @Autowired
-  private CustomerRepository repository;
+  private static final Customer customer;
 
-  @Test
-  void save_customer_in_repository_working() {
-
-    // Given
-    var customer = new Customer();
+  static {
+    customer = new Customer();
     customer.setFirstName("Minsung");
     customer.setLastName("Kim");
     customer.setId(1L);
+  }
+
+  @Autowired
+  private CustomerRepository repository;
+
+  @AfterEach
+  void tearDown() {
+    repository.deleteAll();
+  }
+
+  @Test
+  void can_create_customer() {
+
+    // Given
 
     // When
     repository.save(customer);
@@ -32,4 +46,53 @@ class CustomerRepositoryTest {
     assertThat(savedCustomer.getLastName()).isEqualTo(customer.getLastName());
   }
 
+  @ParameterizedTest
+  @CsvSource({"yaho,bro", "minsu,kim"})
+  @Transactional
+  void update_customers_by_setter_using_transaction(String firstName, String lastName) {
+
+    // Given
+    repository.save(customer);
+    var savedCustomer = repository.findById(customer.getId()).orElseThrow();
+
+    // When
+    savedCustomer.setFirstName(firstName);
+    savedCustomer.setLastName(lastName);
+    // Then
+    var updatedCustomer = repository.findById(savedCustomer.getId()).orElseThrow();
+    assertThat(updatedCustomer.getFirstName()).isEqualTo(firstName);
+    assertThat(updatedCustomer.getLastName()).isEqualTo(lastName);
+  }
+
+  @Test
+  void delete_test() {
+
+    // Given
+    repository.save(customer);
+
+    // When
+    repository.delete(customer);
+
+    // Then
+    assertThat(repository.count()).isZero();
+    assertThat(repository.findAll()).isEmpty();
+  }
+
+  @Test
+  void can_select_all_customers_in_database() {
+
+    // Given
+    repository.save(customer);
+    var secondCustomer = new Customer(2, "mansu", "salad");
+    repository.save(secondCustomer);
+
+    // When
+    var savedCustomers = repository.findAll();
+
+    // Then
+    assertThat(savedCustomers).hasSize(2).contains(customer, secondCustomer);
+  }
+
 }
+
+
