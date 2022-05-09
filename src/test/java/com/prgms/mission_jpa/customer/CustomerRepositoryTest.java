@@ -29,7 +29,7 @@ class CustomerRepositoryTest {
     @BeforeEach
     void setup(){
         for (long i = 0; i < 10; i++) {
-            customers.add(new Customer(i, "first_" + i, "last_" + i));
+            customers.add(Customer.builder().firstName("yongsu_" + i).lastName("kang_" + i).build());
         }
     }
 
@@ -42,7 +42,10 @@ class CustomerRepositoryTest {
     @CsvSource({"a,a","b,b","c,c"})
     void 고객을_저장할_수_있다(String firstName,String lastName) {
         //given
-        Customer customer = new Customer(1L, firstName, lastName);
+        Customer customer = Customer.builder()
+                .firstName(firstName)
+                .lastName(lastName)
+                .build();
         //when
         Customer savedCustomer = customerRepository.save(customer);
         //then
@@ -54,13 +57,16 @@ class CustomerRepositoryTest {
     @Transactional
     void 고객정보를_수정할_수_있다() {
         //given
-        Customer customer = new Customer(1L, "firstName", "lastName");
+        Customer customer = Customer.builder()
+                .firstName("firstName")
+                .lastName("lastName")
+                .build();
         Customer savedCustomer = customerRepository.save(customer);
         //when
         savedCustomer.setFirstName("yongsu");
         savedCustomer.setLastName("kang");
-        Customer updatedCustomer = customerRepository.findById(customer.getId()).get();
         //then
+        Customer updatedCustomer = customerRepository.findById(savedCustomer.getId()).get();
         assertThat(updatedCustomer.getFirstName()).isEqualTo("yongsu");
         assertThat(updatedCustomer.getLastName()).isEqualTo("kang");
     }
@@ -68,12 +74,15 @@ class CustomerRepositoryTest {
     @Test
     void 고객을_삭제할_수_있다(){
         //given
-        Customer customer = new Customer(1L, "firstName", "lastName");
-        customerRepository.save(customer);
+        Customer customer = Customer.builder()
+                .firstName("firstName")
+                .lastName("lastName")
+                .build();
+        Customer savedCustomer = customerRepository.save(customer);
         //when
-        customerRepository.deleteById(customer.getId());
+        customerRepository.deleteById(savedCustomer.getId());
         //then
-        Optional<Customer> findCustomer = customerRepository.findById(customer.getId());
+        Optional<Customer> findCustomer = customerRepository.findById(savedCustomer.getId());
         assertThat(findCustomer.isEmpty()).isTrue();
     }
 
@@ -81,8 +90,8 @@ class CustomerRepositoryTest {
     void 전체고객을_삭제할_수_있다(){
         //given
         customerRepository.saveAll(customers);
-        List<Customer> all = customerRepository.findAll();
-        assertThat(all.size()).isEqualTo(10);
+        List<Customer> findAllCustomers = customerRepository.findAll();
+        assertThat(findAllCustomers.size()).isEqualTo(10);
         //when
         customerRepository.deleteAll();
         //then
