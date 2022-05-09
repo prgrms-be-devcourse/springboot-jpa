@@ -1,6 +1,7 @@
 package com.example.springboot_jpa.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatNoException;
 
 import com.example.springboot_jpa.entity.Customer;
 import javax.transaction.Transactional;
@@ -91,6 +92,15 @@ class CustomerRepositoryTest {
     // Then
     assertThat(repository.count()).isZero();
     assertThat(repository.findAll()).isEmpty();
+  }
+
+  @Test
+  void delete_empty_repository_does_not_throw_any_error() {
+    assertThatNoException().isThrownBy(() -> {
+      repository.delete(customer);
+      repository.delete(customer);
+      repository.delete(customer);
+    });
   }
 
   @Test

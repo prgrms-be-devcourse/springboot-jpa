@@ -3,6 +3,7 @@ package com.example.springboot_jpa.controller;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -41,6 +42,24 @@ class CustomerControllerTest {
     verify(repository, times(1)).save(customerArgument.capture());
     var usedCustomer = customerArgument.getValue();
     assertThat(usedCustomer).isEqualTo(customer);
+  }
+
+  @Test
+  void should_delete_customer_using_posted_json() throws Exception {
+
+    String json = "{\"id\":1}";
+    // Given
+    var customerArgument = ArgumentCaptor.forClass(Long.class);
+
+    // When
+    mockMvc.perform(
+            delete("/api/v1/customers").contentType(MediaType.APPLICATION_JSON).content(json))
+        .andExpect(status().is2xxSuccessful());
+
+    // Then
+    verify(repository, times(1)).deleteById(customerArgument.capture());
+    var usedCustomerId = customerArgument.getValue();
+    assertThat(usedCustomerId).isEqualTo(1);
   }
 
 }
