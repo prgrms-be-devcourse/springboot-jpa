@@ -47,7 +47,7 @@ public class DataSourceConfiguration {
     ){
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
-        em.setPackagesToScan("com.programmers.lecture.domain");
+        em.setPackagesToScan("com.programmers.mission1.domain");
         em.setJpaVendorAdapter(jpaVendorAdapter);
 
         Properties properties = new Properties();
