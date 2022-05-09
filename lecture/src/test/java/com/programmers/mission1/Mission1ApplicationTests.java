@@ -1,4 +1,4 @@
-package com.programmers.lecture;
+package com.programmers.mission1;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

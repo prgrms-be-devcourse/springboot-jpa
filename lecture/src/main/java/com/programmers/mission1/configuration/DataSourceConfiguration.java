@@ -1,4 +1,4 @@
-package com.programmers.lecture.configuration;
+package com.programmers.mission1.configuration;
 
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.context.annotation.Bean;

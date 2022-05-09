@@ -1,7 +1,6 @@
-package com.programmers.lecture.domain;
+package com.programmers.mission1.domain;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 

@@ -1,10 +1,8 @@
-package com.programmers.lecture.domain.repository;
+package com.programmers.mission1.domain.repository;
 
-import com.programmers.lecture.domain.Customer;
+import com.programmers.mission1.domain.Customer;
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.function.Executable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
