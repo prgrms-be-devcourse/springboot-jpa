@@ -4,14 +4,12 @@ import static org.assertj.core.api.AssertionsForClassTypes.*;
 
 import com.study.springbootJpa.domain.Customer;
 import java.util.List;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-@Slf4j
 @DataJpaTest
 public class CustomerRepositoryTest {
 
@@ -44,23 +42,24 @@ public class CustomerRepositoryTest {
         customer.setFirstName("hyeb");
         customer.setLastName("park");
         //when
-        var saveCustomer = customerRepository.save(customer);
-        var findCustomer = customerRepository.findById(3L);
+        var savedCustomer = customerRepository.save(customer);
+        var foundCustomer = customerRepository.findById(3L);
         //then
-        assertThat(saveCustomer).isEqualTo(findCustomer.get());
+        assertThat(foundCustomer).isPresent();
+        assertThat(savedCustomer).isEqualTo(foundCustomer.get());
     }
 
 
     @Test
-    @DisplayName("모든 Customer List가 return 되어야함 ")
+    @DisplayName("모든 Customer의 List가 return 되어야함 ")
     void findAll_test() {
         //given
         List<Customer> customers = List.of(customer1, customer2);
         //when
-        var findAll = customerRepository.findAll();
+        var foundCustomers = customerRepository.findAll();
         //then
-        assertThat(findAll.size()).isEqualTo(2);
-        assertThat(findAll).isEqualTo(customers);
+        assertThat(foundCustomers.size()).isEqualTo(2);
+        assertThat(foundCustomers).isEqualTo(customers);
     }
 
     @Test
@@ -69,21 +68,21 @@ public class CustomerRepositoryTest {
         //given
         var id = customer1.getId();
         //when
-        var findCustomerOrEmpty = customerRepository.findById(id);
+        var foundCustomer = customerRepository.findById(id);
         //then
-        assertThat(findCustomerOrEmpty).isNotEmpty();
-        assertThat(customer1.getId()).isEqualTo(findCustomerOrEmpty.get().getId());
+        assertThat(foundCustomer).isPresent();
+        assertThat(customer1.getId()).isEqualTo(foundCustomer.get().getId());
     }
 
     @Test
-    @DisplayName("없는 Id 조회시 Optional.Empty가 반환되어야함")
+    @DisplayName("없는 Id 조회시 Empty가 반환되어야함")
     void findById_fail_test() {
         //given
         var id = 100L;
         //when
-        var findCustomerOrEmpty = customerRepository.findById(id);
+        var foundCustomer = customerRepository.findById(id);
         //then
-        assertThat(findCustomerOrEmpty).isEmpty();
+        assertThat(foundCustomer).isEmpty();
     }
 
     @Test
@@ -94,21 +93,21 @@ public class CustomerRepositoryTest {
         //when
         customerRepository.deleteById(id);
         //then
-        var customer = customerRepository.findById(id);
-        assertThat(customer).isEmpty();
+        var deletedCustomer = customerRepository.findById(id);
+        assertThat(deletedCustomer).isEmpty();
     }
 
     @Test
     @DisplayName("Customer의 FirstName과 LastName이 수정되어야함")
     void update_test() {
         //given
-        var customer = customerRepository.findById(1L).get();
-        customer.setFirstName("test");
-        customer.setLastName("update");
+        var foundCustomer = customerRepository.findById(1L).get();
+        foundCustomer.setFirstName("test");
+        foundCustomer.setLastName("update");
         //when
-        var update = customerRepository.findById(1L).get();
+        var updatedCustomer = customerRepository.findById(1L);
         //then
-        assertThat(update).isEqualTo(customer);
+        assertThat(updatedCustomer).isPresent();
+        assertThat(updatedCustomer.get()).isEqualTo(foundCustomer);
     }
-
 }
