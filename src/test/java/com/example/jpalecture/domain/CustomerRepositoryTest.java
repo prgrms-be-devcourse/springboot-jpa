@@ -1,18 +1,14 @@
 package com.example.jpalecture.domain;
 
-import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import javax.sql.DataSource;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Slf4j
 @DataJpaTest
 @ActiveProfiles("test")
 class CustomerRepositoryTest {
@@ -20,12 +16,17 @@ class CustomerRepositoryTest {
     @Autowired
     private CustomerRepository customerRepository;
 
-    @Test
-    void customer_저장() {
+    private Customer getCustomer() {
         Customer customer = new Customer();
         customer.setId(1L);
         customer.setFirstName("kang");
         customer.setLastName("honggu");
+        return customer;
+    }
+
+    @Test
+    void customer_저장() {
+        Customer customer = getCustomer();
 
         customerRepository.save(customer);
 
@@ -37,10 +38,7 @@ class CustomerRepositoryTest {
 
     @Test
     void customer_조회() {
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setFirstName("kang");
-        customer.setLastName("honggu");
+        Customer customer = getCustomer();
         customerRepository.save(customer);
 
         Optional<Customer> findCustomer = customerRepository.findById(1L);
@@ -51,10 +49,7 @@ class CustomerRepositoryTest {
 
     @Test
     void customer_수정() {
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setFirstName("kang");
-        customer.setLastName("honggu");
+        Customer customer = getCustomer();
         customerRepository.save(customer);
 
         Customer foundById = customerRepository.findById(1L).get();
@@ -69,10 +64,7 @@ class CustomerRepositoryTest {
 
     @Test
     void customer_삭제() {
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setFirstName("kang");
-        customer.setLastName("honggu");
+        Customer customer = getCustomer();
         customerRepository.save(customer);
 
         customerRepository.delete(customer);
