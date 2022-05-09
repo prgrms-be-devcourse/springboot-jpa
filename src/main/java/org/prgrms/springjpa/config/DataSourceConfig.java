@@ -27,7 +27,7 @@ public class DataSourceConfig {
         return dataSource;
     }
 
-    @Bean //어떤 JPA 구현체를 쓸지
+    @Bean
     public JpaVendorAdapter jpaVendorAdapter(JpaProperties jpaProperties) {
         AbstractJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
         jpaVendorAdapter.setShowSql(jpaProperties.isShowSql());
