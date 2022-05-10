@@ -80,7 +80,7 @@ public class CustomerPersistenceContextTest {
 
   @Test
   @DisplayName("Customer 수정")
-  void testCustomerUpdate() {
+  void testUpdateCustomer() {
     EntityManager entityManager = emf.createEntityManager();
     EntityTransaction transaction = entityManager.getTransaction();
 
@@ -96,7 +96,7 @@ public class CustomerPersistenceContextTest {
 
   @Test
   @DisplayName("Customer 삭제")
-  void testCustomerDelete() {
+  void testDeleteCustomer() {
     EntityManager entityManager = emf.createEntityManager();
     EntityTransaction transaction = entityManager.getTransaction();
 
