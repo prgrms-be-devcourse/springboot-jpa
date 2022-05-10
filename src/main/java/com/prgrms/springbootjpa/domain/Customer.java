@@ -1,6 +1,7 @@
 package com.prgrms.springbootjpa.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -8,6 +9,7 @@ import javax.persistence.Table;
 @Table(name="customers")
 public class Customer {
     @Id
+    @GeneratedValue
     private Long id;
     private String firstName;
     private String lastName;
