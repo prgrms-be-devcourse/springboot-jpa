@@ -39,14 +39,28 @@ public class CustomerPersistenceContextTest {
   }
 
   @Test
-  @DisplayName("Customer 데이터 저장")
-  void testCreateCustomer() {
+  @DisplayName("customers 테이블에 데이터 저장")
+  void testInsertCustomer() {
     EntityManager entityManager = emf.createEntityManager();
     EntityTransaction transaction = entityManager.getTransaction();
 
     transaction.begin();
-
     entityManager.persist(customer);
     transaction.commit();
+  }
+
+  @Test
+  @DisplayName("customers 테이블 조회")
+  void testFindCustomer() {
+    EntityManager entityManager = emf.createEntityManager();
+    EntityTransaction transaction = entityManager.getTransaction();
+
+    transaction.begin();
+    entityManager.persist(customer);
+    transaction.commit();
+    entityManager.detach(customer);
+
+    Customer selected = entityManager.find(Customer.class, 1L);
+    log.info("First Name: {}, Last Name: {}", selected.getFirstName(), selected.getLastName());
   }
 }
