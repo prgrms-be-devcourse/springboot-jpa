@@ -90,7 +90,7 @@ public class CustomerPersistenceContextTest {
 
     transaction.begin();
     customer.setFirstName("name");
-    customer.setLastName("hong");
+    customer.setLastName("seong");
     transaction.commit();
   }
 
