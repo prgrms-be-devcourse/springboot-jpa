@@ -1,0 +1,98 @@
+package com.prgrms.springbootjpa.domain;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+
+@SpringBootTest
+public class PersistenceTest {
+    @Autowired
+    EntityManagerFactory emf;
+
+    @Test
+    void testManaged() {
+         EntityManager em  = emf.createEntityManager();
+         EntityTransaction tx = em.getTransaction();
+
+         tx.begin();
+
+         // given
+         Customer customer = new Customer(null, "jerry", "hong");
+
+         // when
+         em.persist(customer);
+
+         //then
+         assertThat(em.contains(customer)).isTrue();
+
+         tx.commit();
+    }
+
+    @Test
+    void testDetached() {
+        EntityManager em  = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+
+        tx.begin();
+
+        // given
+        Customer customer = new Customer(null, "jerry", "hong");
+        em.persist(customer);
+
+        // when
+        em.detach(customer);
+
+        // then
+        assertThat(em.contains(customer)).isFalse();
+
+        tx.commit();
+    }
+
+    @Test
+    void testDetachedByClear() {
+        EntityManager em  = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+
+        tx.begin();
+
+        // given
+        Customer customer = new Customer(null, "jerry", "hong");
+        em.persist(customer);
+
+        // when
+        em.clear();
+
+        // then
+        assertThat(em.contains(customer)).isFalse();
+
+        tx.commit();
+    }
+
+
+    @Test
+    void testRemoved() {
+        EntityManager em  = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+
+        tx.begin();
+
+        // given
+        Customer customer = new Customer(null, "jerry", "hong");
+        em.persist(customer);
+
+        // when
+        em.remove(customer);
+
+        // then
+        assertThat(em.contains(customer)).isFalse();
+        assertThat(em.find(Customer.class, 1L)).isNull();
+
+        tx.commit();
+    }
+}
