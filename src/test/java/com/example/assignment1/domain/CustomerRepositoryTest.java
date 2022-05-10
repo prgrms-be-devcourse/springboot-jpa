@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
@@ -23,10 +22,7 @@ class CustomerRepositoryTest {
 
     @BeforeEach
     void setup() {
-        customer = new Customer();
-        customer.setId(1L);
-        customer.setFirstName("YoonOh");
-        customer.setLastName("Jung");
+        customer = new Customer(1L, "YoonOh", "Jung");
     }
 
     @AfterEach
@@ -70,7 +66,7 @@ class CustomerRepositoryTest {
 
         // when
         var findCustomer = customerRepository.findById(customer.getId()).get();
-        findCustomer.setLastName("Kim");
+        findCustomer.updateLastName("Kim");
         customerRepository.save(findCustomer);
 
         var afterModified = customerRepository.findById(customer.getId()).get();
@@ -89,6 +85,6 @@ class CustomerRepositoryTest {
         customerRepository.deleteById(customer.getId());
 
         // then
-        assertThat(customerRepository.findAll().size(), is(0));
+        assertThat(customerRepository.count(), is(0L));
     }
 }
