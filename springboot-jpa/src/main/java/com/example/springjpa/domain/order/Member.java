@@ -1,12 +1,7 @@
 package com.example.springjpa.domain.order;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "member")
 public class Member {
@@ -23,4 +18,40 @@ public class Member {
     private String address;
     @Column(name = "description")
     private String description;
+
+    public Member() {
+    }
+
+    public Member(String name, String nickName, int age, String address, String description) {
+        this.id = id;
+        this.name = name;
+        this.nickName = nickName;
+        this.age = age;
+        this.address = address;
+        this.description = description;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }

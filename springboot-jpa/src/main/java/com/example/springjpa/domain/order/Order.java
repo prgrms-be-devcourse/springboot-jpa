@@ -1,13 +1,8 @@
 package com.example.springjpa.domain.order;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "orders")
 public class Order {
@@ -24,4 +19,35 @@ public class Order {
     // member_fk
     @Column(name = "member_id")
     private Long memberId;
+
+    public Order() {
+    }
+
+    public Order(String uuid, String memo, OrderStatus orderStatus, LocalDateTime orderDateTime, Long memberId) {
+        this.uuid = uuid;
+        this.memo = memo;
+        this.orderStatus = orderStatus;
+        this.orderDateTime = orderDateTime;
+        this.memberId = memberId;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public LocalDateTime getOrderDateTime() {
+        return orderDateTime;
+    }
+
+    public Long getMemberId() {
+        return memberId;
+    }
 }

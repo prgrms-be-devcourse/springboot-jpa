@@ -1,7 +1,6 @@
 package com.example.springjpa.domain;
 
 import jdk.jfr.Description;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-@Slf4j
 @Transactional
 @SpringBootTest
 class CustomerRepositoryTest {

@@ -1,19 +1,13 @@
 package com.example.springjpa.domain.order;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "order_item")
 public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-
     private int price;
     private int quantity;
 
@@ -22,4 +16,35 @@ public class OrderItem {
     private String orderId;
     @Column(name = "item_id")
     private Long itemId;
+
+    public OrderItem() {
+    }
+
+    public OrderItem(int price, int quantity, String orderId, Long itemId) {
+        this.id = id;
+        this.price = price;
+        this.quantity = quantity;
+        this.orderId = orderId;
+        this.itemId = itemId;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public Long getItemId() {
+        return itemId;
+    }
 }
