@@ -9,7 +9,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.transaction.annotation.Transactional;
 
 @DataJpaTest
 class CustomerRepositoryTest {
@@ -68,7 +67,6 @@ class CustomerRepositoryTest {
 
     @DisplayName("고객을 수정한다.")
     @Test
-    @Transactional
     void update() {
         // given
         Customer customer = customerRepository.save(customer());
