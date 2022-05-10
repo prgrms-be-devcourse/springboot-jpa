@@ -1,9 +1,6 @@
 package com.prgrms.springbootjpa.repository;
 
 import com.prgrms.springbootjpa.domain.Customer;
-import com.prgrms.springbootjpa.repository.CustomerRepository;
-import lombok.extern.slf4j.Slf4j;
-import org.aspectj.lang.annotation.After;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -11,15 +8,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
-@Slf4j
 @SpringBootTest
 class CustomerRepositoryTest {
-
   @Autowired
   private CustomerRepository repository;
 
