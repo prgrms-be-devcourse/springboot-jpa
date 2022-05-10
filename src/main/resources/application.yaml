@@ -1,0 +1,15 @@
+spring:
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        query.in_clause_parameter_padding: true
+    generate-ddl: true
+    database: h2
+  h2:
+    console:
+      enabled: true
