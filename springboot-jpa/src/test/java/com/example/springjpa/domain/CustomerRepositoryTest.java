@@ -30,10 +30,7 @@ class CustomerRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setFirstName("kim");
-        customer.setLastName("bob");
+        Customer customer = new Customer(1L, "kim", "bob");
         basicCustomer = repository.save(customer);
     }
 
@@ -41,10 +38,7 @@ class CustomerRepositoryTest {
     @Description("고객정보가 저장되어야 한다.")
     void testSave() throws Exception {
         //given
-        Customer customer = new Customer();
-        customer.setId(2L);
-        customer.setFirstName("taesan");
-        customer.setLastName("kang");
+        Customer customer = new Customer(2L, "taesan", "kang");
         //when
         Customer savedEntity = repository.save(customer);
         //then
@@ -85,8 +79,8 @@ class CustomerRepositoryTest {
     @Description("고객정보를 수정할 수 있다.")
     void testUpdate() throws Exception {
         //when
-        basicCustomer.setFirstName("big");
-        basicCustomer.setLastName("mountain");
+        basicCustomer.changeFirstName("big");
+        basicCustomer.changeLastName("mountain");
         Customer findEntity = repository.findById(basicCustomer.getId()).get();
 
         //then

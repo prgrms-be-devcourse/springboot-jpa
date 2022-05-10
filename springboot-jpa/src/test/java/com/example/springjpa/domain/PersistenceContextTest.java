@@ -31,10 +31,7 @@ public class PersistenceContextTest {
         EntityTransaction transaction = entityManager.getTransaction();
 
         transaction.begin();
-        Customer customer = new Customer(); // 비영
-        customer.setId(1L);
-        customer.setFirstName("taesan");
-        customer.setLastName("kang");
+        Customer customer = new Customer(1L, "taesan", "kang"); // 비영
         entityManager.persist(customer); // 비영속 -> 영속 (영속화)
         transaction.commit(); // entityManager.flush();
     }
@@ -45,10 +42,7 @@ public class PersistenceContextTest {
         EntityTransaction transaction = entityManager.getTransaction();
 
         transaction.begin();
-        Customer customer = new Customer(); // 비영
-        customer.setId(1L);
-        customer.setFirstName("taesan");
-        customer.setLastName("kang");
+        Customer customer = new Customer(1L, "taesan", "kang"); // 비영
         entityManager.persist(customer); // 비영속 -> 영속 (영속화)
         transaction.commit(); // entityManager.flush();
 
@@ -63,16 +57,13 @@ public class PersistenceContextTest {
         EntityTransaction transaction = entityManager.getTransaction();
 
         transaction.begin();
-        Customer customer = new Customer(); // 비영
-        customer.setId(1L);
-        customer.setFirstName("taesan");
-        customer.setLastName("kang");
+        Customer customer = new Customer(1L, "taesan", "kang"); // 비영
         entityManager.persist(customer); // 비영속 -> 영속 (영속화)
         transaction.commit(); // entityManager.flush();
 
         transaction.begin();
-        customer.setFirstName("KKang");
-        customer.setLastName("mountain");
+        customer.changeLastName("big");
+        customer.changeFirstName("mountain");
         transaction.commit();
     }
 
@@ -82,10 +73,7 @@ public class PersistenceContextTest {
         EntityTransaction transaction = entityManager.getTransaction();
 
         transaction.begin();
-        Customer customer = new Customer(); // 비영
-        customer.setId(1L);
-        customer.setFirstName("taesan");
-        customer.setLastName("kang");
+        Customer customer = new Customer(1L, "taesan", "kang"); // 비영
         entityManager.persist(customer); // 비영속 -> 영속 (영속화)
         transaction.commit(); // entityManager.flush();
 

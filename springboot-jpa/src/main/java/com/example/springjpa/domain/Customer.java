@@ -1,10 +1,13 @@
 package com.example.springjpa.domain;
 
+import lombok.Getter;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
+@Getter
 @Table(name = "customers")
 public class Customer {
     @Id
@@ -12,27 +15,20 @@ public class Customer {
     private String firstName;
     private String lastName;
 
-    public Long getId() {
-        return id;
+    public Customer() {
     }
 
-    public void setId(Long id) {
+    public Customer(Long id, String firstName, String lastName) {
         this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
+    public void changeFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
+    public void changeLastName(String lastName) {
         this.lastName = lastName;
     }
 }
