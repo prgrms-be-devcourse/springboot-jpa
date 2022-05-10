@@ -101,14 +101,14 @@ class CustomerRepositoryTest {
     @Test
     void deleteAll() {
         // given
-        Customer customer = customerRepository.save(customer());
-        Customer secondCustomer = customerRepository.save(new Customer(2L, "honggu", "kang"));
+        customerRepository.save(customer());
+        customerRepository.save(new Customer(2L, "honggu", "kang"));
 
         // when
         customerRepository.deleteAll();
 
         // then
-        assertThat(customerRepository.findAll()).isEmpty();
+        assertThat(customerRepository.count()).isEqualTo(0);
     }
 
     private Customer customer() {
