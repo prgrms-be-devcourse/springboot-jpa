@@ -7,15 +7,18 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="kdt" />
         <module name="springboot-jpa" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="kdt" target="17" />
       <module name="springboot-jpa" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="kdt" options="-parameters" />
       <module name="springboot-jpa" options="-parameters" />
     </option>
   </component>

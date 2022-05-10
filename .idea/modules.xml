@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/kdt.iml" filepath="$PROJECT_DIR$/kdt.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/springboot-jpa.iml" filepath="$PROJECT_DIR$/.idea/springboot-jpa.iml" />
     </modules>
   </component>
