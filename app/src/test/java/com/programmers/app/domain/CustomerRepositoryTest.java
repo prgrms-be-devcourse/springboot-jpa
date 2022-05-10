@@ -20,9 +20,6 @@ class CustomerRepositoryTest {
 	@Autowired
 	private CustomerRepository repository;
 
-	@Autowired
-	private EntityManager em;
-
 	@Test
 	void testInsert() {
 		//given
