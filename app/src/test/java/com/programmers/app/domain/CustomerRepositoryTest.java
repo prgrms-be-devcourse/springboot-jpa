@@ -73,7 +73,7 @@ class CustomerRepositoryTest {
 	}
 
 	@Test
-	void testLookUpOne() {
+	void testDelete() {
 		//given
 		Customer customer = new Customer();
 		customer.setId(1L);
