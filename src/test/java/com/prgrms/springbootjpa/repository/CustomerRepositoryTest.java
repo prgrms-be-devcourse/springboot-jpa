@@ -1,5 +1,6 @@
-package com.prgrms.springbootjpa.domain;
+package com.prgrms.springbootjpa.repository;
 
+import com.prgrms.springbootjpa.domain.Customer;
 import com.prgrms.springbootjpa.repository.CustomerRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.After;
