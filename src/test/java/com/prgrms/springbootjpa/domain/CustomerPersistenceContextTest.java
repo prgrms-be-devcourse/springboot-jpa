@@ -93,4 +93,19 @@ public class CustomerPersistenceContextTest {
     customer.setLastName("hong");
     transaction.commit();
   }
+
+  @Test
+  @DisplayName("Customer 삭제")
+  void testCustomerDelete() {
+    EntityManager entityManager = emf.createEntityManager();
+    EntityTransaction transaction = entityManager.getTransaction();
+
+    transaction.begin();
+    entityManager.persist(customer);
+    transaction.commit();
+
+    transaction.begin();
+    entityManager.remove(customer);
+    transaction.commit();
+  }
 }
