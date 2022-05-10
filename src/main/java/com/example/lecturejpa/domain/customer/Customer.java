@@ -1,4 +1,4 @@
-package com.example.lecturejpa.domain;
+package com.example.lecturejpa.domain.customer;
 
 import javax.persistence.Entity;
 

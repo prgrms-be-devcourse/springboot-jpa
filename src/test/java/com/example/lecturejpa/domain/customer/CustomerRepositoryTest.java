@@ -1,4 +1,4 @@
-package com.example.lecturejpa.domain;
+package com.example.lecturejpa.domain.customer;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -11,6 +11,9 @@ import java.util.Optional;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
+import com.example.lecturejpa.domain.customer.Customer;
+import com.example.lecturejpa.domain.customer.CustomerRepository;
 
 @SpringBootTest
 @Transactional

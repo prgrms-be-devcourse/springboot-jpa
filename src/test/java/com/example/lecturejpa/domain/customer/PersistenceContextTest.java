@@ -1,4 +1,4 @@
-package com.example.lecturejpa.domain;
+package com.example.lecturejpa.domain.customer;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -10,6 +10,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import com.example.lecturejpa.domain.customer.Customer;
+import com.example.lecturejpa.domain.customer.CustomerRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
