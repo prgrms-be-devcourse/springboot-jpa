@@ -2,6 +2,7 @@ package com.prgrms.springbootjpa.domain;
 
 import com.prgrms.springbootjpa.repository.CustomerRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,6 +23,16 @@ public class CustomerPersistenceContextTest {
   @Autowired
   EntityManagerFactory emf;
 
+  private static Customer customer;
+
+  @BeforeAll
+  static void beforeAll() {
+    customer = new Customer();
+    customer.setId(1L);
+    customer.setFirstName("first");
+    customer.setLastName("last");
+  }
+
   @BeforeEach
   void setUp() {
     repository.deleteAll();
@@ -34,11 +45,6 @@ public class CustomerPersistenceContextTest {
     EntityTransaction transaction = entityManager.getTransaction();
 
     transaction.begin();
-
-    Customer customer = new Customer();
-    customer.setId(1L);
-    customer.setFirstName("first");
-    customer.setLastName("last");
 
     entityManager.persist(customer);
     transaction.commit();
