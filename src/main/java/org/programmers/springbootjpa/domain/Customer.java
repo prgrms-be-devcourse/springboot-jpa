@@ -4,27 +4,25 @@ import lombok.Getter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "customers")
 @Getter
 public class Customer {
 
     @Id
-    private long id;
+    private Long id;
     private String firstName;
     private String lastName;
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstName(String name) {
+        this.firstName = name;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastName(String nickName) {
+        this.lastName = nickName;
     }
 }

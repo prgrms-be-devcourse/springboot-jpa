@@ -5,10 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 @Slf4j
 @SpringBootTest
 class CustomerRepositoryTest {
@@ -28,7 +24,7 @@ class CustomerRepositoryTest {
         repository.save(customer);
 
         //Then
-        Customer foundCustomer = repository.findById(1L).get();
-        log.info("{} {}", foundCustomer.getFirstName(), foundCustomer.getLastName());
+        Customer foundcustomer = repository.findById(1L).get();
+        log.info("{} {}", foundcustomer.getFirstName(), foundcustomer.getLastName());
     }
 }
