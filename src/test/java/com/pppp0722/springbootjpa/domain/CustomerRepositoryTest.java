@@ -80,10 +80,16 @@ class CustomerRepositoryTest {
         String lastName = customer.getLastName();
         customer.setFirstName("hwanil");
         customer.setLastName("kim");
+
+        repository.save(customer);
+
+        Customer updatedCustomer = repository.findById(1L)
+            .orElseThrow(() -> new EntityNotFoundException("해당 Customer 가 존재하지 않음."));
+
         assertAll(
-            () -> assertNotEquals(firstName, customer.getLastName(),
+            () -> assertNotEquals(firstName, updatedCustomer.getFirstName(),
                 "Customer 의 firstName 이 업데이트되지 않음."),
-            () -> assertNotEquals(lastName, customer.getLastName(),
+            () -> assertNotEquals(lastName, updatedCustomer.getLastName(),
                 "Customer 의 lastName 이 업데이트되지 않음.")
         );
     }
