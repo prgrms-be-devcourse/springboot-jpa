@@ -1,8 +1,6 @@
 package com.part4.jpa2.domain;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,10 +8,12 @@ import java.time.LocalDateTime;
 @Entity
 @Getter @Setter
 @Table(name = "orders")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
     @Id
     @Column(name ="id")
     private String uuid;
+    @Lob
     private String memo;
 
     @Enumerated(EnumType.STRING)
@@ -22,7 +22,6 @@ public class Order {
     @Column(columnDefinition = "TIMESTAMP")
     private LocalDateTime orderDatetime;
 
-    // member_fk
     private Long memberId;
 
     @Builder

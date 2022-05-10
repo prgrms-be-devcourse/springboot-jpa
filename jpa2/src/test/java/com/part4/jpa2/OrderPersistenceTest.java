@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -53,25 +52,21 @@ public class OrderPersistenceTest {
         transaction.begin();
 
         entityManager.persist(member);
-        Member memberEntity = entityManager.find(Member.class, 1L); // 영속화된 회원
+        Member memberEntity = entityManager.find(Member.class, 1L);
 
         var orderBuilder = Order.builder();
         orderBuilder.uuid(UUID.randomUUID().toString());
         orderBuilder.orderDatetime(LocalDateTime.now());
         orderBuilder.orderStatus(OPENED);
         orderBuilder.memo("부재시 전화주세요.");
-        orderBuilder.memberId(memberEntity.getId()); // 외래키를 직접 지정
+        orderBuilder.memberId(memberEntity.getId());
         var order = orderBuilder.build();
 
         entityManager.persist(order);
         transaction.commit();
 
-
-        Order orderEntity = entityManager.find(Order.class, order.getUuid());   // select order
-        // FK 를 이용해 회원 다시 조회
-        Member orderMemberEntity = entityManager.find(Member.class, orderEntity.getMemberId()); // select member
-        // orderEntity.getMember() // 객체중심 설계라면 객체그래프 탐색을 해야하지 않을까?
-
+        Order orderEntity = entityManager.find(Order.class, order.getUuid());
+        Member orderMemberEntity = entityManager.find(Member.class, orderEntity.getMemberId());
     }
 
 }

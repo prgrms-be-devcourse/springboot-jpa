@@ -33,14 +33,14 @@ public class PersistenceContextTest {
         var transaction = em.getTransaction();
 
         transaction.begin();
-        var customer = new Customer(); // 비영속상태
+        var customer = new Customer();
         customer.setFirstName("subin");
         customer.setLastName("kim");
-        em.persist(customer); // 비영속 -> 영속 (영속화)
+        em.persist(customer);
 
-        transaction.commit(); // em.flush() 자동으로 일어남
+        transaction.commit();
 
-        em.detach(customer); // 영속 -> 준영속
+        em.detach(customer);
         var selected = em.find(Customer.class, customer.getId());
         System.out.print(selected.getFirstName());
         System.out.println(selected.getLastName());

@@ -9,7 +9,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE) // H2 전략
+    @GeneratedValue
     private Long id;
 
     @Column(nullable = false, length = 30)
