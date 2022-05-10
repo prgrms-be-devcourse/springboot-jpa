@@ -2,7 +2,6 @@ package com.example.jpasettingpractice.domain;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
 import java.util.ArrayList;

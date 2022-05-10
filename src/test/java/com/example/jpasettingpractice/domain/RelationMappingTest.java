@@ -1,7 +1,6 @@
 package com.example.jpasettingpractice.domain;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 import static com.example.jpasettingpractice.domain.Orderstatus.OPENED;
