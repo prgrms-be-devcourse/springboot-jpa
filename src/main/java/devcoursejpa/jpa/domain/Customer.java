@@ -2,8 +2,10 @@ package devcoursejpa.jpa.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "customers")
 public class Customer {
 
     @Id
