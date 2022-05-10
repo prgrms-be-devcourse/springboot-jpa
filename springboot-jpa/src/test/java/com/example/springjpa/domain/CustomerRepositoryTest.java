@@ -43,8 +43,8 @@ class CustomerRepositoryTest {
         Customer savedEntity = repository.save(customer);
         //then
         assertAll(
+                // () -> assertThat(customer == savedEntity).isFalse(), // 두 객체의 참조가 다름.
                 () -> assertThat(savedEntity.getId()).isEqualTo(customer.getId()),
-                () -> assertThat(customer == savedEntity).isFalse(), // 두 객체의 참조가 다름.
                 () -> assertThat(entityManager.contains(savedEntity)).isTrue()
         );
     }
