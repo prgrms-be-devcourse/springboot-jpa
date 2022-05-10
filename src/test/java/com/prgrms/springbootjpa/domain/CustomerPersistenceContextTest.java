@@ -66,7 +66,7 @@ public class CustomerPersistenceContextTest {
 
   @Test
   @DisplayName("1차 캐시의 Customer 조회")
-  void testCustomerInCache() {
+  void testFindCustomerInCache() {
     EntityManager entityManager = emf.createEntityManager();
     EntityTransaction transaction = entityManager.getTransaction();
 
@@ -76,5 +76,21 @@ public class CustomerPersistenceContextTest {
 
     Customer selected = entityManager.find(Customer.class, 1L);
     log.info("First Name: {}, Last Name: {}", selected.getFirstName(), selected.getLastName());
+  }
+
+  @Test
+  @DisplayName("Customer 수정")
+  void testCustomerUpdate() {
+    EntityManager entityManager = emf.createEntityManager();
+    EntityTransaction transaction = entityManager.getTransaction();
+
+    transaction.begin();
+    entityManager.persist(customer);
+    transaction.commit();
+
+    transaction.begin();
+    customer.setFirstName("name");
+    customer.setLastName("hong");
+    transaction.commit();
   }
 }
