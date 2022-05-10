@@ -8,10 +8,10 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.transaction.annotation.Transactional;
 
-@SpringBootTest
+@DataJpaTest
 class CustomerRepositoryTest {
 
     @Autowired
@@ -29,11 +29,10 @@ class CustomerRepositoryTest {
         Customer customer = customer();
 
         // when
-        customerRepository.save(customer);
+        Customer savedCustomer = customerRepository.save(customer);
 
         // then
-        Customer findCustomer = customerRepository.findById(1L).get();
-        assertThat(findCustomer).usingRecursiveComparison()
+        assertThat(savedCustomer).usingRecursiveComparison()
             .isEqualTo(customer);
     }
 
@@ -57,11 +56,10 @@ class CustomerRepositoryTest {
     @Test
     void findById() {
         // given
-        Customer customer = customer();
-        customerRepository.save(customer);
+        Customer customer = customerRepository.save(customer());
 
         // when
-        Customer findCustomer = customerRepository.findById(1L).get();
+        Customer findCustomer = customerRepository.findById(customer.getId()).get();
 
         // then
         assertThat(findCustomer).usingRecursiveComparison()
@@ -73,16 +71,15 @@ class CustomerRepositoryTest {
     @Transactional
     void update() {
         // given
-        Customer customer = customer();
-        customerRepository.save(customer);
+        Customer customer = customerRepository.save(customer());
 
         // when
-        Customer findCustomer = customerRepository.findById(1L).get();
+        Customer findCustomer = customerRepository.findById(customer.getId()).get();
         findCustomer.setFirstName("hwa");
         findCustomer.setLastName("you");
 
         // then
-        Customer updatedCustomer = customerRepository.findById(1L).get();
+        Customer updatedCustomer = customerRepository.findById(customer.getId()).get();
         assertThat(updatedCustomer).usingRecursiveComparison()
             .isEqualTo(findCustomer);
     }
@@ -91,11 +88,10 @@ class CustomerRepositoryTest {
     @Test
     void delete() {
         // given
-        Customer customer = customer();
-        customerRepository.save(customer);
+        Customer customer = customerRepository.save(customer());
 
         // when
-        customerRepository.deleteById(1L);
+        customerRepository.deleteById(customer.getId());
 
         // then
         assertThat(customerRepository.findAll()).isEmpty();
@@ -105,10 +101,8 @@ class CustomerRepositoryTest {
     @Test
     void deleteAll() {
         // given
-        Customer customer = customer();
-        Customer secondCustomer = new Customer(2L, "honggu", "kang");
-        customerRepository.save(customer);
-        customerRepository.save(secondCustomer);
+        Customer customer = customerRepository.save(customer());
+        Customer secondCustomer = customerRepository.save(new Customer(2L, "honggu", "kang"));
 
         // when
         customerRepository.deleteAll();
