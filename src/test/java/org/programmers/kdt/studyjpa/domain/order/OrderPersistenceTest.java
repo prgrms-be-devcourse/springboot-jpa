@@ -10,7 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -83,13 +82,11 @@ class OrderPersistenceTest {
         Item chicken = new Item();
         chicken.setPrice(16000);
         chicken.setStockQuantity(5);
-        chicken.setOrderItems(new ArrayList<>());
         entityManager.persist(chicken);
 
         Item coke = new Item();
         coke.setPrice(3000);
         coke.setStockQuantity(3);
-        coke.setOrderItems(new ArrayList<>());
         entityManager.persist(coke);
 
         OrderItem orderChickens = new OrderItem();
