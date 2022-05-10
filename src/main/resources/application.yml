@@ -6,7 +6,7 @@ spring:
     generate-ddl: true
     hibernate:
       ddl-auto: create-drop
-    database: h2
+    database: H2
     show-sql: true
     open-in-view: false
     properties:
