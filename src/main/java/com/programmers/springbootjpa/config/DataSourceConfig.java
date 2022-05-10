@@ -49,9 +49,6 @@ public class DataSourceConfig {
         return jpaVendorAdapter;
     }
 
-    // jpa에서 테이블과 매핑관 entity를 관리 -> EntityManager
-    // EntityManager를 만들어내는 Bean -> EntityManagerFactory
-
     /**
      * jpa에서 테이블과 매핑할 entity를 관리 -> EntityManager
      * EntityManager를 생성/관리 Bean -> EntityManagerFactory
