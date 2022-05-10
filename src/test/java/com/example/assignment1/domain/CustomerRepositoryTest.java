@@ -31,7 +31,7 @@ class CustomerRepositoryTest {
 
     @AfterEach
     void clear() {
-        customerRepository.deleteAll();
+        customerRepository.deleteAllInBatch();
     }
 
     @Test
