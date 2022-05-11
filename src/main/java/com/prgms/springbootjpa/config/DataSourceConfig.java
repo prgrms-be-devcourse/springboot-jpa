@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -14,7 +15,17 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
+@EnableJpaRepositories("com.prgms.springbootjpa.repository")
 public class DataSourceConfig {
+
+    @Bean
+    public JpaProperties jpaProperties() {
+        var jpaProperties = new JpaProperties();
+        jpaProperties.setShowSql(true);
+        jpaProperties.setDatabasePlatform("H2");
+        jpaProperties.setGenerateDdl(true);
+        return jpaProperties;
+    }
 
     @Bean
     public DataSource dataSource() {
@@ -41,7 +52,8 @@ public class DataSourceConfig {
         DataSource dataSource, JpaVendorAdapter jpaVendorAdapter, JpaProperties jpaProperties) {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
-        em.setPackagesToScan("com.prgms.springbootjpa.domain");
+        em.setPackagesToScan("com.prgms.springbootjpa.domain",
+            "com.prgms.springbootjpa.repository");
         em.setJpaVendorAdapter(jpaVendorAdapter);
 
         Properties properties = new Properties();
