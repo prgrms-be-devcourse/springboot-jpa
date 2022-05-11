@@ -6,14 +6,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
-@ToString
-@Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "customers")
 public class Customer {
@@ -24,6 +19,9 @@ public class Customer {
 
 	private String firstName;
 	private String lastName;
+
+	protected Customer() {
+	}
 
 	public Customer(String firstName, String lastName) {
 		this.firstName = firstName;
@@ -36,5 +34,26 @@ public class Customer {
 
 	public void changeLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+			.append("id", id)
+			.append("firstName", firstName)
+			.append("lastName", lastName)
+			.toString();
 	}
 }
