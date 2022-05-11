@@ -1,9 +1,6 @@
 package com.example.springjpa.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,6 +9,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode(of = "id")
 public class Customer {
 
     @Id
