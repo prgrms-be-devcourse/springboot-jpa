@@ -15,7 +15,7 @@ public class Customer {
     private String firstName;
     private String lastName;
 
-    public Customer() {
+    protected Customer() {
     }
 
     public Customer(Long id, String firstName, String lastName) {

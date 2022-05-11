@@ -20,7 +20,7 @@ public class Order {
     @Column(name = "member_id")
     private Long memberId;
 
-    public Order() {
+    protected Order() {
     }
 
     public Order(String uuid, String memo, OrderStatus orderStatus, LocalDateTime orderDateTime, Long memberId) {

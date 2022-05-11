@@ -17,7 +17,7 @@ public class OrderItem {
     @Column(name = "item_id")
     private Long itemId;
 
-    public OrderItem() {
+    protected OrderItem() {
     }
 
     public OrderItem(int price, int quantity, String orderId, Long itemId) {

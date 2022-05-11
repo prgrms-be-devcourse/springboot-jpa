@@ -12,7 +12,7 @@ public class Item {
     private int price;
     private int stockQuantity;
 
-    public Item() {
+    protected Item() {
     }
 
     public Item(int price, int stockQuantity) {

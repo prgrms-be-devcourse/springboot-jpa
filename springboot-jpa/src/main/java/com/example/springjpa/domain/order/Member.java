@@ -19,7 +19,7 @@ public class Member {
     @Column(name = "description")
     private String description;
 
-    public Member() {
+    protected Member() {
     }
 
     public Member(String name, String nickName, int age, String address, String description) {
