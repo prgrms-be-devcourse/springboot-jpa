@@ -3,6 +3,7 @@ package com.kdt.lecture.domain;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.swing.plaf.PanelUI;
 
 @Entity
 @Table(name = "customers")
@@ -12,6 +13,14 @@ public class Customer {
     private long id;
     private String firstName;
     private String lastName;
+
+    public Customer() {}
+
+    public Customer(long id, String firstName, String lastName) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
     public long getId() {
         return id;
@@ -36,4 +45,5 @@ public class Customer {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
 }
