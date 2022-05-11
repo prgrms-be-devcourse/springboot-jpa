@@ -7,7 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+import static org.hamcrest.Matchers.*;
 
 @Slf4j
 @SpringBootTest
@@ -28,10 +30,12 @@ class CustomerRepositoryTest {
         customer.setLastName("kim");
 
         //when
-        repository.save(customer);
+        var savedOne = repository.save(customer);
 
         //then
-        var findOne = repository.findById(customer.getId()).get();
-        log.info("Found Customer {} {}", findOne.getFirstName(), findOne.getLastName());
+        var foundOne = repository.findById(customer.getId()).get();
+
+        assertThat(foundOne, samePropertyValuesAs(savedOne));
+        log.info("Found Customer {} {}", foundOne.getFirstName(), foundOne.getLastName());
     }
 }
