@@ -4,12 +4,12 @@ spring:
       enabled: true
   jpa:
     generate-ddl: true
-    hibernate:
-      ddl-auto: create
     database: h2
     show-sql: true
     open-in-view: false
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
-        query.in_clause_parameter_pagging: true
+        quary.in_clause_paramater_padding: true
+        hbm2ddl:
+          auto: create-drop
