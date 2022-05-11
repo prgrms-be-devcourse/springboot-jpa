@@ -1,9 +1,6 @@
 package com.prgrms.springbootjpa.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "order_item")
@@ -11,4 +8,8 @@ public class OrderItem {
   @Id
   @Column(name = "id")
   private Long id;
+
+  @ManyToOne
+  @JoinColumn(name = "order_id", referencedColumnName = "id")
+  private Order order;
 }

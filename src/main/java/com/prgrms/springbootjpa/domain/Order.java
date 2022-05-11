@@ -1,9 +1,7 @@
 package com.prgrms.springbootjpa.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "order")
@@ -11,4 +9,7 @@ public class Order {
   @Id
   @Column(name = "id")
   private Long id;
+
+  @OneToMany(mappedBy = "order")
+  private List<OrderItem> orderItems;
 }
