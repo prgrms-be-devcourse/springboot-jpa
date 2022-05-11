@@ -1,0 +1,16 @@
+spring:
+  h2:
+    console:
+      enabled: true
+
+  jpa:
+    defer-datasource-initialization: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
+    database: h2
+    open-in-view: false
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto=create:
