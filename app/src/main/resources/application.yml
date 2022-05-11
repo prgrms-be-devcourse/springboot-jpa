@@ -4,8 +4,6 @@ spring:
       enabled: true
   jpa:
     generate-ddl: true
-    hibernate:
-      ddl-auto: create-drop
     database: h2
     show-sql: true
     open-in-view: false
