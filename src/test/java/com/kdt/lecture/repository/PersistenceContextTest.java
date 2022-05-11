@@ -12,14 +12,28 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @SpringBootTest
 @Slf4j
-public class PersistenceContextTest {
+class PersistenceContextTest {
     @Autowired
     CustomerRepository customerRepository;
 
     @Autowired
     EntityManagerFactory emf;
+
+    private Customer createPersistCustomer(EntityManager entityManager, EntityTransaction transaction) {
+        transaction.begin();
+        Customer customer = new Customer();
+        customer.setId(1L);
+        customer.setFirstName("yongcheol");
+        customer.setLastName("kim");
+        entityManager.persist(customer);
+        transaction.commit();
+
+        return customer;
+    }
 
     @BeforeEach
     void setUp() {
@@ -32,34 +46,22 @@ public class PersistenceContextTest {
         EntityManager entityManager = emf.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
-        transaction.begin();
-        Customer customer = new Customer(); // 비영속 상태
-        customer.setId(1L);
-        customer.setFirstName("yongcheol");
-        customer.setLastName("kim");
+        Customer customer = createPersistCustomer(entityManager, transaction);
 
-        entityManager.persist(customer); // 비영속 -> 영속 (영속화)
-        transaction.commit(); // entityManager.flush();
+        assertThat(entityManager.contains(customer)).isTrue();
     }
 
     @Test
-    @DisplayName("조회_DB조회")
-    void findDBTest() {
+    @DisplayName("조회_DB_이용")
+    void findDBDetachTest() {
         EntityManager entityManager = emf.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
-        transaction.begin();
-        Customer customer = new Customer(); // 비영속 상태
-        customer.setId(1L);
-        customer.setFirstName("yongcheol");
-        customer.setLastName("kim");
-
-        entityManager.persist(customer); // 비영속 -> 영속 (영속화)
-        transaction.commit(); // entityManager.flush();
-
-        entityManager.detach(customer); // 영속 -> 준영속
+        Customer customer = createPersistCustomer(entityManager, transaction);
+        entityManager.detach(customer);
         Customer selected = entityManager.find(Customer.class, 1L);
-        log.info("{} {}", selected.getFirstName(), selected.getLastName());
+
+        assertThat(customer).usingRecursiveComparison().isEqualTo(selected);
     }
 
     @Test
@@ -68,17 +70,11 @@ public class PersistenceContextTest {
         EntityManager entityManager = emf.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
-        transaction.begin();
-        Customer customer = new Customer(); // 비영속 상태
-        customer.setId(1L);
-        customer.setFirstName("yongcheol");
-        customer.setLastName("kim");
-
-        entityManager.persist(customer); // 비영속 -> 영속 (영속화)
-        transaction.commit(); // entityManager.flush();
-
+        Customer customer = createPersistCustomer(entityManager, transaction);
         Customer selected = entityManager.find(Customer.class, 1L);
-        log.info("{} {}", selected.getFirstName(), selected.getLastName());
+
+        assertThat(customer).usingRecursiveComparison().isEqualTo(selected);
+
     }
 
     @Test
@@ -87,19 +83,16 @@ public class PersistenceContextTest {
         EntityManager entityManager = emf.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
-        transaction.begin();
-        Customer customer = new Customer(); // 비영속 상태
-        customer.setId(1L);
-        customer.setFirstName("yongcheol");
-        customer.setLastName("kim");
-
-        entityManager.persist(customer); // 비영속 -> 영속 (영속화)
-        transaction.commit(); // entityManager.flush();
+        Customer customer = createPersistCustomer(entityManager, transaction);
 
         transaction.begin();
         customer.setFirstName("yongc");
         customer.setLastName("k");
         transaction.commit();
+
+        assertThat(customer.getFirstName()).isEqualTo("yongc");
+        assertThat(customer.getLastName()).isEqualTo("k");
+
     }
 
     @Test
@@ -108,17 +101,12 @@ public class PersistenceContextTest {
         EntityManager entityManager = emf.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
-        transaction.begin();
-        Customer customer = new Customer(); // 비영속 상태
-        customer.setId(1L);
-        customer.setFirstName("yongcheol");
-        customer.setLastName("kim");
-
-        entityManager.persist(customer); // 비영속 -> 영속 (영속화)
-        transaction.commit(); // entityManager.flush();
+        Customer customer = createPersistCustomer(entityManager, transaction);
 
         transaction.begin();
         entityManager.remove(customer);
         transaction.commit();
+
+        assertThat(entityManager.contains(customer)).isFalse();
     }
 }
