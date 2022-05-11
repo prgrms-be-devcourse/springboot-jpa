@@ -27,10 +27,10 @@ public class Member {
     @Column(name="address", nullable = false)
     private String address;
 
-    @Column(name="description", nullable = true)
+    @Column(name="description")
     private String description;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();
 
     public void addOrder(Order order){
