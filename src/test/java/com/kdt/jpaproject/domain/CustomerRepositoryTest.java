@@ -66,7 +66,7 @@ class CustomerRepositoryTest {
         assertEquals(entity.getId(), 1L);
         assertEquals(entity.getLastName(), "KKang");
         assertEquals(entity.getFirstName(), "Kim");
-        assertNotEquals(entity, findCustomer); // 동일성 보장X
+        assertEquals(entity, findCustomer); // 동일성 보장O
     }
 
     @Test
