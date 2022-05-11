@@ -17,6 +17,10 @@ public class OrderItem {
   @OneToMany(mappedBy = "orderItem")
   private List<Item> items;
 
+  public void addItem(Item item) {
+    item.setOrderItem(this);
+  }
+
   public List<Item> getItems() {
     return items;
   }
