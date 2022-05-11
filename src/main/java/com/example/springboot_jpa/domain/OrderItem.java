@@ -1,5 +1,6 @@
 package com.example.springboot_jpa.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
@@ -32,7 +33,7 @@ public class OrderItem {
   private Order order;
 
   @OneToMany(mappedBy = "orderItem")
-  private List<Item> items;
+  private List<Item> items = new ArrayList<>();
 
   public void setOrder(Order order) {
     if (Objects.nonNull(this.order)) {

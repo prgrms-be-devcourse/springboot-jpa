@@ -1,8 +1,10 @@
 package com.example.springboot_jpa.domain;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -40,8 +42,8 @@ public class Order {
   @JoinColumn(name = "member_id", referencedColumnName = "id")
   private Member member;
 
-  @OneToMany(mappedBy = "order")
-  private List<OrderItem> orderItems;
+  @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<OrderItem> orderItems = new ArrayList<>();
 
   public void setMember(Member member) {
     if (Objects.nonNull(this.member)) {
