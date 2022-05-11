@@ -4,8 +4,6 @@ spring:
       enabled: true
   jpa:
     generate-ddl: true
-    hibernate:
-      ddl-auto: create-drop
     database: h2
     show-sql: true
     open-in-view: false
@@ -13,3 +11,5 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
         query.in_caluse_parameter_padding: true
+        hbm2ddl:
+          auto: create
