@@ -33,13 +33,13 @@ class CustomerRepositoryTest {
     @Test
     @DisplayName("회원을 저장한다.")
     void testSave() {
-        var beforeSave = customerRepository.count();
+        var countBeforeSave = customerRepository.count();
         var newCustomer = new Customer("test", "kim");
         var savedCustomer = customerRepository.save(newCustomer);
 
-        var afterSave = customerRepository.count();
+        var countAfterSave = customerRepository.count();
 
-        assertThat(afterSave).isEqualTo(beforeSave + 1);
+        assertThat(countAfterSave).isEqualTo(countBeforeSave + 1);
         assertThat(savedCustomer).isSameAs(newCustomer);
     }
 
@@ -78,11 +78,11 @@ class CustomerRepositoryTest {
     @Test
     @DisplayName("회원을 삭제한다.")
     void testDeleteById() {
-        var beforeDelete = customerRepository.count();
+        var countBeforeDelete = customerRepository.count();
         customerRepository.deleteById(customer.getId());
-        var afterDelete = customerRepository.count();
+        var countAfterDelete = customerRepository.count();
 
-        assertThat(afterDelete).isEqualTo(beforeDelete - 1);
+        assertThat(countAfterDelete).isEqualTo(countBeforeDelete - 1);
 
         var retrievedCustomer = customerRepository.findById(customer.getId());
 
@@ -92,13 +92,13 @@ class CustomerRepositoryTest {
     @Test
     @DisplayName("모든 회원을 삭제한다.")
     void testDeleteAll() {
-        var beforeDelete = customerRepository.count();
+        var countBeforeDelete = customerRepository.count();
 
-        assertThat(beforeDelete).isGreaterThan(0);
+        assertThat(countBeforeDelete).isGreaterThan(0);
 
         customerRepository.deleteAll();
-        var afterDelete = customerRepository.count();
+        var countAfterDelete = customerRepository.count();
 
-        assertThat(afterDelete).isEqualTo(0);
+        assertThat(countAfterDelete).isEqualTo(0);
     }
 }
