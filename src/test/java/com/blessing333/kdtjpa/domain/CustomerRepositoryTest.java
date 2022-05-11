@@ -1,7 +1,6 @@
 package com.blessing333.kdtjpa.domain;
 
 import org.assertj.core.util.Lists;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,16 +21,12 @@ class CustomerRepositoryTest {
     @Autowired
     private EntityManager em;
 
-    @AfterEach
-    void init() {
-        repository.deleteAll();
-    }
-
     @Test
     void saveTest() {
         Customer customer = new Customer(1L, "Minjae", "Lee");
 
         repository.save(customer);
+        em.flush();
 
         Assertions.assertDoesNotThrow(() -> {
             Customer found = repository.findById(1L).get();
@@ -45,7 +40,9 @@ class CustomerRepositoryTest {
     void findByIdTest() {
         Customer customer = new Customer(1L, "Minjae", "Lee");
         repository.save(customer);
+
         Optional<Customer> found = repository.findById(1L);
+        em.flush();
 
         assertThat(found).contains(customer);
     }
@@ -56,6 +53,7 @@ class CustomerRepositoryTest {
         Customer saved = repository.save(customer);
 
         saved.changeFirstName("Jaemin");
+        em.flush();
 
         Customer found = repository.findById(1L).get();
         assertThat(em.contains(customer)).isTrue();
@@ -68,6 +66,7 @@ class CustomerRepositoryTest {
         Customer saved = repository.save(customer);
 
         repository.delete(saved);
+        em.flush();
 
         Optional<Customer> found = repository.findById(1L);
         assertThat(found).isEmpty();
