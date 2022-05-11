@@ -29,14 +29,17 @@ public class OrderItem extends BaseIdEntity {
     @ManyToOne(fetch = LAZY)
     private Item item;
 
-    public OrderItem(int price, int quantity, Order order, Item item) {
+    public OrderItem(int price, int quantity, Item item) {
         this.price = price;
         this.quantity = quantity;
-        this.order = order;
         this.item = item;
     }
 
-    public static OrderItem create(int price, int quantity, Order order, Item item) {
-        return new OrderItem(price, quantity, order, item);
+    public static OrderItem create(int price, int quantity, Item item) {
+        return new OrderItem(price, quantity, item);
+    }
+
+    public void changeOrder(Order order) {
+        this.order = order;
     }
 }
