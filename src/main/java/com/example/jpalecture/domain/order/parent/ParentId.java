@@ -2,6 +2,7 @@ package com.example.jpalecture.domain.order.parent;
 
 import lombok.*;
 
+import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 @Getter
@@ -9,6 +10,7 @@ import java.io.Serializable;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
+@Embeddable
 public class ParentId implements Serializable {
     private String id1;
     private String id2;
