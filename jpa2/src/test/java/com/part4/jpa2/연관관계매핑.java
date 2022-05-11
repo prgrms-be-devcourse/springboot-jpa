@@ -13,21 +13,15 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.UUID;
 
 import static com.part4.jpa2.Helper.makeMember;
 import static com.part4.jpa2.Helper.makeOrder;
-import static com.part4.jpa2.domain.order.OrderStatus.OPENED;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
 @DataJpaTest
 @DisplayName("3-4 연관관계매핑")
 public class 연관관계매핑 {
-//TODO: 이거 공부 좀 더 해서 테스트 제대로 만들어주기
-
     @Autowired
     EntityManagerFactory emf;
     private EntityManager em;
@@ -51,13 +45,12 @@ public class 연관관계매핑 {
             order.setMember(member);
             em.persist(order);
 
-            transaction.commit();
-            em.clear();
 
             var entity = em.find(Order.class, order.getUuid());
             assertThat(entity).usingRecursiveComparison()
-                    .ignoringFields("member")// TODO: 이 Member는 어떻게 처리해줘야 하는걸까
                     .isEqualTo(order);
+
+            transaction.commit();
         }
 
         @Test
