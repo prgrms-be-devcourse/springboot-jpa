@@ -1,5 +1,7 @@
 package com.prgms.springbootjpa.domain;
 
+import static com.prgms.springbootjpa.exception.ExceptionMessage.NAME_FORMAT_EXP_MSG;
+
 import com.prgms.springbootjpa.exception.InvalidNameLengthException;
 import java.util.Objects;
 import javax.persistence.Access;
@@ -24,6 +26,18 @@ public class Name {
         this.lastName = lastName;
     }
 
+    private void validateLastName(String lastName) {
+        if (lastName.length() < 1 || lastName.length() > 10) {
+            throw new InvalidNameLengthException(NAME_FORMAT_EXP_MSG);
+        }
+    }
+
+    private void validateFirstName(String firstName) {
+        if (firstName.length() < 1 || firstName.length() > 10) {
+            throw new InvalidNameLengthException(NAME_FORMAT_EXP_MSG);
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -39,17 +53,5 @@ public class Name {
     @Override
     public int hashCode() {
         return Objects.hash(firstName, lastName);
-    }
-
-    private void validateLastName(String lastName) {
-        if (lastName.length() < 1 || lastName.length() > 10) {
-            throw new InvalidNameLengthException("이름은 1글자 이상 9글자 이하입니다.");
-        }
-    }
-
-    private void validateFirstName(String firstName) {
-        if (firstName.length() < 1 || firstName.length() > 10) {
-            throw new InvalidNameLengthException("이름은 1글자 이상 9글자 이하입니다.");
-        }
     }
 }
