@@ -3,18 +3,15 @@ package com.prgrms.springbootjpa.domain;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-@Slf4j
-@SpringBootTest
-
+@DataJpaTest
 class CustomerRepositoryTest {
     @Autowired
     CustomerRepository customerRepository;
@@ -23,10 +20,10 @@ class CustomerRepositoryTest {
     @DisplayName("고객 create Read 테스트")
     @Transactional
     void createReadTest() {
-        Customer customer = new Customer(1L, "jerry", "hong");
+        Customer customer = new Customer("jerry", "hong");
         customerRepository.save(customer);
 
-        Customer entity = customerRepository.findById(1L).get();
+        Customer entity = customerRepository.findById(customer.getId()).get();
         assertThat(entity, samePropertyValuesAs(entity));
     }
 
@@ -34,12 +31,12 @@ class CustomerRepositoryTest {
     @DisplayName("고객 update 테스트")
     @Transactional
     void updateTest() {
-        Customer customer = new Customer(null,"jerry", "hong");
+        Customer customer = new Customer("jerry", "hong");
         customerRepository.save(customer);
 
-        customer.setFirstName("yuseok");
+        customer.changeFirstName("yuseok");
 
-        Customer entity2 = customerRepository.findById(1L).get();
+        Customer entity2 = customerRepository.findById(customer.getId()).get();
         assertThat(entity2.getFirstName(), is("yuseok"));
     }
 
@@ -47,11 +44,11 @@ class CustomerRepositoryTest {
     @DisplayName("고객 delete 테스트")
     @Transactional
     void deleteTest() {
-        Customer customer = new Customer(1L, "jerry", "hong");
+        Customer customer = new Customer("jerry", "hong");
         customerRepository.save(customer);
 
         customerRepository.delete(customer);
-        Optional<Customer> ret = customerRepository.findById(1L);
+        Optional<Customer> ret = customerRepository.findById(customer.getId());
         assertThat(ret, is(Optional.empty()));
     }
 }
