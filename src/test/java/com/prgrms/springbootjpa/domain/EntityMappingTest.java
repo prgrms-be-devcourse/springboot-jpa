@@ -40,4 +40,28 @@ public class EntityMappingTest {
 
     assertThat(foundOrderItem.getOrder().getId()).isEqualTo(1L);
   }
+
+  @Test
+  void OrderItem_Item_연관관계() {
+    EntityManager entityManager = emf.createEntityManager();
+    EntityTransaction transaction = entityManager.getTransaction();
+
+    transaction.begin();
+
+    OrderItem orderItem = new OrderItem();
+    orderItem.setId(10L);
+    entityManager.persist(orderItem);
+
+    Item item = new Item();
+    item.setId(100L);
+    item.setOrderItem(orderItem);
+    entityManager.persist(item);
+
+    transaction.commit();
+
+    entityManager.clear();
+    Item foundItem = entityManager.find(Item.class, item.getId());
+
+    assertThat(foundItem.getOrderItem().getId()).isEqualTo(10L);
+  }
 }
