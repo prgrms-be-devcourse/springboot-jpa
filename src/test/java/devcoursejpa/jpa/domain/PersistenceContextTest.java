@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -35,10 +34,7 @@ public class PersistenceContextTest {
 
         transaction.begin();
 
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setFirstName("jiwoong");
-        customer.setLastName("kim");
+        Customer customer = new Customer(1L, "jiwoong", "kim");
 
         entityManager.persist(customer);
         transaction.commit(); // entityManager.flush();
@@ -52,10 +48,7 @@ public class PersistenceContextTest {
 
         transaction.begin();
 
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setFirstName("jiwoong");
-        customer.setLastName("kim");
+        Customer customer = new Customer(1L, "jiwoong", "kim");
 
         entityManager.persist(customer);
         transaction.commit();
@@ -74,17 +67,14 @@ public class PersistenceContextTest {
 
         transaction.begin();
 
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setFirstName("jiwoong");
-        customer.setLastName("kim");
+        Customer customer = new Customer(1L, "jiwoong", "kim");
 
         entityManager.persist(customer);
         transaction.commit();
 
         transaction.begin();
-        customer.setFirstName("joomin");
-        customer.setLastName("cha");
+
+        customer.changeName("joomin", "cha");
 
         transaction.commit();
     }
@@ -97,10 +87,7 @@ public class PersistenceContextTest {
 
         transaction.begin();
 
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setFirstName("jiwoong");
-        customer.setLastName("kim");
+        Customer customer = new Customer(1L, "jiwoong", "kim");
 
         entityManager.persist(customer);
         transaction.commit();
