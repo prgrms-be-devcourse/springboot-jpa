@@ -49,17 +49,17 @@ public class OrderItem {
 
 	public void setOrder(Order order) {
 		if (Objects.nonNull(this.order)) {
-			order.getOrderItems().remove(this);
+			this.order.getOrderItems().remove(this);
 		}
 		this.order = order;
-		order.getOrderItems().add(this);
+		this.order.getOrderItems().add(this);
 	}
 
 	public void setItem(Item item) {
 		if (Objects.nonNull(this.item)) {
-			item.getOrderItems().remove(this);
+			this.item.getOrderItems().remove(this);
 		}
 		this.item = item;
-		item.getOrderItems().add(this);
+		this.item.getOrderItems().add(this);
 	}
 }
