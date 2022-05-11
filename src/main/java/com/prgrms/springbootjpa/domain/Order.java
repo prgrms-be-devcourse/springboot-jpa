@@ -14,11 +14,22 @@ public class Order {
   private List<OrderItem> orderItems;
 
   public void addOrderItem(OrderItem orderItem) {
-    orderItems.add(orderItem);
     orderItem.setOrder(this);
+  }
+
+  public Long getId() {
+    return id;
   }
 
   public List<OrderItem> getOrderItems() {
     return orderItems;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public void setOrderItems(List<OrderItem> orderItems) {
+    this.orderItems = orderItems;
   }
 }

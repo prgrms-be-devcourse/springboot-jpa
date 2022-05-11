@@ -14,6 +14,18 @@ public class Item {
   @JoinColumn(name = "order_item_id", referencedColumnName = "id")
   private OrderItem orderItem;
 
+  public Long getId() {
+    return id;
+  }
+
+  public OrderItem getOrderItem() {
+    return orderItem;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
   public void setOrderItem(OrderItem orderItem) {
     if (Objects.nonNull(this.orderItem)) {
       this.orderItem.getItems().remove(this);

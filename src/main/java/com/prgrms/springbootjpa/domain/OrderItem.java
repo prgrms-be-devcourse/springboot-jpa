@@ -20,7 +20,22 @@ public class OrderItem {
 
   public void addItem(Item item) {
     item.setOrderItem(this);
-    items.add(item);
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public List<Item> getItems() {
+    return items;
+  }
+
+  public Order getOrder() {
+    return order;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
   }
 
   public void setOrder(Order order) {
@@ -31,7 +46,7 @@ public class OrderItem {
     order.getOrderItems().add(this);
   }
 
-  public List<Item> getItems() {
-    return items;
+  public void setItems(List<Item> items) {
+    this.items = items;
   }
 }
