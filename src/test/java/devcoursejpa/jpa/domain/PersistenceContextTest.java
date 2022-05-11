@@ -34,10 +34,7 @@ class PersistenceContextTest {
 
         transaction.begin();
 
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setFirstName("jiwoong");
-        customer.setLastName("kim");
+        Customer customer = new Customer(1L, "jiwoong", "kim");
 
         entityManager.persist(customer);
         transaction.commit(); // entityManager.flush();
@@ -51,10 +48,7 @@ class PersistenceContextTest {
 
         transaction.begin();
 
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setFirstName("jiwoong");
-        customer.setLastName("kim");
+        Customer customer = new Customer(1L, "jiwoong", "kim");
 
         entityManager.persist(customer);
         transaction.commit();
@@ -73,17 +67,14 @@ class PersistenceContextTest {
 
         transaction.begin();
 
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setFirstName("jiwoong");
-        customer.setLastName("kim");
+        Customer customer = new Customer(1L, "jiwoong", "kim");
 
         entityManager.persist(customer);
         transaction.commit();
 
         transaction.begin();
-        customer.setFirstName("joomin");
-        customer.setLastName("cha");
+
+        customer.changeName("joomin", "cha");
 
         transaction.commit();
     }
@@ -96,10 +87,7 @@ class PersistenceContextTest {
 
         transaction.begin();
 
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setFirstName("jiwoong");
-        customer.setLastName("kim");
+        Customer customer = new Customer(1L, "jiwoong", "kim");
 
         entityManager.persist(customer);
         transaction.commit();
