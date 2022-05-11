@@ -35,10 +35,10 @@ class CustomerRepositoryTest {
         customerRepository.save(customer);
 
         //Then
-        var selectedEntity = customerRepository.findById(1L).get();
+        var selectedEntity = customerRepository.findById(customer.getId()).get();
         assertAll(
             () -> assertThat(selectedEntity).isNotNull(),
-            () -> assertThat(selectedEntity.getId()).isEqualTo(1L),
+            () -> assertThat(selectedEntity.getId()).isEqualTo(customer.getId()),
             () -> assertThat(selectedEntity.getName()).isEqualTo(customer.getName())
         );
     }
@@ -53,10 +53,10 @@ class CustomerRepositoryTest {
         entity.changeName(new Name("honggu", "kang"));
 
         //Then
-        var selectedEntity = customerRepository.findById(1L).get();
+        var selectedEntity = customerRepository.findById(entity.getId()).get();
         assertAll(
             () -> assertThat(selectedEntity).isNotNull(),
-            () -> assertThat(selectedEntity.getId()).isEqualTo(1L),
+            () -> assertThat(selectedEntity.getId()).isEqualTo(entity.getId()),
             () -> assertThat(selectedEntity.getName()).isEqualTo(entity.getName())
         );
     }
@@ -95,9 +95,9 @@ class CustomerRepositoryTest {
         customerRepository.save(customer);
 
         //When
-        customerRepository.deleteById(1L);
+        customerRepository.deleteById(customer.getId());
 
         //Then
-        assertThat(customerRepository.findById(1L)).isEmpty();
+        assertThat(customerRepository.findById(customer.getId())).isEmpty();
     }
 }
