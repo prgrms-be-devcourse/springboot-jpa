@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -23,6 +25,8 @@ public class Member {
     private String address;
     @Column(name = "description")
     private String description;
+    @OneToMany(mappedBy = "member")
+    private List<Order> orders = new ArrayList<>();
 
     public Member(String name, String nickName, int age, String address, String description) {
         this.name = name;
@@ -30,5 +34,9 @@ public class Member {
         this.age = age;
         this.address = address;
         this.description = description;
+    }
+
+    public void addOrder(Order order) {
+        order.setMember(this);
     }
 }
