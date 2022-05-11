@@ -1,4 +1,4 @@
-package com.example.chapter1.domain;
+package com.example.chapter1.study;
 
 import com.example.chapter1.domain.customer.domain.Customer;
 import com.example.chapter1.domain.customer.domain.CustomerRepository;
