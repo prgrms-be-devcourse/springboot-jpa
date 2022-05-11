@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,10 +32,10 @@ public class Order {
     private Member member;
 
     @OneToMany(mappedBy = "order")
-    private List<OrderItem> orderItems;
+    private List<OrderItem> orderItems = new ArrayList<>();
 
     public void setMember(Member member) {
-        if(Objects.nonNull(this.member)) {
+        if (Objects.nonNull(this.member)) {
             this.member.getOrders().remove(this);
         }
 
@@ -42,5 +43,8 @@ public class Order {
         member.getOrders().add(this);
     }
 
+    public void addOrderItem(OrderItem orderItem) {
+        orderItem.setOrder(this);
+    }
 }
 

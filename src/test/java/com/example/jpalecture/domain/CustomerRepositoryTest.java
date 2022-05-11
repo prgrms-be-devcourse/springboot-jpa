@@ -27,7 +27,6 @@ class CustomerRepositoryTest {
     @Test
     void customer_저장() {
         Customer customer = getCustomer();
-
         customerRepository.save(customer);
 
         Optional<Customer> findCustomer = customerRepository.findById(1L);

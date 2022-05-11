@@ -1,9 +1,11 @@
 package com.example.jpalecture.domain.order;
 
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -76,7 +78,7 @@ class OrderPersistenceTest {
         // 회원 엔티티
         Member member = new Member();
         member.setName("kanghonggu");
-        member.setNickName("guppy.kang");
+        member.setNickName("guppy.kang2");
         member.setAge(33);
         member.setAddress("서울시 동작구만 움직이면쏜다.");
         member.setDescription("KDT 화이팅");
@@ -108,7 +110,7 @@ class OrderPersistenceTest {
         // 회원 엔티티
         Member member = new Member();
         member.setName("kanghonggu");
-        member.setNickName("guppy.kang");
+        member.setNickName("guppy.kang3");
         member.setAge(33);
         member.setAddress("서울시 동작구만 움직이면쏜다.");
         member.setDescription("KDT 화이팅");
@@ -128,4 +130,5 @@ class OrderPersistenceTest {
         Order findOrder = entityManager.find(Order.class, findMember.getOrders().get(0).getUuid());
         log.info("member-nickName: {}", findOrder.getMember().getNickName());
     }
+
 }
