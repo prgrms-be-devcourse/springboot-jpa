@@ -1,5 +1,6 @@
 package devcoursejpa.jpa.domain;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -10,32 +11,25 @@ public class Customer {
 
     @Id
     private Long id;
-    private String firstName;
-    private String lastName;
+    @Embedded
+    private Name name;
 
     public Customer() {
     }
 
-    public Customer(Long id, String firstName, String lastName) {
+    public Customer(Long id, Name name) {
         this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.name = name;
     }
 
     public long getId() {
         return id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public Name getName() {
+        return name;
     }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void changeName(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public void changeName(Name name) {
+        this.name = name;
     }
 }

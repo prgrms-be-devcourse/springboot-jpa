@@ -19,32 +19,31 @@ public class CustomerRepositoryTest {
 
     @Test
     void 고객_저장() {
-        Customer customer = new Customer(1L, "jiwoong", "kim");
+        Customer customer = new Customer(1L, new Name("jiwoong", "kim"));
 
         customerRepository.save(customer);
 
         Customer findCustomer = customerRepository.findById(1L).get();
         assertThat(findCustomer.getId()).isEqualTo(1L);
-        assertThat(findCustomer.getFirstName()).isEqualTo(customer.getFirstName());
+        assertThat(findCustomer.getName()).isEqualTo(customer.getName());
     }
 
     @Test
     void 고객정보_업데이트() {
-        Customer customer = new Customer(1L, "jiwoong", "kim");
+        Customer customer = new Customer(1L, new Name("jiwoong", "kim"));
         Customer savedCustomer = customerRepository.save(customer);
 
-        savedCustomer.changeName("joomin", "cha");
+        savedCustomer.changeName(new Name("joomin", "cha"));
         customerRepository.save(savedCustomer);
 
         Customer findCustomer = customerRepository.findById(1L).get();
         assertThat(findCustomer.getId()).isEqualTo(1L);
-        assertThat(findCustomer.getFirstName()).isEqualTo(savedCustomer.getFirstName());
-        assertThat(findCustomer.getLastName()).isEqualTo(savedCustomer.getLastName());
+        assertThat(findCustomer.getName()).isEqualTo(savedCustomer.getName());
     }
 
     @Test
     void 하나의_고객_조회() {
-        Customer customer = new Customer(1L, "jiwoong", "kim");
+        Customer customer = new Customer(1L, new Name("jiwoong", "kim"));
         customerRepository.save(customer);
 
         Customer findCustomer = customerRepository.findById(customer.getId()).get();
@@ -54,8 +53,8 @@ public class CustomerRepositoryTest {
 
     @Test
     void 리스트_조회() {
-        Customer customer1 = new Customer(1L, "jiwoong", "kim");
-        Customer customer2 = new Customer(2L, "jiwoong", "kim");
+        Customer customer1 = new Customer(1L,  new Name("jiwoong", "kim"));
+        Customer customer2 = new Customer(2L,  new Name("jiwoong", "kim"));
 
         customerRepository.saveAll(Lists.newArrayList(customer1, customer2));
 
@@ -66,8 +65,8 @@ public class CustomerRepositoryTest {
 
     @Test
     void 고객_단건_삭제() {
-        Customer customer1 = new Customer(1L, "jiwoong", "kim");
-        Customer customer2 = new Customer(2L, "jiwoong", "kim");
+        Customer customer1 = new Customer(1L, new Name("jiwoong", "kim"));
+        Customer customer2 = new Customer(2L,  new Name("jiwoong", "kim"));
 
         customerRepository.saveAll(Lists.newArrayList(customer1, customer2));
 
