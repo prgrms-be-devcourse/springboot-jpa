@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -12,11 +12,10 @@ import javax.persistence.EntityTransaction;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.programmers.kdt.studyjpa.domain.order.OrderStatus.OPENED;
 
 @Slf4j
-@SpringBootTest
+@DataJpaTest
 class OrderPersistenceTest {
 
     @Autowired
@@ -25,11 +24,11 @@ class OrderPersistenceTest {
     @Test
     void insert_member() {
         var member = new Member();
-        member.setName("kanghonggu");
-        member.setAddress("서울시 동작구 만움직이면 쏜다");
+        member.setName("jason");
+        member.setAddress("서울시 강남구 개포동");
         member.setAge(33);
-        member.setNickName("guppy.kang");
-        member.setDescription("back-end developer :)");
+        member.setNickName("jaeseok.yoo");
+        member.setDescription("mc");
 
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -51,7 +50,7 @@ class OrderPersistenceTest {
         member.setNickName("guppy.kang");
         member.setAddress("서울시 동작구 만움직이면 쏜다");
         member.setAge(33);
-        member.setDescription("KDT 화이팅");
+        member.setDescription("KDT 화이팅!");
 
         entityManager.persist(member);
 
