@@ -11,7 +11,7 @@ import java.util.Objects;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "item")
 @Entity
-public abstract class Item {
+public abstract class Item extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
