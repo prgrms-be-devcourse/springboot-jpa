@@ -1,5 +1,7 @@
 package com.example.chapter1.domain;
 
+import com.example.chapter1.domain.customer.domain.Customer;
+import com.example.chapter1.domain.customer.domain.CustomerRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
