@@ -19,10 +19,6 @@ public class OrderItem {
   @OneToMany(mappedBy = "orderItem")
   private List<Item> items = new ArrayList<>();
 
-  public void addItem(Item item) {
-    item.setOrderItem(this);
-  }
-
   public Long getId() {
     return id;
   }
@@ -45,9 +41,5 @@ public class OrderItem {
     }
     this.order = order;
     order.getOrderItems().add(this);
-  }
-
-  public void setItems(List<Item> items) {
-    this.items = items;
   }
 }
