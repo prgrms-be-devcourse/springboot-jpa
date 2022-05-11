@@ -1,17 +1,18 @@
 package com.prgrms.springbootjpa.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 public class Order {
   @Id
   @Column(name = "id")
   private Long id;
 
   @OneToMany(mappedBy = "order")
-  private List<OrderItem> orderItems;
+  private List<OrderItem> orderItems = new ArrayList<>();
 
   public void addOrderItem(OrderItem orderItem) {
     orderItem.setOrder(this);
