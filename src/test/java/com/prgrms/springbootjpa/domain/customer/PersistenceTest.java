@@ -1,11 +1,11 @@
-package com.prgrms.springbootjpa.domain;
+package com.prgrms.springbootjpa.domain.customer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.prgrms.springbootjpa.domain.customer.Customer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

@@ -1,4 +1,4 @@
-package com.prgrms.springbootjpa.domain;
+package com.prgrms.springbootjpa.domain.customer;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

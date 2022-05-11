@@ -1,8 +1,10 @@
-package com.prgrms.springbootjpa.domain;
+package com.prgrms.springbootjpa.domain.customer;
 
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
+import com.prgrms.springbootjpa.domain.customer.Customer;
+import com.prgrms.springbootjpa.domain.customer.CustomerRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
