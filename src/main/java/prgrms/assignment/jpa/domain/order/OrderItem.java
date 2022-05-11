@@ -4,11 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.AUTO;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -28,4 +26,26 @@ public class OrderItem {
     @Column(name = "order_quantity")
     private long orderQuantity;
 
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "order_id")
+    private Order order;
+
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "item_id")
+    private Item item;
+
+    public OrderItem(int itemPrice, long orderQuantity) {
+        this.itemPrice = itemPrice;
+        this.orderQuantity = orderQuantity;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+        order.getOrderItems().add(this);
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+        item.getOrderItems().add(this);
+    }
 }

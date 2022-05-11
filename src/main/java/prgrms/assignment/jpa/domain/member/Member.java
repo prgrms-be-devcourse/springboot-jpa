@@ -1,10 +1,14 @@
 package prgrms.assignment.jpa.domain.member;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import prgrms.assignment.jpa.domain.order.Order;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static javax.persistence.GenerationType.AUTO;
 import static lombok.AccessLevel.PROTECTED;
@@ -33,6 +37,17 @@ public class Member {
 
     @Lob
     private String description;
+
+    @OneToMany(mappedBy = "member")
+    private List<Order> orders = new ArrayList<>();
+
+    public Member(String name, String nickName, int age, String address, String description) {
+        this.name = name;
+        this.nickName = nickName;
+        this.age = age;
+        this.address = address;
+        this.description = description;
+    }
 
     public void updateName(String name) {
         this.name = name;
