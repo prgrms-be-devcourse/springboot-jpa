@@ -1,4 +1,4 @@
-package com.prgms.springbootjpa.domain;
+package com.prgms.springbootjpa.domain.customer;
 
 import static com.prgms.springbootjpa.exception.ExceptionMessage.NAME_FORMAT_EXP_MSG;
 

@@ -3,23 +3,25 @@ package com.prgms.springbootjpa.lifecycle;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-import com.prgms.springbootjpa.domain.Customer;
-import com.prgms.springbootjpa.domain.Name;
+import com.prgms.springbootjpa.domain.customer.Customer;
+import com.prgms.springbootjpa.domain.customer.Name;
 import com.prgms.springbootjpa.repository.CustomerRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
-@Slf4j
 @SpringJUnitConfig(com.prgms.springbootjpa.config.DataSourceConfig.class)
 public class PersistenceContextTest {
+
+    private static final Logger log = LoggerFactory.getLogger(PersistenceContextTest.class);
 
     @Autowired
     CustomerRepository repository;
