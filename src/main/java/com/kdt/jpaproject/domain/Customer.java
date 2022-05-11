@@ -1,5 +1,6 @@
 package com.kdt.jpaproject.domain;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,14 +10,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "customers")
+@Table(name = "customer")
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Customer {
     @Id
     private Long id;
     private String firstName;
     private String lastName;
+
 
     @Builder
     public Customer(Long id, String firstName, String lastName) {
