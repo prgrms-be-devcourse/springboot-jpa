@@ -34,7 +34,7 @@ public class PersistenceContextTest {
 
         transaction.begin();
 
-        Customer customer = new Customer(1L, "jiwoong", "kim");
+        Customer customer = new Customer(1L, new Name("jiwoong", "kim"));
 
         entityManager.persist(customer);
         transaction.commit(); // entityManager.flush();
@@ -48,7 +48,7 @@ public class PersistenceContextTest {
 
         transaction.begin();
 
-        Customer customer = new Customer(1L, "jiwoong", "kim");
+        Customer customer = new Customer(1L, new Name("jiwoong", "kim"));
 
         entityManager.persist(customer);
         transaction.commit();
@@ -56,7 +56,6 @@ public class PersistenceContextTest {
         entityManager.detach(customer); // 영속 -> 준영속
 
         Customer findCustomer = entityManager.find(Customer.class, 1L);
-        log.info("{} {}", findCustomer.getFirstName(), findCustomer.getLastName());
     }
 
     @Test
@@ -67,14 +66,14 @@ public class PersistenceContextTest {
 
         transaction.begin();
 
-        Customer customer = new Customer(1L, "jiwoong", "kim");
+        Customer customer = new Customer(1L, new Name("jiwoong", "kim"));
 
         entityManager.persist(customer);
         transaction.commit();
 
         transaction.begin();
 
-        customer.changeName("joomin", "cha");
+        customer.changeName(new Name("joomin", "cha"));
 
         transaction.commit();
     }
@@ -87,7 +86,7 @@ public class PersistenceContextTest {
 
         transaction.begin();
 
-        Customer customer = new Customer(1L, "jiwoong", "kim");
+        Customer customer = new Customer(1L, new Name("jiwoong", "kim"));
 
         entityManager.persist(customer);
         transaction.commit();
