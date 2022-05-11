@@ -19,11 +19,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "orders")
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
 
 	@Id
@@ -45,10 +49,17 @@ public class Order {
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<OrderItem> orderItems = new ArrayList<>();
 
+	@Builder
+	public Order(OrderStatus orderStatus, String memo) {
+		this.orderDatetime = LocalDateTime.now();
+		this.orderStatus = orderStatus;
+		this.memo = memo;
+	}
+
 	// 연관관계 편의 메서드 START
 	// Order에 이미 다른 member가 매핑되어있는 경우 그 member의 orderlist에서 제거?
 	public void setMember(Member member) {
-		if (Objects.nonNull(member)) {
+		if (this.member != null && Objects.nonNull(member)) {
 			this.member.getOrders().remove(this);
 		}
 

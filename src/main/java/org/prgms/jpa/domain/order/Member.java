@@ -12,11 +12,15 @@ import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "member")
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 
 	@Id
@@ -38,6 +42,15 @@ public class Member {
 
 	@OneToMany(mappedBy = "member")
 	private List<Order> orders = new ArrayList<>();
+
+	@Builder
+	public Member(String name, String nickName, int age, String address, String description) {
+		this.name = name;
+		this.nickName = nickName;
+		this.age = age;
+		this.address = address;
+		this.description = description;
+	}
 
 	// 연관관계 편의 메서드 START
 

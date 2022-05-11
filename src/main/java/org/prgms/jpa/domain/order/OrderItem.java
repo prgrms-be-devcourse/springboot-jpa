@@ -14,11 +14,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "order_items")
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderItem {
 
 	@Id
@@ -38,9 +42,15 @@ public class OrderItem {
 	@JoinColumn(name = "item_id", referencedColumnName = "id")
 	private Item item;
 
+	@Builder
+	public OrderItem(int price, OrderStatus orderStatus) {
+		this.price = price;
+		this.orderStatus = orderStatus;
+	}
+
 	//Order 연관관계 편의 메서드 START
 	public void setOrder(Order order){
-		if(Objects.nonNull(order)){
+		if(this.order != null && Objects.nonNull(order)){
 			order.getOrderItems().remove(this);
 		}
 
@@ -49,7 +59,7 @@ public class OrderItem {
 	}
 
 	public void setItem(Item item) {
-		if(Objects.nonNull(item)){
+		if(this.item != null && Objects.nonNull(item)){
 			this.item.getOrderItems().remove(this);
 		}
 
