@@ -8,9 +8,10 @@ import java.util.UUID;
 
 import javax.persistence.EntityManagerFactory;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -22,15 +23,17 @@ import com.study.springbootJpa.domain.OrderItem;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringBootTest
 public class OrderMappingTest {
 
 	@Autowired
 	private EntityManagerFactory entityManagerFactory;
+
 	private Long memberId;
 	private String orderId;
 
-	@BeforeEach
+	@BeforeAll
 	void setUp() {
 		var entityManager = entityManagerFactory.createEntityManager();
 		var transaction = entityManager.getTransaction();
@@ -102,11 +105,12 @@ public class OrderMappingTest {
 
 		entityManager.persist(item);
 		entityManager.persist(orderItem);
-		transaction.commit();
 
 		var itemId = item.getId();
 		var orderItemId = orderItem.getId();
 		var foundOrderItem = entityManager.find(OrderItem.class, orderItemId);
+
+		transaction.commit();
 
 		// order와 orderItem의 양방향 관계
 		assertThat(order.getOrderItems().get(0).getId()).isEqualTo(orderItemId);
