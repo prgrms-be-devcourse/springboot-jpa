@@ -9,8 +9,8 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
 @Slf4j
+@SpringBootTest
 class CustomerRepositoryTest {
 
     @Autowired
@@ -23,10 +23,8 @@ class CustomerRepositoryTest {
         customer.setId(1L);
         customer.setFirstName("kim");
         customer.setLastName("gong");
-
         //when
         repository.save(customer);
-
         //then
         Customer entity = repository.findById(1L).get();
         log.info("{}{}", entity.getFirstName(), entity.getLastName());
