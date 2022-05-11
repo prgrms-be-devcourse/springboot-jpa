@@ -10,7 +10,7 @@ import javax.persistence.Table;
 public class Customer {
 
     @Id
-    private long id;
+    private Long id;
     @Embedded
     private Name name;
 
