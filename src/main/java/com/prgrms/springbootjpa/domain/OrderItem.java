@@ -19,8 +19,8 @@ public class OrderItem {
   private List<Item> items;
 
   public void addItem(Item item) {
-    this.items.add(item);
     item.setOrderItem(this);
+    items.add(item);
   }
 
   public void setOrder(Order order) {
