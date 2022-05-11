@@ -4,13 +4,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 
-@SpringBootTest
+@DataJpaTest
 public class PersistenceTest {
     @Autowired
     EntityManagerFactory emf;
@@ -23,7 +24,7 @@ public class PersistenceTest {
          tx.begin();
 
          // given
-         Customer customer = new Customer(null, "jerry", "hong");
+        Customer customer = new Customer("jerry", "hong");
 
          // when
          em.persist(customer);
@@ -42,7 +43,7 @@ public class PersistenceTest {
         tx.begin();
 
         // given
-        Customer customer = new Customer(null, "jerry", "hong");
+        Customer customer = new Customer("jerry", "hong");
         em.persist(customer);
 
         // when
@@ -62,7 +63,7 @@ public class PersistenceTest {
         tx.begin();
 
         // given
-        Customer customer = new Customer(null, "jerry", "hong");
+        Customer customer = new Customer("jerry", "hong");
         em.persist(customer);
 
         // when
@@ -83,7 +84,7 @@ public class PersistenceTest {
         tx.begin();
 
         // given
-        Customer customer = new Customer(null, "jerry", "hong");
+        Customer customer = new Customer("jerry", "hong");
         em.persist(customer);
 
         // when
