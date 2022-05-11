@@ -30,13 +30,13 @@ class CustomerRepositoryTest {
 
         customerRepository.save(customer);
 
-        Customer savedCustomer = customerRepository.findById(1L)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 아이디"));
+        Optional<Customer> savedCustomer = customerRepository.findById(customer.getId());
 
         assertAll(
-                () -> assertThat(savedCustomer.getId()).isEqualTo(customer.getId()),
-                () -> assertThat(savedCustomer.getFirstName()).isEqualTo(customer.getFirstName()),
-                () -> assertThat(savedCustomer.getLastName()).isEqualTo(customer.getLastName())
+                () -> assertThat(savedCustomer).isPresent(),
+                () -> assertThat(savedCustomer.get().getId()).isEqualTo(customer.getId()),
+                () -> assertThat(savedCustomer.get().getFirstName()).isEqualTo(customer.getFirstName()),
+                () -> assertThat(savedCustomer.get().getLastName()).isEqualTo(customer.getLastName())
         );
     }
 
@@ -61,7 +61,7 @@ class CustomerRepositoryTest {
         Customer customer = new Customer(1L, "hanju", "lee");
         customerRepository.save(customer);
 
-        customer.setLastName("kim");
+        customer.changeLastName("kim");
         customerRepository.save(customer);
 
         List<Customer> customers = customerRepository.findAll();
@@ -97,14 +97,9 @@ class CustomerRepositoryTest {
         Customer customer = new Customer(1L, "hanju", "lee");
         Customer savedCustomer = customerRepository.save(customer);
 
-        Customer findCustomer = customerRepository.findById(savedCustomer.getId())
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 아이디"));
+        Optional<Customer> findCustomer = customerRepository.findById(savedCustomer.getId());
 
-        assertAll(
-                () -> assertThat(findCustomer.getId()).isEqualTo(customer.getId()),
-                () -> assertThat(findCustomer.getFirstName()).isEqualTo(customer.getFirstName()),
-                () -> assertThat(findCustomer.getLastName()).isEqualTo(customer.getLastName())
-        );
+        assertThat(findCustomer).isPresent();
     }
 
     @Test
