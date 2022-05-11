@@ -1,6 +1,7 @@
 package com.prgrms.springbootjpa.domain;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "order_item")
@@ -12,4 +13,7 @@ public class OrderItem {
   @ManyToOne
   @JoinColumn(name = "order_id", referencedColumnName = "id")
   private Order order;
+
+  @OneToMany(mappedBy = "orderItem")
+  private List<Item> items;
 }
