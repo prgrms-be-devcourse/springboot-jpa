@@ -32,6 +32,7 @@ class CustomerRepositoryTest {
         log.info("{}{}", entity.getFirstName(), entity.getLastName());
         assertThat(entity.getFirstName()).isEqualTo("kim");
         assertThat(entity.getLastName()).isEqualTo("gong");
+
     }
 
     @Test
