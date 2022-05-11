@@ -4,11 +4,7 @@ spring:
       enabled: true
   jpa:
     generate-ddl: true
-#    SpringBoot의 AutoConfiguration시 사용
-#    hibernate:
-#      ddl-auto: create-drop
     database: H2
-    show-sql: true
     open-in-view: false
     properties:
       hibernate:
