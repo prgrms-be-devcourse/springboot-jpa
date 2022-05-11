@@ -1,12 +1,14 @@
 package com.study.springbootJpa;
 
 import static com.study.springbootJpa.domain.OrderStatus.*;
+import static org.assertj.core.api.AssertionsForClassTypes.*;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 import javax.persistence.EntityManagerFactory;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,37 @@ public class OrderMappingTest {
 
 	@Autowired
 	private EntityManagerFactory entityManagerFactory;
+	private Long memberId;
+	private String orderId;
+
+	@BeforeEach
+	void setUp() {
+		var entityManager = entityManagerFactory.createEntityManager();
+		var transaction = entityManager.getTransaction();
+		transaction.begin();
+
+		Member member = new Member();
+		member.setName("hyebpark");
+		member.setNickName("hyeb");
+		member.setAddress("부산시 몰랑몰랑");
+		member.setAge(12);
+
+		Order order = new Order();
+		order.setUuid(UUID.randomUUID().toString());
+		order.setOrderStatus(OPENED);
+		order.setOrderDateTime(LocalDateTime.now());
+		order.setMemo("문 앞에 두고 가주세요~");
+
+		member.addOrder(order);
+
+		entityManager.persist(member);
+		entityManager.persist(order);
+
+		memberId = member.getId();
+		orderId = order.getUuid();
+
+		transaction.commit();
+	}
 
 	@Test
 	@DisplayName("member와 order의 양방향 연관관계 테스트")
@@ -34,61 +67,32 @@ public class OrderMappingTest {
 
 		transaction.begin();
 
-		Member member = new Member();
-		member.setName("hyebpark");
-		member.setNickName("hyeb");
-		member.setAddress("부산시 몰랑몰랑");
-		member.setAge(12);
+		var member = entityManager.find(Member.class, memberId);
+		var order = entityManager.find(Order.class, orderId);
 
-		entityManager.persist(member);
-		Order order = new Order();
-		order.setUuid(UUID.randomUUID().toString());
-		order.setOrderStatus(OPENED);
-		order.setOrderDateTime(LocalDateTime.now());
-		order.setMemo("문 앞에 두고 가주세요~");
-		member.addOrder(order);
+		log.info("member id : {} ", memberId);
+		log.info("found member id : {} ", member.getId());
+		assertThat(member.getOrders().get(0).getUuid()).isEqualTo(orderId);
 
-		entityManager.persist(order);
+		log.info("order id : {} ", orderId);
+		log.info("found order id : {} ", order.getUuid());
+		assertThat(order.getMember().getId()).isEqualTo(memberId);
+
 		transaction.commit();
-
-		entityManager.clear();
-		entityManager.find(Order.class, order.getUuid());
-
 	}
 
 	@Test
-	@DisplayName("orderItem과 Item 단방향 연관관계")
+	@DisplayName("order와 orderItem의 양방향 연관관계, orderItem과 Item 단방향 연관관계")
 	void orderItem_item() {
 		var entityManager = entityManagerFactory.createEntityManager();
 		var transaction = entityManager.getTransaction();
+		var order = entityManager.find(Order.class, orderId);
 
 		transaction.begin();
-
-		Member member = new Member();
-		member.setName("hyebpark");
-		member.setNickName("hyeb");
-		member.setAddress("부산시 몰랑몰랑");
-		member.setAge(12);
-
-		entityManager.persist(member);
-		Order order = new Order();
-		order.setUuid(UUID.randomUUID().toString());
-		order.setOrderStatus(OPENED);
-		order.setOrderDateTime(LocalDateTime.now());
-		order.setMemo("문 앞에 두고 가주세요~");
-		member.addOrder(order);
-
-		entityManager.persist(order);
-
-		log.info("member에서 가져온 order의 메모 정보: {}", member.getOrders().get(0).getMemo());
-		log.info("order에서 가져온 member의 name : {}", order.getMember().getNickName());
-		log.info("order에서 가져온 member의 주문 수 : {}", order.getMember().getOrders().size());
 
 		Item item = new Item();
 		item.setPrice(1000);
 		item.setStockQuantity(10);
-
-		entityManager.persist(item);
 
 		OrderItem orderItem = new OrderItem();
 		orderItem.setPrice(2000);
@@ -96,12 +100,18 @@ public class OrderMappingTest {
 		orderItem.setOrder(order);
 		orderItem.setOrderStatus(OPENED);
 
+		entityManager.persist(item);
 		entityManager.persist(orderItem);
+		transaction.commit();
 
-		entityManager.clear();
-		entityManager.find(Order.class, order.getUuid());
+		var itemId = item.getId();
+		var orderItemId = orderItem.getId();
+		var foundOrderItem = entityManager.find(OrderItem.class, orderItemId);
 
-		log.info("orderItem 에서 가져온 item의 가격 : {}", orderItem.getItem().getPrice());
-		log.info("orderItem 에서 가져온 item의 재고 수량 : {}", orderItem.getItem().getStockQuantity());
+		// order와 orderItem의 양방향 관계
+		assertThat(order.getOrderItems().get(0).getId()).isEqualTo(orderItemId);
+		assertThat(foundOrderItem.getOrder().getUuid()).isEqualTo(orderId);
+		//orderItem과 Item의 단방향 관계
+		assertThat(foundOrderItem.getItem().getId()).isEqualTo(itemId);
 	}
 }
