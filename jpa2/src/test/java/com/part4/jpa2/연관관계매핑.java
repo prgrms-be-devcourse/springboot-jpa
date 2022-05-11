@@ -34,15 +34,15 @@ public class 연관관계매핑 {
     private EntityTransaction transaction;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         em = emf.createEntityManager();
         transaction = em.getTransaction();
     }
 
     @Nested
-    class 양방향연관관계{
+    class 양방향연관관계 {
         @Test
-        void 저장__편의메소드_사용(){
+        void 저장__편의메소드_사용() {
             transaction.begin();
 
             var member = makeMember();
@@ -54,14 +54,14 @@ public class 연관관계매핑 {
             transaction.commit();
             em.clear();
 
-            var entity = em.find(Order.class,order.getUuid());
+            var entity = em.find(Order.class, order.getUuid());
             assertThat(entity).usingRecursiveComparison()
                     .ignoringFields("member")// TODO: 이 Member는 어떻게 처리해줘야 하는걸까
                     .isEqualTo(order);
         }
 
         @Test
-        void 조회__객체그래프탐색_사용(){
+        void 조회__객체그래프탐색_사용() {
             transaction.begin();
 
             var order = makeOrder();
@@ -74,7 +74,7 @@ public class 연관관계매핑 {
             em.clear();
 
             // 조회 : 회원 -> 회원의 주문
-            var findMember = em.find(Member.class,1L);
+            var findMember = em.find(Member.class, 1L);
             log.info("order-memo: {}", findMember.getOrders().get(0).getMemo());
 
             // 조회 : 주문 -> 주문한 회원

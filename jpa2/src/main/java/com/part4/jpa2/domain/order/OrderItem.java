@@ -8,12 +8,15 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Getter @Setter
-public class OrderItem extends BaseEntity{
-    @Id @GeneratedValue
+@Getter
+@Setter
+public class OrderItem extends BaseEntity {
+    @Id
+    @GeneratedValue
     private Long id;
 
     private int price;
+
     private int quantity;
 
     @OneToMany(mappedBy = "orderItem")
@@ -23,14 +26,15 @@ public class OrderItem extends BaseEntity{
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order order;
 
-    public void setOrder(Order order){
-        if (Objects.nonNull(this.order)){
+    public void setOrder(Order order) {
+        if (Objects.nonNull(this.order)) {
             this.order.getOrderItems().remove(this);
         }
         this.order = order;
         order.getOrderItems().add(this);
     }
-    public void addItem(Item item){
+
+    public void addItem(Item item) {
         item.setOrderItem(this);
     }
 

@@ -31,13 +31,13 @@ public class 고급매핑 {
     private EntityTransaction transaction;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         em = emf.createEntityManager();
         transaction = em.getTransaction();
     }
 
     @Test
-    void 상속테이블_관리하기_Inheritance(){
+    void 상속테이블_관리하기_Inheritance() {
         transaction.begin();
         Food food = new Food();
         food.setPrice(1000);
@@ -49,7 +49,7 @@ public class 고급매핑 {
     }
 
     @Test
-    void Entity_공통속성_만들기_MappedSuperclass(){
+    void Entity_공통속성_만들기_MappedSuperclass() {
         transaction.begin();
 
         Order order = new Order();
@@ -66,7 +66,7 @@ public class 고급매핑 {
     }
 
     @Test
-    void 복합키_만들기_IdClass(){
+    void 복합키_만들기_IdClass() {
         transaction.begin();
 
         var parent = new Parentv1();
@@ -81,7 +81,7 @@ public class 고급매핑 {
     }
 
     @Test
-    void 복합키_만들기_EmbeddedId_추천(){
+    void 복합키_만들기_EmbeddedId_추천() {
         transaction.begin();
 
         var parent = new Parentv2();

@@ -7,9 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
-public class Member extends BaseEntity{
+public class Member extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
@@ -33,8 +34,7 @@ public class Member extends BaseEntity{
     private List<Order> orders = new ArrayList<>();
 
 
-
-    public void addOrder(Order order){
+    public void addOrder(Order order) {
         order.setMember(this);
     }
 }
