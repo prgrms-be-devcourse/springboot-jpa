@@ -17,17 +17,14 @@ class CustomerRepositoryTest {
     @Test
     void 저장하고_조회할수_있다() {
         //given
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setFirstName("deukyun");
-        customer.setLastName("nam");
+        Customer customer = new Customer("deukyun", "nam");
 
         //when
         repository.save(customer);
 
         //then
-        Customer found = repository.findById(1L).get();
-        assertThat(found.getId()).isEqualTo(1L);
+        Customer found = repository.findById(customer.getId()).get();
+        assertThat(found.getId()).isEqualTo(customer.getId());
         assertThat(found.getFirstName()).isEqualTo("deukyun");
         assertThat(found.getLastName()).isEqualTo("nam");
     }

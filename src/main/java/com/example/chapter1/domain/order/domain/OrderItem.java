@@ -2,13 +2,16 @@ package com.example.chapter1.domain.order.domain;
 
 import com.example.chapter1.domain.base.BaseIdEntity;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 
-@Getter
-@Setter
+import static lombok.AccessLevel.PROTECTED;
+
 @Entity
+@Getter
+@NoArgsConstructor(access = PROTECTED)
 public class OrderItem extends BaseIdEntity {
 
     private int price;

@@ -36,10 +36,7 @@ class PersistenceTest {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
 
-        Customer customer = new Customer();
-        customer.setId(2L);
-        customer.setFirstName("guppy");
-        customer.setLastName("hong");
+        Customer customer = new Customer("guppy", "hong");
 
         em.persist(customer);
         transaction.commit();
@@ -47,7 +44,7 @@ class PersistenceTest {
         em.detach(customer); //영속 -> 준영속
 //        em.clear(); //영속성 컨텍스트를 초기화 한다.
 
-        Customer entity = em.find(Customer.class, 2L); // DB 에서 조회한다. SELECT ...
+        Customer entity = em.find(Customer.class, customer.getId()); // DB 에서 조회한다. SELECT ...
         log.info("{} {}", entity.getFirstName(), entity.getLastName());
 //        em.find(Customer.class, 2L); // SELECT Query 수행되지 않는다. 1차캐시 사용
     }
@@ -58,15 +55,12 @@ class PersistenceTest {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setFirstName("honggu");
-        customer.setLastName("kang");
+        Customer customer = new Customer("honggu", "kang");
 
         em.persist(customer);
         tx.commit();
 
-        Customer entity = em.find(Customer.class, 1L); // 1차 캐시에서 조회한다.
+        Customer entity = em.find(Customer.class, customer.getId()); // 1차 캐시에서 조회한다.
         log.info("{} {}", entity.getFirstName(), entity.getLastName());
     }
 }

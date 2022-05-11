@@ -1,14 +1,22 @@
 package com.example.chapter1.domain.customer.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+import static lombok.AccessLevel.PROTECTED;
+
+/**
+ * study - 미션 1 단일 엔티티를 이용한 CRUD를 구현
+ */
 @Entity
-@Table(name = "customers")
 @Getter
-@Setter
+@NoArgsConstructor(access = PROTECTED)
 public class Customer {
 
     @Id
@@ -16,4 +24,9 @@ public class Customer {
     private Long id;
     private String firstName;
     private String lastName;
+
+    public Customer(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 }

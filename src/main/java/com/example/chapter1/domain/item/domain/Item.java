@@ -2,14 +2,16 @@ package com.example.chapter1.domain.item.domain;
 
 import com.example.chapter1.domain.base.BaseIdEntity;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-@Getter
-@Setter
+import static lombok.AccessLevel.PROTECTED;
+
 @Entity
-@Table(name = "item")
+@Getter
+@NoArgsConstructor(access = PROTECTED)
 public class Item extends BaseIdEntity {
 
     private int price;

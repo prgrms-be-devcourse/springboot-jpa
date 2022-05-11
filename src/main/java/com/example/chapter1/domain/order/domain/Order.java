@@ -2,15 +2,17 @@ package com.example.chapter1.domain.order.domain;
 
 import com.example.chapter1.domain.base.BaseIdEntity;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+import static lombok.AccessLevel.PROTECTED;
+
 @Entity
+@Getter
 @Table(name = "orders")
+@NoArgsConstructor(access = PROTECTED)
 public class Order extends BaseIdEntity {
 
     @Column(name = "memo")
