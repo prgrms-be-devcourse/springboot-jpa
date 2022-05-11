@@ -5,6 +5,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "orders")
@@ -25,6 +28,22 @@ public class Order {
     @Lob
     private String memo;
 
-    @Column(name = "member_id") // fk
-    private Long memberId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="member_id", referencedColumnName = "id")
+    private Member member;
+
+    public void setMember(Member member){
+        if(Objects.nonNull(this.member)){
+            this.member.getOrders().remove(this);
+        }
+        this.member = member;
+        this.member.getOrders().add(this);
+    }
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems = new ArrayList<>();
+
+    public void addOrderItem(OrderItem orderItem){
+        orderItem.setOrder(this);
+    }
 }

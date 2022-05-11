@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name="order_item")
@@ -15,11 +16,22 @@ public class OrderItem {
     private Long id;
 
     private int price;
-    private int quntity;
+    private int quantity;
 
-    @Column(name="order_id") //fk
-    private String order_id;
+    @ManyToOne
+    @JoinColumn(name="order_id", referencedColumnName = "id")
+    private Order order;
 
-    @Column(name="item_id") //fk
-    private Long item_id;
+    @ManyToOne
+    @JoinColumn(name="item_id", referencedColumnName = "id")
+    private Item item;
+
+    public void setOrder(Order order){
+        if(Objects.nonNull(this.order)){
+            this.order.getOrderItems().remove(this);
+        }
+        this.order = order;
+        this.order.getOrderItems().add(this);
+    }
+
 }

@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="member")
@@ -25,6 +27,13 @@ public class Member {
     @Column(name="address", nullable = false)
     private String address;
 
-    @Column(name="description", nullable = false)
+    @Column(name="description", nullable = true)
     private String description;
+
+    @OneToMany(mappedBy = "member")
+    private List<Order> orders = new ArrayList<>();
+
+    public void addOrder(Order order){
+        order.setMember(this);
+    }
 }
