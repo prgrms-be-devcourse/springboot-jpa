@@ -14,9 +14,22 @@ import static lombok.AccessLevel.PROTECTED;
 @NoArgsConstructor(access = PROTECTED)
 public class Item extends BaseIdEntity {
 
+    @Column(name = "item_name")
+    private String name;
+
     @Column(name = "price")
     private int price;
 
     @Column(name = "stock_quantity")
     private int stockQuantity;
+
+    private Item(String name, int price, int stockQuantity) {
+        this.name = name;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+    }
+
+    public static Item create(String name, int price, int stockQuantity) {
+        return new Item(name, price, stockQuantity);
+    }
 }

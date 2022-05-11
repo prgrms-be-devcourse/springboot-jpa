@@ -25,4 +25,13 @@ public class Order extends BaseIdEntity {
     @Column(name = "order_datetime")
     private LocalDateTime orderDatetime;
 
+    private Order(String memo) {
+        this.memo = memo;
+        this.orderStatus = OrderStatus.OPENED;
+        this.orderDatetime = LocalDateTime.now();
+    }
+
+    public static Order create(String memo) {
+        return new Order(memo);
+    }
 }
