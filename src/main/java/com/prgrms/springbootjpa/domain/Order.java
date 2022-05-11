@@ -12,4 +12,8 @@ public class Order {
 
   @OneToMany(mappedBy = "order")
   private List<OrderItem> orderItems;
+
+  public List<OrderItem> getOrderItems() {
+    return orderItems;
+  }
 }

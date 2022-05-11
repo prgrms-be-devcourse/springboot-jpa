@@ -2,6 +2,7 @@ package com.prgrms.springbootjpa.domain;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "order_item")
@@ -19,6 +20,14 @@ public class OrderItem {
 
   public void addItem(Item item) {
     item.setOrderItem(this);
+  }
+
+  public void setOrder(Order order) {
+    if (Objects.nonNull(this.order)) {
+      this.order.getOrderItems().remove(this);
+    }
+    this.order = order;
+    order.getOrderItems().add(this);
   }
 
   public List<Item> getItems() {
