@@ -28,11 +28,11 @@ class CustomerRepositoryTest {
 
     //when
     Customer savedCustomer = customerRepository.save(customer);
-    Optional<Customer> sut = customerRepository.findById(1L);
+    Optional<Customer> maybeCustomer = customerRepository.findById(1L);
 
     //then
-    assertThat(sut).isPresent();
-    assertThat(sut.get()).isEqualTo(savedCustomer);
+    assertThat(maybeCustomer).isPresent();
+    assertThat(maybeCustomer.get()).isEqualTo(savedCustomer);
   }
 
   @Test
@@ -43,11 +43,11 @@ class CustomerRepositoryTest {
     Customer savedCustomer = customerRepository.save(customer);
 
     //when
-    Optional<Customer> sut = customerRepository.findById(1L);
+    Optional<Customer> maybeCustomer = customerRepository.findById(1L);
 
     //then
-    assertThat(sut).isPresent();
-    assertThat(sut.get()).usingRecursiveComparison().isEqualTo(savedCustomer);
+    assertThat(maybeCustomer).isPresent();
+    assertThat(maybeCustomer.get()).usingRecursiveComparison().isEqualTo(savedCustomer);
   }
 
   @Test
@@ -59,10 +59,10 @@ class CustomerRepositoryTest {
     customerRepository.saveAll(customers);
 
     //when
-    List<Customer> sut = customerRepository.findAll();
+    List<Customer> allCustomers = customerRepository.findAll();
 
     //then
-    assertThat(sut).hasSize(2);
+    assertThat(allCustomers).hasSize(2);
   }
 
   @Test
@@ -74,11 +74,11 @@ class CustomerRepositoryTest {
 
     //when
     customer.updateFullName("updated-first", "updated-last");
-    Optional<Customer> sut = customerRepository.findById(customer.getId());
+    Optional<Customer> maybeCustomer = customerRepository.findById(customer.getId());
 
     //then
-    assertThat(sut).isPresent();
-    assertThat(sut.get()).usingRecursiveComparison().isEqualTo(savedCustomer);
+    assertThat(maybeCustomer).isPresent();
+    assertThat(maybeCustomer.get()).usingRecursiveComparison().isEqualTo(savedCustomer);
   }
 
   @Test
@@ -90,9 +90,9 @@ class CustomerRepositoryTest {
 
     //when
     customerRepository.delete(savedCustomer);
-    Optional<Customer> sut = customerRepository.findById(1L);
+    Optional<Customer> maybeCustomer = customerRepository.findById(1L);
 
     //then
-    assertThat(sut).isEmpty();
+    assertThat(maybeCustomer).isEmpty();
   }
 }
