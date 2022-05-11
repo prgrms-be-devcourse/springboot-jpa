@@ -32,6 +32,9 @@ public class Order {
     @JoinColumn(name="member_id", referencedColumnName = "id")
     private Member member;
 
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems = new ArrayList<>();
+
     public void setMember(Member member){
         if(Objects.nonNull(this.member)){
             this.member.getOrders().remove(this);
@@ -39,9 +42,6 @@ public class Order {
         this.member = member;
         this.member.getOrders().add(this);
     }
-
-    @OneToMany(mappedBy = "order")
-    private List<OrderItem> orderItems = new ArrayList<>();
 
     public void addOrderItem(OrderItem orderItem){
         orderItem.setOrder(this);
