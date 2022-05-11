@@ -59,7 +59,7 @@ public class Order {
 	// 연관관계 편의 메서드 START
 	// Order에 이미 다른 member가 매핑되어있는 경우 그 member의 orderlist에서 제거?
 	public void setMember(Member member) {
-		if (this.member != null && Objects.nonNull(member)) {
+		if (Objects.nonNull(this.member)) {
 			this.member.getOrders().remove(this);
 		}
 

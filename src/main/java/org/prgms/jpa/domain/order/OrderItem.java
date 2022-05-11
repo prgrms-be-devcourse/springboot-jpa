@@ -50,7 +50,7 @@ public class OrderItem {
 
 	//Order 연관관계 편의 메서드 START
 	public void setOrder(Order order){
-		if(this.order != null && Objects.nonNull(order)){
+		if(Objects.nonNull(this.order)){
 			order.getOrderItems().remove(this);
 		}
 
@@ -59,7 +59,7 @@ public class OrderItem {
 	}
 
 	public void setItem(Item item) {
-		if(this.item != null && Objects.nonNull(item)){
+		if(Objects.nonNull(this.item)){
 			this.item.getOrderItems().remove(this);
 		}
 
