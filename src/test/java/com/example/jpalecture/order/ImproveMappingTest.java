@@ -1,5 +1,8 @@
-package com.example.jpalecture.domain.order;
+package com.example.jpalecture.order;
 
+import com.example.jpalecture.domain.order.Food;
+import com.example.jpalecture.domain.order.Order;
+import com.example.jpalecture.domain.order.OrderStatus;
 import com.example.jpalecture.domain.order.parent.Parent;
 import com.example.jpalecture.domain.order.parent.ParentId;
 import lombok.extern.slf4j.Slf4j;
