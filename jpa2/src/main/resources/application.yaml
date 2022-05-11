@@ -15,5 +15,5 @@ spring:
     show-sql: true
     database: h2
     properties:
-      hibernate: org.hibernate.dialect.MySQLSinnoDBDialect
+      hibernate: org.hibernate.dialect.H2Dialect
       query.in_clause_parameter_padding: true
