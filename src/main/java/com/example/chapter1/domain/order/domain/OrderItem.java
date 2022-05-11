@@ -1,12 +1,15 @@
 package com.example.chapter1.domain.order.domain;
 
 import com.example.chapter1.domain.base.BaseIdEntity;
+import com.example.chapter1.domain.item.domain.Item;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
+import static javax.persistence.FetchType.LAZY;
 import static lombok.AccessLevel.PROTECTED;
 
 @Entity
@@ -20,9 +23,9 @@ public class OrderItem extends BaseIdEntity {
     @Column(name = "quantity")
     private int quantity;
 
-    @Column(name = "order_id")
-    private Long orderId;
+    @ManyToOne(fetch = LAZY)
+    private Order order;
 
-    @Column(name = "item_id")
-    private Long itemId;
+    @ManyToOne(fetch = LAZY)
+    private Item item;
 }

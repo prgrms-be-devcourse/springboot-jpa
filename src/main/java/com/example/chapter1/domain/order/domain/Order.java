@@ -25,6 +25,4 @@ public class Order extends BaseIdEntity {
     @Column(name = "order_datetime")
     private LocalDateTime orderDatetime;
 
-    @Column(name = "member_id")
-    private Long memberId;
 }
