@@ -1,5 +1,7 @@
 package com.kdt.lecture.domain;
 
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,10 +9,10 @@ import javax.persistence.*;
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String firstName;
     private String lastName;
+
 
     public Long getId() {
         return id;
@@ -34,5 +36,14 @@ public class Customer {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
     }
 }
