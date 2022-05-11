@@ -14,11 +14,14 @@ import static lombok.AccessLevel.PROTECTED;
 @NoArgsConstructor(access = PROTECTED)
 public class OrderItem extends BaseIdEntity {
 
+    @Column(name = "price")
     private int price;
+
+    @Column(name = "quantity")
     private int quantity;
 
     @Column(name = "order_id")
-    private String orderId;
+    private Long orderId;
 
     @Column(name = "item_id")
     private Long itemId;

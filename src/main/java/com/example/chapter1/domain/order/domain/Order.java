@@ -19,9 +19,10 @@ public class Order extends BaseIdEntity {
     private String memo;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "order_status")
     private OrderStatus orderStatus;
 
-    @Column(name = "order_datetime", columnDefinition = "TIMESTAMP")
+    @Column(name = "order_datetime")
     private LocalDateTime orderDatetime;
 
     @Column(name = "member_id")
