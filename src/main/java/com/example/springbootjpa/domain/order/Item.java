@@ -1,10 +1,14 @@
 package com.example.springbootjpa.domain.order;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
+@NoArgsConstructor
 @Entity
 @Table(name = "item")
 public class Item {
@@ -14,4 +18,16 @@ public class Item {
     private String name;
     private int price;
     private int stockQuantity;
+    @OneToMany(mappedBy = "item")
+    private List<OrderItem> orderItems = new ArrayList<>();
+
+    public Item(String name, int price, int stockQuantity) {
+        this.name = name;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+    }
+
+    public void addOrderItem(OrderItem orderItem) {
+        orderItem.setItem(this);
+    }
 }

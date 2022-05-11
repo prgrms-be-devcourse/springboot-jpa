@@ -23,12 +23,14 @@ public class Order {
     private OrderStatus orderStatus;
     @Column(name = "order_datetime", columnDefinition = "TIMESTAMP")
     private LocalDateTime orderDateTime;
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems = new ArrayList<>();
 
     //member fk
     @Column(name = "member_id", insertable = false, updatable = false)
     private Long memberId;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "member_id", referencedColumnName = "id")
     private Member member;
 
@@ -46,5 +48,9 @@ public class Order {
         }
         this.member = member;
         member.getOrders().add(this);
+    }
+
+    public void addOrderItem(OrderItem orderItem) {
+        orderItem.setOrder(this);
     }
 }
