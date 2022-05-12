@@ -2,6 +2,7 @@ package com.programmers.jpa.domain;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -24,14 +25,31 @@ public class Order {
     @JoinColumn(name = "member_id", referencedColumnName = "id")
     private Member member;
 
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems;
+
     public Order() {}
 
-    public Order(String uuid, LocalDateTime orderDatetime, OrderStatus orderStatus, String memo, Member member) {
+    public Order(String uuid, LocalDateTime orderDatetime, OrderStatus orderStatus, String memo, Member member, List<OrderItem> orderItems) {
         this.uuid = uuid;
         this.orderDatetime = orderDatetime;
         this.orderStatus = orderStatus;
         this.memo = memo;
         this.member = member;
+        this.orderItems = orderItems;
+    }
+
+    public void setMember(Member member) {
+        if (Objects.nonNull(this.member)) {
+            this.member.getOrders().remove(this);
+        }
+
+        this.member = member;
+        member.getOrders().add(this);
+    }
+
+    public void addOrderItem(OrderItem orderItem) {
+        orderItem.setOrder(this);
     }
 
     public String getUuid() {
@@ -66,13 +84,11 @@ public class Order {
         this.memo = memo;
     }
 
-    public void setMember(Member member) {
-        if (Objects.nonNull(this.member)) {
-            this.member.getOrders().remove(this);
-        }
-
-        this.member = member;
-        member.getOrders().add(this);
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
 }

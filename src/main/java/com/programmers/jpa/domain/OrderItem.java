@@ -1,6 +1,8 @@
 package com.programmers.jpa.domain;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "order_item")
@@ -13,19 +15,33 @@ public class OrderItem {
     private int price;
     private int quantity;
 
-    @Column(name = "order_id") // fk
-    private String order_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    private Order order;
 
-    @Column(name = "item_id") // fk
-    private Long item_id;
+    @OneToMany(mappedBy = "orderItem")
+    private List<Item> items;
+
+    public void setOrder(Order order) {
+        if (Objects.nonNull(this.order)) {
+            this.order.getOrderItems().remove(this);
+        }
+
+        this.order = order;
+        order.getOrderItems().add(this);
+    }
+
+    public void addItem(Item item) {
+        item.setOrderItem(this);
+    }
 
     public OrderItem() {}
 
-    public OrderItem(int price, int quantity, String order_id, Long item_id) {
+    public OrderItem(int price, int quantity, Order order, List<Item> items) {
         this.price = price;
         this.quantity = quantity;
-        this.order_id = order_id;
-        this.item_id = item_id;
+        this.order = order;
+        this.items = items;
     }
 
     public Long getId() {
@@ -40,19 +56,19 @@ public class OrderItem {
         return quantity;
     }
 
-    public String getOrder_id() {
-        return order_id;
-    }
-
-    public Long getItem_id() {
-        return item_id;
-    }
-
     public void changePrice(int price) {
         this.price = price;
     }
 
     public void changeQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public Order getOrder() {
+        return order;
     }
 }

@@ -88,4 +88,8 @@ public class Member {
     public void changeDescription(String description) {
         this.description = description;
     }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
 }

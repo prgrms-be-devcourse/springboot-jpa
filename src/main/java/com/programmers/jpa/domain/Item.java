@@ -1,10 +1,7 @@
 package com.programmers.jpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "item")
@@ -16,6 +13,19 @@ public class Item {
 
     private int price;
     private int stockQuantity;
+
+    @ManyToOne
+    @JoinColumn(name = "order_item_id", referencedColumnName = "id")
+    private OrderItem orderItem;
+
+    public void setOrderItem(OrderItem orderItem) {
+        if (Objects.nonNull(this.orderItem)) {
+            this.orderItem.getItems().remove(this);
+        }
+
+        this.orderItem = orderItem;
+        orderItem.getItems().add(this);
+    }
 
     public Item() {}
 
