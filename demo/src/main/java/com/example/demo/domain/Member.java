@@ -1,9 +1,11 @@
 package com.example.demo.domain;
 
 import lombok.Getter;
+import org.aspectj.weaver.ast.Or;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Getter
@@ -27,4 +29,11 @@ public class Member {
     private String address;
 
     private String description;
+
+    @OneToMany(mappedBy = "member")
+    private List<Order> orders;
+
+    public void addOrder(Order order) {
+        order.setMember(this);
+    }
 }
