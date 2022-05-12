@@ -11,21 +11,14 @@ public class Name {
     }
 
     public Name(String firstName, String lastName) {
-        validateFirstName(firstName);
-        validateLastName(lastName);
+        validateName(firstName, lastName);
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
-    private void validateLastName(String lastName) {
-        if (lastName.isBlank()) {
+    private void validateName(String firstName, String lastName) {
+        if (lastName.isBlank() || firstName.isBlank()) {
             throw new IllegalArgumentException("Last Name 은 공백일 수 없습니다.");
-        }
-    }
-
-    private void validateFirstName(String firstName) {
-        if (firstName.isBlank()) {
-            throw new IllegalArgumentException("First Name 은 공백일 수 없습니다.");
         }
     }
 
