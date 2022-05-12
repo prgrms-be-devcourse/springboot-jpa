@@ -7,17 +7,26 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
+
 @DataJpaTest
 class CustomerRepositoryTest {
     @Autowired
     CustomerRepository repository;
 
-    Customer customer;
+    @PersistenceContext
+    EntityManager em;
+
+    Customer customer, savedCustomer;
+
     @BeforeEach
     void setUp() {
         customer = new Customer("kang", "wansu");
-        repository.save(customer);
+        savedCustomer = repository.save(customer);
     }
+
     @AfterEach
     void tearDown() {
         repository.deleteAll();
@@ -34,9 +43,13 @@ class CustomerRepositoryTest {
     void customer_수정() {
         //then
         Customer entity = repository.findAll().get(0);
-        //@DynamicUpdate로 인해 바뀐 필드만 수정한다. update customers set first_name=? where id=?
         entity.setFirstName("change");
         Assertions.assertThat(entity.getFirstName()).isEqualTo(customer.getFirstName());
     }
 
+    @Test
+    @Transactional
+    void customer_저장한다() {
+        repository.save(new Customer("kang","wansu"));
+    }
 }
