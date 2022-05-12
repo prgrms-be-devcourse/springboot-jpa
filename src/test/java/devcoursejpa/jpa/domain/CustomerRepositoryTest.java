@@ -1,6 +1,5 @@
 package devcoursejpa.jpa.domain;
 
-import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Slf4j
+
 @DataJpaTest
 public class CustomerRepositoryTest {
 
@@ -53,8 +52,8 @@ public class CustomerRepositoryTest {
 
     @Test
     void 리스트_조회() {
-        Customer customer1 = new Customer(1L,  new Name("jiwoong", "kim"));
-        Customer customer2 = new Customer(2L,  new Name("jiwoong", "kim"));
+        Customer customer1 = new Customer(1L, new Name("jiwoong", "kim"));
+        Customer customer2 = new Customer(2L, new Name("jiwoong", "kim"));
 
         customerRepository.saveAll(Lists.newArrayList(customer1, customer2));
 
@@ -66,7 +65,7 @@ public class CustomerRepositoryTest {
     @Test
     void 고객_단건_삭제() {
         Customer customer1 = new Customer(1L, new Name("jiwoong", "kim"));
-        Customer customer2 = new Customer(2L,  new Name("jiwoong", "kim"));
+        Customer customer2 = new Customer(2L, new Name("jiwoong", "kim"));
 
         customerRepository.saveAll(Lists.newArrayList(customer1, customer2));
 
