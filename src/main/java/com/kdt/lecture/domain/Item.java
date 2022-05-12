@@ -25,11 +25,11 @@ public class Item {
   private Long id;
 
   @Positive
-  @Column(name = "price")
+  @Column(name = "price", nullable = false)
   private int price;
 
   @PositiveOrZero
-  @Column(name = "stock_quantity")
+  @Column(name = "stock_quantity", nullable = false)
   private int stockQuantity;
 
   public Item(int price, int stockQuantity) {

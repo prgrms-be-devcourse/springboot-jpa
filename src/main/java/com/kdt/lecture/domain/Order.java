@@ -21,7 +21,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -63,7 +62,9 @@ public class Order {
   }
 
   public void addOrderItem(OrderItem orderItem) {
-    if(orderItems.contains(orderItem)) return;
+    if (orderItems.contains(orderItem)) {
+      return;
+    }
     orderItems.add(orderItem);
   }
 

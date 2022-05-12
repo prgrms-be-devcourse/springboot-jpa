@@ -29,12 +29,12 @@ public class Member {
 
   @NotNull
   @Size(max = 30)
-  @Column(name = "name")
+  @Column(name = "name", length = 30, nullable = false)
   private String name;
 
   @NotNull
   @Size(min = 2, max = 30)
-  @Column(unique = true)
+  @Column(name = "nick_name", unique = true)
   private String nickName;
 
   @Positive
@@ -43,7 +43,7 @@ public class Member {
 
   @NotNull
   @Size(min = 2, max = 50)
-  @Column(name = "address", length = 50)
+  @Column(name = "address", length = 50, nullable = false)
   private String address;
 
   @Column(name = "description")
