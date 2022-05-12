@@ -35,7 +35,6 @@ class OrderTest {
     em.createQuery("DELETE FROM Item ").executeUpdate();
     em.createQuery("DELETE FROM OrderItem ").executeUpdate();
     em.createQuery("DELETE FROM Order ").executeUpdate();
-
     em.getTransaction().commit();
     em.close();
   }
@@ -79,7 +78,7 @@ class OrderTest {
   void cascade_remove_test1() {
 
     EntityTransaction transaction = em.getTransaction();
-    
+
     // Given
     transaction.begin();
     Order order = getOrderFixture();
@@ -181,6 +180,43 @@ class OrderTest {
     item.setPrice(1000);
     item.setStockQuantity(10000);
     return item;
+  }
+
+  @Test
+  void detaching_unregisters_entity_in_context() {
+
+    // Given
+    var order = getOrderFixture();
+    em.getTransaction().begin();
+    em.persist(order);
+    em.getTransaction().commit();
+
+    // When
+    em.detach(order);
+
+    // Then
+    // 영속성 컨텍스트에 존재하지 않는다 -> db에 새로 질의해서 가져온다.
+    var persistedOrder = em.find(Order.class, order.getUuid());
+    assertThat(persistedOrder).isNotNull().isNotSameAs(order);
+  }
+
+  @Test
+  void jpa_search_database_when_find_method_called_with_unregistered_id() {
+
+    // Given
+    var order = getOrderFixture();
+    em.getTransaction().begin();
+    em.persist(order);
+    em.getTransaction().commit();
+    var unregisteredId = UUID.randomUUID().toString();
+
+    // When
+    // 일단 DB에 질의한다.
+    var unregisteredOrder = em.find(Order.class, unregisteredId);
+
+    // Then
+    // 없으니까 null
+    assertThat(unregisteredOrder).isNull();
   }
 
 }
