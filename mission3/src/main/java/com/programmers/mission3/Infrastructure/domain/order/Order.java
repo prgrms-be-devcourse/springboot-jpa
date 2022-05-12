@@ -1,10 +1,7 @@
 package com.programmers.mission3.Infrastructure.domain.order;
 
 import com.programmers.mission3.Infrastructure.domain.common.BaseEntity;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;

@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -31,7 +32,7 @@ class CustomerRepositoryTest {
     }
 
     @Test
-    @DisplayName("저장 테스트")
+    @DisplayName("저장 후 영속성 관리 되는지 테스트 : 1차 캐시")
     void testSave(){
         EntityManager em = emf.createEntityManager();
         EntityTransaction transaction = em.getTransaction();
@@ -44,11 +45,12 @@ class CustomerRepositoryTest {
         customer.setLastName("jung");
 
         em.persist(customer);
+        assertThat(em.contains(customer)).isTrue();
         transaction.commit();
     }
 
     @Test
-    @DisplayName("조회 DB조회")
+    @DisplayName("detach 후 영속성 관리가 준영속으로 되는지: DB 조회")
     void testReadInDB(){
 
         EntityManager em = emf.createEntityManager();
@@ -64,30 +66,9 @@ class CustomerRepositoryTest {
         em.persist(customer);
         transaction.commit();
 
-
         em.detach(customer);
 
-        Customer retrievedCustomer = em.find(Customer.class,1L);
-    }
-
-    @Test
-    @DisplayName("조회: 1차 캐시 이용")
-    void testReadInCache(){
-
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-
-        transaction.begin();
-
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setFirstName("kyung-il");
-        customer.setLastName("jung");
-
-        em.persist(customer);
-        transaction.commit();
-
-        Customer retrievedCustomer = em.find(Customer.class,1L);
+        assertThat(em.contains(customer)).isFalse();
     }
 
     @Test
@@ -99,21 +80,23 @@ class CustomerRepositoryTest {
 
         transaction.begin();
 
+        //given
         Customer customer = new Customer();
         customer.setId(1L);
         customer.setFirstName("kyung-il");
         customer.setLastName("jung");
 
+        //when
         em.persist(customer);
-        transaction.commit();
-
-        transaction.begin();
-
-        customer.setFirstName("Kyung-ily");
         customer.setLastName("j");
 
         transaction.commit();
 
+        //then
+        transaction.begin();
+        //then
+        assertThat(em.find(Customer.class, 1L).getLastName()).isEqualTo("j");
+        transaction.commit();
     }
 
     @Test
@@ -122,18 +105,23 @@ class CustomerRepositoryTest {
         EntityManager em = emf.createEntityManager();
         EntityTransaction transaction = em.getTransaction();
 
+
+        //given
+
         transaction.begin();
         Customer customer = new Customer();
         customer.setId(1L);
         customer.setFirstName("kyung-il");
         customer.setLastName("jung");
 
+        //when
         em.persist(customer);
-        transaction.commit();
+        em.remove(customer);
 
-        transaction.begin();
-        Customer retrievedCustomer = em.find(Customer.class,1L);
-        em.remove(retrievedCustomer);
+        //then
+        assertThat(em.contains(customer)).isFalse();
+        assertThat(em.find(Customer.class, 1L)).isNull();
+
         transaction.commit();
     }
 

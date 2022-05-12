@@ -25,8 +25,7 @@ public abstract class Item extends BaseEntity {
     private int stockQuantity;
 
     @Builder
-    public Item(Long id, int price, int stockQuantity, OrderItem orderItem) {
-        this.id = id;
+    public Item(int price, int stockQuantity, OrderItem orderItem) {
         this.price = price;
         this.stockQuantity = stockQuantity;
         this.orderItem = orderItem;

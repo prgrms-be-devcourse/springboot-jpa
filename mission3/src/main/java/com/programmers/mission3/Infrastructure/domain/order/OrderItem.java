@@ -2,6 +2,7 @@ package com.programmers.mission3.Infrastructure.domain.order;
 
 import com.programmers.mission3.Infrastructure.domain.common.BaseEntity;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -45,4 +46,11 @@ public class OrderItem extends BaseEntity {
         item.setOrderItem(this);
     }
 
+    @Builder
+    public OrderItem(int price, int quantity, Order order, List<Item> items) {
+        this.price = price;
+        this.quantity = quantity;
+        this.order = order;
+        this.items = items;
+    }
 }
