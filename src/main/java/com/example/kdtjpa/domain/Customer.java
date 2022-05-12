@@ -1,12 +1,10 @@
 package com.example.kdtjpa.domain;
 
-import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Objects;
-
 import static lombok.AccessLevel.PROTECTED;
 
 @Entity
