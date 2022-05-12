@@ -45,8 +45,7 @@ public class CustomerRepositoryTest {
 
         Customer save = repository.save(customer);
 
-        save.setFirstName("change");
-        save.setLastName("name");
+        save.changeName("change", "name");
 
         assertThat(save.getFirstName()).isEqualTo("change");
         log.info("{} {} {}", save.getId(), save.getFirstName(), save.getLastName());

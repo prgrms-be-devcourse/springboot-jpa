@@ -8,7 +8,6 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Getter
-@Setter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "customers")
@@ -28,5 +27,10 @@ public class Customer {
         this.firstName = firstName;
         this.lastName = lastName;
 
+    }
+
+    public void changeName(String firstName, String lastName){
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 }
