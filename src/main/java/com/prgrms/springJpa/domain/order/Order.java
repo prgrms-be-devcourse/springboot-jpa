@@ -56,14 +56,14 @@ public class Order {
 
     public void changeMember(Member member) {
         if (Objects.nonNull(this.member)) {
-            this.member.getOrders().remove(this);
+            this.member.removeOrder(this);
         }
         this.member = member;
-        member.getOrders().add(this);
     }
 
     public void addOrderItem(OrderItem orderItem) {
         orderItem.changeOrder(this);
+        orderItems.add(orderItem);
     }
 
     public void removeOrderItem(OrderItem orderItem) {

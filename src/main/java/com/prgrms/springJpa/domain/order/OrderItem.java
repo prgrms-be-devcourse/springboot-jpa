@@ -47,17 +47,15 @@ public class OrderItem {
 
     public void changeOrder(Order order) {
         if (Objects.nonNull(this.order)) {
-            this.order.getOrderItems().remove(this);
+            this.order.removeOrderItem(this);
         }
         this.order = order;
-        order.getOrderItems().add(this);
     }
 
     public void changeItem(Item item) {
         if (Objects.nonNull(this.item)) {
-            this.item.getOrderItems().remove(this);
+            this.item.removeOrderItem(this);
         }
         this.item = item;
-        item.getOrderItems().add(this);
     }
 }

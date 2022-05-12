@@ -82,5 +82,10 @@ public class Member {
 
     public void addOrder(Order order) {
         order.changeMember(this);
+        orders.add(order);
+    }
+
+    public void removeOrder(Order order) {
+        orders.remove(order);
     }
 }

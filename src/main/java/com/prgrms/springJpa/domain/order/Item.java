@@ -40,5 +40,10 @@ public class Item {
 
     public void addOrderItem(OrderItem orderItem) {
         orderItem.changeItem(this);
+        orderItems.add(orderItem);
+    }
+
+    public void removeOrderItem(OrderItem orderItem) {
+        orderItems.remove(orderItem);
     }
 }
