@@ -18,14 +18,17 @@ public class OrderItem {
     private Long id;
 
     private int price;
-    private int quantity;
+
+    @Enumerated(value = EnumType.STRING)
+    private OrderStatus orderStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order order;
 
-    @OneToMany(mappedBy = "orderItem")
-    private List<Item> items;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "item_id", referencedColumnName = "id")
+    private Item item;
 
     public void setOrder(Order order){
         if(Objects.nonNull(this.order)){
@@ -34,8 +37,12 @@ public class OrderItem {
         this.order = order;
         order.getOrderItems().add(this);
     }
-    public void addItem(Item item){
-        item.setOrderItem(this);
+    public void setItem(Item item){
+        if(Objects.nonNull(this.item)){
+            this.item.getOrderItems().remove(this);
+        }
+        this.item = item;
+        item.getOrderItems().add(this);
     }
 
 }
