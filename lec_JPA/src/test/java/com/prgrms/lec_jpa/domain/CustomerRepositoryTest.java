@@ -18,6 +18,8 @@ class CustomerRepositoryTest {
     @Autowired
     CustomerRepository customerRepository;
 
+    Customer customer = new Customer(1, "jaehee", "Yu");
+
     @BeforeEach
     void tearDown() {
 
@@ -26,8 +28,6 @@ class CustomerRepositoryTest {
 
     @Test
     void save_test() {
-
-        Customer customer = new Customer(1, "jaehee", "Yu");
 
         customerRepository.save(customer);
 
@@ -38,8 +38,6 @@ class CustomerRepositoryTest {
 
     @Test
     void update_test() {
-
-        Customer customer = new Customer(1, "jaehee", "Yu");
 
         Customer entity = customerRepository.save(customer);
 
@@ -52,8 +50,6 @@ class CustomerRepositoryTest {
 
     @Test
     void delete_test() {
-
-        Customer customer = new Customer(1, "jaehee", "Yu");
 
         Customer entity = customerRepository.save(customer);
 

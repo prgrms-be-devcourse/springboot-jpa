@@ -29,7 +29,6 @@ public class Customer {
         this.lastName = lastName;
     }
 
-
     public long getId() {
         return id;
     }
