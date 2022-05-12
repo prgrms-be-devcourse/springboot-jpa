@@ -1,6 +1,7 @@
 package com.example.springjpa.domain.order;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "item")
@@ -12,13 +13,26 @@ public class Item {
     private int price;
     private int stockQuantity;
 
+    @ManyToOne
+    @JoinColumn(name = "order_item_id", referencedColumnName = "id")
+    private OrderItem orderItem;
+
     protected Item() {
     }
 
-    public Item(int price, int stockQuantity) {
-        this.id = id;
+    public Item(int price, int stockQuantity, OrderItem orderItem) {
         this.price = price;
         this.stockQuantity = stockQuantity;
+        this.orderItem = orderItem;
+    }
+
+    public Item(int price, int stockQuantity) {
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+    }
+
+    public OrderItem getOrderItem() {
+        return orderItem;
     }
 
     public Long getId() {
@@ -31,5 +45,13 @@ public class Item {
 
     public int getStockQuantity() {
         return stockQuantity;
+    }
+
+    public void setOrderItem(OrderItem orderItem) {
+        if (Objects.nonNull(this.orderItem)) {
+            this.orderItem.getItems().remove(this);
+        }
+        this.orderItem = orderItem;
+        orderItem.getItems().add(this);
     }
 }

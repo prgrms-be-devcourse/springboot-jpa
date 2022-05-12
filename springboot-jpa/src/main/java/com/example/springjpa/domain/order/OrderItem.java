@@ -1,6 +1,8 @@
 package com.example.springjpa.domain.order;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "order_item")
@@ -8,24 +10,33 @@ public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+
     private int price;
     private int quantity;
 
-    // fk
-    @Column(name = "order_id")
-    private String orderId;
-    @Column(name = "item_id")
-    private Long itemId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    private Order order;
+
+    @OneToMany(mappedBy = "orderItem")
+    private List<Item> items;
 
     protected OrderItem() {
     }
 
-    public OrderItem(int price, int quantity, String orderId, Long itemId) {
-        this.id = id;
+    public OrderItem(int price, int quantity, Order order, List<Item> items) {
         this.price = price;
         this.quantity = quantity;
-        this.orderId = orderId;
-        this.itemId = itemId;
+        this.order = order;
+        this.items = items;
+    }
+
+    public void addItem(Item item) {
+        item.setOrderItem(this);
+    }
+
+    public Order getOrder() {
+        return order;
     }
 
     public Long getId() {
@@ -40,11 +51,15 @@ public class OrderItem {
         return quantity;
     }
 
-    public String getOrderId() {
-        return orderId;
+    public void setOrder(Order order) {
+        if (Objects.nonNull(this.order)) {
+            this.order.getOrderItems().remove(this);
+        }
+        this.order = order;
+        order.getOrderItems().add(this);
     }
 
-    public Long getItemId() {
-        return itemId;
+    public List<Item> getItems() {
+        return items;
     }
 }

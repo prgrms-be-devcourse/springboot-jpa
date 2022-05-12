@@ -1,11 +1,11 @@
 package com.example.springjpa.domain;
 
+import com.example.springjpa.repository.CustomerRepository;
 import jdk.jfr.Description;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -14,8 +14,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-@Transactional
-@SpringBootTest
+@DataJpaTest
 class CustomerRepositoryTest {
 
     @Autowired
@@ -28,7 +27,7 @@ class CustomerRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        Customer customer = new Customer(1L, "kim", "bob");
+        Customer customer = new Customer("kim", "bob");
         basicCustomer = repository.save(customer);
     }
 
@@ -36,7 +35,7 @@ class CustomerRepositoryTest {
     @Description("고객정보가 저장되어야 한다.")
     void testSave() throws Exception {
         //given
-        Customer customer = new Customer(2L, "taesan", "kang");
+        Customer customer = new Customer("taesan", "kang");
         //when
         Customer savedEntity = repository.save(customer);
         //then

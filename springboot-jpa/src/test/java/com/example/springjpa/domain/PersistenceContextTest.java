@@ -1,84 +1,86 @@
 package com.example.springjpa.domain;
 
-import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.BeforeEach;
+import com.example.springjpa.domain.common.EntityManagerTest;
+import com.example.springjpa.repository.CustomerRepository;
+import jdk.jfr.Description;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
+import java.util.Optional;
 
-@Slf4j
-@SpringBootTest
-public class PersistenceContextTest {
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
+
+public class PersistenceContextTest extends EntityManagerTest {
 
     @Autowired
-    CustomerRepository repository;
+    CustomerRepository customerRepository;
 
-    @Autowired
-    EntityManagerFactory emf;
+    Customer customer = new Customer("TaeSan", "Kang");
 
-    @BeforeEach
-    void setUp() {
-        repository.deleteAll();
+    @Test
+    @Description("영속성 컨텍스트만을 사용하여 데이터베이스에 저장할 수 있다.")
+    void testSaveWithPersistenceContext() {
+        execWithTransaction(() -> entityManager.persist(customer));
+
+        Optional<Customer> findCustomer = customerRepository.findById(customer.getId());
+        assertAll(
+                () -> assertThat(findCustomer.isPresent()).isTrue(),
+                () -> assertThat(findCustomer.get().getId()).isEqualTo(customer.getId())
+        );
     }
 
     @Test
-    void 저장() {
-        EntityManager entityManager = emf.createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
+    @Description("Entity매니저의 find를 통해 객체를 조회할 수 있다.")
+    void testEntityManagerFind() {
+        execWithTransaction(() -> {
+            entityManager.persist(customer);
 
-        transaction.begin();
-        Customer customer = new Customer(1L, "taesan", "kang"); // 비영
-        entityManager.persist(customer); // 비영속 -> 영속 (영속화)
-        transaction.commit(); // entityManager.flush();
+            Customer findCustomer = entityManager.find(Customer.class, customer.getId());
+            assertThat(findCustomer.getId()).isEqualTo(customer.getId());
+        });
     }
 
     @Test
-    void 조회_DB조회() {
-        EntityManager entityManager = emf.createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
-
-        transaction.begin();
-        Customer customer = new Customer(1L, "taesan", "kang"); // 비영
-        entityManager.persist(customer); // 비영속 -> 영속 (영속화)
-        transaction.commit(); // entityManager.flush();
-
-        entityManager.detach(customer); // 영속 -> 준영속
-        Customer selected = entityManager.find(Customer.class, 1L);
-        log.info("{}", selected.getFirstName(), selected.getLastName());
+    @Description("commit이전에 Detach되면 저장되지 않는다.")
+    void testEntityManagerDetachFind() {
+        execWithTransaction(() -> {
+            entityManager.persist(customer);
+            entityManager.detach(customer); // 영속 -> 준영속
+            Customer findCustomer = entityManager.find(Customer.class, customer.getId());
+            assertThat(findCustomer).isNull();
+        });
     }
 
     @Test
-    void 수정() {
-        EntityManager entityManager = emf.createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
+    @Description("DirtyChecking을 통한 Update가 가능하다.")
+    void testDirtyChecking() {
+        String changeFirstName = "big";
+        String changeLastName = "mountain";
 
-        transaction.begin();
-        Customer customer = new Customer(1L, "taesan", "kang"); // 비영
-        entityManager.persist(customer); // 비영속 -> 영속 (영속화)
-        transaction.commit(); // entityManager.flush();
-
-        transaction.begin();
-        customer.changeLastName("big");
-        customer.changeFirstName("mountain");
-        transaction.commit();
+        execWithTransaction(() -> {
+            entityManager.persist(customer);
+            entityManager.flush();
+            customer.changeFirstName(changeFirstName);
+            customer.changeLastName(changeLastName);
+            Customer findCustomer = entityManager.find(Customer.class, customer.getId());
+            assertAll(
+                    () -> assertThat(findCustomer.getFirstName()).isEqualTo(changeFirstName),
+                    () -> assertThat(findCustomer.getLastName()).isEqualTo(changeLastName)
+            );
+        });
     }
 
     @Test
-    void 삭제() {
-        EntityManager entityManager = emf.createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
+    @Description("EntityManager.remove를 수행하면 데이터베이스에서도 삭제 된다.")
+    void testDelete() {
+        execWithTransaction(() -> {
+            entityManager.persist(customer);
+            entityManager.flush();
+            entityManager.remove(customer);
+        });
 
-        transaction.begin();
-        Customer customer = new Customer(1L, "taesan", "kang"); // 비영
-        entityManager.persist(customer); // 비영속 -> 영속 (영속화)
-        transaction.commit(); // entityManager.flush();
-
-        transaction.begin();
-        entityManager.remove(customer);
-        transaction.commit();
+        Optional<Customer> findCustomer = customerRepository.findById(customer.getId());
+        assertThat(findCustomer.isEmpty()).isTrue();
     }
 }

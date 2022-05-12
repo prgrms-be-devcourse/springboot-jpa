@@ -2,6 +2,9 @@ package com.example.springjpa.domain.order;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "orders")
@@ -15,20 +18,37 @@ public class Order {
     private OrderStatus orderStatus;
     @Column(name = "order_datetime", columnDefinition = "TIMESTAMP")
     private LocalDateTime orderDateTime;
-
-    // member_fk
-    @Column(name = "member_id")
-    private Long memberId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id", referencedColumnName = "id")
+    private Member member;
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems;
 
     protected Order() {
     }
 
-    public Order(String uuid, String memo, OrderStatus orderStatus, LocalDateTime orderDateTime, Long memberId) {
-        this.uuid = uuid;
+    public Order(String memo, OrderStatus orderStatus, LocalDateTime orderDateTime, Member member, List<OrderItem> orderItems) {
+        this.uuid = UUID.randomUUID().toString();
         this.memo = memo;
         this.orderStatus = orderStatus;
         this.orderDateTime = orderDateTime;
-        this.memberId = memberId;
+        this.member = member;
+        this.orderItems = orderItems;
+    }
+
+    public Order(String memo, OrderStatus orderStatus, LocalDateTime orderDateTime, Member member) {
+        this.memo = memo;
+        this.orderStatus = orderStatus;
+        this.orderDateTime = orderDateTime;
+        this.member = member;
+    }
+
+    public void addOrderItem(OrderItem orderItem) {
+        orderItem.setOrder(this);
+    }
+
+    public Member getMember() {
+        return member;
     }
 
     public String getUuid() {
@@ -47,7 +67,15 @@ public class Order {
         return orderDateTime;
     }
 
-    public Long getMemberId() {
-        return memberId;
+    public void setMember(Member member) {
+        if (Objects.nonNull(this.member)) {
+            this.member.getOrders().remove(this);
+        }
+        this.member = member;
+        member.getOrders().add(this);
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
     }
 }

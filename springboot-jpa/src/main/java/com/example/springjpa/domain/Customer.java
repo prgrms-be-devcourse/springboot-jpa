@@ -1,16 +1,19 @@
 package com.example.springjpa.domain;
 
-import lombok.Getter;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Getter
 @Table(name = "customers")
+@SequenceGenerator(
+        name = "CUSTOMER_SEQ_GENERATOR",
+        sequenceName = "CUSTOMER_SEQ",
+        initialValue = 1,
+        allocationSize = 1
+)
 public class Customer {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "CUSTOMER_SEQ_GENERATOR")
     private Long id;
     private String firstName;
     private String lastName;
@@ -18,8 +21,7 @@ public class Customer {
     protected Customer() {
     }
 
-    public Customer(Long id, String firstName, String lastName) {
-        this.id = id;
+    public Customer(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
@@ -30,5 +32,17 @@ public class Customer {
 
     public void changeLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 }
