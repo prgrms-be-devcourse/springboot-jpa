@@ -6,9 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,14 +15,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
 @DataJpaTest
-@Transactional
 class CustomerRepositoryTest {
 
     @Autowired
     CustomerRepository customerRepository;
 
-    @Autowired
-    private EntityManager entityManager;
 
     @AfterEach
     void cleanUp(){
@@ -44,9 +39,6 @@ class CustomerRepositoryTest {
             customerList.add(customer);
         }
 
-        entityManager.flush();
-        entityManager.clear();
-
         var foundList = customerRepository.findAll();
 
         assertThat(foundList).usingRecursiveFieldByFieldElementComparator().isEqualTo(customerList);
@@ -61,8 +53,6 @@ class CustomerRepositoryTest {
         customer.setLastName("Ma");
         customerRepository.save(customer);
 
-        entityManager.flush();
-        entityManager.clear();
 
         var foundResult = customerRepository.findById(customer.getId());
 
@@ -79,15 +69,11 @@ class CustomerRepositoryTest {
         customer.setLastName("Ma");
         customerRepository.save(customer);
 
-        entityManager.flush();
-        entityManager.clear();
 
         Customer foundCustomer = customerRepository.findById(customer.getId()).get();
         foundCustomer.setFirstName("Updated");
         customerRepository.save(foundCustomer);
 
-        entityManager.flush();
-        entityManager.clear();
 
         Customer updatedCustomer = customerRepository.findById(foundCustomer.getId()).get();
 
@@ -103,14 +89,9 @@ class CustomerRepositoryTest {
         customer.setLastName("Ma");
         customerRepository.save(customer);
 
-        entityManager.flush();
-        entityManager.clear();
-
         Customer foundCustomer = customerRepository.findById(customer.getId()).get();
         customerRepository.delete(foundCustomer);
 
-        entityManager.flush();
-        entityManager.clear();
 
         var checkDeleteResult = customerRepository.findById(customer.getId());
 
