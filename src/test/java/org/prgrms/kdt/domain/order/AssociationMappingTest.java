@@ -34,15 +34,16 @@ class AssociationMappingTest {
 
 		entityManager.persist(newMember);
 
-		// when
 		newOrder.changeMember(newMember);
 		entityManager.persist(newOrder);
 
 		transaction.commit();
 		entityManager.clear();
 
-	    // then
+		// when
 		Order order = entityManager.find(Order.class, newOrder.getUuid());
+
+	    // then
 		assertThat(order, notNullValue());
 		assertThat(order.getMember(), notNullValue());
 		assertThat(order.getMember().getId(), is(newMember.getId()));
