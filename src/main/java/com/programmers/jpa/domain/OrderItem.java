@@ -71,4 +71,8 @@ public class OrderItem {
     public Order getOrder() {
         return order;
     }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
 }
