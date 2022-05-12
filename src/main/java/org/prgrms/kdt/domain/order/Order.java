@@ -1,6 +1,8 @@
 package org.prgrms.kdt.domain.order;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -11,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -36,6 +39,9 @@ public class Order {
 	@ManyToOne
 	@JoinColumn(name = "member_id")
 	private Member member;
+
+	@OneToMany(mappedBy = "order")
+	private List<OrderItem> orderItems = new ArrayList<>();
 
 	protected Order() {
 	}
@@ -75,6 +81,10 @@ public class Order {
 
 	public Member getMember() {
 		return member;
+	}
+
+	public List<OrderItem> getOrderItems() {
+		return orderItems;
 	}
 
 	@Override
