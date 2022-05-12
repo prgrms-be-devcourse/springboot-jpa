@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -43,7 +44,9 @@ public class Order {
         this.orderStatus = OrderStatus.OPENED;
         this.memo = memo;
         this.member = member;
-        this.orderItems = List.of();
+        member.getOrders().add(this);
+
+        this.orderItems = new ArrayList<>();
     }
 
     public void setMember(Member member) {

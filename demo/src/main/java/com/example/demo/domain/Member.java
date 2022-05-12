@@ -7,12 +7,12 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 public class Member {
 
     @Id
@@ -43,7 +43,7 @@ public class Member {
         this.age = age;
         this.address = address;
         this.description = description;
-        this.orders = List.of();
+        this.orders = new ArrayList<>();
     }
 
     public void addOrder(Order order) {

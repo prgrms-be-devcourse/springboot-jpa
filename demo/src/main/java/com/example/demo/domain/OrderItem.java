@@ -30,7 +30,11 @@ public class OrderItem {
     public OrderItem(int quantity, Order order, Item item) {
         this.quantity = quantity;
         this.order = order;
+        order.getOrderItems().add(this);
+
         this.item = item;
+        item.getOrderItems().add(this);
+
         this.price = item.getPrice() * quantity;
     }
 

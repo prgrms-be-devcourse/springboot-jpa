@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -28,9 +29,10 @@ public class Item {
         this.name = name;
         this.price = price;
         this.stockQuantity = stockQuantity;
+        this.orderItems = new ArrayList<>();
     }
 
-    public void setOrderItem(OrderItem orderItem) {
+    public void addOrderItem(OrderItem orderItem) {
         orderItem.setItem(this);
     }
 }
