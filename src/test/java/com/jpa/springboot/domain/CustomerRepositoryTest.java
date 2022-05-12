@@ -12,15 +12,11 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@Slf4j
 @SpringBootTest
 class CustomerRepositoryTest {
 
     @Autowired
     private CustomerRepository customerRepository;
-
-    @BeforeEach
-    void setUp() { }
 
     @AfterEach
     void tearDown(){
@@ -85,7 +81,7 @@ class CustomerRepositoryTest {
 
         //Then
         List<Customer> customers = customerRepository.findAll();
-        assertEquals(2,customers.size());
+        org.assertj.core.api.Assertions.assertThat(customers).containsExactlyInAnyOrder(customer1, customer2);
 
     }
 
