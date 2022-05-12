@@ -1,7 +1,5 @@
-package com.blessing333.kdtjpa;
+package com.blessing333.kdtjpa.domain;
 
-import com.blessing333.kdtjpa.domain.Customer;
-import com.blessing333.kdtjpa.domain.CustomerRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;

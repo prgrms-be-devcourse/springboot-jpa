@@ -6,6 +6,6 @@ spring:
   jpa:
     generate-ddl: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
     database: h2
     open-in-view: false
