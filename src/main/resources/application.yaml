@@ -3,10 +3,13 @@ spring:
     console:
       enabled: true
   jpa:
+    generate-ddl: true
     database: H2
     show-sql: true
     open-in-view: false
     properties:
-      hibernate.hbm2ddl.auto: create
-      dialect: org.hibernate.dialect.H2Dialect
-    generate-ddl: true
+      hibernate:
+        hbm2ddl:
+          auto: create-drop
+        dialect: org.hibernate.dialect.H2Dialect
+        query.in_clause_parameter_padding: true
