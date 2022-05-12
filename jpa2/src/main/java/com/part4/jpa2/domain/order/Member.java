@@ -1,15 +1,18 @@
-package com.part4.jpa2.domain;
+package com.part4.jpa2.domain.order;
 
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Getter @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member {
+@Getter
+@Setter
+@NoArgsConstructor
+public class Member extends BaseEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(nullable = false, length = 30)
@@ -27,12 +30,11 @@ public class Member {
     @Lob
     private String description;
 
-    @Builder
-    public Member(String name, String nickName, int age, String address, String description) {
-        this.name = name;
-        this.nickName = nickName;
-        this.age = age;
-        this.address = address;
-        this.description = description;
+    @OneToMany(mappedBy = "member")
+    private List<Order> orders = new ArrayList<>();
+
+
+    public void addOrder(Order order) {
+        order.setMember(this);
     }
 }

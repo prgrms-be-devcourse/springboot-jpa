@@ -2,18 +2,14 @@ spring:
   h2:
     console:
       enabled: true
-  datasource:
-    url: jdbc:h2:~/test
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
   jpa:
     generate-ddl: true
-    hibernate:
-      ddl-auto: create-drop
-    open-in-view: false
+    database: H2
     show-sql: true
-    database: h2
+    open-in-view: false
     properties:
-      hibernate: org.hibernate.dialect.H2Dialect
-      query.in_clause_parameter_padding: true
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        query.in_clause_parameter_padding: true
+        hbm2ddl:
+          auto: create
