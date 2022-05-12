@@ -10,7 +10,7 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 @Access(AccessType.FIELD)
-public class Quantity {
+public class Quantity implements Comparable<Quantity> {
 
     private static final int MIN = 1;
     private static final int MAX = 1000;
@@ -29,6 +29,10 @@ public class Quantity {
         if (quantity < MIN || quantity > MAX) {
             throw new InvalidQuantityRangeException(QUANTITY_RANGE_EXP_MSG);
         }
+    }
+
+    public Quantity sub(Quantity quantity) {
+        return new Quantity(this.quantity - quantity.getQuantity());
     }
 
     public int getQuantity() {
@@ -50,5 +54,10 @@ public class Quantity {
     @Override
     public int hashCode() {
         return Objects.hash(quantity);
+    }
+
+    @Override
+    public int compareTo(Quantity o) {
+        return Integer.compare(quantity, o.quantity);
     }
 }

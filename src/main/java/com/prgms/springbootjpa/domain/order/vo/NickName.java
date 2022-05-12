@@ -10,6 +10,9 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class NickName {
 
+    private static final int MIN = 1;
+    private static final int MAX = 30;
+
     @Column(name = "nick_name", nullable = false, length = 30, unique = true)
     private String nickName;
 
@@ -22,7 +25,7 @@ public class NickName {
     }
 
     private void validateNickNameFormat(String nickName) {
-        if (nickName.length() < 1 || nickName.length() > 30) {
+        if (nickName.length() < MIN || nickName.length() > MAX) {
             throw new InvalidNameLengthException(NICK_NAME_LENGTH_EXP_MSG);
         }
     }

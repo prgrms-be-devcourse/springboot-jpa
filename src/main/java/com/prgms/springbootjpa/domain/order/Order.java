@@ -1,7 +1,9 @@
 package com.prgms.springbootjpa.domain.order;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,5 +41,52 @@ public class Order extends BaseEntity {
     private Member member;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderItem> orderItems;
+    private List<OrderItem> orderItems = new ArrayList<>();
+
+    protected Order() {
+    }
+
+    public Order(String memo) {
+        this.orderDatetime = LocalDateTime.now();
+        this.orderStatus = OrderStatus.OPENED;
+        this.memo = memo;
+    }
+
+    /* 연관관계 편의 메서드 */
+    public void assignMember(Member member) {
+        if (Objects.nonNull(this.member)) {
+            this.member.getOrders().remove(this);
+        }
+
+        this.member = member;
+        member.getOrders().add(this);
+    }
+
+    public void addOrderItem(OrderItem orderItem) {
+        orderItem.assignOrder(this);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public LocalDateTime getOrderDatetime() {
+        return orderDatetime;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public Member getMember() {
+        return member;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
 }

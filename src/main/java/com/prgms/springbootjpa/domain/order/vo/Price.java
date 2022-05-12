@@ -35,6 +35,7 @@ public class Price {
         return price;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
