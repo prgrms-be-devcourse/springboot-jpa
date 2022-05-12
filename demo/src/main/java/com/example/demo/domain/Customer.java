@@ -1,5 +1,6 @@
 package com.example.demo.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "customers")
 public class Customer {
 
@@ -22,4 +23,10 @@ public class Customer {
 
     @Column(name = "last_name", nullable = false, length = 100)
     private String lastName;
+
+    public Customer(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+
+    }
 }

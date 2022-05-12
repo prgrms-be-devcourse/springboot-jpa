@@ -62,9 +62,7 @@ public class CustomerRepositoryTest {
     }
 
     private Customer customer(String firstName, String lastName) {
-        Customer customer = new Customer();
-        customer.setFirstName(firstName);
-        customer.setLastName(lastName);
+        Customer customer = new Customer(firstName, lastName);
         return customer;
     }
 
