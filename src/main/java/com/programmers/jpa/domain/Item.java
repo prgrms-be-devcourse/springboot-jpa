@@ -29,9 +29,10 @@ public class Item {
 
     public Item() {}
 
-    public Item(int price, int stockQuantity) {
+    public Item(int price, int stockQuantity, OrderItem orderItem) {
         this.price = price;
         this.stockQuantity = stockQuantity;
+        this.orderItem = orderItem;
     }
 
     public Long getId() {
@@ -44,6 +45,10 @@ public class Item {
 
     public int getStockQuantity() {
         return stockQuantity;
+    }
+
+    public OrderItem getOrderItem() {
+        return orderItem;
     }
 
     public void changePrice(int price) {
