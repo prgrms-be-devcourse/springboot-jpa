@@ -101,9 +101,12 @@ public class PersistenceTest {
                 .build();
 
         //when
-        List.of(orderItem1, orderItem2).forEach(order::addOrderItem);
+        List<OrderItem> orderItems = List.of(orderItem1, orderItem2);
+        orderItems.forEach(order::addOrderItem);
 
         em.persist(order);
+        orderItems.forEach(em::persist);
+
         transaction.commit();
 
         //then
@@ -111,7 +114,8 @@ public class PersistenceTest {
 
         Order retrievedOrder = em.find(Order.class,orderId);
         assertThat(retrievedOrder.getOrderItems().size()).isEqualTo(2);
-        assertThat(orderItem1.getOrder().getUuid()).isEqualTo(orderId);
+        assertThat(em.find(OrderItem.class,1L).getOrder().getUuid()).isEqualTo(orderId);
+        assertThat(em.find(OrderItem.class,2L).getOrder().getUuid()).isEqualTo(orderId);
 
         transaction.commit();
     }
