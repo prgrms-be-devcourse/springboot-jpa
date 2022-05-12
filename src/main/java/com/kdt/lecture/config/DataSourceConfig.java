@@ -22,7 +22,7 @@ public class DataSourceConfig {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.h2.Driver");
-        dataSource.setUrl("jdbc:h2:~/test");
+        dataSource.setUrl("jdbc:h2:~/order-test");
         dataSource.setUsername("sa");
         dataSource.setPassword("");
 
