@@ -53,7 +53,6 @@ public class OrderPersistenceTest {
         transaction.begin();
         em.persist(member);
         em.persist(item);
-        em.persist(orderItem);
         em.persist(order);
         transaction.commit();
     }
