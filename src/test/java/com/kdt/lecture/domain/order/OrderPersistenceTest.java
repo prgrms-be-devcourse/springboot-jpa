@@ -1,7 +1,6 @@
 package com.kdt.lecture.domain.order;
 
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import static com.kdt.lecture.domain.order.OrderStatus.OPENED;
-
+import static org.assertj.core.api.Assertions.assertThat;
 @Slf4j
 @SpringBootTest
 class OrderPersistenceTest {
@@ -39,7 +38,7 @@ class OrderPersistenceTest {
     }
 
     @Test
-    void 잘못된_설계() {
+    void wrong_Structure_Test() {
         Member member = new Member();
         member.setName("kanghonggu");
         member.setAddress("서울시 동작구(만) 움직이면 쏜다.");
@@ -72,7 +71,7 @@ class OrderPersistenceTest {
     }
 
     @Test
-    void association_Test() {
+    void association_Member_Order_Test() {
         EntityManager em = emf.createEntityManager();
         EntityTransaction transaction = em.getTransaction();
 
@@ -95,12 +94,58 @@ class OrderPersistenceTest {
         em.persist(order);
         transaction.commit();
 
-        em.clear();;
-        Order entity = em.find(Order.class,order.getUuid());
+        em.clear();
+        Order entity = em.find(Order.class, order.getUuid());
 
-        log.info("{}",order.getMember().getNickName());
+        log.info("{}", order.getMember().getNickName());
         log.info("{}", entity.getMember().getOrders().size());
         log.info("{}", order.getMember().getOrders().size());
+    }
 
+    @Test
+    void association_Test() {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+
+        transaction.begin();
+        //Member
+        Member member = new Member();
+        member.setName("lee sin");
+        member.setNickName("god");
+        member.setAddress("서울시 동작구");
+        member.setAge(26);
+        em.persist(member);
+
+        //Order
+        Order order = new Order();
+        order.setUuid(UUID.randomUUID().toString());
+        order.setOrderStatus(OPENED);
+        order.setOrderDateTime(LocalDateTime.now());
+        order.setMemo("빵빠레 주문했습니다~");
+        em.persist(order);
+
+        //Item
+        Item item = new Item();
+        item.setName("빵빠레");
+        item.setPrice(1000);
+        item.setStockQuantity(5);
+        em.persist(item);
+
+        //OrderItem
+        OrderItem orderItem = new OrderItem();
+        orderItem.setPrice(2000);
+        orderItem.setOrderStatus(OPENED);
+        em.persist(orderItem);
+
+        member.addOrder(order);
+        order.addOrderItems(orderItem);
+        item.addOrderItems(orderItem);
+
+        transaction.commit();
+
+        Order entity = em.find(Order.class, order.getUuid());
+
+        assertThat(entity.getMember().getAge()).isEqualTo(26);
+        assertThat(entity.getOrderItems().get(0).getItem().getStockQuantity()).isEqualTo(5);
     }
 }
