@@ -33,8 +33,7 @@ public class Member {
 
     public Member() {}
 
-    public Member(Long id, String name, String nickName, int age, String address, String description) {
-        this.id = id;
+    public Member(String name, String nickName, int age, String address, String description) {
         this.name = name;
         this.nickName = nickName;
         this.age = age;

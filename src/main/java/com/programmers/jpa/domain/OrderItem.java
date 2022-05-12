@@ -21,8 +21,7 @@ public class OrderItem {
 
     public OrderItem() {}
 
-    public OrderItem(Long id, int price, int quantity, String order_id, Long item_id) {
-        this.id = id;
+    public OrderItem(int price, int quantity, String order_id, Long item_id) {
         this.price = price;
         this.quantity = quantity;
         this.order_id = order_id;
