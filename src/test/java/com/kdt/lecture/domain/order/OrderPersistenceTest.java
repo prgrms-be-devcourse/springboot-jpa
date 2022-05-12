@@ -137,7 +137,7 @@ class OrderPersistenceTest {
         orderItem.setOrderStatus(OPENED);
         em.persist(orderItem);
 
-        member.addOrder(order);
+        member.addOrders(order);
         order.addOrderItems(orderItem);
         item.addOrderItems(orderItem);
 

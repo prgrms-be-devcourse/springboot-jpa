@@ -33,7 +33,7 @@ public class Member {
     private List<Order> orders = new ArrayList<>();
 
     //연관관계 편의 메소드
-    public void addOrder(Order order){
+    public void addOrders(Order order){
         order.setMember(this);
     }
 
