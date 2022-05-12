@@ -61,9 +61,12 @@ public class CustomerPersistenceTest {
         createTransaction();
         Customer customer = persistCustomer();
 
-        //transaction.begin();
+      //  transaction.begin();
         entityManager.remove(customer);
-        //transaction.commit();
+      //  transaction.commit();
+        entityManager.clear();
+
+
         log.info("{}", entityManager.find(Customer.class,customer.getId()));
         assertThat(entityManager.find(Customer.class, customer.getId())).isNull();
     }

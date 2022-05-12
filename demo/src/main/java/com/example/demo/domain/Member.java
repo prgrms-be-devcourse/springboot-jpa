@@ -1,7 +1,9 @@
 package com.example.demo.domain;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.aspectj.weaver.ast.Or;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -9,6 +11,8 @@ import java.util.List;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class Member {
 
     @Id
@@ -23,7 +27,7 @@ public class Member {
     @Size(min = 1, max = 30)
     private String nickName;
 
-    private String age;
+    private int age;
 
     @Column(nullable = false)
     private String address;
@@ -32,6 +36,15 @@ public class Member {
 
     @OneToMany(mappedBy = "member")
     private List<Order> orders;
+
+    public Member(String name, String nickName, int age, String address, String description) {
+        this.name = name;
+        this.nickName = nickName;
+        this.age = age;
+        this.address = address;
+        this.description = description;
+        this.orders = List.of();
+    }
 
     public void addOrder(Order order) {
         order.setMember(this);
