@@ -1,4 +1,4 @@
-package com.kdt.lecture.domain;
+package com.kdt.lecture.customer;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
