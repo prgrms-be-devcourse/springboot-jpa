@@ -1,7 +1,9 @@
 package com.kdt.jpaproject.domain.order.model;
 
 import com.kdt.jpaproject.domain.order.model.item.Item;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,6 +13,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "order_item")
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderItem extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
