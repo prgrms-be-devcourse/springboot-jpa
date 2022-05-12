@@ -1,12 +1,14 @@
 package com.programmers.mission3.Infrastructure.domain.order;
 
 import com.programmers.mission3.Infrastructure.domain.common.BaseEntity;
+import com.programmers.mission3.Infrastructure.domain.item.Item;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -47,10 +49,9 @@ public class OrderItem extends BaseEntity {
     }
 
     @Builder
-    public OrderItem(int price, int quantity, Order order, List<Item> items) {
+    public OrderItem(int price, int quantity) {
         this.price = price;
         this.quantity = quantity;
-        this.order = order;
-        this.items = items;
+        items = new ArrayList<>();
     }
 }

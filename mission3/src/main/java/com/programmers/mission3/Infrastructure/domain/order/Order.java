@@ -1,9 +1,11 @@
 package com.programmers.mission3.Infrastructure.domain.order;
 
 import com.programmers.mission3.Infrastructure.domain.common.BaseEntity;
+import com.programmers.mission3.Infrastructure.domain.member.Member;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -44,12 +46,11 @@ public class Order extends BaseEntity {
     }
 
     @Builder
-    public Order(String uuid, OrderStatus orderStatus, String memo, Member member, List<OrderItem> orderItems) {
+    public Order(String uuid, OrderStatus orderStatus, String memo) {
         this.uuid = uuid;
         this.orderStatus = orderStatus;
         this.memo = memo;
-        this.member = member;
-        this.orderItems = orderItems;
+        orderItems = new ArrayList<>();
     }
 
     public void updateOrderStatus(OrderStatus orderStatus){

@@ -1,4 +1,4 @@
-package com.programmers.mission3.Infrastructure.domain.order;
+package com.programmers.mission3.Infrastructure.domain.item;
 
 import lombok.AccessLevel;
 import lombok.Builder;
