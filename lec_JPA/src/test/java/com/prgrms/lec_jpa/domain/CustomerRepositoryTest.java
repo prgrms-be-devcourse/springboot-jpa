@@ -5,10 +5,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -32,7 +29,7 @@ class CustomerRepositoryTest {
 
         customerRepository.save(customer);
 
-        Customer entity = customerRepository.findById(1L).get();
+        Customer entity = customerRepository.findById(customer.getId()).get();
 
         log.info(entity.getFirstName() + " " + entity.getLastName());
     }
@@ -44,7 +41,7 @@ class CustomerRepositoryTest {
 
         entity.updateName("foo", "poo");
 
-        Customer updatedEntity = customerRepository.findById(1L).get();
+        Customer updatedEntity = customerRepository.findById(customer.getId()).get();
 
         log.info(updatedEntity.getFirstName() + " " + updatedEntity.getLastName());
     }
@@ -56,7 +53,7 @@ class CustomerRepositoryTest {
 
         customerRepository.delete(entity);
 
-        Optional<Customer> deleteEntity = customerRepository.findById(1L);
+        Optional<Customer> deleteEntity = customerRepository.findById(customer.getId());
 
         Assertions.assertThat(deleteEntity).isEqualTo(Optional.empty());
     }
