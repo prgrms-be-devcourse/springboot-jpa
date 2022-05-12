@@ -27,7 +27,7 @@ public abstract class Item extends BaseEntity {
     @JoinColumn(name = "order_item_id", referencedColumnName = "id")
     private OrderItem orderItem;
 
-    public void setOrderItem(OrderItem orderItem) {
+    public void changeOrderItem(OrderItem orderItem) {
         if (Objects.nonNull(this.orderItem)) {
             this.orderItem.getItems().remove(this);
         }

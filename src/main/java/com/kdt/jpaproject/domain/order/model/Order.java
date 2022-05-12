@@ -28,6 +28,6 @@ public class Order extends BaseEntity {
     private List<OrderItem> orderItems = new ArrayList<>();
 
     public void addOrderItem(OrderItem orderItem) {
-        orderItem.setOrder(this);
+        orderItem.changeOrder(this);
     }
 }

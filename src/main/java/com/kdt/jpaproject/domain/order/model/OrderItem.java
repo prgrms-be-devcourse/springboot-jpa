@@ -29,7 +29,7 @@ public class OrderItem extends BaseEntity {
     @OneToMany(mappedBy = "orderItem", cascade = CascadeType.ALL)
     private List<Item> items = new ArrayList<>();
 
-    public void setOrder(Order order) {
+    public void changeOrder(Order order) {
         if (Objects.nonNull(this.order)) {
             this.order.getOrderItems().remove(this);
         }
@@ -39,6 +39,6 @@ public class OrderItem extends BaseEntity {
     }
 
     public void addItem(Item item) {
-        item.setOrderItem(this);
+        item.changeOrderItem(this);
     }
 }
