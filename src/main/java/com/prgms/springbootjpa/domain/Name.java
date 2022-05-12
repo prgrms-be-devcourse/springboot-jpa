@@ -1,6 +1,7 @@
 package com.prgms.springbootjpa.domain;
 
-import static com.prgms.springbootjpa.exception.ExceptionMessage.NAME_FORMAT_EXP_MSG;
+import static com.prgms.springbootjpa.exception.ExceptionMessage.FIRST_NAME_FORMAT_EXP_MSG;
+import static com.prgms.springbootjpa.exception.ExceptionMessage.LAST_NAME_FORMAT_EXP_MSG;
 
 import com.prgms.springbootjpa.exception.InvalidNameLengthException;
 import java.util.Objects;
@@ -11,6 +12,11 @@ import javax.persistence.Embeddable;
 @Embeddable
 @Access(AccessType.FIELD)
 public class Name {
+
+    private static final int FIRST_NAME_LEN_MIN = 1;
+    private static final int FIRST_NAME_LEN_MAX = 10;
+    private static final int LAST_NAME_LEN_MIN = 1;
+    private static final int LAST_NAME_LEN_MAX = 5;
 
     private String firstName;
     private String lastName;
@@ -27,14 +33,14 @@ public class Name {
     }
 
     private void validateLastName(String lastName) {
-        if (lastName.length() < 1 || lastName.length() > 10) {
-            throw new InvalidNameLengthException(NAME_FORMAT_EXP_MSG);
+        if (lastName.length() < LAST_NAME_LEN_MIN || lastName.length() > LAST_NAME_LEN_MAX) {
+            throw new InvalidNameLengthException(LAST_NAME_FORMAT_EXP_MSG);
         }
     }
 
     private void validateFirstName(String firstName) {
-        if (firstName.length() < 1 || firstName.length() > 10) {
-            throw new InvalidNameLengthException(NAME_FORMAT_EXP_MSG);
+        if (firstName.length() < FIRST_NAME_LEN_MIN || firstName.length() > FIRST_NAME_LEN_MAX) {
+            throw new InvalidNameLengthException(FIRST_NAME_FORMAT_EXP_MSG);
         }
     }
 
