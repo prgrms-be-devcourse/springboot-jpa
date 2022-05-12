@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -20,8 +21,8 @@ public class Item {
     @Column(name = "stock_quantity")
     private int stockQuantity;
 
-    @OneToOne(mappedBy = "item")
-    private OrderItem orderItem;
+    @OneToMany(mappedBy = "item")
+    private List<OrderItem> orderItems;
 
     public Item(String name, Long price, int stockQuantity) {
         this.name = name;
@@ -30,6 +31,6 @@ public class Item {
     }
 
     public void setOrderItem(OrderItem orderItem) {
-        this.orderItem = orderItem;
+        orderItem.setItem(this);
     }
 }

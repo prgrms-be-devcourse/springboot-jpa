@@ -23,7 +23,7 @@ public class OrderItem {
     @JoinColumn(name = "order_id")
     private Order order;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "item_id")
     private Item item;
 
@@ -43,8 +43,11 @@ public class OrderItem {
     }
 
     public void setItem(Item item) {
-        this.item = item;
-        item.setOrderItem(this);
+       if(Objects.nonNull(this.item)) {
+           this.item.getOrderItems().remove(this);
+       }
+       this.item = item;
+       item.getOrderItems().add(this);
     }
 
 }
