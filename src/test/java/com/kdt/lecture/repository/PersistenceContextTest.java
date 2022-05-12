@@ -26,7 +26,7 @@ class PersistenceContextTest {
     private Customer createPersistCustomer(EntityManager entityManager, EntityTransaction transaction) {
         transaction.begin();
         Customer customer = new Customer();
-        customer.setId(1L);
+//        customer.setId(1L);
         customer.setFirstName("yongcheol");
         customer.setLastName("kim");
         entityManager.persist(customer);
@@ -47,7 +47,7 @@ class PersistenceContextTest {
         EntityTransaction transaction = entityManager.getTransaction();
 
         Customer customer = createPersistCustomer(entityManager, transaction);
-
+        System.out.println(customer.getId());
         assertThat(entityManager.contains(customer)).isTrue();
     }
 
@@ -59,7 +59,7 @@ class PersistenceContextTest {
 
         Customer customer = createPersistCustomer(entityManager, transaction);
         entityManager.detach(customer);
-        Customer selected = entityManager.find(Customer.class, 1L);
+        Customer selected = entityManager.find(Customer.class, customer.getId());
 
         assertThat(customer).usingRecursiveComparison().isEqualTo(selected);
     }
@@ -71,10 +71,9 @@ class PersistenceContextTest {
         EntityTransaction transaction = entityManager.getTransaction();
 
         Customer customer = createPersistCustomer(entityManager, transaction);
-        Customer selected = entityManager.find(Customer.class, 1L);
+        Customer selected = entityManager.find(Customer.class, customer.getId());
 
         assertThat(customer).usingRecursiveComparison().isEqualTo(selected);
-
     }
 
     @Test

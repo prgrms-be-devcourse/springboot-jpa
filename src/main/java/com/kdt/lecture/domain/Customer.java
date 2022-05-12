@@ -1,13 +1,12 @@
 package com.kdt.lecture.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "customers")
 public class Customer {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
 
     private String firstName;
