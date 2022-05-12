@@ -36,9 +36,9 @@ public class CustomerPersistenceTest {
     void 조회_DB_이용() {
         createTransaction();
         Customer customer = persistCustomer();
-        transaction.begin();
+       // transaction.begin();
         entityManager.detach(customer);
-        transaction.commit();
+      //  transaction.commit();
 
         //DB에 다녀오면 참조값이 같지 않다.
         assertThat(entityManager.find(Customer.class, customer.getId())).usingRecursiveComparison().isEqualTo(customer);
@@ -49,11 +49,11 @@ public class CustomerPersistenceTest {
         createTransaction();
         Customer customer = persistCustomer();
 
-        transaction.begin();
+       // transaction.begin();
         customer.changeName("change", "name");
-        transaction.commit();
+      //  transaction.commit();
 
-        assertThat(customer.getFirstName()).isEqualTo("change");
+        assertThat(entityManager.find(Customer.class, customer.getId()).getFirstName()).isEqualTo("change");
     }
 
     @Test
@@ -61,10 +61,10 @@ public class CustomerPersistenceTest {
         createTransaction();
         Customer customer = persistCustomer();
 
-        transaction.begin();
+        //transaction.begin();
         entityManager.remove(customer);
-        transaction.commit();
-
+        //transaction.commit();
+        log.info("{}", entityManager.find(Customer.class,customer.getId()));
         assertThat(entityManager.find(Customer.class, customer.getId())).isNull();
     }
 
