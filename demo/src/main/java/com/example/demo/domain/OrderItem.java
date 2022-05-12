@@ -1,6 +1,7 @@
 package com.example.demo.domain;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "order_item")
@@ -12,9 +13,19 @@ public class OrderItem {
     private Long price;
     private int quantity;
 
-    @Column(name = "order_id") //fk
-    private String orderId;
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
+
     @Column(name = "item_id") //fk
     private Long itemId;
+
+    public void setOrder(Order order) {
+        if(Objects.nonNull(this.order)) {
+            this.order.getOrderItems().remove(this);
+        }
+        this.order = order;
+        order.getOrderItems().add(this);
+    }
 
 }
