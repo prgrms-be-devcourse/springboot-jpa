@@ -47,8 +47,7 @@ public class 연관관계매핑 {
 
 
             var entity = em.find(Order.class, order.getUuid());
-            assertThat(entity).usingRecursiveComparison()
-                    .isEqualTo(order);
+            assertThat(entity).isEqualTo(order);
 
             transaction.commit();
         }
