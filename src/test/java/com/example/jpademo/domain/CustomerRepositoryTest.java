@@ -52,10 +52,8 @@ class CustomerRepositoryTest {
         Customer entity = repository.findById(1L).get();
         entity.setFirstName("UK");
         repository.save(entity);
-        Customer entity2 = repository.findById(1L).get();
-        assertThat(entity.getId()).isEqualTo(1L);
-        assertThat(entity.getFirstName()).isEqualTo("UK");
-        assertThat(entity.getLastName()).isEqualTo("Kim");
+        Customer selected = repository.findById(1L).get();
+        assertThat(entity).usingRecursiveComparison().isEqualTo(selected);
     }
 
     @Test
@@ -64,6 +62,6 @@ class CustomerRepositoryTest {
         Customer entity = repository.findById(1L).get();
         repository.delete(entity);
         List<Customer> customers = repository.findAll();
-        assertThat(customers.size()).isEqualTo(0);
+        assertThat(customers.size()).isZero();
     }
 }
