@@ -1,4 +1,4 @@
-package com.prgrms.springJpa.domain;
+package com.prgrms.springJpa.domain.customer;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
