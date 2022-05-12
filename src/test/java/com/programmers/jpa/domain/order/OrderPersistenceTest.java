@@ -1,9 +1,6 @@
 package com.programmers.jpa.domain.order;
 
-import com.programmers.jpa.domain.Member;
-import com.programmers.jpa.domain.Order;
-import com.programmers.jpa.domain.OrderItem;
-import com.programmers.jpa.domain.OrderStatus;
+import com.programmers.jpa.domain.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -79,6 +76,41 @@ public class OrderPersistenceTest {
                 () -> assertThat(entity1.getOrder().getUuid()).isEqualTo(entity2.getOrder().getUuid()),
                 () -> assertThat(entity1.getOrder().getOrderItems().size()).isEqualTo(entity2.getOrder().getOrderItems().size())
         );
+    }
+
+    @Test
+    void OrderItem_Item_연관관계_테스트() {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+
+        transaction.begin();
+
+        OrderItem orderItem = new OrderItem(1000, 2, null, null);
+
+        Item item1 = new Item(500, 100, orderItem);
+        em.persist(item1);
+
+        Item item2 = new Item(1500, 50, orderItem);
+        em.persist(item2);
+
+        Item item3 = new Item(2000, 10, orderItem);
+        em.persist(item3);
+
+        orderItem.setItems(List.of(item1, item2, item3));
+        em.persist(orderItem);
+
+        Item entity1 = em.find(Item.class, item1.getId());
+        Item entity2 = em.find(Item.class, item2.getId());
+        Item entity3 = em.find(Item.class, item3.getId());
+
+        assertAll(
+                () -> assertThat(entity1.getOrderItem().getItems().size()).isEqualTo(orderItem.getItems().size()),
+                () -> assertThat(entity1.getOrderItem().getItems().size()).isEqualTo(3),
+                () -> assertThat(entity1.getOrderItem().getItems().size()).isEqualTo(entity2.getOrderItem().getItems().size()),
+                () -> assertThat(entity2.getOrderItem().getItems().size()).isEqualTo(entity3.getOrderItem().getItems().size()),
+                () -> assertThat(entity1.getOrderItem().getItems().get(0).getPrice()).isEqualTo(item1.getPrice())
+        );
+
     }
 
 
