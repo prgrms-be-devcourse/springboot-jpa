@@ -13,4 +13,3 @@ spring:
         dialect: org.hibernate.dialect.H2Dialect
         hbm2ddl:
           auto: create-drop
-        format_sql: true

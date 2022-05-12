@@ -33,9 +33,9 @@ class CustomerRepositoryTest {
         var savedOne = repository.save(customer);
 
         //then
-        var foundOne = repository.findById(customer.getId()).get();
+        var selected = repository.findById(customer.getId()).get();
 
-        assertThat(foundOne, samePropertyValuesAs(savedOne));
-        log.info("Found Customer {} {}", foundOne.getFirstName(), foundOne.getLastName());
+        assertThat(selected, samePropertyValuesAs(savedOne));
+        log.info("Found Customer {} {}", selected.getFirstName(), selected.getLastName());
     }
 }
