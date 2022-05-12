@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.AUTO;
 import static lombok.AccessLevel.PROTECTED;
@@ -20,8 +21,8 @@ public class OrderItem {
     @GeneratedValue(strategy = AUTO)
     private Long id;
 
-    @Column(name = "item_price")
-    private int itemPrice;
+    @Column(name = "order_price")
+    private int orderPrice;
 
     @Column(name = "order_quantity")
     private long orderQuantity;
@@ -34,14 +35,20 @@ public class OrderItem {
     @JoinColumn(name = "item_id")
     private Item item;
 
-    public OrderItem(int itemPrice, long orderQuantity) {
-        this.itemPrice = itemPrice;
+    private OrderItem(int orderPrice, long orderQuantity) {
+        this.orderPrice = orderPrice;
         this.orderQuantity = orderQuantity;
+    }
+
+    public static OrderItem createOrderItem(int orderPrice, long orderQuantity, Item item) {
+        var orderItem = new OrderItem(orderPrice, orderQuantity);
+        orderItem.setItem(item);
+
+        return orderItem;
     }
 
     public void setOrder(Order order) {
         this.order = order;
-        order.getOrderItems().add(this);
     }
 
     public void setItem(Item item) {

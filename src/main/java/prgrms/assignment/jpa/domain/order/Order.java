@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static java.time.LocalDateTime.now;
 import static javax.persistence.CascadeType.ALL;
@@ -46,14 +47,38 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    public Order(String memo) {
+    private Order(String memo) {
         this.memo = memo;
         this.orderStatus = ACCEPTED;
         this.orderDatetime = now();
     }
 
-    public void setMember(Member member) {
+    public static Order createOrder(String memo, Member member, OrderItem... orderItems) {
+        var order = new Order(memo);
+        order.setMember(member);
+
+        for (OrderItem orderItem : orderItems) {
+            order.addOrderItems(orderItem);
+        }
+
+        return order;
+    }
+
+    private void setMember(Member member) {
+        if(Objects.nonNull(this.member)) {
+            this.member.getOrders().remove(this);
+        }
+
         this.member = member;
         member.getOrders().add(this);
+    }
+
+    public void addOrderItems(OrderItem orderItem) {
+        if (this.orderItems.contains(orderItem)) {
+            orderItems.remove(orderItem);
+        }
+
+        orderItem.setOrder(this);
+        this.orderItems.add(orderItem);
     }
 }

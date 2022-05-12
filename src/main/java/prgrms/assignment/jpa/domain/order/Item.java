@@ -28,7 +28,7 @@ public class Item {
     @Column(name = "stock_quantity")
     private long stockQuantity;
 
-    @OneToMany(mappedBy = "item", cascade = ALL)
+    @OneToMany(mappedBy = "item")
     private List<OrderItem> orderItems = new ArrayList<>();
 
     public Item(int price, long stockQuantity) {
