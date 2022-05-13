@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Getter @Setter
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "orders")
 public class Order extends BaseEntity{
@@ -36,7 +36,7 @@ public class Order extends BaseEntity{
 
     public static Order createOrder(Member member, String memo, OrderItem... orderItems) {
         Order order = new Order();
-        order.setMember(member);
+        order.changeMember(member);
         order.setMemo(memo);
         for (OrderItem orderItem : orderItems) {
             order.addOrderItem(orderItem);
@@ -46,7 +46,7 @@ public class Order extends BaseEntity{
         return order;
     }
 
-    public void setMember(Member member) {
+    public void changeMember(Member member) {
         if(Objects.nonNull(this.member)){
             member.getOrders().remove(this);
         }
@@ -55,6 +55,18 @@ public class Order extends BaseEntity{
     }
 
     public void addOrderItem(OrderItem orderItem) {
-        orderItem.setOrder(this);
+        orderItem.changeOrder(this);
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    public void setOrderDateTime(LocalDateTime orderDateTime) {
+        this.orderDateTime = orderDateTime;
     }
 }
