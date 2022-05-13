@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter @Setter
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends BaseEntity{
     @Id
@@ -42,6 +42,6 @@ public class Member extends BaseEntity{
     }
 
     public void addOrder(Order order) {
-        order.setMember(this);
+        order.changeMember(this);
     }
 }
