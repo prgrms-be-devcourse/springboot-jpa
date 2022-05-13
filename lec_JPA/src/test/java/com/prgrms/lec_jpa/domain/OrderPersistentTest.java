@@ -90,9 +90,14 @@ public class OrderPersistentTest {
         //when
         OrderItem entity = em.find(OrderItem.class, orderItem.getId());
 
-        String memberNameExpected = entity.getOrder().getMember().getName();
-        long itemPriceExpected = entity.getItem().getPrice();
-        String orderMemoExpected = entity.getOrder().getMemo();
+        Order associatedOrder = entity.getOrder();
+        Member associatedMember = associatedOrder.getMember();
+
+        Item associatedItem = entity.getItem();
+
+        String memberNameExpected = associatedMember.getName();
+        long itemPriceExpected = associatedItem.getPrice();
+        String orderMemoExpected = associatedOrder.getMemo();
 
         //then
         Assertions.assertThat(memberNameExpected).isEqualTo(member.getName());
