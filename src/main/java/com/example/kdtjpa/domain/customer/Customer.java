@@ -1,4 +1,4 @@
-package com.example.kdtjpa.domain;
+package com.example.kdtjpa.domain.customer;
 
 import lombok.NoArgsConstructor;
 import javax.persistence.Entity;

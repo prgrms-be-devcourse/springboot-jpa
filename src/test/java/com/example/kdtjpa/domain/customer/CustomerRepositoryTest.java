@@ -1,4 +1,4 @@
-package com.example.kdtjpa.domain;
+package com.example.kdtjpa.domain.customer;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
