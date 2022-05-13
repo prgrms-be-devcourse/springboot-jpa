@@ -7,14 +7,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 
 @Slf4j
 @SpringBootTest
-public class PersistenceContextTest {
+class PersistenceContextTest {
 
     @Autowired
     CustomerRepository customerRepository;

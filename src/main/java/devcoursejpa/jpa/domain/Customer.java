@@ -9,7 +9,7 @@ import javax.persistence.Table;
 public class Customer {
 
     @Id
-    private long id;
+    private Long id;
     private String firstName;
     private String lastName;
 

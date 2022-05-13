@@ -1,8 +1,5 @@
 package devcoursejpa.jpa.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -31,6 +28,10 @@ public class Order {
 
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems;
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
 
     public void setMember(Member member) {
         if (Objects.nonNull(this.member)) {
