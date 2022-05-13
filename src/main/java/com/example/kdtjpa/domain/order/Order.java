@@ -58,5 +58,3 @@ public class Order extends BaseEntity {
         orderItem.setOrder(this);
     }
 }
-
-
