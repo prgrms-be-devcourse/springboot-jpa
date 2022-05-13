@@ -1,4 +1,4 @@
-package com.programmers.jpa.domain;
+package com.programmers.jpa.domain.order;
 
 import javax.persistence.*;
 import java.util.Objects;

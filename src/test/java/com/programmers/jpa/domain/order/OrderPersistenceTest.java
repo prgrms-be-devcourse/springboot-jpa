@@ -1,6 +1,5 @@
 package com.programmers.jpa.domain.order;
 
-import com.programmers.jpa.domain.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
