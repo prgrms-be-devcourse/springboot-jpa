@@ -25,10 +25,10 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "name", nullable = false, length = NAME_MAX_LENGTH)
+    @Column(name = "name", nullable = false, length = 30)
     private String name;
 
-    @Column(name = "nick_name", nullable = false, length = NICK_NAME_MAX_LENGTH, unique = true)
+    @Column(name = "nick_name", nullable = false, length = 30, unique = true)
     private String nickName;
 
     @Column(name = "age", nullable = false)
