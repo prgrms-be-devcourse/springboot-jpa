@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
+    <persistence-unit name="jpa_study">
+        <class>com.management.member.entity.Member</class>
+    </persistence-unit>
+</persistence>
