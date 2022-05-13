@@ -9,9 +9,11 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Getter
 @SequenceGenerator(
 	name = "CUSTOMER_SEQ_GENERATOR",
 	sequenceName = "CUSTOMER_SEQ",
@@ -33,18 +35,6 @@ public class Customer {
 	public Customer(String firstName, String lastName) {
 		this.firstName = firstName;
 		this.lastName = lastName;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
 	}
 
 	public void changeFirstName(String firstName) {
