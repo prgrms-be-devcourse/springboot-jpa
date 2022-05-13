@@ -21,6 +21,18 @@ public class Item {
 	@Column(nullable = false)
 	private int stockQuantity;
 
+	private Item(int price, int stockQuantity) {
+		this.price = price;
+		this.stockQuantity = stockQuantity;
+	}
+
+	protected Item() {
+	}
+
+	public static Item create(int price, int stockQuantity) {
+		return new Item(price, stockQuantity);
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -29,15 +41,7 @@ public class Item {
 		return price;
 	}
 
-	public void setPrice(int price) {
-		this.price = price;
-	}
-
 	public int getStockQuantity() {
 		return stockQuantity;
-	}
-
-	public void setStockQuantity(int stockQuantity) {
-		this.stockQuantity = stockQuantity;
 	}
 }

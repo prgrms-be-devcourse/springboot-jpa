@@ -3,6 +3,7 @@ package com.study.springbootJpa.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,23 +20,39 @@ public class Member {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 
-	@Column(nullable = false)
+	@Column(nullable = false, length = 10)
 	private String name;
 
 	@Column(nullable = false, length = 30, unique = true)
 	private String nickName;
 
-	@Column(nullable = true)
+	@Column
 	private int age;
 
 	@Column(nullable = false)
 	private String address;
 
-	@Column(nullable = true)
+	@Column
 	private String description;
 
-	@OneToMany(mappedBy = "member")
+
+	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
 	private List<Order> orders = new ArrayList<>();
+
+	private Member(String name, String nickName, int age, String address, String description) {
+		this.name = name;
+		this.nickName = nickName;
+		this.age = age;
+		this.address = address;
+		this.description = description;
+	}
+
+	public static Member create(String name, String nickName, int age, String address, String description) {
+		return new Member(name,nickName,age,address,description);
+	}
+
+	protected Member() {
+	}
 
 	public void addOrder(Order order) {
 		order.setMember(this);
@@ -49,40 +66,20 @@ public class Member {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getNickName() {
 		return nickName;
-	}
-
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
 	}
 
 	public int getAge() {
 		return age;
 	}
 
-	public void setAge(int age) {
-		this.age = age;
-	}
-
 	public String getAddress() {
 		return address;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
 	public String getDescription() {
 		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	public List<Order> getOrders() {

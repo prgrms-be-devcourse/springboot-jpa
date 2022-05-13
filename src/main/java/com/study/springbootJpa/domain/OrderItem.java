@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,13 +25,25 @@ public class OrderItem {
 	@Column(nullable = false)
 	private OrderStatus orderStatus;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "order_id", referencedColumnName = "id")
 	private Order order;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "item_id", referencedColumnName = "id")
 	private Item item;
+
+	private OrderItem(int price, OrderStatus orderStatus) {
+		this.price = price;
+		this.orderStatus = orderStatus;
+	}
+
+	protected OrderItem() {
+	}
+
+	public static OrderItem create(int price, OrderStatus orderStatus) {
+		return new OrderItem(price, orderStatus);
+	}
 
 	public void setOrder(Order order) {
 		if (Objects.nonNull(this.order)) {
@@ -53,16 +66,8 @@ public class OrderItem {
 		return price;
 	}
 
-	public void setPrice(int price) {
-		this.price = price;
-	}
-
 	public OrderStatus getOrderStatus() {
 		return orderStatus;
-	}
-
-	public void setOrderStatus(OrderStatus orderStatus) {
-		this.orderStatus = orderStatus;
 	}
 
 	public Order getOrder() {

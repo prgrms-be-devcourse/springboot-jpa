@@ -10,8 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import com.study.springbootJpa.domain.Customer;
-
 @DataJpaTest
 public class CustomerRepositoryTest {
 
@@ -39,7 +37,7 @@ public class CustomerRepositoryTest {
 	@DisplayName("Customer가 저장되어야함")
 	void save_test() {
 		//given
-		Customer customer = new Customer();
+		var customer = new Customer();
 		customer.setId(3L);
 		customer.setFirstName("hyeb");
 		customer.setLastName("park");

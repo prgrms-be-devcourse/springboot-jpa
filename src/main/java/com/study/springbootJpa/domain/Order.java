@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -38,8 +39,22 @@ public class Order {
 	@JoinColumn(name = "member_id", referencedColumnName = "id")
 	private Member member;
 
-	@OneToMany(mappedBy = "order")
+	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
 	private List<OrderItem> orderItems = new ArrayList<>();
+
+	private Order(String uuid, LocalDateTime orderDateTime, OrderStatus orderStatus, String memo) {
+		this.uuid = uuid;
+		this.orderDateTime = orderDateTime;
+		this.orderStatus = orderStatus;
+		this.memo = memo;
+	}
+
+	protected Order() {
+	}
+
+	public static Order create(String uuid, LocalDateTime orderDateTime, OrderStatus orderStatus, String memo) {
+		return new Order(uuid, orderDateTime, orderStatus, memo);
+	}
 
 	public void setMember(Member member) {
 		if (Objects.nonNull(this.member)) {
@@ -67,31 +82,16 @@ public class Order {
 		return uuid;
 	}
 
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
-	}
-
 	public LocalDateTime getOrderDateTime() {
 		return orderDateTime;
-	}
-
-	public void setOrderDateTime(LocalDateTime orderDateTime) {
-		this.orderDateTime = orderDateTime;
 	}
 
 	public OrderStatus getOrderStatus() {
 		return orderStatus;
 	}
 
-	public void setOrderStatus(OrderStatus orderStatus) {
-		this.orderStatus = orderStatus;
-	}
-
 	public String getMemo() {
 		return memo;
 	}
 
-	public void setMemo(String memo) {
-		this.memo = memo;
-	}
 }

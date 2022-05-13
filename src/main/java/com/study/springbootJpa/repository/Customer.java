@@ -1,4 +1,4 @@
-package com.study.springbootJpa.domain;
+package com.study.springbootJpa.repository;
 
 import java.util.Objects;
 

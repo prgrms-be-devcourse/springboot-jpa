@@ -39,17 +39,8 @@ public class OrderMappingTest {
 		var transaction = entityManager.getTransaction();
 		transaction.begin();
 
-		Member member = new Member();
-		member.setName("hyebpark");
-		member.setNickName("hyeb");
-		member.setAddress("부산시 몰랑몰랑");
-		member.setAge(12);
-
-		Order order = new Order();
-		order.setUuid(UUID.randomUUID().toString());
-		order.setOrderStatus(OPENED);
-		order.setOrderDateTime(LocalDateTime.now());
-		order.setMemo("문 앞에 두고 가주세요~");
+		Member member = Member.create("hyebpark", "hyeb", 12, "부산시 몰랑몰랑", "메모메모");
+		Order order = Order.create(UUID.randomUUID().toString(), LocalDateTime.now(), OPENED, "문 앞에 두고 가주세요 ~");
 
 		member.addOrder(order);
 
@@ -93,15 +84,11 @@ public class OrderMappingTest {
 
 		transaction.begin();
 
-		Item item = new Item();
-		item.setPrice(1000);
-		item.setStockQuantity(10);
+		Item item = Item.create(1000, 10);
 
-		OrderItem orderItem = new OrderItem();
-		orderItem.setPrice(2000);
+		OrderItem orderItem = OrderItem.create(2000, OPENED);
 		orderItem.setItem(item);
 		orderItem.setOrder(order);
-		orderItem.setOrderStatus(OPENED);
 
 		entityManager.persist(item);
 		entityManager.persist(orderItem);
