@@ -87,7 +87,7 @@ public class OrderPersistenceTest {
         em.clear();
         Member findMember = em.find(Member.class, member.getId());
         //then
-        assertThat(findMember.getOrders().get(0).getId()).usingRecursiveComparison().isEqualTo(order.getId());
+        assertThat(findMember.getOrders().get(0).getId()).isEqualTo(order.getId());
     }
 
     @Test
