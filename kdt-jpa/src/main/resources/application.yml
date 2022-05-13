@@ -4,16 +4,16 @@ spring:
       enabled: true
   jpa:
     generate-ddl: true
-    hibernate:
-      ddl-auto: create-drop
     open-in-view: false
     database: H2
     show-sql: true
     properties:
       hibernate:
-#        format_sql: true
-        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
         query.in_clause_parameter_padding: true
+        hbm2ddl:
+          auto: create
 logging:
   level:
     org:
