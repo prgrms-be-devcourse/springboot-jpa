@@ -52,6 +52,20 @@ class CustomerJpaRepositoryTest {
 		customerRepository.flush();
 	}
 
+	@Test
+	@DisplayName("DB 에 insert 한 커스토머 삭제 결과 해당 엔티티는 영속성 컨텍스트와 DB 모두 에서 찾을 수 없다")
+	public void delete_customer() {
+		Customer savedCustomer = customerRepository.save(customer1);
+		customerRepository.flush();
+
+		customerRepository.delete(savedCustomer);
+		customerRepository.flush();
+
+		boolean present = customerRepository.findById(savedCustomer.getId()).isPresent();
+
+		Assertions.assertThat(present).isFalse();
+	}
+
 	private Customer createCustomer(String firstName, String LastName) {
 		return new Customer(firstName, LastName);
 	}
