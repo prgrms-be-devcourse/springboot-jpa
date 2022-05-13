@@ -54,7 +54,6 @@ public class OrderItem extends BaseEntity{
 
     public void cancel() {
         this.getItem().addStock(this.quantity);
-//        this.order.getOrderItems().remove(this);
     }
 
     public int getTotalPrice() {
