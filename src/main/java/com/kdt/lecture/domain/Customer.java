@@ -3,9 +3,7 @@ package com.kdt.lecture.domain;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Getter @Setter
 @Entity
@@ -17,9 +15,10 @@ public class Customer {
     private String firstName;
     private String lastName;
 
-    public Customer(){}
+    public Customer() {
+    }
 
-    public Customer(long id, String firstName, String lastName) {
+    public Customer(Long id, String firstName, String lastName) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

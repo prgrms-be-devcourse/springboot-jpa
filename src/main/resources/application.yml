@@ -1,7 +1,7 @@
 spring:
   h2:
     console:
-      enabled: false
+      enabled: true
       path: /h2-console
   jpa:
     generate-ddl: true
