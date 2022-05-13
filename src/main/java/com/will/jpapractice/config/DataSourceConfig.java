@@ -61,24 +61,24 @@ public class DataSourceConfig {
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, JpaVendorAdapter jpaVendorAdapter,
                                                                        JpaProperties jpaProperties) {
-        LocalContainerEntityManagerFactoryBean em
+        LocalContainerEntityManagerFactoryBean entityManager
                 = new LocalContainerEntityManagerFactoryBean();
 
         // 어떤 dataSource를 쓸 것인지 명시
-        em.setDataSource(dataSource);
+        entityManager.setDataSource(dataSource);
 
         // 어떤 패키지의 엔티티를 관리를 해줄 것인지 명시
-        em.setPackagesToScan("com.will.jpapractice.domain");
+        entityManager.setPackagesToScan("com.will.jpapractice.domain");
 
         // 하이버네이트 구현체를 사용한다고 명시
-        em.setJpaVendorAdapter(jpaVendorAdapter);
+        entityManager.setJpaVendorAdapter(jpaVendorAdapter);
 
         // application.yaml에 있는 하이버네이트 튜닝 설정값을 엔티티메니저팩토리 빈에 설정.
         Properties properties = new Properties();
         properties.putAll(jpaProperties.getProperties());
-        em.setJpaProperties(properties);
+        entityManager.setJpaProperties(properties);
 
-        return em;
+        return entityManager;
     }
 
 
