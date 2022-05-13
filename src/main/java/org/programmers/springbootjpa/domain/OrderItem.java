@@ -16,11 +16,35 @@ public class OrderItem {
     private int price;
     private int quantity;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ORDER_ID")
     private Order order;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ITEM_ID")
     private Item item;
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setOrder(Order order) {
+        if (this.order != null) {
+            this.order.getOrderItems().remove(this);
+        }
+        this.order = order;
+        this.order.getOrderItems().add(this);
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
 }

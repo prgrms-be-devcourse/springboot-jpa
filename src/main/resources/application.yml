@@ -1,3 +1,4 @@
+
 spring:
   h2:
     console:
@@ -12,8 +13,6 @@ spring:
         hbm2ddl:
           auto: create-drop
         query.in_clause_parameter_padding: true
-
-decorator:
-  datasource:
-    p6spy:
-      enable-logging: true
+#  datasource:
+#    p6spy:
+#      enable-logging: true

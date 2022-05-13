@@ -3,6 +3,7 @@ package org.programmers.springbootjpa.domain;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,7 +25,7 @@ public class Member {
     private String description;
 
     @OneToMany(mappedBy = "member")
-    private List<Order> orders;
+    private List<Order> orders = new ArrayList<>();
 
     public void setId(Long id) {
         this.id = id;

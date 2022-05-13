@@ -1,7 +1,6 @@
 package org.programmers.springbootjpa.domain;
 
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,8 +9,7 @@ import java.util.List;
 @Entity
 @Table(name = "ORDERS")
 @Getter
-@Setter
-public class Order {
+public class Order extends BaseEntity{
 
     @Id
     @Column(name = "ID")
@@ -27,10 +25,38 @@ public class Order {
     @Column(name = "MEMO")
     private String memo;
 
-    @ManyToOne
-    @JoinColumn(name = "MEMBER_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MEMBER_ID", referencedColumnName = "id")
     private Member member;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems;
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public void setOrderDatetime(LocalDateTime orderDatetime) {
+        this.orderDatetime = orderDatetime;
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
+
+    public void setMember(Member member) {
+        if (this.member != null) {
+            member.getOrders().remove(this);
+        }
+        this.member = member;
+        member.getOrders().add(this);
+    }
+
+    public void addOrderItem(OrderItem orderItem) {
+        orderItem.setOrder(this);
+    }
 }
