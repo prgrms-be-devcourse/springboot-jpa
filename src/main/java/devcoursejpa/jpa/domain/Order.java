@@ -2,6 +2,7 @@ package devcoursejpa.jpa.domain;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,7 +15,7 @@ public class Order {
     private String uuid;
 
     @Column(name = "order_datetime", columnDefinition = "TIMESTAMP")
-    private LocalDateTime localDateTime;
+    private LocalDateTime orderDateTime;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
@@ -27,10 +28,41 @@ public class Order {
     private Member member;
 
     @OneToMany(mappedBy = "order")
-    private List<OrderItem> orderItems;
+    private List<OrderItem> orderItems = new ArrayList<>();
+
+    protected Order() {
+
+    }
+
+    public Order(String uuid, LocalDateTime orderDateTime, OrderStatus orderStatus, String memo) {
+        this.uuid = uuid;
+        this.orderDateTime = orderDateTime;
+        this.orderStatus = orderStatus;
+        this.memo = memo;
+    }
 
     public List<OrderItem> getOrderItems() {
         return orderItems;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public LocalDateTime getOrderDateTime() {
+        return orderDateTime;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public Member getMember() {
+        return member;
     }
 
     public void setMember(Member member) {

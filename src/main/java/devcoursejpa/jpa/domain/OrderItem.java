@@ -1,10 +1,6 @@
 package devcoursejpa.jpa.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -14,7 +10,6 @@ public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private int price;
     private int quantity;
 
@@ -22,8 +17,35 @@ public class OrderItem {
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order order;
 
-    @OneToMany(mappedBy = "orderItem")
-    private List<Item> items;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "item_id", referencedColumnName = "id")
+    private Item item;
+
+    protected OrderItem() {
+
+    }
+
+    public OrderItem(int price, int quantity, Item item) {
+        this.price = price;
+        this.quantity = quantity;
+        setItem(item);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
 
     public void setOrder(Order order) {
         if (Objects.nonNull(this.order)) {
@@ -34,11 +56,16 @@ public class OrderItem {
         order.getOrderItems().add(this);
     }
 
-    public void addItem(Item item) {
-        item.setOrderItem(this);
+    public Item getItem() {
+        return item;
     }
 
-    public List<Item> getItems() {
-        return items;
+    public void setItem(Item item) {
+        if (Objects.nonNull(this.item)) {
+            this.item.getOrderItems().remove(this);
+        }
+
+        this.item = item;
+        item.getOrderItems().add(this);
     }
 }

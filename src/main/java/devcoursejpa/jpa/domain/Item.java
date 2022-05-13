@@ -1,10 +1,8 @@
 package devcoursejpa.jpa.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "item")
@@ -13,20 +11,38 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private int price;
     private int stockQuantity;
 
-    @ManyToOne
-    @JoinColumn(name = "order_item_id", referencedColumnName = "id")
-    private OrderItem orderItem;
+    @OneToMany(mappedBy = "item")
+    private List<OrderItem> orderItems = new ArrayList<>();
 
-    public void setOrderItem(OrderItem orderItem) {
-        if (Objects.nonNull(this.orderItem)) {
-            this.orderItem.getItems().remove(this);
-        }
+    protected Item() {
 
-        this.orderItem = orderItem;
-        orderItem.getItems().add(this);
+    }
+
+    public Item(int price, int stockQuantity) {
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public int getStockQuantity() {
+        return stockQuantity;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void addOrderItem(OrderItem orderItem) {
+        orderItem.setItem(this);
     }
 }

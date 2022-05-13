@@ -8,7 +8,7 @@ import java.util.List;
 @Table(name = "member")
 public class Member {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name", nullable = false, length = 30)
@@ -27,6 +27,42 @@ public class Member {
 
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
+
+    protected Member() {
+
+    }
+
+    public Member(String name, String nickName, int age, String address, String description) {
+        this.name = name;
+        this.nickName = nickName;
+        this.age = age;
+        this.address = address;
+        this.description = description;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 
     public void addOrder(Order order) {
         order.setMember(this);
