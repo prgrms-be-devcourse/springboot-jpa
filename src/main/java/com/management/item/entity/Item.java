@@ -1,10 +1,12 @@
 package com.management.item.entity;
 
 import com.management.common.entity.BaseEntity;
+import com.management.order.entity.OrderItem;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -24,4 +26,11 @@ public abstract class Item extends BaseEntity {
 
     @Column(name = "stock_quantity", nullable = false)
     private Integer stockQuantity;
+
+    @OneToMany(mappedBy = "item")
+    private List<OrderItem> orderItems;
+
+    public void addOrderItem(OrderItem orderItem) {
+        orderItem.setItem(this);
+    }
 }
