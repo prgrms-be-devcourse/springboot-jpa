@@ -25,11 +25,6 @@ public class OrderItem {
 	private int price;
 	@Column(name = "quantity")
 	private int quantity;
-	@Column(name = "order_id", insertable = false, updatable = false)
-	private String orderId;
-	@Column(name = "item_id", insertable = false, updatable = false)
-	private Long itemId;
-
 	@ManyToOne
 	@JoinColumn(name = "order_id", referencedColumnName = "id")
 	private Order order;

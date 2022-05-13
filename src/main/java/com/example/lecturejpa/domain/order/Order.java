@@ -33,15 +33,9 @@ public class Order {
 	private OrderStatus status;
 	@Column(name = "ordered_at", columnDefinition = "TIMESTAMP")
 	private LocalDateTime orderedAt;
-
-	//member_fk
-	@Column(name = "member_id", insertable = false, updatable = false)
-	private Long memberId;
-
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "member_id", referencedColumnName = "id")
 	private Member member;
-
 	@OneToMany(mappedBy = "order")
 	private final List<OrderItem> orderItems = new ArrayList<>();
 
@@ -56,7 +50,7 @@ public class Order {
 		setMember(member);
 	}
 
-	public void setMember(Member member) {
+	 void setMember(Member member) {
 		if (Objects.nonNull(this.member)) {
 			this.member.getOrders().remove(this);
 		}
