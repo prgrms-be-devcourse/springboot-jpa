@@ -109,7 +109,7 @@ class MemberTest {
     }
 
     @Test
-    public void Test() throws Exception {
+    public void 멤버생성_아이템등록_주문생성_연관관계확인() throws Exception {
 
         transaction.begin();
         //given
@@ -141,4 +141,5 @@ class MemberTest {
 
         transaction.commit();
     }
+
 }
