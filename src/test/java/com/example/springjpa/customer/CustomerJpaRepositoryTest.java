@@ -79,6 +79,17 @@ class CustomerJpaRepositoryTest {
 		Assertions.assertThat(present).isFalse();
 	}
 
+	@Test
+	@DisplayName("flush 이후에도 영속성 컨텍스트 내부 엔티티는 관리하에 있어 변경감지가 발생한다")
+	public void given_changed_customer_when_changeAfterFlushing_thenUpdate() {
+		Customer savedCustomer = customerRepository.save(customer1); // insert
+
+		savedCustomer.changeFirstName("kim"); // update
+		customerRepository.flush();
+		logger.info("AFTER FLUSH");
+		savedCustomer.changeFirstName("Han"); // update
+	}
+
 	private Customer createCustomer(String firstName, String LastName) {
 		return new Customer(firstName, LastName);
 	}
