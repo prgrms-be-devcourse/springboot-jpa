@@ -18,8 +18,9 @@ public class OrderItem {
     private int quantity;
 
     // FK
-    @Column(name = "order_id")
-    private String orderId;
+    @ManyToOne
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    private Order order;
     @Column(name = "item_id")
     private String itemId;
 }

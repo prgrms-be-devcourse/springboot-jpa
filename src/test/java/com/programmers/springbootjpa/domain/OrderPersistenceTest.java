@@ -3,7 +3,6 @@ package com.programmers.springbootjpa.domain;
 import com.programmers.springbootjpa.domain.order.Member;
 import com.programmers.springbootjpa.domain.order.Order;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -72,5 +71,39 @@ public class OrderPersistenceTest {
         Member orderMemberEntity = entityManager.find(Member.class, orderEntity.getMemberId());
         // orderEntity.getMember() // 객체중심 설계라면 이렇게 해야하지 않을까?
         log.info("nick : {}", orderMemberEntity.getNickName());
+    }
+
+    @Test
+    void 연관관계_테스트() {
+        EntityManager entityManager = emf.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        transaction.begin();
+
+        Member member = new Member();
+        member.setName("hyeonseo");
+        member.setNickName("JUNG");
+        member.setAddress("서울시 마포구");
+        member.setAge(24);
+
+        entityManager.persist(member);
+
+        Order order = new Order();
+        order.setUuid(UUID.randomUUID().toString());
+        order.setOrderStatus(OPENED);
+        order.setOrderDateTime(LocalDateTime.now());
+        order.setMemo("메모입니다.");
+        order.setMember(member);
+
+        entityManager.persist(order);
+
+        transaction.commit();
+
+        entityManager.clear();
+        Order entity = entityManager.find(Order.class, order.getUuid());
+
+        log.info("{}", entity.getMember().getNickName());
+        log.info("{}", entity.getMember().getOrders().size());
+        log.info("{}", order.getMember().getOrders().size());
     }
 }
