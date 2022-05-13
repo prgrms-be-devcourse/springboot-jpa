@@ -84,43 +84,12 @@ class OrderControllerTest {
                 .orderItemDtos(List.of(orderItemDto))
                 .build();
 
-//        String saveId = orderService.save(orderDto);
-//
-//        assertThat(orderId.equals(saveId), is(true));
     }
 
     @Test
     @DisplayName("order 등록 테스트")
     void testSaveApi() throws Exception {
         // Given
-//        itemDto = ItemDto.builder()
-//                .type(ItemType.FOOD)
-//                .chef("범석")
-//                .price(1000)
-//                .build();
-//
-//        memberDto = MemberDto.builder()
-//                .name("beomsic kko")
-//                .nickName("beomsic")
-//                .age(26)
-//                .address("서울시 구로구")
-//                .description("test")
-//                .build();
-//
-//        orderItemDto = OrderItemDto.builder()
-//                .price(1000)
-//                .quantity(200)
-//                .itemDtos(List.of(itemDto))
-//                .build();
-//
-//        orderDto = OrderDto.builder()
-//                .orderId(orderId)
-//                .memo("테스트1")
-//                .orderDatetime(LocalDateTime.now())
-//                .orderStatus(OrderStatus.OPENED)
-//                .memberDto(memberDto)
-//                .orderItemDtos(List.of(orderItemDto))
-//                .build();
 
         // When
         mockMvc.perform(post("/orders")

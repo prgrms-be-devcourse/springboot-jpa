@@ -48,8 +48,6 @@ class OrderRepositoryTest {
         member.setAddress("서울시 구로구");
         member.setDescription("hi");
 
-//        member.addOrder(order);
-
         order.setMember(member);
 
         orderRepository.save(order);
