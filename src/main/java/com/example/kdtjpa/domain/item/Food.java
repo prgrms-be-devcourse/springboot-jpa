@@ -7,7 +7,8 @@ import static lombok.AccessLevel.PROTECTED;
 
 
 @DiscriminatorValue("FOOD")
-@NoArgsConstructor(access = PROTECTED)@Entity
+@NoArgsConstructor(access = PROTECTED)
+@Entity
 public class Food extends Item {
     private String chef;
 

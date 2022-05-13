@@ -6,6 +6,7 @@ import com.example.kdtjpa.domain.order.Order;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.Objects;
+import static javax.persistence.FetchType.LAZY;
 import static lombok.AccessLevel.PROTECTED;
 
 @Entity
@@ -18,11 +19,11 @@ public class OrderItem extends BaseEntity {
     private int price;
     private int quantity;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "ORDER_ID")
     private Order order;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "ITEM_ID")
     private Item item;
 
