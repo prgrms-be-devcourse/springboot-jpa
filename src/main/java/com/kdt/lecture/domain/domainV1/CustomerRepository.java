@@ -1,4 +1,4 @@
-package com.kdt.lecture.domain;
+package com.kdt.lecture.domain.domainV1;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

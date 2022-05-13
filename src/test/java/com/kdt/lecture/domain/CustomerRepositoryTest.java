@@ -1,5 +1,7 @@
 package com.kdt.lecture.domain;
 
+import com.kdt.lecture.domain.domainV1.Customer;
+import com.kdt.lecture.domain.domainV1.CustomerRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,6 +27,7 @@ class CustomerRepositoryTest {
     @BeforeEach
     void clear() {
         repository.deleteAll();
+        System.out.println("repository = " + repository.findAll().size());
     }
 
     private final String FIRST_NAME = "firstName";
@@ -41,6 +44,7 @@ class CustomerRepositoryTest {
 
         //then
         assertThat(repository.findAll().size()).isEqualTo(1);
+
     }
 
     @Test
@@ -100,7 +104,10 @@ class CustomerRepositoryTest {
         repository.delete(save);
 
         //then
+
+        assertThat(repository.findById(1L)).isEmpty();
         assertThat(repository.findById(1L).isEmpty()).isTrue();
         assertThat(repository.findAll().size()).isEqualTo(0);
     }
+
 }
