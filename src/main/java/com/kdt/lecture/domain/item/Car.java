@@ -12,4 +12,8 @@ public class Car extends Item{
 
     private int power;
 
+    public Car(String name, int price, int stockQuantity, int power) {
+        super(name, price, stockQuantity);
+        this.power = power;
+    }
 }

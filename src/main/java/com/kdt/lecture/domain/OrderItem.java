@@ -2,13 +2,12 @@ package com.kdt.lecture.domain;
 
 import com.kdt.lecture.domain.item.Item;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Objects;
+
 
 @Entity
 @Table(name = "orderItem")
@@ -18,6 +17,7 @@ public class OrderItem extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "order_item_id")
     private Long id;
 
     @Column(nullable = false)
@@ -40,7 +40,7 @@ public class OrderItem extends BaseEntity{
         this.quantity = quantity;
     }
 
-    public OrderItem createOrderItem(Item item, int count) {
+    public static OrderItem createOrderItem(Item item, int count) {
         item.removeStock(count);
         return new OrderItem(item, item.getPrice(), count);
     }
@@ -50,13 +50,11 @@ public class OrderItem extends BaseEntity{
             this.order.getOrderItems().remove(this);
         }
         this.order = order;
-        order.getOrderItems().add(this);
     }
 
     public void cancel() {
         this.getItem().addStock(this.quantity);
-        this.order.getOrderItems().remove(this);
-        this.order = null;
+//        this.order.getOrderItems().remove(this);
     }
 
     public int getTotalPrice() {

@@ -36,4 +36,9 @@ public abstract class Item extends BaseEntity {
         this.stockQuantity -= count;
     }
 
+    public Item(String name, int price, int stockQuantity) {
+        this.name = name;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+    }
 }

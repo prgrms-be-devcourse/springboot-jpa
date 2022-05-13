@@ -109,5 +109,4 @@ class CustomerRepositoryTest {
         assertThat(repository.findById(1L).isEmpty()).isTrue();
         assertThat(repository.findAll().size()).isEqualTo(0);
     }
-
 }

@@ -11,4 +11,9 @@ import javax.persistence.Entity;
 public class Food extends Item {
 
     private String chef;
+
+    public Food(String name, int price, int stockQuantity, String chef) {
+        super(name, price, stockQuantity);
+        this.chef = chef;
+    }
 }

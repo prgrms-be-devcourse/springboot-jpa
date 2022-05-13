@@ -7,13 +7,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "orders")
-@AllArgsConstructor
-@Builder
 public class Order extends BaseEntity{
 
     @Id
@@ -37,27 +36,35 @@ public class Order extends BaseEntity{
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
 
+
+    public Order(String memo) {
+        this.uuid = UUID.randomUUID().toString();
+        this.orderDateTime = LocalDateTime.now();
+        this.orderStatus = OrderStatus.ORDER;
+        this.memo = memo;
+    }
+
     public void addMember(Member member) {
         if (Objects.nonNull(this.member)) {
             this.member.getOrders().remove(this);
         }
         this.member = member;
-        member.getOrders().add(this);
+        this.member.getOrders().add(this);
     }
 
     public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
         orderItem.addOrder(this);
     }
 
-    public Order createOrder(Member member, String memo,OrderItem... orderItems) {
-        Order order = Order.builder()
-                .member(member)
-                .orderItems(List.of(orderItems))
-                .memo(memo)
-                .orderDateTime(LocalDateTime.now())
-                .orderStatus(OrderStatus.ORDER)
-                .build();
+    public static Order createOrder(Member member, String memo, OrderItem... orderItems) {
+        Order order = new Order(memo);
         order.setCreatedBy(member.getName());
+
+        order.addMember(member);
+        for (OrderItem orderItem : orderItems) {
+            order.addOrderItem(orderItem);
+        }
         return order;
     }
 
