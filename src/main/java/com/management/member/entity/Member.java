@@ -1,10 +1,13 @@
 package com.management.member.entity;
 
 import com.management.common.entity.BaseEntity;
+import com.management.order.entity.Order;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -29,4 +32,11 @@ public class Member extends BaseEntity {
 
     @Column(name = "description")
     private String description;
+
+    @OneToMany(mappedBy = "member")
+    private List<Order> orders = new ArrayList<>();
+
+    public void addOrders(Order order) {
+        order.setMember(this);
+    }
 }

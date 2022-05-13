@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -16,9 +16,6 @@ public class Order extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @Column(name = "order_datetime", columnDefinition = "TIMESTAMP")
-    private LocalDateTime orderDatetime;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "order_status")
@@ -31,4 +28,12 @@ public class Order extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", referencedColumnName = "id")
     private Member member;
+
+    public void setMember(Member member){
+        if (Objects.nonNull(this.member)){
+            member.getOrders().remove(this);
+        }
+        this.member = member;
+        member.getOrders().add(this);
+    }
 }
