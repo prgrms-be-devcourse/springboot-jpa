@@ -2,7 +2,6 @@ package com.prgrms.springJpa.domain.customer;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -11,7 +10,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
