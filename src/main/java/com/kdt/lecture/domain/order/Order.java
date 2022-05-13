@@ -26,11 +26,11 @@ public class Order {
     private String memo;
 
     // member_fk
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "member_id", referencedColumnName = "id")
     private Member member;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order",fetch = FetchType.LAZY)
     private List<OrderItem> items = new ArrayList<>();
 
     public Order(){}
@@ -40,7 +40,7 @@ public class Order {
         this.orderStatus = orderStatus;
         this.orderDateTime = orderDateTime;
         this.memo = memo;
-        this.member = member;
+        setMember(member);
     }
 
     public void setMember(Member member) {

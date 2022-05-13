@@ -27,13 +27,14 @@ public class OrderItem {
     @ManyToOne
     private Item item;
 
-    public OrderItem(){}
+    public OrderItem() {
+    }
 
-    public OrderItem(int price, OrderStatus orderStatus, Order order, Item item) {
-        this.price = price;
+    public OrderItem(OrderStatus orderStatus, Order order, Item item) {
+        this.price = item.getTotalPrice();
         this.orderStatus = orderStatus;
-        this.order = order;
-        this.item = item;
+        setOrder(order);
+        setItem(item);
     }
 
     public void setOrder(Order order) {
@@ -42,6 +43,6 @@ public class OrderItem {
     }
 
     public void setItem(Item item) {
-        this.item=item;
+        this.item = item;
     }
 }
