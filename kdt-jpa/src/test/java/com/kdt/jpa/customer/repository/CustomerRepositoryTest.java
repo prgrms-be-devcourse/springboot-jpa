@@ -12,6 +12,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @SpringBootTest
@@ -19,9 +20,6 @@ class CustomerRepositoryTest {
 
     @Autowired
     private CustomerRepository repository;
-
-    @Autowired
-    EntityManagerFactory emf;
 
     @AfterEach
     void afterEach() {
