@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -29,4 +30,12 @@ public class OrderItem extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id", referencedColumnName = "id")
     private Item item;
+
+    public void setOrder(Order order) {
+        if (Objects.nonNull(this.order)) {
+            this.order.getOrderItems().remove(this);
+        }
+        this.order = order;
+        order.getOrderItems().add(this);
+    }
 }

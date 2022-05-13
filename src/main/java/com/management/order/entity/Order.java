@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -29,11 +30,18 @@ public class Order extends BaseEntity {
     @JoinColumn(name = "member_id", referencedColumnName = "id")
     private Member member;
 
-    public void setMember(Member member){
-        if (Objects.nonNull(this.member)){
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderItem> orderItems;
+
+    public void setMember(Member member) {
+        if (Objects.nonNull(this.member)) {
             member.getOrders().remove(this);
         }
         this.member = member;
         member.getOrders().add(this);
+    }
+
+    public void addOrderItem(OrderItem orderItem) {
+        orderItem.setOrder(this);
     }
 }
