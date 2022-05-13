@@ -16,21 +16,24 @@ public class Order {
     @Id
     @Column(name = "id")
     private String uuid;
+
     @Column(name = "memo")
+    @Lob
     private String memo;
+
     @Enumerated(value = EnumType.STRING)
     private OrderStatus orderStatus;
+
     @Column(name = "order_datetime", columnDefinition = "TIMESTAMP")
     private LocalDateTime orderDateTime;
 
-    // member_fk
-    @Column(name = "member_id", insertable = false, updatable = false)
-    private Long memberId;
-
     // order는 N, member는 1 -> 다대일 관계
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", referencedColumnName = "id")
     private Member member;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems;
 
     // 연관관계 편의 메소드
     public void setMember(Member member) {
@@ -42,4 +45,7 @@ public class Order {
         member.getOrders().add(this);
     }
 
+    public void addOrderItem(OrderItem orderItem) {
+        orderItem.setOrder(this);
+    }
 }

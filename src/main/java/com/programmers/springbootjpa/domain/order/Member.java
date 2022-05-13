@@ -13,17 +13,22 @@ import java.util.List;
 @Table(name = "member")
 public class Member {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @Column(name = "name", nullable = false, length = 20)
     private String name;
+
     @Column(name = "nick_name", nullable = false, length = 30, unique = true)
     private String nickName;
+
     @Column(name = "age", nullable = false)
     private int age;
+
     @Column(name = "address", nullable = false)
     private String address;
-    @Column(name = "description")
+
+    @Column(name = "description", nullable = false)
     private String description;
 
     // mappedBy의 "member"는 Order entity의 "member" 필드
