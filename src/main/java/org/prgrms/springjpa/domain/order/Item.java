@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter @Setter
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Item extends BaseEntity{
     @Id
@@ -30,7 +30,7 @@ public class Item extends BaseEntity{
     }
 
     public void addOrderItem(OrderItem orderItem) {
-        orderItem.setItem(this);
+        orderItem.changeItem(this);
     }
 
     public void addStock(int quantity) {
