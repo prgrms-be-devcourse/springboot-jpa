@@ -4,11 +4,10 @@ spring:
       enabled: true
       path: /h2-console
   datasource:
-    test:
-      driver-class-name: org.h2.Driver
-      url: "jdbc:h2:mem:spring_jpa;"
-      username: sa
-      password:
+    driver-class-name: org.h2.Driver
+    url: "jdbc:h2:mem:spring_jpa;"
+    username: sa
+    password:
   jpa:
     generate-ddl: true
     database: H2
