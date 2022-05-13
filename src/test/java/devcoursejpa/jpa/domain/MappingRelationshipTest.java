@@ -13,7 +13,7 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
-class OrderPersistenceTest {
+class MappingRelationshipTest {
 
     @Autowired
     private EntityManager em;
