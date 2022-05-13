@@ -36,4 +36,3 @@ public class Member extends BaseEntity {
         this.description = description;
     }
 }
-
