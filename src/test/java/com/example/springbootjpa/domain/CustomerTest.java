@@ -28,20 +28,19 @@ public class CustomerTest {
     CustomerRepository customerRepository;
 
     @AfterAll
-    void cleanUp(){
+    void cleanUp() {
         customerRepository.deleteAll();
     }
 
     @Test
     @Order(1)
-    void 생성(){
+    void 생성() {
         Customer customer = new Customer();
         customer.setId(1L);
         customer.setName("suy2on");
         customer.setAge(25);
 
         customerRepository.save(customer);
-
 
         assertThat(customerRepository.existsById(1L), is(true));
 
@@ -51,7 +50,7 @@ public class CustomerTest {
     @Order(2)
     void 조회() {
         List<Customer> customerList = customerRepository.findAll();
-        for(Customer customer : customerList){
+        for (Customer customer : customerList) {
             log.info("{} : {}세", customer.getName(), customer.getAge());
         }
 
@@ -79,7 +78,6 @@ public class CustomerTest {
         assertThat(customerRepository.existsById(1L), is(false));
 
     }
-
 
 
 }

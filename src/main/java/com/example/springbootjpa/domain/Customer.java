@@ -1,8 +1,9 @@
 package com.example.springbootjpa.domain;
 
-import javax.persistence.Column;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,6 +14,8 @@ import lombok.Setter;
 @Table(name = "customer")
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class Customer {
 
     @Id
@@ -22,27 +25,12 @@ public class Customer {
 
     private int age;
 
-    public Long getId() {
-        return id;
+    @OneToMany(mappedBy = "customer")
+    private List<Order> orderList;
+
+    public void addOrder(Order order) {
+        this.orderList.add(order);
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
 }

@@ -29,7 +29,7 @@ public class DataSourceConfig {
 
 
     @Bean
-    public JpaVendorAdapter jpaVendorAdapter(JpaProperties jpaProperties){
+    public JpaVendorAdapter jpaVendorAdapter(JpaProperties jpaProperties) {
         AbstractJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
         jpaVendorAdapter.setShowSql(jpaProperties.isShowSql());
         jpaVendorAdapter.setDatabasePlatform(jpaProperties.getDatabasePlatform());
@@ -41,7 +41,8 @@ public class DataSourceConfig {
 
     // entity manager 생성
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, JpaVendorAdapter jpaVendorAdapter, JpaProperties jpaProperties){
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource,
+        JpaVendorAdapter jpaVendorAdapter, JpaProperties jpaProperties) {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
         em.setPackagesToScan("com.example.springbootjpa.domain");
@@ -56,7 +57,8 @@ public class DataSourceConfig {
 
     // transaction 관리
     @Bean
-    public PlatformTransactionManager transactionManager(LocalContainerEntityManagerFactoryBean entityManagerFactory) {
+    public PlatformTransactionManager transactionManager(
+        LocalContainerEntityManagerFactoryBean entityManagerFactory) {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactory.getObject());
 

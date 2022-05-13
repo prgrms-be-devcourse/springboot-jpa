@@ -2,7 +2,6 @@ package com.example.springbootjpa;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.samePropertyValuesAs;
 
 import com.example.springbootjpa.domain.Customer;
 import javax.persistence.EntityManager;
@@ -20,11 +19,11 @@ class PersistenceContextLifeCycleTest {
     @Autowired
     EntityManagerFactory emf;
 
-    private Customer customer = new Customer(1L,"suy2on",25);
+    private Customer customer = new Customer(1L, "suy2on", 25, null);
 
 
     @Test
-    void persist(){
+    void persist() {
         EntityManager entityManager = emf.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
@@ -33,7 +32,6 @@ class PersistenceContextLifeCycleTest {
         assertThat(entityManager.contains(customer), is(true));
         transaction.commit();
         assertThat(entityManager.contains(customer), is(true));
-
 
 
     }
@@ -78,9 +76,7 @@ class PersistenceContextLifeCycleTest {
         entityManager.remove(entity);
 
 
-
     }
-
 
 
 }
