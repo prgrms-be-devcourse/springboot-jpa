@@ -2,7 +2,6 @@ package com.example.kdtjpa.domain;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
