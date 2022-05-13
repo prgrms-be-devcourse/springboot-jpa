@@ -5,7 +5,6 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import static lombok.AccessLevel.PROTECTED;
 
-
 @DiscriminatorValue("FOOD")
 @NoArgsConstructor(access = PROTECTED)
 @Entity
