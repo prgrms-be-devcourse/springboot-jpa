@@ -1,17 +1,16 @@
 package devcoursejpa.jpa.domain;
 
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 
-@Slf4j
 @SpringBootTest
 class PersistenceContextTest {
 
@@ -34,7 +33,7 @@ class PersistenceContextTest {
 
         transaction.begin();
 
-        Customer customer = new Customer(1L, "jiwoong", "kim");
+        Customer customer = new Customer(1L, new Name("jiwoong", "kim"));
 
         entityManager.persist(customer);
         transaction.commit(); // entityManager.flush();
@@ -48,7 +47,7 @@ class PersistenceContextTest {
 
         transaction.begin();
 
-        Customer customer = new Customer(1L, "jiwoong", "kim");
+        Customer customer = new Customer(1L, new Name("jiwoong", "kim"));
 
         entityManager.persist(customer);
         transaction.commit();
@@ -56,7 +55,6 @@ class PersistenceContextTest {
         entityManager.detach(customer); // 영속 -> 준영속
 
         Customer findCustomer = entityManager.find(Customer.class, 1L);
-        log.info("{} {}", findCustomer.getFirstName(), findCustomer.getLastName());
     }
 
     @Test
@@ -67,14 +65,14 @@ class PersistenceContextTest {
 
         transaction.begin();
 
-        Customer customer = new Customer(1L, "jiwoong", "kim");
+        Customer customer = new Customer(1L, new Name("jiwoong", "kim"));
 
         entityManager.persist(customer);
         transaction.commit();
 
         transaction.begin();
 
-        customer.changeName("joomin", "cha");
+        customer.changeName(new Name("joomin", "cha"));
 
         transaction.commit();
     }
@@ -87,7 +85,7 @@ class PersistenceContextTest {
 
         transaction.begin();
 
-        Customer customer = new Customer(1L, "jiwoong", "kim");
+        Customer customer = new Customer(1L, new Name("jiwoong", "kim"));
 
         entityManager.persist(customer);
         transaction.commit();
