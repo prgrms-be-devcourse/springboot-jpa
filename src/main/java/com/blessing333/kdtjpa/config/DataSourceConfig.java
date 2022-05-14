@@ -1,4 +1,4 @@
-package com.blessing333.kdtjpa.domain.config;
+package com.blessing333.kdtjpa.config;
 
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.context.annotation.Bean;
