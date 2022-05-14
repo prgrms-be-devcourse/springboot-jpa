@@ -14,7 +14,7 @@ public class Customer {
     @Embedded
     private Name name;
 
-    public Customer() {
+    protected Customer() {
     }
 
     public Customer(Long id, Name name) {
