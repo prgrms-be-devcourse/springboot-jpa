@@ -17,7 +17,7 @@ import java.util.Objects;
 @Table(name = "member")
 public class Member extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name", nullable = false, length = 20)

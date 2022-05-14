@@ -9,36 +9,41 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
+@TestClassOrder(ClassOrderer.DisplayName.class)
 class MemberTest {
 
     @Autowired
     EntityManagerFactory entityManagerFactory;
 
+    EntityManager entityManager;
+    EntityTransaction transaction;
+
     @BeforeEach
     void setUp() {
+        entityManager = entityManagerFactory.createEntityManager();
+        transaction = entityManager.getTransaction();
     }
 
     @AfterEach
     void tearDown() {
+        entityManager.close();
     }
 
     @DisplayName("Member Create 테스트")
     @Nested
+    @TestMethodOrder(MethodOrderer.DisplayName.class)
     class CreateTest {
         @DisplayName("성공 : description을 제외한 파라미터 값이 채워져서 생성된 경우")
         @Test
         void success() {
             // Given
-            EntityManager entityManager = entityManagerFactory.createEntityManager();
-            EntityTransaction transaction = entityManager.getTransaction();
             transaction.begin();
 
             // When
-            Member expectedMember = new Member("moosong", "songsong", 25, "Seoul", null);
+            Member expectedMember = new Member("create", "create", 25, "create", null);
             entityManager.persist(expectedMember);
             transaction.commit();
             entityManager.clear();
@@ -52,12 +57,10 @@ class MemberTest {
         @Test
         void failedByNullParameter() {
             // Given
-            EntityManager entityManager = entityManagerFactory.createEntityManager();
-            EntityTransaction transaction = entityManager.getTransaction();
             transaction.begin();
 
             // When
-            Member member = new Member(null, null, 25, "Seoul", "description");
+            Member member = new Member(null, null, 25, "create", "create");
             Throwable actualResult = catchThrowable(() -> entityManager.persist(member));
             transaction.commit();
 
@@ -68,15 +71,14 @@ class MemberTest {
 
     @DisplayName("Member Read 테스트")
     @Nested
+    @TestMethodOrder(MethodOrderer.DisplayName.class)
     class ReadTest {
         @DisplayName("성공 : 존재하는 PK 값으로 조회한 경우")
         @Test
         void success() {
             // Given
-            EntityManager entityManager = entityManagerFactory.createEntityManager();
-            EntityTransaction transaction = entityManager.getTransaction();
             transaction.begin();
-            Member expectedMember = new Member("moosong", "songsong", 25, "Seoul", null);
+            Member expectedMember = new Member("find1", "find1", 25, "find1", null);
             entityManager.persist(expectedMember);
             transaction.commit();
 
@@ -92,10 +94,8 @@ class MemberTest {
         @Test
         void failedByNotExist() {
             // Given
-            EntityManager entityManager = entityManagerFactory.createEntityManager();
-            EntityTransaction transaction = entityManager.getTransaction();
             transaction.begin();
-            Member expectedMember = new Member("moosong", "songsong", 25, "Seoul", null);
+            Member expectedMember = new Member("find2", "find2", 25, "find2", null);
             entityManager.persist(expectedMember);
             transaction.commit();
 
@@ -110,15 +110,14 @@ class MemberTest {
 
     @DisplayName("Member Update 테스트")
     @Nested
+    @TestMethodOrder(MethodOrderer.DisplayName.class)
     class UpdateTest {
         @DisplayName("성공 : description을 제외한 파라미터 값이 채워져서 수정된 경우")
         @Test
         void success() {
             // Given
-            EntityManager entityManager = entityManagerFactory.createEntityManager();
-            EntityTransaction transaction = entityManager.getTransaction();
             transaction.begin();
-            Member expectedMember = new Member("moosong", "songsong", 25, "Seoul", "test");
+            Member expectedMember = new Member("update1", "update1", 25, "update1", "update1");
             entityManager.persist(expectedMember);
             expectedMember.setName("kate");
             expectedMember.setNickName("mooomoo");
@@ -139,10 +138,8 @@ class MemberTest {
         @Test
         void failedByNullParameter() {
             // Given
-            EntityManager entityManager = entityManagerFactory.createEntityManager();
-            EntityTransaction transaction = entityManager.getTransaction();
             transaction.begin();
-            Member expectedMember = new Member("moosong", "songsong", 25, "Seoul", "test");
+            Member expectedMember = new Member("update2", "update2", 25, "update2", "update2");
             entityManager.persist(expectedMember);
             transaction.commit();
 
@@ -164,15 +161,14 @@ class MemberTest {
 
     @DisplayName("Member Delete 테스트")
     @Nested
+    @TestMethodOrder(MethodOrderer.DisplayName.class)
     class DeleteTest {
         @DisplayName("성공 : 존재하는 PK 값으로 삭제한 경우")
         @Test
         void success() {
             // Given
-            EntityManager entityManager = entityManagerFactory.createEntityManager();
-            EntityTransaction transaction = entityManager.getTransaction();
             transaction.begin();
-            Member member = new Member("moosong", "songsong", 25, "Seoul", null);
+            Member member = new Member("delete1", "delete1", 25, "delete1", null);
             entityManager.persist(member);
             transaction.commit();
 
@@ -193,10 +189,8 @@ class MemberTest {
         @Test
         void failedByNullParameter() {
             // Given
-            EntityManager entityManager = entityManagerFactory.createEntityManager();
-            EntityTransaction transaction = entityManager.getTransaction();
             transaction.begin();
-            Member member = new Member("moosong", "songsong", 25, "Seoul", null);
+            Member member = new Member("delete1", "delete1", 25, "delete1", null);
             entityManager.persist(member);
             transaction.commit();
 
