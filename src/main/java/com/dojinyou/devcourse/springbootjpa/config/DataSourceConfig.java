@@ -40,8 +40,8 @@ public class DataSourceConfig {
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource,
-                                                                           JpaVendorAdapter jpaVendorAdapter,
-                                                                           JpaProperties jpaProperties) {
+                                                                       JpaVendorAdapter jpaVendorAdapter,
+                                                                       JpaProperties jpaProperties) {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
         em.setPackagesToScan("com.dojinyou.devcourse.springbootjpa");

@@ -19,10 +19,6 @@ class CustomerRepositoryTest {
     @Autowired
     CustomerRepository repository;
 
-    @BeforeEach
-    void setUp() {
-    }
-
     @AfterEach
     void tearDown() {
         repository.deleteAll();
