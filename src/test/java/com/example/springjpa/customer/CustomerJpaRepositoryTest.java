@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @DataJpaTest
-@DisplayName("기본키 생성 전략이 SEQUENCE 일 때")
+@DisplayName("기본키 생성 전략이 SEQUENCE 일 때 JpaRepository 를 사용하여 테스트한다")
 class CustomerJpaRepositoryTest {
 	private static final Logger logger = LoggerFactory.getLogger(CustomerJpaRepositoryTest.class);
 
