@@ -6,6 +6,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -38,11 +39,11 @@ public class Order {
     private Member member;
 
     @OneToMany(mappedBy = "order")
-    private List<OrderItem> orderItems;
+    private List<OrderItem> orderItems = new ArrayList<>();
 
     public void setMember(Member member) {
         if (Objects.nonNull(this.member)) {
-            member.getOrders().remove(this);
+            this.member.getOrders().remove(this);
         }
         this.member = member;
         member.getOrders().add(this);

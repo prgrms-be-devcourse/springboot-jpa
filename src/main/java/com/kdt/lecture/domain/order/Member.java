@@ -33,7 +33,7 @@ public class Member {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<Order> orders = new ArrayList<>();
 
     public void addOrder(Order order) {

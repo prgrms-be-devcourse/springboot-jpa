@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -25,7 +26,7 @@ public class OrderItem {
     private Order order;
 
     @OneToMany(mappedBy = "orderItem")
-    private List<Item> items;
+    private List<Item> items = new ArrayList<>();
 
     public void setOrder(Order order) {
         if (Objects.nonNull(this.order)) {
