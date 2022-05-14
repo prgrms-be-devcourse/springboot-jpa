@@ -59,5 +59,4 @@ public class OrderItem extends BaseEntity{
     public int getTotalPrice() {
         return this.price * this.quantity;
     }
-
 }

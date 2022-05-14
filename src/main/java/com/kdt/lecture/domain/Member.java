@@ -1,6 +1,7 @@
 package com.kdt.lecture.domain;
 
 import lombok.*;
+import lombok.Builder.Default;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -36,6 +37,7 @@ public class Member extends BaseEntity{
     @Column(name = "description")
     private String description;
 
+    @Builder.Default
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
 
