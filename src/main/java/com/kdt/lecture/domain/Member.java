@@ -1,21 +1,17 @@
 package com.kdt.lecture.domain;
 
 import lombok.*;
-import lombok.Builder.Default;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "member")
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString
 public class Member extends BaseEntity{
 
     @Id
@@ -40,13 +36,6 @@ public class Member extends BaseEntity{
     @Builder.Default
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
-
-    public Member(String name, String nickName, int age, String address) {
-        this.name = name;
-        this.nickName = nickName;
-        this.age = age;
-        this.address = address;
-    }
 
     public void addOrder(Order order) {
         order.addMember(this);
