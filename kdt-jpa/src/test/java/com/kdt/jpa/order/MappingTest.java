@@ -141,17 +141,15 @@ public class MappingTest {
         member.setNickName("C");
         member.setAddress("서울시");
         member.setAge(27);
-        em.persist(member);
 
         Order order = new Order();
         order.setUuid(UUID.randomUUID().toString());
         order.setMemo("memo");
         order.setOrderStatus(OrderStatus.OPEND);
         order.setMember(member);
-        em.persist(order);
 
         // Cascade.All 설정으로 인해 order, member 영속화 전이된다.
-        em.persist(order);
+        em.persist(member);
 
         ts.commit();
     }
