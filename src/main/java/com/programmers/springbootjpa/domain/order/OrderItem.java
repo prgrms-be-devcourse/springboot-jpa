@@ -1,16 +1,8 @@
 package com.programmers.springbootjpa.domain.order;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.sql.OracleJoinFragment;
-
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "order_item")
 public class OrderItem {
@@ -56,5 +48,25 @@ public class OrderItem {
 
         this.item = item;
         item.getOrderItems().add(this);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public Item getItem() {
+        return item;
     }
 }
