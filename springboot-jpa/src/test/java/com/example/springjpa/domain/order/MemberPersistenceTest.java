@@ -1,7 +1,8 @@
 package com.example.springjpa.domain.order;
 
 import com.example.springjpa.domain.common.EntityManagerTest;
-import jdk.jfr.Description;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -12,9 +13,11 @@ import static com.example.springjpa.domain.order.OrderStatus.OPENED;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
+@Slf4j
 public class MemberPersistenceTest extends EntityManagerTest {
+
     @Test
-    @Description("연관관계 메소드를 통해 주문을 추가 할 수 있다.")
+    @DisplayName("연관관계 메소드를 통해 주문을 추가 할 수 있다.")
     void testAddOrder() {
         Member member = new Member("태산", UUID.randomUUID().toString(), 10, "주소", "Desc", new ArrayList<>());
         Order order = new Order("메모", OPENED, LocalDateTime.now(), member, new ArrayList<>());
@@ -29,7 +32,7 @@ public class MemberPersistenceTest extends EntityManagerTest {
     }
 
     @Test
-    @Description("Member2의 주문 Order2를 편의 메소드를 통해 Member1 한테 추가하면 Order2의 Member도 함께 변경되어야 한다.")
+    @DisplayName("Member2의 주문 Order2를 편의 메소드를 통해 Member1 한테 추가하면 Order2의 Member도 함께 변경되어야 한다.")
     void testAddOrderMemberUpdate() {
         Member member = new Member("태산2", UUID.randomUUID().toString(), 20, "주소2", "Desc2", new ArrayList<>());
         Member member2 = new Member("태산3", UUID.randomUUID().toString(), 30, "주소2", "Desc2", new ArrayList<>());
@@ -56,7 +59,7 @@ public class MemberPersistenceTest extends EntityManagerTest {
     }
 
     @Test
-    @Description("객체그래프탐색을_이용한_조회")
+    @DisplayName("객체그래프탐색을_이용한_조회")
     void testGraphSearch() {
         Member member = new Member("태산4", UUID.randomUUID().toString(), 40, "주소2", "Desc2", new ArrayList<>());
         Order order = new Order("메모", OPENED, LocalDateTime.now(), member, new ArrayList<>());

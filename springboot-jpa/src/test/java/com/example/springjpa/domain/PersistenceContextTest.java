@@ -2,7 +2,7 @@ package com.example.springjpa.domain;
 
 import com.example.springjpa.domain.common.EntityManagerTest;
 import com.example.springjpa.repository.CustomerRepository;
-import jdk.jfr.Description;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,7 +19,7 @@ public class PersistenceContextTest extends EntityManagerTest {
     Customer customer = new Customer("TaeSan", "Kang");
 
     @Test
-    @Description("영속성 컨텍스트만을 사용하여 데이터베이스에 저장할 수 있다.")
+    @DisplayName("영속성 컨텍스트만을 사용하여 데이터베이스에 저장할 수 있다.")
     void testSaveWithPersistenceContext() {
         execWithTransaction(() -> entityManager.persist(customer));
 
@@ -31,7 +31,7 @@ public class PersistenceContextTest extends EntityManagerTest {
     }
 
     @Test
-    @Description("Entity매니저의 find를 통해 객체를 조회할 수 있다.")
+    @DisplayName("Entity매니저의 find를 통해 객체를 조회할 수 있다.")
     void testEntityManagerFind() {
         execWithTransaction(() -> {
             entityManager.persist(customer);
@@ -42,7 +42,7 @@ public class PersistenceContextTest extends EntityManagerTest {
     }
 
     @Test
-    @Description("commit이전에 Detach되면 저장되지 않는다.")
+    @DisplayName("commit이전에 Detach되면 저장되지 않는다.")
     void testEntityManagerDetachFind() {
         execWithTransaction(() -> {
             entityManager.persist(customer);
@@ -53,7 +53,7 @@ public class PersistenceContextTest extends EntityManagerTest {
     }
 
     @Test
-    @Description("DirtyChecking을 통한 Update가 가능하다.")
+    @DisplayName("DirtyChecking을 통한 Update가 가능하다.")
     void testDirtyChecking() {
         String changeFirstName = "big";
         String changeLastName = "mountain";
@@ -72,7 +72,7 @@ public class PersistenceContextTest extends EntityManagerTest {
     }
 
     @Test
-    @Description("EntityManager.remove를 수행하면 데이터베이스에서도 삭제 된다.")
+    @DisplayName("EntityManager.remove를 수행하면 데이터베이스에서도 삭제 된다.")
     void testDelete() {
         execWithTransaction(() -> {
             entityManager.persist(customer);

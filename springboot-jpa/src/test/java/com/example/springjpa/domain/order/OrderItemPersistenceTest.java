@@ -1,7 +1,7 @@
 package com.example.springjpa.domain.order;
 
 import com.example.springjpa.domain.common.EntityManagerTest;
-import jdk.jfr.Description;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class OrderItemPersistenceTest extends EntityManagerTest {
     @Test
-    @Description("연관관계 메소드를 통해 Item을 추가 할 수 있다.")
+    @DisplayName("연관관계 메소드를 통해 Item을 추가 할 수 있다.")
     void testAddItem() {
         Member member = new Member("태산", UUID.randomUUID().toString(), 10, "주소", "Desc", new ArrayList<>());
         Order order = new Order("메모", OPENED, LocalDateTime.now(), member, new ArrayList<>());
@@ -34,7 +34,7 @@ public class OrderItemPersistenceTest extends EntityManagerTest {
     }
 
     @Test
-    @Description("OrderItem에 Item이 추가될 item의 OrderItem이 udpate되어야 한다.")
+    @DisplayName("OrderItem에 Item이 추가될 item의 OrderItem이 udpate되어야 한다.")
     void testAddItemUpdate() {
         Member member = new Member("태산", UUID.randomUUID().toString(), 10, "주소", "Desc", new ArrayList<>());
         Order order = new Order("메모", OPENED, LocalDateTime.now(), member, new ArrayList<>());
@@ -54,7 +54,7 @@ public class OrderItemPersistenceTest extends EntityManagerTest {
     }
 
     @Test
-    @Description("객체 그래프를 탐색할 수 있다.")
+    @DisplayName("객체 그래프를 탐색할 수 있다.")
     void testGraphSearch() {
         Member member = new Member("태산", UUID.randomUUID().toString(), 10, "주소", "Desc", new ArrayList<>());
         Order order = new Order("메모", OPENED, LocalDateTime.now(), member, new ArrayList<>());
