@@ -1,11 +1,13 @@
 package com.programmers.springbootjpa.domain;
 
+import com.programmers.springbootjpa.domain.order.Item;
 import com.programmers.springbootjpa.domain.order.Member;
 import com.programmers.springbootjpa.domain.order.Order;
-import lombok.extern.slf4j.Slf4j;
+import com.programmers.springbootjpa.domain.order.OrderItem;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,95 +17,119 @@ import java.util.UUID;
 
 import static com.programmers.springbootjpa.domain.order.OrderStatus.OPENED;
 
-@Slf4j
-@SpringBootTest
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.samePropertyValuesAs;
+
+@DataJpaTest
 public class OrderPersistenceTest {
 
     @Autowired
     EntityManagerFactory emf;
 
     @Test
-    void member_insert() {
-        Member member = new Member();
-        member.setName("kanghonggu");
-        member.setAddress("서울시 동작구(만) 움직이면 쏜다.");
-        member.setAge(33);
-        member.setNickName("guppy.kang");
-        member.setDescription("백앤드 개발자에요.");
-
+    @DisplayName("Member - Order의 연관관계 테스트")
+    void memberAndOrderAssociationMappingTest() {
         EntityManager entityManager = emf.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
+
         transaction.begin();
 
+        Member member = new Member("Hyeonseo Jung",
+                "HS",
+                24,
+                "Mapo-gu, Seoul",
+                "description test");
         entityManager.persist(member);
 
-        transaction.commit();
-    }
-
-    @Test
-    void 잘못된_설계() {
-        Member member = new Member();
-        member.setName("kanghonggu");
-        member.setAddress("서울시 동작구(만) 움직이면 쏜다.");
-        member.setAge(33);
-        member.setNickName("guppy.kang");
-        member.setDescription("백앤드 개발자에요.");
-
-        EntityManager entityManager = emf.createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
-
-        entityManager.persist(member);  // 저장
-        Member memberEntity = entityManager.find(Member.class, 1L);     // 영속화된 회원
-
-        Order order = new Order();
-        order.setUuid(UUID.randomUUID().toString());
-        order.setOrderDateTime(LocalDateTime.now());
-        order.setOrderStatus(OPENED);
-        order.setMemo("부재시 전화주세요.");
-        order.setMemberId(memberEntity.getId()); // 외래키를 직접 지정
-
-        entityManager.persist(order);
-        transaction.commit();
-
-        Order orderEntity = entityManager.find(Order.class, order.getUuid());
-        // FK 를 이용해 회원 다시 조회
-        Member orderMemberEntity = entityManager.find(Member.class, orderEntity.getMemberId());
-        // orderEntity.getMember() // 객체중심 설계라면 이렇게 해야하지 않을까?
-        log.info("nick : {}", orderMemberEntity.getNickName());
-    }
-
-    @Test
-    void 연관관계_테스트() {
-        EntityManager entityManager = emf.createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
-
-        transaction.begin();
-
-        Member member = new Member();
-        member.setName("hyeonseo");
-        member.setNickName("JUNG");
-        member.setAddress("서울시 마포구");
-        member.setAge(24);
-
-        entityManager.persist(member);
-
-        Order order = new Order();
-        order.setUuid(UUID.randomUUID().toString());
-        order.setOrderStatus(OPENED);
-        order.setOrderDateTime(LocalDateTime.now());
-        order.setMemo("메모입니다.");
-        order.setMember(member);
-
-        entityManager.persist(order);
+        Order firstOrder = new Order(UUID.randomUUID().toString(),
+                "order No.1",
+                OPENED,
+                LocalDateTime.now());
+        Order secondOrder = new Order(UUID.randomUUID().toString(),
+                "order No.2",
+                OPENED,
+                LocalDateTime.now());
+        firstOrder.setMember(member);
+        secondOrder.setMember(member);
+        entityManager.persist(firstOrder);
+        entityManager.persist(secondOrder);
 
         transaction.commit();
 
         entityManager.clear();
-        Order entity = entityManager.find(Order.class, order.getUuid());
 
-        log.info("{}", entity.getMember().getNickName());
-        log.info("{}", entity.getMember().getOrders().size());
-        log.info("{}", order.getMember().getOrders().size());
+        Order foundFirstOrder = entityManager.find(Order.class, firstOrder.getUuid());
+        Order foundSecondOrder = entityManager.find(Order.class, secondOrder.getUuid());
+        Member foundMember = entityManager.find(Member.class, member.getId());
+
+        assertThat(foundFirstOrder.getMember(), samePropertyValuesAs(foundMember));
+        assertThat(foundSecondOrder.getMember(), samePropertyValuesAs(foundMember));
     }
+
+    @Test
+    @DisplayName("Order - OrderItem의 연관관계 테스트")
+    void OrderAndOrderItemAssociationMappingTest() {
+        EntityManager entityManager = emf.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        transaction.begin();
+
+        Order order = new Order(UUID.randomUUID().toString(),
+                "order No.1",
+                OPENED,
+                LocalDateTime.now());
+        entityManager.persist(order);
+
+        OrderItem firstOrderItem = new OrderItem(5000, 3);
+        OrderItem secondOrderItem = new OrderItem(10000, 1);
+        firstOrderItem.setOrder(order);
+        secondOrderItem.setOrder(order);
+
+        entityManager.persist(firstOrderItem);
+        entityManager.persist(secondOrderItem);
+
+        transaction.commit();
+
+        entityManager.clear();
+
+        Order foundOrder = entityManager.find(Order.class, order.getUuid());
+        OrderItem foundFirstOrderItem = entityManager.find(OrderItem.class, firstOrderItem.getId());
+        OrderItem foundSecondOrderItem = entityManager.find(OrderItem.class, secondOrderItem.getId());
+
+        assertThat(foundFirstOrderItem.getOrder(), samePropertyValuesAs(foundOrder));
+        assertThat(foundSecondOrderItem.getOrder(), samePropertyValuesAs(foundOrder));
+    }
+
+    @Test
+    @DisplayName("OrderItem - Item의 연관관계 테스트")
+    void OrderItemAndItemAssociationMappingTest() {
+        EntityManager entityManager = emf.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        transaction.begin();
+
+        Item item = new Item(5000, 10);
+        entityManager.persist(item);
+
+        OrderItem firstOrderItem = new OrderItem(15000, 3);
+        OrderItem secondOrderItem = new OrderItem(5000, 1);
+        firstOrderItem.setItem(item);
+        secondOrderItem.setItem(item);
+
+        entityManager.persist(firstOrderItem);
+        entityManager.persist(secondOrderItem);
+
+        transaction.commit();
+
+        entityManager.clear();
+
+        Item foundItem = entityManager.find(Item.class, item.getId());
+        OrderItem foundFirstOrderItem = entityManager.find(OrderItem.class, firstOrderItem.getId());
+        OrderItem foundSecondOrderItem = entityManager.find(OrderItem.class, secondOrderItem.getId());
+
+        assertThat(foundFirstOrderItem.getItem(), samePropertyValuesAs(foundItem));
+        assertThat(foundSecondOrderItem.getItem(), samePropertyValuesAs(foundItem));
+    }
+
 }
