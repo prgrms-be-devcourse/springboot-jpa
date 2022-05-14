@@ -37,10 +37,6 @@ public class CustomerPersistenceContextTest {
 		tx = em.getTransaction();
 	}
 
-	private Customer createCustomer() {
-		return new Customer("abc", "mart");
-	}
-
 	@Test
 	@DisplayName("new 상태의 엔티티를 persist 하면 커밋 시 insert 된다")
 	public void persist_given_customer() {
@@ -170,5 +166,9 @@ public class CustomerPersistenceContextTest {
 			.isEqualTo(this.customer);
 
 		tx.commit();
+	}
+
+	private Customer createCustomer() {
+		return new Customer("abc", "mart");
 	}
 }
