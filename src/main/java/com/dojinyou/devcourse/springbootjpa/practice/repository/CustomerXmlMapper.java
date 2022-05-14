@@ -1,6 +1,6 @@
-package com.dojinyou.devcourse.springbootjpa.repository;
+package com.dojinyou.devcourse.springbootjpa.practice.repository;
 
-import com.dojinyou.devcourse.springbootjpa.repository.domain.Customer;
+import com.dojinyou.devcourse.springbootjpa.practice.repository.domain.Customer;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

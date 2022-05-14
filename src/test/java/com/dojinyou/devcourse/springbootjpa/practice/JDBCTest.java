@@ -1,4 +1,4 @@
-package com.dojinyou.devcourse.springbootjpa;
+package com.dojinyou.devcourse.springbootjpa.practice;
 
 
 import lombok.extern.slf4j.Slf4j;

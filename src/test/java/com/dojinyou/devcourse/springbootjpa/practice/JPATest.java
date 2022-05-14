@@ -1,7 +1,7 @@
-package com.dojinyou.devcourse.springbootjpa;
+package com.dojinyou.devcourse.springbootjpa.practice;
 
-import com.dojinyou.devcourse.springbootjpa.repository.CustomerRepository;
-import com.dojinyou.devcourse.springbootjpa.repository.domain.CustomerEntity;
+import com.dojinyou.devcourse.springbootjpa.practice.repository.CustomerRepository;
+import com.dojinyou.devcourse.springbootjpa.practice.repository.domain.CustomerEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

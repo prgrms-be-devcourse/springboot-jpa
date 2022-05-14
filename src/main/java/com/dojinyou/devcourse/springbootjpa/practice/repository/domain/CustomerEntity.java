@@ -1,4 +1,4 @@
-package com.dojinyou.devcourse.springbootjpa.repository.domain;
+package com.dojinyou.devcourse.springbootjpa.practice.repository.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

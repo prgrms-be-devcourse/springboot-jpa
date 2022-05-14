@@ -1,7 +1,7 @@
-package com.dojinyou.devcourse.springbootjpa;
+package com.dojinyou.devcourse.springbootjpa.practice;
 
-import com.dojinyou.devcourse.springbootjpa.repository.CustomerXmlMapper;
-import com.dojinyou.devcourse.springbootjpa.repository.domain.Customer;
+import com.dojinyou.devcourse.springbootjpa.practice.repository.CustomerXmlMapper;
+import com.dojinyou.devcourse.springbootjpa.practice.repository.domain.Customer;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
