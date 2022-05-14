@@ -5,8 +5,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
@@ -16,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 @DataJpaTest
 @DisplayName("기본키 생성 전략이 SEQUENCE 일 때 JpaRepository 를 사용하여 테스트한다")
 class CustomerJpaRepositoryTest {
-	private static final Logger logger = LoggerFactory.getLogger(CustomerJpaRepositoryTest.class);
 
 	@Autowired
 	private CustomerJpaRepository customerRepository;
@@ -31,7 +28,7 @@ class CustomerJpaRepositoryTest {
 
 	@AfterEach
 	void tearDown() {
-		logger.info("AfterEach 의 deleteAllInBatch 쿼리가 날아기기 전에 쓰기지연 저장소 내부 쿼리들이 날아간다");
+		log.info("AfterEach 의 deleteAllInBatch 쿼리가 날아기기 전에 쓰기지연 저장소 내부 쿼리들이 날아간다");
 		customerRepository.deleteAllInBatch();
 	}
 

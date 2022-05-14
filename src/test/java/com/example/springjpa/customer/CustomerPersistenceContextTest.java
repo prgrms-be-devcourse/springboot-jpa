@@ -11,17 +11,17 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import lombok.extern.slf4j.Slf4j;
+
 @SpringBootTest
 @Transactional
 @DisplayName("기본키 생성 전략이 SEQUENCE 일 때 EntityManager 를 사용하여 테스트 한다")
+@Slf4j
 public class CustomerPersistenceContextTest {
-	private static final Logger logger = LoggerFactory.getLogger(CustomerPersistenceContextTest.class);
 
 	@Autowired
 	private EntityManagerFactory emf;
@@ -102,7 +102,7 @@ public class CustomerPersistenceContextTest {
 
 		// proxy
 		Customer proxy = em.getReference(Customer.class, customer.getId());
-		logger.info("Proxy 를 가져옴");
+		log.info("Proxy 를 가져옴");
 
 		proxy.changeLastName("kim"); // 엔티티 초기화 - select
 
@@ -141,7 +141,7 @@ public class CustomerPersistenceContextTest {
 		// 프록시 객체 얻어오기 ( customer 는 id 를 갖고 있다 )
 		Customer proxy = em.getReference(Customer.class, customer.getId());
 
-		logger.info("Proxy 객체를 얻어옴");
+		log.info("Proxy 객체를 얻어옴");
 		// Entity 초기화 - DB 에는 저장되지 않았었기 때문에 예외가 발생한다
 		Assertions.assertThatThrownBy(() ->
 				proxy.changeFirstName("kim"))
