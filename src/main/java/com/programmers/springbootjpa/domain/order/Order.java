@@ -1,17 +1,13 @@
 package com.programmers.springbootjpa.domain.order;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@Getter
-@Setter
 @Entity
-@Table(name = "orders")     // MySQL 등 대부분 DB에서 keyword로 동작하고 있어서 order에 s붙여줌
+@Table(name = "orders")
 public class Order {
     @Id
     @Column(name = "id")
@@ -27,17 +23,24 @@ public class Order {
     @Column(name = "order_datetime", columnDefinition = "TIMESTAMP")
     private LocalDateTime orderDateTime;
 
-    // order는 N, member는 1 -> 다대일 관계
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", referencedColumnName = "id")
     private Member member;
 
     @OneToMany(mappedBy = "order")
-    private List<OrderItem> orderItems;
+    private List<OrderItem> orderItems = new ArrayList<>();
 
-    // 연관관계 편의 메소드
+    protected Order() {}
+
+    public Order(String uuid, String memo, OrderStatus orderStatus, LocalDateTime orderDateTime) {
+        this.uuid = uuid;
+        this.memo = memo;
+        this.orderStatus = orderStatus;
+        this.orderDateTime = orderDateTime;
+    }
+
     public void setMember(Member member) {
-        // 이미 있다면 지워주기
+        // 기존에 member - order 관계가 이미 있다면 관계 끊기
         if (Objects.nonNull(this.member)) {
             member.getOrders().remove(this);
         }
@@ -47,5 +50,30 @@ public class Order {
 
     public void addOrderItem(OrderItem orderItem) {
         orderItem.setOrder(this);
+    }
+
+    /* getter */
+    public String getUuid() {
+        return uuid;
+    }
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public LocalDateTime getOrderDateTime() {
+        return orderDateTime;
+    }
+
+    public Member getMember() {
+        return member;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
     }
 }

@@ -1,13 +1,9 @@
 package com.programmers.springbootjpa.domain.order;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "item")
 public class Item {
@@ -15,19 +11,41 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(name = "price")
     private int price;
+
+    @Column(name = "stock_quantity")
     private int stockQuantity;
 
-    @ManyToOne
-    @JoinColumn(name = "order_item_id", referencedColumnName = "id")
-    private OrderItem orderItem;
+    @OneToMany(mappedBy = "item")
+    private List<OrderItem> orderItems = new ArrayList<>();
 
-    public void setOrderItem(OrderItem orderItem) {
-        if (Objects.nonNull(this.orderItem)) {
-            this.orderItem.getItems().remove(this);
-        }
+    protected Item() {}
 
-        this.orderItem = orderItem;
-        orderItem.getItems().add(this);
+    public Item(int price, int stockQuantity) {
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+    }
+
+    public void addOrderItem(OrderItem orderItem) {
+        orderItem.setItem(this);
+    }
+
+    /* getter */
+
+    public Long getId() {
+        return id;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public int getStockQuantity() {
+        return stockQuantity;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
     }
 }

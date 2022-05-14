@@ -1,14 +1,9 @@
 package com.programmers.springbootjpa.domain.order;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "member")
 public class Member {
@@ -31,12 +26,50 @@ public class Member {
     @Column(name = "description", nullable = false)
     private String description;
 
-    // mappedBy의 "member"는 Order entity의 "member" 필드
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
 
-    // 연관관계 편의 메소드
+    protected Member() {}
+
+    public Member(String name, String nickName, int age, String address, String description) {
+        this.name = name;
+        this.nickName = nickName;
+        this.age = age;
+        this.address = address;
+        this.description = description;
+    }
+
     public void addOrder(Order order) {
         order.setMember(this);
+    }
+
+    /* getter */
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
     }
 }
