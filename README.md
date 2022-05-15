@@ -17,4 +17,4 @@
 - 미션 3: Order, OrderItem, Item 엔티티 작성
 <br/>
 
-### [Order API, Customer API 사용명세서]()
+### [Order API, Customer API 사용명세서](https://github.com/y005/springboot-jpa/blob/main/src/doc/index.pdf)
