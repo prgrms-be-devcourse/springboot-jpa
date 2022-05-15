@@ -2,5 +2,9 @@
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
     <persistence-unit name="jpa_study">
         <class>com.management.member.entity.Member</class>
+        <class>com.management.item.entity.Item</class>
+        <class>com.management.item.entity.Car</class>
+        <class>com.management.item.entity.Food</class>
+        <class>com.management.item.entity.Furniture</class>
     </persistence-unit>
 </persistence>

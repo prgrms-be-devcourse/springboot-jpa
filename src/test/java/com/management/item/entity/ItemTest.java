@@ -1,4 +1,4 @@
-package com.management.member.entity;
+package com.management.item.entity;
 
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +13,7 @@ import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
 @TestClassOrder(ClassOrderer.DisplayName.class)
-class MemberTest {
-
+class ItemTest {
     @Autowired
     EntityManagerFactory entityManagerFactory;
 
@@ -32,36 +31,36 @@ class MemberTest {
         entityManager.close();
     }
 
-    @DisplayName("Member Create 테스트")
+    @DisplayName("Item Create 테스트")
     @Nested
     @TestMethodOrder(MethodOrderer.DisplayName.class)
     class CreateTest {
-        @DisplayName("성공 : description을 제외한 파라미터 값이 채워져서 생성된 경우")
+        @DisplayName("성공 : 파라미터 값이 채워져서 생성된 경우")
         @Test
         void success() {
             // Given
+            Car expectedCar = new Car("item create", 1000, 100, 4);
             transaction.begin();
 
             // When
-            Member expectedMember = new Member("create", "create", 25, "create", null);
-            entityManager.persist(expectedMember);
+            entityManager.persist(expectedCar);
             transaction.commit();
             entityManager.clear();
 
             // Then
-            Member actualMember = entityManager.find(Member.class, expectedMember.getId());
-            assertThat(actualMember).isEqualTo(expectedMember);
+            Car actualCar = entityManager.find(Car.class, expectedCar.getId());
+            assertThat(actualCar).isEqualTo(expectedCar);
         }
 
-        @DisplayName("실패 : 파라미터들의 값이 null로 생성된 경우")
+        @DisplayName("실패 : 파라미터의 값이 null로 생성된 경우")
         @Test
         void failedByNullParameter() {
             // Given
+            Car expectedCar = new Car(null, 1000, 100, 4);
             transaction.begin();
 
             // When
-            Member member = new Member(null, null, 25, "create", "create");
-            Throwable actualResult = catchThrowable(() -> entityManager.persist(member));
+            Throwable actualResult = catchThrowable(() -> entityManager.persist(expectedCar));
             transaction.commit();
 
             // Then
@@ -69,7 +68,7 @@ class MemberTest {
         }
     }
 
-    @DisplayName("Member Read 테스트")
+    @DisplayName("Item Read 테스트")
     @Nested
     @TestMethodOrder(MethodOrderer.DisplayName.class)
     class ReadTest {
@@ -78,16 +77,16 @@ class MemberTest {
         void success() {
             // Given
             transaction.begin();
-            Member expectedMember = new Member("find1", "find1", 25, "find1", null);
-            entityManager.persist(expectedMember);
+            Car expectedCar = new Car("item read", 200, 10, 10);
+            entityManager.persist(expectedCar);
             transaction.commit();
 
             // When
             entityManager.clear();
-            Member actualMember = entityManager.find(Member.class, expectedMember.getId());
+            Car actualCar = entityManager.find(Car.class, expectedCar.getId());
 
             // Then
-            assertThat(actualMember).isEqualTo(expectedMember);
+            assertThat(actualCar).isEqualTo(expectedCar);
         }
 
         @DisplayName("실패 : 존재하지 않는 PK 값으로 조회한 경우")
@@ -95,62 +94,54 @@ class MemberTest {
         void failedByNotExist() {
             // Given
             transaction.begin();
-            Member expectedMember = new Member("find2", "find2", 25, "find2", null);
-            entityManager.persist(expectedMember);
+            Car expectedCar = new Car("item read fail", 3000, 30, 10);
+            entityManager.persist(expectedCar);
             transaction.commit();
 
             // When
             entityManager.clear();
-            Member actualMember = entityManager.find(Member.class, 0L);
+            Car actualCar = entityManager.find(Car.class, 0L);
 
             // Then
-            assertThat(actualMember).isNull();
+            assertThat(actualCar).isNull();
         }
     }
 
-    @DisplayName("Member Update 테스트")
+    @DisplayName("Item Update 테스트")
     @Nested
     @TestMethodOrder(MethodOrderer.DisplayName.class)
     class UpdateTest {
-        @DisplayName("성공 : description을 제외한 파라미터 값이 채워져서 수정된 경우")
+        @DisplayName("성공 : 파라미터 값이 채워져서 수정된 경우")
         @Test
         void success() {
             // Given
             transaction.begin();
-            Member expectedMember = new Member("update1", "update1", 25, "update1", "update1");
-            entityManager.persist(expectedMember);
-            expectedMember.setName("kate");
-            expectedMember.setNickName("mooomoo");
-            expectedMember.setAge(15);
-            expectedMember.setAddress("busan");
-            expectedMember.setDescription(null);
+            Car expectedCar = new Car("item update", 3000, 30, 10);
+            entityManager.persist(expectedCar);
+            expectedCar.setName("success");
             transaction.commit();
 
             // When
             entityManager.clear();
-            Member actualMember = entityManager.find(Member.class, expectedMember.getId());
+            Car actualCar = entityManager.find(Car.class, expectedCar.getId());
 
             // Then
-            assertThat(actualMember).isEqualTo(expectedMember);
+            assertThat(actualCar).isEqualTo(expectedCar);
         }
 
-        @DisplayName("실패 : 파라미터들의 값이 null로 수정된 경우")
+        @DisplayName("실패 : 파라미터의 값이 null로 수정된 경우")
         @Test
         void failedByNullParameter() {
             // Given
             transaction.begin();
-            Member expectedMember = new Member("update2", "update2", 25, "update2", "update2");
-            entityManager.persist(expectedMember);
+            Car expectedCar = new Car("item update fail", 200, 3, 40);
+            entityManager.persist(expectedCar);
             transaction.commit();
 
             // When
             Throwable actualResult = catchThrowable(() -> {
                 transaction.begin();
-                expectedMember.setName(null);
-                expectedMember.setNickName(null);
-                expectedMember.setAge(15);
-                expectedMember.setAddress(null);
-                expectedMember.setDescription(null);
+                expectedCar.setName(null);
                 transaction.commit();
             });
 
@@ -159,7 +150,7 @@ class MemberTest {
         }
     }
 
-    @DisplayName("Member Delete 테스트")
+    @DisplayName("Item Delete 테스트")
     @Nested
     @TestMethodOrder(MethodOrderer.DisplayName.class)
     class DeleteTest {
@@ -168,21 +159,21 @@ class MemberTest {
         void success() {
             // Given
             transaction.begin();
-            Member member = new Member("delete1", "delete1", 25, "delete1", null);
-            entityManager.persist(member);
+            Car car = new Car("item delete", 45000, 45, 45);
+            entityManager.persist(car);
             transaction.commit();
 
             // When
             entityManager.clear();
             transaction.begin();
-            Member expectedMember = entityManager.find(Member.class, member.getId());
-            entityManager.remove(expectedMember);
+            Car expectedCar = entityManager.find(Car.class, car.getId());
+            entityManager.remove(expectedCar);
             transaction.commit();
 
             // Then
             entityManager.clear();
-            Member actualMember = entityManager.find(Member.class, member.getId());
-            assertThat(actualMember).isNull();
+            Car actualCar = entityManager.find(Car.class, car.getId());
+            assertThat(actualCar).isNull();
         }
 
         @DisplayName("실패 : 존재하지 않는 값으로 삭제한 경우")
@@ -190,13 +181,13 @@ class MemberTest {
         void failedByNullParameter() {
             // Given
             transaction.begin();
-            Member member = new Member("delete1", "delete1", 25, "delete1", null);
-            entityManager.persist(member);
+            Car car = new Car("item delete fail", 5000, 5, 5);
+            entityManager.persist(car);
             transaction.commit();
 
             // When
             entityManager.clear();
-            Throwable actualResult = catchThrowable(() -> entityManager.remove(member));
+            Throwable actualResult = catchThrowable(() -> entityManager.remove(car));
 
             // Then
             assertThat(actualResult).isInstanceOf(IllegalArgumentException.class);
