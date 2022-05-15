@@ -14,21 +14,22 @@ import java.util.Objects;
 @Entity
 @Getter
 @Setter
-@Table(name = "order")
+@Table(name = "orders")
 public class Order extends BaseEntity{
 
     @Id
     @Column(name = "order_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "order_status", nullable = false, length = 10)
     private OrderStatus orderStatus;
 
     @Lob
+    @Column(length = 1500)
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
     private Customer customer;
     // 기본값은 pk, name은 fk 이름, columnName이 join되는 테이블 컬럼명

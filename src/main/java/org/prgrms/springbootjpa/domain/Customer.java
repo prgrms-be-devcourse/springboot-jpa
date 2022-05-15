@@ -24,7 +24,7 @@ public class Customer extends BaseEntity{
     @Column(name = "last_name", nullable = false, length = 10)
     private String lastName;
 
-    @Column(name = "full_name", nullable = false, length = 10)
+    @Column(name = "full_name", nullable = false, length = 30)
     private String fullName;
 
     private int age;
@@ -39,15 +39,14 @@ public class Customer extends BaseEntity{
 
     public Customer(){}
 
-    public Customer(long id, String firstName, String lastName, String fullName) {
-        this.id = id;
+    public Customer(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.fullName = fullName;
+        this.fullName = firstName+" "+lastName;
     }
 
     public String getFullName() {
-        return firstName + lastName;
+        return firstName + " "+lastName;
     }
 
     public void addOrder(Order order){
