@@ -107,8 +107,8 @@ public class Mission3 {
         transaction.commit();
         entityManager.clear();
 
-        Order findOrder = entityManager.find(Order.class, order.getUuid());
-        log.info("order : {}", findOrder.getMemo());
+        Order selectedOrder = entityManager.find(Order.class, order.getUuid());
+        log.info("order : {}", selectedOrder.getMemo());
         OrderItem findOrderItem = entityManager.find(OrderItem.class, order.getOrderItems().get(0).getId());
         assertThat(findOrderItem.getPrice()).isEqualTo(orderItem.getPrice());
         Item findItem = entityManager.find(Item.class, findOrderItem.getItems().get(0).getId());

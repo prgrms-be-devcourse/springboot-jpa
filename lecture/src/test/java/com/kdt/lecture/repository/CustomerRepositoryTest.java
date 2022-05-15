@@ -53,6 +53,7 @@ class CustomerRepositoryTest {
         //when
         customer.setLastName("KIM");
         customer.setFirstName("HUNKI");
+        customerRepository.save(customer);
         Optional<Customer> updatedCustomer = customerRepository.findById(
             customer.getId()); //PR Point1 , 플러쉬는 이 때 되는건지 궁금합니다!
         //then
