@@ -1,0 +1,78 @@
+:hardbreaks:
+ifndef::snippets[]
+:snippets: ../../build/generated-snippets
+endif::[]
+
+== 1. Order API
+
+=== Create Order
+
+=== POST /api/v1/orders
+
+.Request
+include::{snippets}/order-create/http-request.adoc[]
+include::{snippets}/order-create/request-fields.adoc[]
+
+.Response
+include::{snippets}/order-create/http-response.adoc[]
+include::{snippets}/order-create/response-fields.adoc[]
+
+=== Read Order
+
+=== GET /api/v1/orders/{id}
+
+.Request
+include::{snippets}/order-read/http-request.adoc[]
+
+.Response
+include::{snippets}/order-read/http-response.adoc[]
+include::{snippets}/order-read/response-fields.adoc[]
+
+=== Delete Order
+
+=== DELETE /api/v1/orders/{id}
+
+.Request
+include::{snippets}/order-delete/http-request.adoc[]
+
+.Response
+include::{snippets}/order-delete/http-response.adoc[]
+include::{snippets}/order-delete/response-fields.adoc[]
+
+---
+
+== 2. Customer API
+
+=== Create Customer
+
+=== POST /api/v1/customers
+
+.Request
+include::{snippets}/customer-create/http-request.adoc[]
+include::{snippets}/customer-create/request-fields.adoc[]
+
+.Response
+include::{snippets}/customer-create/http-response.adoc[]
+include::{snippets}/customer-create/response-fields.adoc[]
+
+=== Read Customer
+
+=== GET /api/v1/customers/{id}
+
+.Request
+include::{snippets}/customer-read/http-request.adoc[]
+
+.Response
+include::{snippets}/customer-read/http-response.adoc[]
+include::{snippets}/customer-read/response-fields.adoc[]
+
+=== Delete Customer
+
+=== DELETE /api/v1/customers/{id}
+
+.Request
+include::{snippets}/customer-delete/http-request.adoc[]
+
+.Response
+include::{snippets}/customer-delete/http-response.adoc[]
+include::{snippets}/customer-delete/response-fields.adoc[]

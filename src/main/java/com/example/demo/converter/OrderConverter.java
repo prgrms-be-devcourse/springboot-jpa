@@ -86,6 +86,7 @@ public class OrderConverter {
         return new ItemDto().builder()
                 .name(item.getName())
                 .quantity(item.getQuantity())
+                .price(item.getPrice())
                 .build();
     }
 }
