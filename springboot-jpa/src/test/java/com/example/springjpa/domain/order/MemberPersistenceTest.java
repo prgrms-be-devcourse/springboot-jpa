@@ -1,7 +1,6 @@
 package com.example.springjpa.domain.order;
 
 import com.example.springjpa.domain.common.EntityManagerTest;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +12,6 @@ import static com.example.springjpa.domain.order.OrderStatus.OPENED;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-@Slf4j
 public class MemberPersistenceTest extends EntityManagerTest {
 
     @Test
@@ -28,7 +26,7 @@ public class MemberPersistenceTest extends EntityManagerTest {
             member.addOrder(order);
         });
         Member findMember = entityManager.find(Member.class, member.getId());
-        assertThat(findMember.getOrders().size()).isEqualTo(1);
+        assertThat(findMember.getOrders()).hasSize(1);
     }
 
     @Test
@@ -53,8 +51,8 @@ public class MemberPersistenceTest extends EntityManagerTest {
         Member findMember = entityManager.find(Member.class, member.getId());
         Member findMember2 = entityManager.find(Member.class, member2.getId());
         assertAll(
-                () -> assertThat(findMember.getOrders().size()).isEqualTo(2),
-                () -> assertThat(findMember2.getOrders().size()).isEqualTo(0)
+                () -> assertThat(findMember.getOrders()).hasSize(2),
+                () -> assertThat(findMember2.getOrders().size()).isZero()
         );
     }
 
