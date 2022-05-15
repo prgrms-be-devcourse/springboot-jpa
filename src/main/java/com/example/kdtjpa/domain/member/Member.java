@@ -26,7 +26,6 @@ public class Member extends BaseEntity {
     private String description;
 
     protected Member() {
-
     }
 
     public Member(String name, String nickName, int age, String address, String description) {

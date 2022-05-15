@@ -10,7 +10,6 @@ public class Furniture extends Item {
     private int height;
 
     protected Furniture() {
-
     }
 
     public Furniture(int price, int stockQuantity, int width, int height) {

@@ -16,7 +16,6 @@ public abstract class Item extends BaseEntity {
     private int stockQuantity;
 
     public Item() {
-
     }
 
     public Item(int price, int stockQuantity) {

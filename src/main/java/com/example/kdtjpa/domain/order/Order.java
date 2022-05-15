@@ -34,6 +34,8 @@ public class Order extends BaseEntity {
     @OneToMany(mappedBy = "order", fetch = LAZY, cascade = ALL, orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
 
+    protected Order() {
+    }
 
     public Order(String uuid, String memo, Member member, List<OrderItem> orderItems) {
         this.uuid = uuid;
@@ -46,10 +48,6 @@ public class Order extends BaseEntity {
         }
     }
 
-    protected Order() {
-
-    }
-
     public List<OrderItem> getOrderItems() {
         return orderItems;
     }
@@ -60,6 +58,3 @@ public class Order extends BaseEntity {
         orderItem.setOrder(this);
     }
 }
-
-
-

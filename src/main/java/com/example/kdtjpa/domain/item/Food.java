@@ -9,7 +9,6 @@ public class Food extends Item {
     private String chef;
 
     protected Food() {
-
     }
 
     public Food(int price, int stockQuantity, String chef) {

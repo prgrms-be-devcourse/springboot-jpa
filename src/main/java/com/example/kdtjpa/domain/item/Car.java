@@ -10,7 +10,6 @@ public class Car extends Item {
 
 
     protected Car() {
-
     }
 
     public Car(int price, int stockQuantity, int power) {

@@ -25,7 +25,6 @@ public class OrderItem extends BaseEntity {
     private Item item;
 
     protected OrderItem() {
-
     }
 
     public OrderItem(int price, int quantity, Item item) {
