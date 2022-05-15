@@ -1,13 +1,9 @@
 package com.prgrms.lec_jpa.domain;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "member")
 public class Member extends BaseEntity{
 
@@ -29,6 +25,10 @@ public class Member extends BaseEntity{
 
     @Column(name = "description")
     private String description;
+
+    protected Member() {
+
+    }
 
     private Member(MemberBuilder builder) {
 
