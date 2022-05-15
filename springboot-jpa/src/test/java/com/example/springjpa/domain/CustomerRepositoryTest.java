@@ -1,5 +1,6 @@
 package com.example.springjpa.domain;
 
+import com.example.springjpa.domain.order.vo.Name;
 import com.example.springjpa.repository.CustomerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -27,7 +28,7 @@ class CustomerRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        Customer customer = new Customer("kim", "bob");
+        Customer customer = new Customer(new Name("kim", "bob"));
         basicCustomer = repository.save(customer);
     }
 
@@ -35,7 +36,7 @@ class CustomerRepositoryTest {
     @DisplayName("고객정보가 저장되어야 한다.")
     void testSave() throws Exception {
         //given
-        Customer customer = new Customer("taesan", "kang");
+        Customer customer = new Customer(new Name("taesan", "kang"));
         //when
         Customer savedEntity = repository.save(customer);
         //then
@@ -54,7 +55,7 @@ class CustomerRepositoryTest {
 
         // then
         assertAll(
-                () -> assertThat(findEntity.isEmpty()).isFalse(),
+                () -> assertThat(findEntity).isPresent(),
                 () -> assertThat(findEntity.get().getId()).isEqualTo(basicCustomer.getId())
         );
     }
@@ -67,23 +68,22 @@ class CustomerRepositoryTest {
 
         // then
         assertAll(
-                () -> assertThat(customers.isEmpty()).isFalse(),
-                () -> assertThat(customers.size()).isEqualTo(1)
+                () -> assertThat(customers).isNotEmpty(),
+                () -> assertThat(customers).hasSize(1)
         );
     }
 
     @Test
     @DisplayName("고객정보를 수정할 수 있다.")
-    void testUpdate() throws Exception {
+    void testUpdate() {
         //when
-        basicCustomer.changeFirstName("big");
-        basicCustomer.changeLastName("mountain");
+        basicCustomer.changeName(new Name("big", "mountain"));
         Customer findEntity = repository.findById(basicCustomer.getId()).get();
 
         //then
         assertAll(
-                () -> assertThat(basicCustomer.getFirstName()).isEqualTo(findEntity.getFirstName()),
-                () -> assertThat(basicCustomer.getLastName()).isEqualTo(findEntity.getLastName())
+                () -> assertThat(basicCustomer.getName().getFirstName()).isEqualTo(findEntity.getName().getFirstName()),
+                () -> assertThat(basicCustomer.getName().getLastName()).isEqualTo(findEntity.getName().getLastName())
         );
     }
 
@@ -96,7 +96,7 @@ class CustomerRepositoryTest {
         Optional<Customer> findEntity = repository.findById(basicCustomer.getId());
         // then
         assertAll(
-                () -> assertThat(findEntity.isEmpty()).isTrue()
+                () -> assertThat(findEntity).isEmpty()
         );
     }
 

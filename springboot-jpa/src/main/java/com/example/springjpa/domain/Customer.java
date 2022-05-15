@@ -1,5 +1,7 @@
 package com.example.springjpa.domain;
 
+import com.example.springjpa.domain.order.vo.Name;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,7 +9,6 @@ import javax.persistence.*;
 @SequenceGenerator(
         name = "CUSTOMER_SEQ_GENERATOR",
         sequenceName = "CUSTOMER_SEQ",
-        initialValue = 1,
         allocationSize = 1
 )
 public class Customer {
@@ -15,34 +16,25 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "CUSTOMER_SEQ_GENERATOR")
     private Long id;
-    private String firstName;
-    private String lastName;
+    @Embedded
+    private Name name;
 
     protected Customer() {
     }
 
-    public Customer(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Customer(Name name) {
+        this.name = name;
     }
 
-    public void changeFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void changeLastName(String lastName) {
-        this.lastName = lastName;
+    public void changeName(Name name) {
+        this.name = name;
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
+    public Name getName() {
+        return name;
     }
 }

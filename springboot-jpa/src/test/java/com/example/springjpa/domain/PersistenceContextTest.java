@@ -1,6 +1,7 @@
 package com.example.springjpa.domain;
 
 import com.example.springjpa.domain.common.EntityManagerTest;
+import com.example.springjpa.domain.order.vo.Name;
 import com.example.springjpa.repository.CustomerRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,12 +12,12 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-public class PersistenceContextTest extends EntityManagerTest {
+class PersistenceContextTest extends EntityManagerTest {
 
     @Autowired
     CustomerRepository customerRepository;
 
-    Customer customer = new Customer("TaeSan", "Kang");
+    Customer customer = new Customer(new Name("TaeSan", "Kang"));
 
     @Test
     @DisplayName("영속성 컨텍스트만을 사용하여 데이터베이스에 저장할 수 있다.")
@@ -25,7 +26,7 @@ public class PersistenceContextTest extends EntityManagerTest {
 
         Optional<Customer> findCustomer = customerRepository.findById(customer.getId());
         assertAll(
-                () -> assertThat(findCustomer.isPresent()).isTrue(),
+                () -> assertThat(findCustomer).isPresent(),
                 () -> assertThat(findCustomer.get().getId()).isEqualTo(customer.getId())
         );
     }
@@ -61,12 +62,11 @@ public class PersistenceContextTest extends EntityManagerTest {
         execWithTransaction(() -> {
             entityManager.persist(customer);
             entityManager.flush();
-            customer.changeFirstName(changeFirstName);
-            customer.changeLastName(changeLastName);
+            customer.changeName(new Name(changeFirstName, changeLastName));
             Customer findCustomer = entityManager.find(Customer.class, customer.getId());
             assertAll(
-                    () -> assertThat(findCustomer.getFirstName()).isEqualTo(changeFirstName),
-                    () -> assertThat(findCustomer.getLastName()).isEqualTo(changeLastName)
+                    () -> assertThat(findCustomer.getName().getFirstName()).isEqualTo(changeFirstName),
+                    () -> assertThat(findCustomer.getName().getLastName()).isEqualTo(changeLastName)
             );
         });
     }
@@ -81,6 +81,6 @@ public class PersistenceContextTest extends EntityManagerTest {
         });
 
         Optional<Customer> findCustomer = customerRepository.findById(customer.getId());
-        assertThat(findCustomer.isEmpty()).isTrue();
+        assertThat(findCustomer).isEmpty();
     }
 }
