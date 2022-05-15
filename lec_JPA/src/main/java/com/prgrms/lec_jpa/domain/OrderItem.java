@@ -1,13 +1,9 @@
 package com.prgrms.lec_jpa.domain;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "order_item")
 public class OrderItem extends BaseEntity {
 
@@ -25,6 +21,10 @@ public class OrderItem extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "item_id", referencedColumnName = "id")
     private Item item;
+
+    protected OrderItem() {
+
+    }
 
     private OrderItem(OrderItemBuilder builder) {
 

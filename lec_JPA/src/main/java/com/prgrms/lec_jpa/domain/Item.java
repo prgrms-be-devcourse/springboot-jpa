@@ -1,13 +1,9 @@
 package com.prgrms.lec_jpa.domain;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "item")
 public class Item extends BaseEntity{
 
@@ -17,6 +13,10 @@ public class Item extends BaseEntity{
 
     private long price;
     private long stockQuantity;
+
+    protected Item() {
+
+    }
 
     private Item(ItemBuilder builder) {
 
