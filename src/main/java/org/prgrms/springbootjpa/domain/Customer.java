@@ -1,39 +1,56 @@
 package org.prgrms.springbootjpa.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "customers")
-public class Customer {
+@Table(name = "customer")
+@Getter
+@Setter
+public class Customer extends BaseEntity{
     @Id
+    // 일단 실행해보고 nullable, insertable, updatable test
+    @Column(name = "customer_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+    @Column(name = "first_name", nullable = false, length = 10)
     private String firstName;
+
+    @Column(name = "last_name", nullable = false, length = 10)
     private String lastName;
 
-    public long getId() {
-        return id;
-    }
+    @Column(name = "full_name", nullable = false, length = 10)
+    private String fullName;
 
-    public void setId(long id) {
+    private int age;
+
+    @Column(nullable = false, length = 30, unique = true)
+    private String nickname;
+
+    private String address;
+
+    @OneToMany(mappedBy = "customer")
+    private List<Order> orders = new ArrayList<>();
+
+    public Customer(){}
+
+    public Customer(long id, String firstName, String lastName, String fullName) {
         this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
         this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
         this.lastName = lastName;
+        this.fullName = fullName;
+    }
+
+    public String getFullName() {
+        return firstName + lastName;
+    }
+
+    public void addOrder(Order order){
+        order.setCustomer(this);
     }
 }
