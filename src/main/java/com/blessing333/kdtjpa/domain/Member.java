@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "member")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Setter(AccessLevel.PRIVATE)
 @Getter
@@ -33,7 +32,6 @@ public class Member {
     private String description;
 
     @OneToMany(mappedBy = "member")
-    @Singular
     private final List<Order> orders = new ArrayList<>();
 
     public void addOrder(Order order) {

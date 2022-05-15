@@ -175,9 +175,9 @@ class OrderTest {
         em.clear();
 
         Order foundOrder = em.find(Order.class, orderId);
+
         List<OrderItem> lazyLoadedOrderItems = foundOrder.getOrderItems();
         OrderItem foundOrderItem = lazyLoadedOrderItems.get(0);
-
         assertThat(lazyLoadedOrderItems).hasSize(1);
         assertThat(foundOrderItem.getId()).isEqualTo(orderItem.getId());
         assertThat(foundOrderItem.getItem()).isEqualTo(orderItem.getItem());

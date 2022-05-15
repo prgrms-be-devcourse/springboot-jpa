@@ -3,7 +3,6 @@ package com.blessing333.kdtjpa.config;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -17,7 +16,6 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@EnableJpaAuditing
 @EnableJpaRepositories(basePackages = "com.blessing333.kdtjpa.domain")
 public class DataSourceConfig {
     @Bean
@@ -42,16 +40,13 @@ public class DataSourceConfig {
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, JpaVendorAdapter jpaVendorAdapter,
                                                                        JpaProperties jpaProperties) {
-        LocalContainerEntityManagerFactoryBean em
-                = new LocalContainerEntityManagerFactoryBean();
+        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
         em.setPackagesToScan("com.blessing333.kdtjpa.domain");
         em.setJpaVendorAdapter(jpaVendorAdapter);
-
         Properties properties = new Properties();
         properties.putAll(jpaProperties.getProperties());
         em.setJpaProperties(properties);
-
         return em;
     }
 
@@ -59,7 +54,6 @@ public class DataSourceConfig {
     public PlatformTransactionManager transactionManager(LocalContainerEntityManagerFactoryBean entityManagerFactory) {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactory.getObject());
-
         return transactionManager;
     }
 }

@@ -11,8 +11,8 @@ import java.util.Objects;
 
 
 @Entity
-@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 @Setter(AccessLevel.PRIVATE)
 public class OrderItem {
     @EmbeddedId
