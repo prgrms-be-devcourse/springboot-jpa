@@ -1,14 +1,11 @@
 package com.example.kdtjpa.domain.customer;
 
-import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Objects;
-import static lombok.AccessLevel.PROTECTED;
 
 @Entity
-@NoArgsConstructor(access = PROTECTED)
 @Table(name = "customers")
 public class Customer {
     @Id
@@ -20,6 +17,9 @@ public class Customer {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    protected Customer() {
     }
 
     public Long getId() {

@@ -1,12 +1,9 @@
 package com.example.kdtjpa.domain.member;
 
 import com.example.kdtjpa.domain.BaseEntity;
-import lombok.NoArgsConstructor;
 import javax.persistence.*;
-import static lombok.AccessLevel.PROTECTED;
 
 @Entity
-@NoArgsConstructor(access = PROTECTED)
 @Table(name = "member")
 public class Member extends BaseEntity {
     @Id
@@ -27,6 +24,10 @@ public class Member extends BaseEntity {
 
     @Column(name = "description")
     private String description;
+
+    protected Member() {
+
+    }
 
     public Member(String name, String nickName, int age, String address, String description) {
         this.name = name;

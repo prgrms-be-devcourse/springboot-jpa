@@ -3,14 +3,11 @@ package com.example.kdtjpa.domain.orderItem;
 import com.example.kdtjpa.domain.BaseEntity;
 import com.example.kdtjpa.domain.item.Item;
 import com.example.kdtjpa.domain.order.Order;
-import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.Objects;
 import static javax.persistence.FetchType.LAZY;
-import static lombok.AccessLevel.PROTECTED;
 
 @Entity
-@NoArgsConstructor(access = PROTECTED)
 @Table(name = "order_item")
 public class OrderItem extends BaseEntity {
     @Id
@@ -26,6 +23,10 @@ public class OrderItem extends BaseEntity {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "ITEM_ID")
     private Item item;
+
+    protected OrderItem() {
+
+    }
 
     public OrderItem(int price, int quantity, Item item) {
         this.price = price;
