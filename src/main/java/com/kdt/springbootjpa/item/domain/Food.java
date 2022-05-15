@@ -1,16 +1,15 @@
 package com.kdt.springbootjpa.item.domain;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("FOOD")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Food extends Item {
     private String chef;
+
+    protected Food() {
+    }
 
     public Food(int price, int stockQuantity, String chef) {
         super(price, stockQuantity);
