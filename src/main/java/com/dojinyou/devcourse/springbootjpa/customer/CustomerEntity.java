@@ -13,7 +13,7 @@ public class CustomerEntity {
     private String firstName;
     private String lastName;
 
-    public CustomerEntity() {
+    protected CustomerEntity() {
     }
 
     public long getId() {
