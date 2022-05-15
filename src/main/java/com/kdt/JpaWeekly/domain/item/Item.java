@@ -1,8 +1,6 @@
 package com.kdt.JpaWeekly.domain.item;
 
 import com.kdt.JpaWeekly.common.domain.BaseEntity;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

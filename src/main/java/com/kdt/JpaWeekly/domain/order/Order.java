@@ -2,9 +2,6 @@ package com.kdt.JpaWeekly.domain.order;
 
 import com.kdt.JpaWeekly.common.domain.BaseEntity;
 import com.kdt.JpaWeekly.domain.member.Member;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.cglib.core.Local;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

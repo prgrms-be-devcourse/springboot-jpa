@@ -1,10 +1,5 @@
 package com.kdt.JpaWeekly.domain.item;
 
-import com.kdt.JpaWeekly.domain.order.Order;
-import com.kdt.JpaWeekly.domain.order.OrderItem;
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import java.time.LocalDateTime;
