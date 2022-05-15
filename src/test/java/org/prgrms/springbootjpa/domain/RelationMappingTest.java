@@ -21,34 +21,39 @@ public class RelationMappingTest {
     @Autowired
     EntityManagerFactory emf;
 
-    @Test
-    void order_orderItems_관계_저장(){
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction transaction = em.getTransaction();
+    EntityTransaction transaction;
 
-        Customer customer = new Customer("seungeun", "kim");
+    EntityManager em;
+
+    private Customer customer;
+    private Product product;
+    private OrderItem orderItem;
+    private Order order;
+
+    @BeforeEach
+    void setUp(){
+        em = emf.createEntityManager();
+        transaction = em.getTransaction();
+
+        customer = new Customer("seungeun", "kim");
         customer.setAddress("경기도 화성시 영통로");
         customer.setAge(23);
         customer.setNickname("빈푸");
 
-        Product product = new Product(60000, 3);
-        OrderItem orderItem = new OrderItem(product, product.getPrice(), 2);
-        Order order = new Order(UUID.randomUUID().toString(), OrderStatus.ACCEPTED, customer);
+        product = new Product(60000, 3);
+        orderItem = new OrderItem(product, product.getPrice(), 2);
+        order = new Order(UUID.randomUUID().toString(), OrderStatus.ACCEPTED, customer);
 
         transaction.begin();
-
         em.persist(product);
         em.persist(customer);
         em.persist(order);
         em.persist(orderItem);
-        order.addOrderItem(orderItem);
-
         transaction.commit();
+    }
 
-        // Order에 속하는 OrderItem 조회
-        Order orderResult = em.find(Order.class, order.getId());
-        assertThat(orderResult.getOrderItems().get(0).getId()).isEqualTo(orderItem.getId());
-
+    @AfterEach
+    void tearDown(){
         transaction.begin();
         em.remove(product);
         em.remove(customer);
@@ -58,71 +63,36 @@ public class RelationMappingTest {
     }
 
     @Test
-    void product_orderItems_관계_저장(){
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-
-        Customer customer = new Customer("seungeun", "kim");
-        customer.setAddress("경기도 화성시 영통로");
-        customer.setAge(23);
-        customer.setNickname("빈푸");
-
-        Product product = new Product(60000, 3);
-        OrderItem orderItem = new OrderItem(product, product.getPrice(), 2);
-        Order order = new Order(UUID.randomUUID().toString(), OrderStatus.ACCEPTED, customer);
-
+    void order_orderItems_관계_저장(){
         transaction.begin();
-        em.persist(product);
-        em.persist(customer);
-        em.persist(order);
-        em.persist(orderItem);
+        order.addOrderItem(orderItem);
+        transaction.commit();
+
+        // Order에 속하는 OrderItem 조회
+        Order orderResult = em.find(Order.class, order.getId());
+        assertThat(orderResult.getOrderItems().get(0).getId()).isEqualTo(orderItem.getId());
+    }
+
+    @Test
+    void product_orderItems_관계_저장(){
+        transaction.begin();
         product.addProductOrder(orderItem);
         transaction.commit();
 
         // Product을 주문한 orderItem 조회
         Product productResult = em.find(Product.class, product.getId());
         assertThat(productResult.getProductOrders().get(0).getId()).isEqualTo(orderItem.getId());
-
-        transaction.begin();
-        em.remove(product);
-        em.remove(customer);
-        em.remove(order);
-        em.remove(orderItem);
-        transaction.commit();
     }
 
     @Test
     void customer_order_관계_저장(){
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-
-        Customer customer = new Customer("seungeun", "kim");
-        customer.setAddress("경기도 화성시 영통로");
-        customer.setAge(23);
-        customer.setNickname("빈푸");
-
-        Product product = new Product(60000, 3);
-        OrderItem orderItem = new OrderItem(product, product.getPrice(), 2);
-        Order order = new Order(UUID.randomUUID().toString(), OrderStatus.ACCEPTED, customer);
-
         transaction.begin();
-        em.persist(product);
-        em.persist(customer);
-        em.persist(order);
-        em.persist(orderItem);
         customer.addOrder(order);
         transaction.commit();
 
         // customer가 주문한 order 조회
         Customer customerResult = em.find(Customer.class, customer.getId());
         assertThat(customerResult.getOrders().get(0).getId()).isEqualTo(order.getId());
-
-        transaction.begin();
-        em.remove(product);
-        em.remove(customer);
-        em.remove(order);
-        em.remove(orderItem);
-        transaction.commit();
     }
 
 }
