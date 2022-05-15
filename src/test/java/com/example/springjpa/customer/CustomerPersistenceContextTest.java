@@ -12,13 +12,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import lombok.extern.slf4j.Slf4j;
 
-@SpringBootTest
-@Transactional
+@DataJpaTest
 @DisplayName("기본키 생성 전략이 SEQUENCE 일 때 EntityManager 를 사용하여 테스트 한다")
 @Slf4j
 public class CustomerPersistenceContextTest {
