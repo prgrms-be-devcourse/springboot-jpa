@@ -28,7 +28,7 @@ class MemberPersistenceTest extends EntityManagerTest {
             member.addOrder(order);
         });
         Member findMember = entityManager.find(Member.class, member.getId());
-        assertThat(findMember.getOrders()).hasSize(1);
+        assertThat(findMember.getOrders().length()).isEqualTo(1);
     }
 
     @Test
@@ -54,8 +54,8 @@ class MemberPersistenceTest extends EntityManagerTest {
         Member findMember = entityManager.find(Member.class, member.getId());
         Member findMember2 = entityManager.find(Member.class, member2.getId());
         assertAll(
-                () -> assertThat(findMember.getOrders()).hasSize(2),
-                () -> assertThat(findMember2.getOrders()).isEmpty()
+                () -> assertThat(findMember.getOrders().length()).isEqualTo(2),
+                () -> assertThat(findMember2.getOrders().length()).isZero()
         );
     }
 
@@ -84,7 +84,7 @@ class MemberPersistenceTest extends EntityManagerTest {
                 .age(-1)
                 .address("주소")
                 .description("Desc")
-                .orders(new ArrayList<>())
+                .orders(new Orders())
                 .build());
     }
 
@@ -92,37 +92,37 @@ class MemberPersistenceTest extends EntityManagerTest {
     @DisplayName("이름과 닉네임은 null과 50자 초과를 허용하지 않는다.")
     void testNameValidate() {
         assertAll(
-                () -> assertThrows(IllegalArgumentException.class, () -> new MemberBuilder()
+                () -> assertThrows(IllegalArgumentException.class, () -> Member.builder()
                         .name("*".repeat(51))
                         .nickName(UUID.randomUUID().toString())
                         .age(10)
                         .address("주소")
                         .description("Desc")
-                        .orders(new ArrayList<>())
+                        .orders(new Orders())
                         .build()),
-                () -> assertThrows(IllegalArgumentException.class, () -> new MemberBuilder()
+                () -> assertThrows(IllegalArgumentException.class, () -> Member.builder()
                         .name("name")
                         .nickName("*".repeat(51))
                         .age(10)
                         .address("주소")
                         .description("Desc")
-                        .orders(new ArrayList<>())
+                        .orders(new Orders())
                         .build()),
-                () -> assertThrows(IllegalArgumentException.class, () -> new MemberBuilder()
+                () -> assertThrows(IllegalArgumentException.class, () -> Member.builder()
                         .name(null)
                         .nickName(UUID.randomUUID().toString())
                         .age(10)
                         .address("주소")
                         .description("Desc")
-                        .orders(new ArrayList<>())
+                        .orders(new Orders())
                         .build()),
-                () -> assertThrows(IllegalArgumentException.class, () -> new MemberBuilder()
+                () -> assertThrows(IllegalArgumentException.class, () -> Member.builder()
                         .name("name")
                         .nickName(null)
                         .age(10)
                         .address("주소")
                         .description("Desc")
-                        .orders(new ArrayList<>())
+                        .orders(new Orders())
                         .build())
         );
     }

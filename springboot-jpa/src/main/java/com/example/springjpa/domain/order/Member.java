@@ -3,7 +3,6 @@ package com.example.springjpa.domain.order;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "member")
@@ -19,19 +18,19 @@ public class Member {
     @Column(nullable = false)
     private String address;
     private String description;
-    @OneToMany(mappedBy = "member")
-    private List<Order> orders;
+    @Column(nullable = false, length = 50)
+    private String name;
+    @Embedded
+    private Orders orders;
     private static final int NAME_MAX = 50;
     private static final String AGE_VALIDATE_ERR = "나이는 음수가 될 수 없습니다";
     private static final String NAME_VALIDATE_ERR = "이름(닉네임)은" + NAME_MAX + "자를 넘을 수 없습니다";
     private static final String ADDRESS_VALIDATE_ERR = "주소는 null을 허용하지 않습니다";
-    @Column(nullable = false, length = 50)
-    private String name;
 
     protected Member() {
     }
 
-    public Member(Long id, String name, String nickName, int age, String address, String description, List<Order> orders) {
+    public Member(Long id, String name, String nickName, int age, String address, String description, Orders orders) {
         nameValidate(name);
         nameValidate(nickName);
         addressValidate(address);
@@ -42,7 +41,7 @@ public class Member {
         this.age = age;
         this.address = address;
         this.description = description;
-        this.orders = orders;
+        this.orders = orders == null ? new Orders() : orders;
     }
 
     private void addressValidate(String address) {
@@ -86,8 +85,12 @@ public class Member {
         return description;
     }
 
-    public List<Order> getOrders() {
-        return orders;
+    public static MemberBuilder builder() {
+        return new MemberBuilder();
+    }
+
+    public Orders getOrders() {
+        return this.orders;
     }
 
     public static class MemberBuilder {
@@ -97,7 +100,10 @@ public class Member {
         private int age;
         private String address;
         private String description;
-        private List<Order> orders;
+        private Orders orders;
+
+        MemberBuilder() {
+        }
 
         public MemberBuilder id(final Long id) {
             this.id = id;
@@ -129,7 +135,7 @@ public class Member {
             return this;
         }
 
-        public MemberBuilder orders(final List<Order> orders) {
+        public MemberBuilder orders(final Orders orders) {
             this.orders = orders;
             return this;
         }
