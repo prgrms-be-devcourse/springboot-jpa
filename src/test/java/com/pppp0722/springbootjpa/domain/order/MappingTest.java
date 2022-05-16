@@ -126,7 +126,7 @@ public class MappingTest {
             for (int j = 0; j < orderItems.size(); j++) {
                 OrderItem orderItem = orderItems.get(j);
                 log.info("{} 님의 {} 번째 주문 중 {} 번째 아이템의 정보 -> name: {}, quantity: {}, price: {}",
-                    foundMember., i + 1, j + 1, orderItem.getItem().getName(),
+                    foundMember.getNickName(), i + 1, j + 1, orderItem.getItem().getName(),
                     orderItem.getQuantity(), orderItem.getPrice());
             }
         }
