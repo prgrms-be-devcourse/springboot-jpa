@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -44,6 +45,9 @@ public class Order {
     }
 
     public void setMember(Member member) {
+        if (Objects.nonNull(this.member)) {
+            this.member.getOrders().remove(this);
+        }
         this.member = member;
         member.addOrder(this);
     }
