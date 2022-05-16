@@ -1,0 +1,101 @@
+:hardbreaks:
+ifndef::snippets[]
+:snippets: ../../../target/generated-snippets
+endif::[]
+
+== 회원
+
+=== 회원조회
+
+==== /member/{id}
+
+.Request
+
+include::{snippets}/member-get/http-request.adoc[]
+
+.Response
+
+include::{snippets}/member-get/http-response.adoc[]
+
+.Response Fields
+
+include::{snippets}/member-get/response-fields.adoc[]
+
+=== 회원등록
+
+==== /member/{id}
+
+.Request
+
+include::{snippets}/member-save/http-request.adoc[]
+
+.Request Fields
+
+include::{snippets}/member-save/request-fields.adoc[]
+
+.Response
+
+include::{snippets}/member-save/http-response.adoc[]
+
+.Response Fields
+
+include::{snippets}/member-save/response-fields.adoc[]
+
+=== 회원수정
+
+==== /member/{id}
+
+.Request
+
+include::{snippets}/member-update/http-request.adoc[]
+
+.Request Fields
+
+include::{snippets}/member-update/request-fields.adoc[]
+
+.Response
+
+include::{snippets}/member-update/http-response.adoc[]
+
+.Response Fields
+
+include::{snippets}/member-update/response-fields.adoc[]
+
+
+== 메뉴
+
+=== 메뉴조회
+
+==== /member/{id}
+
+.Request
+
+include::{snippets}/item-get/http-request.adoc[]
+
+.Response
+
+include::{snippets}/item-get/http-response.adoc[]
+
+.Response Fields
+
+include::{snippets}/item-get/response-fields.adoc[]
+
+=== 메뉴등록
+
+==== /items/{id}
+
+.Request
+
+include::{snippets}/item-save/http-request.adoc[]
+
+.Request Fields
+
+include::{snippets}/item-save/request-fields.adoc[]
+
+.Response
+
+include::{snippets}/item-save/http-response.adoc[]
+
+.Response Fields
+
+include::{snippets}/item-save/response-fields.adoc[]
