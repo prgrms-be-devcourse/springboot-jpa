@@ -12,7 +12,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -35,7 +34,8 @@ public class Order extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
-    @Lob
+
+    @Column(name = "memo", nullable = true)
     private String memo;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -49,12 +49,7 @@ public class Order extends BaseEntity {
         if (Objects.nonNull(this.member)) {
             this.member.getOrders().remove(this);
         }
-
         this.member = member;
         member.getOrders().add(this);
-    }
-
-    public void addOrderItem(OrderItem orderItem) {
-        orderItem.setOrder(this);
     }
 }

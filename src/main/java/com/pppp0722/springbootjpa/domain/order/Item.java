@@ -1,6 +1,9 @@
 package com.pppp0722.springbootjpa.domain.order;
 
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,8 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,19 +28,15 @@ public abstract class Item extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(name = "name", nullable = false)
+    private String name;
+
+    @Column(name = "price", nullable = false)
     private int price;
+
+    @Column(name = "stock_quantity", nullable = false)
     private int stockQuantity;
 
-    @ManyToOne
-    @JoinColumn(name = "order_item_id", referencedColumnName = "id")
-    private OrderItem orderItem;
-
-    public void setOrderItem(OrderItem orderItem) {
-        if (Objects.nonNull(this.orderItem)) {
-            this.orderItem.getItems().remove(this);
-        }
-
-        this.orderItem = orderItem;
-        orderItem.getItems().add(this);
-    }
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderItem> orderItems = new ArrayList<>();
 }

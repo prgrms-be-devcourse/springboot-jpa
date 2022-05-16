@@ -29,6 +29,7 @@ public class Member extends BaseEntity {
     @Column(nullable = false, length = 30, unique = true)
     private String nickName;
 
+    @Column(name = "age", nullable = true)
     private int age;
 
     @Column(name = "address", nullable = false)
@@ -39,8 +40,4 @@ public class Member extends BaseEntity {
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<Order> orders = new ArrayList<>();
-
-    public void addOrder(Order order) {
-        order.setMember(this);
-    }
 }
