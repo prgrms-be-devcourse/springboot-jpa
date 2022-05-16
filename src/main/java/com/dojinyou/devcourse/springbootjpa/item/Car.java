@@ -21,11 +21,13 @@ public class Car extends Item {
     }
 
     private Car(Builder builder) {
-        super(builder.price, builder.stockQuantity);
+        super(builder.id, builder.price, builder.stockQuantity);
         this.power = builder.power;
     }
 
     public static class Builder {
+
+        private Long id;
 
         private Long price;
 
@@ -34,6 +36,11 @@ public class Car extends Item {
         private long power;
 
         public Builder() {
+        }
+
+        public Builder id(long id) {
+            this.id = id;
+            return this;
         }
 
         public Builder price(long price) {

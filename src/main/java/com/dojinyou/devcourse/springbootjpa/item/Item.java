@@ -20,7 +20,8 @@ public abstract class Item extends BaseEntity {
     protected Item() {
     }
 
-    public Item(long price, long stockQuantity) {
+    public Item(Long id, long price, long stockQuantity) {
+        this.id = id;
         this.price = price;
         this.stockQuantity = stockQuantity;
     }

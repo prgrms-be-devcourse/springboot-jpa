@@ -15,12 +15,6 @@ public class Furniture extends Item {
         super();
     }
 
-    public Furniture(int price, int stockQuantity, long width, long height) {
-        super(price, stockQuantity);
-        this.width = width;
-        this.height = height;
-    }
-
     public long getWidth() {
         return width;
     }
@@ -30,7 +24,7 @@ public class Furniture extends Item {
     }
 
     private Furniture(Builder builder) {
-        super(builder.price, builder.stockQuantity);
+        super(builder.id, builder.price, builder.stockQuantity);
         this.width = builder.width;
         this.height = builder.height;
     }

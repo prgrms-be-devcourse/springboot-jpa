@@ -22,11 +22,12 @@ public class Food extends Item{
     }
 
     private Food(Builder builder) {
-        super(builder.price, builder.stockQuantity);
+        super(builder.id, builder.price, builder.stockQuantity);
         this.chef = builder.chef;
     }
 
     public static class Builder {
+        private Long id;
 
         private Long price;
 
@@ -35,6 +36,11 @@ public class Food extends Item{
         private String chef;
 
         public Builder() {
+        }
+
+        public Builder id(long id) {
+            this.id = id;
+            return this;
         }
 
         public Builder price(long price) {
