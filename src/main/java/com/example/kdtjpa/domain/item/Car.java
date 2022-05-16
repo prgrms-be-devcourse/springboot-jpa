@@ -16,8 +16,4 @@ public class Car extends Item {
         super(price, stockQuantity);
         this.power = power;
     }
-
-    public int getPower() {
-        return power;
-    }
 }
