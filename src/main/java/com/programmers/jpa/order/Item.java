@@ -28,7 +28,7 @@ public class Item {
         this.stockQuantity = stockQuantity;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_item_id", referencedColumnName = "id")
     private OrderItem orderItem;
 
