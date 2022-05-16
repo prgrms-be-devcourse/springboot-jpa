@@ -5,6 +5,7 @@ import com.example.kdtjpa.domain.item.Item;
 import com.example.kdtjpa.domain.order.Order;
 import javax.persistence.*;
 import java.util.Objects;
+import static java.time.LocalDateTime.now;
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
@@ -28,6 +29,7 @@ public class OrderItem extends BaseEntity {
     }
 
     public OrderItem(int price, int quantity, Item item) {
+        super(null, now());
         this.price = price;
         this.quantity = quantity;
         this.item = item;

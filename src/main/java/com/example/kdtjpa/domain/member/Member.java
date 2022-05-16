@@ -2,6 +2,7 @@ package com.example.kdtjpa.domain.member;
 
 import com.example.kdtjpa.domain.BaseEntity;
 import javax.persistence.*;
+import static java.time.LocalDateTime.now;
 
 @Entity
 @Table(name = "member")
@@ -29,6 +30,7 @@ public class Member extends BaseEntity {
     }
 
     public Member(String name, String nickName, int age, String address, String description) {
+        super(null, now());
         this.name = name;
         this.nickName = nickName;
         this.age = age;

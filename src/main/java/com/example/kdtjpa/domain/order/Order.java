@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import static com.example.kdtjpa.domain.order.OrderStatus.OPENED;
+import static java.time.LocalDateTime.now;
 import static javax.persistence.CascadeType.*;
 import static javax.persistence.FetchType.LAZY;
 
@@ -38,10 +39,11 @@ public class Order extends BaseEntity {
     }
 
     public Order(String uuid, String memo, Member member, List<OrderItem> orderItems) {
+        super(null, now());
         this.uuid = uuid;
         this.memo = memo;
         this.orderStatus = OPENED;
-        this.orderDatetime = LocalDateTime.now();
+        this.orderDatetime = now();
         this.member = member;
         for (OrderItem orderItem : orderItems) {
             addOrderItem(orderItem);
