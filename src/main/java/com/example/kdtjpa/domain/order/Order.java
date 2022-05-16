@@ -3,18 +3,16 @@ package com.example.kdtjpa.domain.order;
 import com.example.kdtjpa.domain.BaseEntity;
 import com.example.kdtjpa.domain.member.Member;
 import com.example.kdtjpa.domain.orderItem.OrderItem;
-import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import static com.example.kdtjpa.domain.order.OrderStatus.OPENED;
+import static java.time.LocalDateTime.now;
 import static javax.persistence.CascadeType.*;
 import static javax.persistence.FetchType.LAZY;
-import static lombok.AccessLevel.PROTECTED;
 
 @Entity
-@NoArgsConstructor(access = PROTECTED)
 @Table(name = "orders")
 public class Order extends BaseEntity {
     @Id
@@ -37,11 +35,15 @@ public class Order extends BaseEntity {
     @OneToMany(mappedBy = "order", fetch = LAZY, cascade = ALL, orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
 
+    protected Order() {
+    }
+
     public Order(String uuid, String memo, Member member, List<OrderItem> orderItems) {
+        super(null, now());
         this.uuid = uuid;
         this.memo = memo;
         this.orderStatus = OPENED;
-        this.orderDatetime = LocalDateTime.now();
+        this.orderDatetime = now();
         this.member = member;
         for (OrderItem orderItem : orderItems) {
             addOrderItem(orderItem);

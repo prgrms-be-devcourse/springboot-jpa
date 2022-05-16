@@ -1,13 +1,9 @@
 package com.example.kdtjpa.domain;
 
-import lombok.Getter;
-import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
 @MappedSuperclass
 public class BaseEntity {
     @Column(name = "created_by")
@@ -15,4 +11,12 @@ public class BaseEntity {
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP")
     private LocalDateTime createdAt;
+
+    protected BaseEntity() {
+    }
+
+    protected BaseEntity(String createdBy, LocalDateTime createdAt) {
+        this.createdBy = createdBy;
+        this.createdAt = createdAt;
+    }
 }

@@ -1,12 +1,10 @@
 package com.example.kdtjpa.domain.member;
 
 import com.example.kdtjpa.domain.BaseEntity;
-import lombok.NoArgsConstructor;
 import javax.persistence.*;
-import static lombok.AccessLevel.PROTECTED;
+import static java.time.LocalDateTime.now;
 
 @Entity
-@NoArgsConstructor(access = PROTECTED)
 @Table(name = "member")
 public class Member extends BaseEntity {
     @Id
@@ -28,7 +26,11 @@ public class Member extends BaseEntity {
     @Column(name = "description")
     private String description;
 
+    protected Member() {
+    }
+
     public Member(String name, String nickName, int age, String address, String description) {
+        super(null, now());
         this.name = name;
         this.nickName = nickName;
         this.age = age;
@@ -36,3 +38,4 @@ public class Member extends BaseEntity {
         this.description = description;
     }
 }
+
