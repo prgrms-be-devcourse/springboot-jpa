@@ -8,6 +8,9 @@ import javax.persistence.Entity;
 public class Car extends Item {
     private int power;
 
+    protected Car() {
+    }
+
     public Car(int price, int stockQuantity, int power) {
         super(price, stockQuantity);
         this.power = power;

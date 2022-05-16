@@ -1,12 +1,15 @@
 package com.kdt.springbootjpa.customer.domain;
 
+import com.kdt.springbootjpa.common.entity.BaseEntity;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "customers")
-public class Customer {
+public class Customer extends BaseEntity {
     @Id
     private long id;
     private String firstName;
@@ -16,12 +19,24 @@ public class Customer {
         return id;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public String getFullName() {
         return firstName + " " + lastName;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public String getCreatedBy() {
+        return super.createdBy;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return super.createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return super.updatedAt;
     }
 
     public void setName(String firstName, String lastName) {
