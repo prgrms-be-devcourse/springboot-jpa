@@ -39,7 +39,4 @@ public class Member {
         this.description = description;
     }
 
-//    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private List<Order> orderList = new ArrayList<>();
-
 }

@@ -12,6 +12,8 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+// Mission 3 : 연관관계 매핑.
+
 @SpringBootTest
 public class DomainMappingTest {
 
