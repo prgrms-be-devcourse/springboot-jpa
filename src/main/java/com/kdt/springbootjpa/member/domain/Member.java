@@ -1,13 +1,10 @@
 package com.kdt.springbootjpa.member.domain;
 
 import com.kdt.springbootjpa.common.entity.BaseEntity;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "member")
 public class Member extends BaseEntity {
     @Id
@@ -28,6 +25,9 @@ public class Member extends BaseEntity {
 
     @Column(name = "description")
     private String description;
+
+    protected Member() {
+    }
 
     public Member(String name, String nickName, int age, String address, String description) {
         this.name = name;

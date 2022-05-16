@@ -2,14 +2,11 @@ package com.kdt.springbootjpa.order.domain;
 
 import com.kdt.springbootjpa.common.entity.BaseEntity;
 import com.kdt.springbootjpa.item.domain.Item;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "order_item")
 public class OrderItem extends BaseEntity {
     @Id
@@ -25,6 +22,9 @@ public class OrderItem extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ITEM_ID")
     private Item item;
+
+    protected OrderItem() {
+    }
 
     public OrderItem(int price, int quantity, Item item) {
         this.price = price;

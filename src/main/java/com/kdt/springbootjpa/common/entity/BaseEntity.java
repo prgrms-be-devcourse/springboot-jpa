@@ -7,16 +7,14 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
 @MappedSuperclass
 public class BaseEntity {
-    @Column(name = "created_by")
+    @CreatedBy
+    @Column(updatable = false)
     private String createdBy;
 
-    @Column(name = "created_at")
+    @Column(updatable = false)
     private LocalDateTime createdAt;
-
-    @Column(name = "updated_at")
+    
     private LocalDateTime updatedAt;
 }
