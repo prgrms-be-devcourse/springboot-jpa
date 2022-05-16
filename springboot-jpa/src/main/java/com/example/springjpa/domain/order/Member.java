@@ -1,5 +1,7 @@
 package com.example.springjpa.domain.order;
 
+import org.springframework.util.Assert;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -9,8 +11,7 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    @Column(nullable = false, length = 30)
-    private String name;
+    private static final int AGE_MIN = 0;
     @Column(nullable = false, length = 50, unique = true)
     private String nickName;
     @Column(nullable = false)
@@ -20,17 +21,41 @@ public class Member {
     private String description;
     @OneToMany(mappedBy = "member")
     private List<Order> orders;
+    private static final int NAME_MAX = 50;
+    private static final String AGE_VALIDATE_ERR = "나이는 음수가 될 수 없습니다";
+    private static final String NAME_VALIDATE_ERR = "이름(닉네임)은" + NAME_MAX + "자를 넘을 수 없습니다";
+    private static final String ADDRESS_VALIDATE_ERR = "주소는 null을 허용하지 않습니다";
+    @Column(nullable = false, length = 50)
+    private String name;
 
     protected Member() {
     }
 
-    public Member(String name, String nickName, int age, String address, String description, List<Order> orders) {
-        this.orders = orders;
+    public Member(Long id, String name, String nickName, int age, String address, String description, List<Order> orders) {
+        nameValidate(name);
+        nameValidate(nickName);
+        addressValidate(address);
+        ageValidate(age);
+        this.id = id;
         this.name = name;
         this.nickName = nickName;
         this.age = age;
         this.address = address;
         this.description = description;
+        this.orders = orders;
+    }
+
+    private void addressValidate(String address) {
+        Assert.isTrue(address != null, ADDRESS_VALIDATE_ERR);
+    }
+
+    private void nameValidate(String name) {
+        Assert.isTrue(name != null, NAME_VALIDATE_ERR);
+        Assert.isTrue(name.length() <= NAME_MAX, NAME_VALIDATE_ERR);
+    }
+
+    private void ageValidate(int age) {
+        Assert.isTrue(age >= AGE_MIN, AGE_VALIDATE_ERR);
     }
 
     public void addOrder(Order order) {
@@ -63,5 +88,58 @@ public class Member {
 
     public List<Order> getOrders() {
         return orders;
+    }
+
+    public static class MemberBuilder {
+        private Long id;
+        private String name;
+        private String nickName;
+        private int age;
+        private String address;
+        private String description;
+        private List<Order> orders;
+
+        public MemberBuilder id(final Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public MemberBuilder name(final String name) {
+            this.name = name;
+            return this;
+        }
+
+        public MemberBuilder nickName(final String nickName) {
+            this.nickName = nickName;
+            return this;
+        }
+
+        public MemberBuilder age(final int age) {
+            this.age = age;
+            return this;
+        }
+
+        public MemberBuilder address(final String address) {
+            this.address = address;
+            return this;
+        }
+
+        public MemberBuilder description(final String description) {
+            this.description = description;
+            return this;
+        }
+
+        public MemberBuilder orders(final List<Order> orders) {
+            this.orders = orders;
+            return this;
+        }
+
+        public Member build() {
+            return new Member(this.id, this.name, this.nickName, this.age, this.address, this.description, this.orders);
+        }
+
+        public String toString() {
+            return "MemberBuilder(id=" + this.id + ", name=" + this.name + ", nickName=" + this.nickName + ", age=" + this.age + ", address=" + this.address + ", description=" + this.description + ", orders=" + this.orders + ")";
+        }
     }
 }
