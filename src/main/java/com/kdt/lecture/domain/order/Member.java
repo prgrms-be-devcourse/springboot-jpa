@@ -44,6 +44,6 @@ public class Member {
     }
 
     public void addOrder(Order order) {
-        orders.add(order);
+        order.setMember(this);
     }
 }

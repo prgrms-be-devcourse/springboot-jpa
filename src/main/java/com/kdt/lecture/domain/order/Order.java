@@ -49,10 +49,10 @@ public class Order {
             this.member.getOrders().remove(this);
         }
         this.member = member;
-        member.addOrder(this);
+        member.getOrders().add(this);
     }
 
     public void addOrderItem(OrderItem item) {
-        items.add(item);
+        item.setOrder(this);
     }
 }

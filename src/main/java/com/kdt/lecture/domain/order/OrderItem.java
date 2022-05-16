@@ -3,6 +3,7 @@ package com.kdt.lecture.domain.order;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Getter
 @Entity
@@ -38,8 +39,11 @@ public class OrderItem {
     }
 
     public void setOrder(Order order) {
+        if (Objects.nonNull(this.order)) {
+            this.order.getItems().remove(this);
+        }
         this.order = order;
-        order.addOrderItem(this);
+        order.getItems().add(this);
     }
 
     public void setItem(Item item) {
