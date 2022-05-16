@@ -6,11 +6,13 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity
-@Table(name = "item")
 @Getter
 @Setter
-public class Item {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "DTYPE")
+@Table(name = "item")
+@Entity
+public abstract class Item extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

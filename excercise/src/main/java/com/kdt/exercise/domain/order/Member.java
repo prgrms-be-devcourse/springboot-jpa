@@ -13,7 +13,6 @@ import java.util.List;
 @Setter
 public class Member {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "name", nullable = false, length = 30)
