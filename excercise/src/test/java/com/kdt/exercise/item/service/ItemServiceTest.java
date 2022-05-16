@@ -24,8 +24,8 @@ class ItemServiceTest {
         // Given
         ItemDto itemDto = ItemDto.builder()
                 .type(ItemType.FOOD)
-                .chef("백종원")
-                .price(1000)
+                .chef("마라탕")
+                .price(3700)
                 .stockQuantity(100)
                 .build();
 

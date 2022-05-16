@@ -10,7 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Slf4j
 @SpringBootTest
 class OrderRepositoryTest {
     @Autowired

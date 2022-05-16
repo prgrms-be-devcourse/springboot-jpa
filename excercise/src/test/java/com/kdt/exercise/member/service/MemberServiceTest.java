@@ -3,8 +3,7 @@ package com.kdt.exercise.member.service;
 import com.kdt.exercise.domain.order.Member;
 import com.kdt.exercise.domain.order.MemberRepository;
 import com.kdt.exercise.member.dto.MemberDto;
-import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.AfterEach;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Slf4j
 @SpringBootTest
 class MemberServiceTest {
 
@@ -30,29 +28,41 @@ class MemberServiceTest {
         // Given
         MemberDto memberDto = MemberDto.builder()
                 .id(1L)
-                .name("kanghonggu")
-                .nickName("guppy.kang")
-                .age(33)
-                .address("seoul")
-                .description("--")
+                .name("kang")
+                .nickName("wansu")
+                .age(27)
+                .address("jeju")
+                .description("hello")
                 .build();
 
         // When
         memberId = memberService.saveMember(memberDto);
 
         // Then
-        log.info("{}", memberId);
+        Assertions.assertThat(memberId).isEqualTo(1L);
     }
 
     @Test
-    void update_test() {
+    void member_조회() {
+        // Given
+        Long id = memberId;
+
+        // When
+        MemberDto member = memberService.getMember(id);
+
+        // Then
+        assertThat(member.getId()).isNotNull();
+    }
+
+    @Test
+    void member_수정() {
         // Given
         MemberDto memberDto = MemberDto.builder()
-                .name("kanghonggu2")
-                .nickName("guppy.kang2")
-                .age(33)
-                .address("seoul2")
-                .description("--2")
+                .name("kang")
+                .nickName("wansu")
+                .age(27)
+                .address("jeju")
+                .description("hello")
                 .build();
 
         // When
@@ -61,17 +71,5 @@ class MemberServiceTest {
         // Then
         Member member = memberRepository.findById(id).get();
         assertThat(member.getNickName()).isEqualTo(memberDto.getNickName());
-    }
-
-    @Test
-    void get_test() {
-        // Given
-        Long id = memberId;
-
-        // When
-        MemberDto member = memberService.getMember(id);
-
-        // Then
-        log.info("{}", member);
     }
 }

@@ -45,11 +45,11 @@ class MemberControllerTest {
         // Given
         MemberDto request = MemberDto.builder()
                 .id(1L)
-                .name("kanghonggu")
-                .nickName("guppy.kang")
-                .age(33)
-                .address("seoul")
-                .description("--")
+                .name("kang")
+                .nickName("wansu")
+                .age(27)
+                .address("jeju")
+                .description("메모")
                 .build();
         String requestString = objectMapper.writeValueAsString(request);
 
@@ -82,21 +82,21 @@ class MemberControllerTest {
         Long memberId = memberService.saveMember(
                 MemberDto.builder()
                         .id(1L)
-                        .name("kanghonggu")
-                        .nickName("guppy.kang")
-                        .age(33)
-                        .address("seoul")
-                        .description("--")
+                        .name("kang")
+                        .nickName("wansu")
+                        .age(27)
+                        .address("jeju")
+                        .description("memo")
                         .build()
         );
 
         MemberDto request = MemberDto.builder()
                 .id(1L)
-                .name("kanghonggu2")
-                .nickName("guppy.kang2")
-                .age(43)
-                .address("seoul2")
-                .description("--2")
+                .name("kang")
+                .nickName("wansu")
+                .age(27)
+                .address("jeju")
+                .description("memo")
                 .build();
         String requestString = objectMapper.writeValueAsString(request);
 
