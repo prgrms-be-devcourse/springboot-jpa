@@ -27,8 +27,9 @@ public class OrderItem {
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order order;
 
-    @OneToMany(mappedBy = "orderItem", cascade = CascadeType.ALL)
-    private List<Item> items = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "item_id", referencedColumnName = "id")
+    private Item item;
 
     public OrderItem(int price, int quantity) {
         this.price = price;
@@ -44,8 +45,4 @@ public class OrderItem {
         order.getOrderItems().add(this);
     }
 
-    public void addItem(Item item) {
-        item.setOrderItem(this);
-        items.add(item);
-    }
 }

@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -28,16 +30,11 @@ public class Item {
         this.stockQuantity = stockQuantity;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_item_id", referencedColumnName = "id")
-    private OrderItem orderItem;
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderItem> orderItems = new ArrayList<>();
 
-    public void setOrderItem(OrderItem orderItem) {
-        if (Objects.nonNull(this.orderItem)) {
-            this.orderItem.getItems().remove(this);
-        }
-
-        this.orderItem = orderItem;
-        orderItem.getItems().add(this);
+    public void addOrderItem(OrderItem orderItem) {
+        this.orderItems.add(orderItem);
+        orderItem.setItem(this);
     }
 }

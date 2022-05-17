@@ -26,12 +26,12 @@ public class DomainMappingTest {
     void testMappingOrder() {
         Order order = createOrder();
         OrderItem orderItem = order.getOrderItems().get(0);
-        Item item = orderItem.getItems().get(0);
+        Item item = orderItem.getItem();
         orderRepository.save(order);
 
         Order retrieveOrder = orderRepository.findById(1L).get();
         OrderItem retrieveOrderItem = retrieveOrder.getOrderItems().get(0);
-        Item retrieveItem = retrieveOrderItem.getItems().get(0);
+        Item retrieveItem = retrieveOrderItem.getItem();
 
         assertThat(retrieveOrderItem).isEqualTo(orderItem);
         assertThat(retrieveItem).isEqualTo(item);
@@ -41,7 +41,7 @@ public class DomainMappingTest {
         Order order = new Order(OrderStatus.OPENED, "부재시 문앞 보관 부탁드려요");
         OrderItem orderItem = new OrderItem(10000, 2);
         Item item = new Item("옷", 10000, 1000);
-        orderItem.addItem(item);
+        orderItem.setItem(item);
         order.addOrderItem(orderItem);
         return order;
     }
