@@ -28,7 +28,7 @@ class MemberPersistenceTest extends EntityManagerTest {
             member.addOrder(order);
         });
         Member findMember = entityManager.find(Member.class, member.getId());
-        assertThat(findMember.getOrders().length()).isEqualTo(1);
+        assertThat(findMember.getOrders().size()).isEqualTo(1);
     }
 
     @Test
@@ -54,8 +54,8 @@ class MemberPersistenceTest extends EntityManagerTest {
         Member findMember = entityManager.find(Member.class, member.getId());
         Member findMember2 = entityManager.find(Member.class, member2.getId());
         assertAll(
-                () -> assertThat(findMember.getOrders().length()).isEqualTo(2),
-                () -> assertThat(findMember2.getOrders().length()).isZero()
+                () -> assertThat(findMember.getOrders().size()).isEqualTo(2),
+                () -> assertThat(findMember2.getOrders().size()).isZero()
         );
     }
 
@@ -77,7 +77,7 @@ class MemberPersistenceTest extends EntityManagerTest {
 
     @Test
     @DisplayName("age는 음수값이 들어올 수 없다.")
-    public void testAgeValidate() {
+    void testAgeValidate() {
         assertThrows(IllegalArgumentException.class, () -> new MemberBuilder()
                 .name("태산")
                 .nickName(UUID.randomUUID().toString())

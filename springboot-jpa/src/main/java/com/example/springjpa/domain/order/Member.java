@@ -49,7 +49,7 @@ public class Member {
     }
 
     private void nameValidate(String name) {
-        Assert.isTrue(name != null, NAME_VALIDATE_ERR);
+        Assert.notNull(name, NAME_VALIDATE_ERR);
         Assert.isTrue(name.length() <= NAME_MAX, NAME_VALIDATE_ERR);
     }
 

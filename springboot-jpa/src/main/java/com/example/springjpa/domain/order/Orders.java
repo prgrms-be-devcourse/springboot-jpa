@@ -8,7 +8,7 @@ import java.util.List;
 @Embeddable
 public class Orders {
     @OneToMany(mappedBy = "member")
-    private List<Order> orders;
+    private final List<Order> orders;
 
     public Orders() {
         orders = new ArrayList<>();
@@ -22,7 +22,7 @@ public class Orders {
         orders.add(order);
     }
 
-    public int length() {
+    public int size() {
         return orders.size();
     }
 
