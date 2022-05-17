@@ -1,7 +1,7 @@
-package com.prgms.springbootjpa.domain;
+package com.prgms.springbootjpa.domain.customer;
 
-import static com.prgms.springbootjpa.exception.ExceptionMessage.FIRST_NAME_FORMAT_EXP_MSG;
-import static com.prgms.springbootjpa.exception.ExceptionMessage.LAST_NAME_FORMAT_EXP_MSG;
+import static com.prgms.springbootjpa.exception.ExceptionMessage.CUSTOMER_FIRST_NAME_FORMAT_EXP_MSG;
+import static com.prgms.springbootjpa.exception.ExceptionMessage.CUSTOMER_LAST_NAME_FORMAT_EXP_MSG;
 
 import com.prgms.springbootjpa.exception.InvalidNameLengthException;
 import java.util.Objects;
@@ -34,13 +34,13 @@ public class Name {
 
     private void validateLastName(String lastName) {
         if (lastName.length() < LAST_NAME_LEN_MIN || lastName.length() > LAST_NAME_LEN_MAX) {
-            throw new InvalidNameLengthException(LAST_NAME_FORMAT_EXP_MSG);
+            throw new InvalidNameLengthException(CUSTOMER_LAST_NAME_FORMAT_EXP_MSG);
         }
     }
 
     private void validateFirstName(String firstName) {
         if (firstName.length() < FIRST_NAME_LEN_MIN || firstName.length() > FIRST_NAME_LEN_MAX) {
-            throw new InvalidNameLengthException(FIRST_NAME_FORMAT_EXP_MSG);
+            throw new InvalidNameLengthException(CUSTOMER_FIRST_NAME_FORMAT_EXP_MSG);
         }
     }
 

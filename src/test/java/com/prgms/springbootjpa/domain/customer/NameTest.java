@@ -1,7 +1,7 @@
-package com.prgms.springbootjpa.domain;
+package com.prgms.springbootjpa.domain.customer;
 
-import static com.prgms.springbootjpa.exception.ExceptionMessage.FIRST_NAME_FORMAT_EXP_MSG;
-import static com.prgms.springbootjpa.exception.ExceptionMessage.LAST_NAME_FORMAT_EXP_MSG;
+import static com.prgms.springbootjpa.exception.ExceptionMessage.CUSTOMER_FIRST_NAME_FORMAT_EXP_MSG;
+import static com.prgms.springbootjpa.exception.ExceptionMessage.CUSTOMER_LAST_NAME_FORMAT_EXP_MSG;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -30,7 +30,7 @@ class NameTest {
         //Then
         assertThatThrownBy(() -> new Name("toooooooo long", "bahng"))
             .isInstanceOf(InvalidNameLengthException.class)
-            .hasMessageContaining(FIRST_NAME_FORMAT_EXP_MSG.getMessage());
+            .hasMessageContaining(CUSTOMER_FIRST_NAME_FORMAT_EXP_MSG.getMessage());
     }
 
     @Test
@@ -41,6 +41,6 @@ class NameTest {
         //Then
         assertThatThrownBy(() -> new Name("eunhyuk", "tooooooo long"))
             .isInstanceOf(InvalidNameLengthException.class)
-            .hasMessageContaining(LAST_NAME_FORMAT_EXP_MSG.getMessage());
+            .hasMessageContaining(CUSTOMER_LAST_NAME_FORMAT_EXP_MSG.getMessage());
     }
 }

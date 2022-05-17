@@ -3,8 +3,8 @@ package com.prgms.springbootjpa.repository;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-import com.prgms.springbootjpa.domain.Customer;
-import com.prgms.springbootjpa.domain.Name;
+import com.prgms.springbootjpa.domain.customer.Customer;
+import com.prgms.springbootjpa.domain.customer.Name;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
