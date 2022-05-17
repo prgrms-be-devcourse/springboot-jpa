@@ -16,19 +16,11 @@ public class CustomerRepositoryTest {
 	@Autowired
 	private CustomerRepository customerRepository;
 
-	private Customer customer1 = new Customer();
-	private Customer customer2 = new Customer();
+	private final Customer customer1 = new Customer(1L, "jjin", "bbang");
+	private final Customer customer2 = new Customer(2L, "ho", "bbang");
 
 	@BeforeEach
 	void setUp() {
-		customer1.setId(1L);
-		customer1.setFirstName("jjin");
-		customer1.setLastName("bbang");
-
-		customer2.setId(2L);
-		customer2.setFirstName("ho");
-		customer2.setLastName("bbang");
-
 		customerRepository.save(customer1);
 		customerRepository.save(customer2);
 	}
@@ -37,13 +29,11 @@ public class CustomerRepositoryTest {
 	@DisplayName("Customer가 저장되어야함")
 	void save_test() {
 		//given
-		var customer = new Customer();
-		customer.setId(3L);
-		customer.setFirstName("hyeb");
-		customer.setLastName("park");
+		var saveId = 3L;
+		var customer = new Customer(saveId, "hyeb", "park");
 		//when
 		var savedCustomer = customerRepository.save(customer);
-		var foundCustomer = customerRepository.findById(3L);
+		var foundCustomer = customerRepository.findById(saveId);
 		//then
 		assertThat(foundCustomer).isPresent();
 		assertThat(savedCustomer).isEqualTo(foundCustomer.get());
@@ -57,7 +47,7 @@ public class CustomerRepositoryTest {
 		//when
 		var foundCustomers = customerRepository.findAll();
 		//then
-		assertThat(foundCustomers.size()).isEqualTo(2);
+		assertThat(foundCustomers.size()).isEqualTo(customers.size());
 		assertThat(foundCustomers).isEqualTo(customers);
 	}
 
@@ -70,7 +60,7 @@ public class CustomerRepositoryTest {
 		var foundCustomer = customerRepository.findById(id);
 		//then
 		assertThat(foundCustomer).isPresent();
-		assertThat(customer1.getId()).isEqualTo(foundCustomer.get().getId());
+		assertThat(id).isEqualTo(foundCustomer.get().getId());
 	}
 
 	@Test
@@ -100,11 +90,11 @@ public class CustomerRepositoryTest {
 	@DisplayName("Customer의 FirstName과 LastName이 수정되어야함")
 	void update_test() {
 		//given
-		var foundCustomer = customerRepository.findById(1L).get();
-		foundCustomer.setFirstName("test");
-		foundCustomer.setLastName("update");
+		var id = 1L;
+		var foundCustomer = customerRepository.findById(id).get();
+		foundCustomer.update("update", "test");
 		//when
-		var updatedCustomer = customerRepository.findById(1L);
+		var updatedCustomer = customerRepository.findById(id);
 		//then
 		assertThat(updatedCustomer).isPresent();
 		assertThat(updatedCustomer.get()).isEqualTo(foundCustomer);
