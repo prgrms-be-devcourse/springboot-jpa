@@ -20,7 +20,7 @@ public class Item {
     @OneToMany(mappedBy = "item")
     List<OrderItem> orderItems = new ArrayList<>();
 
-    public Item() {
+    protected Item() {
     }
 
     public Item(int price, int stockQuantity) {

@@ -31,7 +31,7 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
 
-    public Member() {
+    protected Member() {
     }
 
     public Member(String name, String nickName, int age, String address, String description) {

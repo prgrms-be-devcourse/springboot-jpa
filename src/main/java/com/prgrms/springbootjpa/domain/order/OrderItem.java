@@ -26,7 +26,7 @@ public class OrderItem {
     @JoinColumn(name = "item_id", referencedColumnName = "id")
     private Item item;
 
-    public OrderItem() {
+    protected OrderItem() {
     }
 
     public OrderItem(int price, int quantity) {
