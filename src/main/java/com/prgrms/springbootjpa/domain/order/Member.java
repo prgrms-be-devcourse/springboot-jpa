@@ -17,7 +17,7 @@ public class Member {
     @Column(name = "name", nullable = false, length = 30)
     private String name;
 
-    @Column(nullable = false, length = 30, unique = true)
+    @Column(name="nick_name", nullable = false, length = 30, unique = true)
     private String nickName;
 
     private int age;

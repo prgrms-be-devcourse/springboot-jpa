@@ -16,7 +16,8 @@ public class OrderItem {
     private Long id;
 
     private int price;
-    private int quantity;
+
+    private OrderStatus orderStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", referencedColumnName = "id")
@@ -29,9 +30,9 @@ public class OrderItem {
     protected OrderItem() {
     }
 
-    public OrderItem(int price, int quantity) {
+    public OrderItem(int price, OrderStatus orderStatus) {
         this.price = price;
-        this.quantity = quantity;
+        this.orderStatus = orderStatus;
     }
 
     public void setOrder(Order order) {

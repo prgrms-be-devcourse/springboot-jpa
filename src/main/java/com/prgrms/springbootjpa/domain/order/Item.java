@@ -14,6 +14,7 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private String name;
     private int price;
     private int stockQuantity;
 
@@ -23,7 +24,8 @@ public class Item {
     protected Item() {
     }
 
-    public Item(int price, int stockQuantity) {
+    public Item(String name, int price, int stockQuantity) {
+        this.name = name;
         this.price = price;
         this.stockQuantity = stockQuantity;
     }
