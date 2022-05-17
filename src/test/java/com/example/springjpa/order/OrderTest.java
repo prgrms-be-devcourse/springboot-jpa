@@ -8,16 +8,16 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 
+import org.assertj.core.api.Assertions;
+import org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 @DataJpaTest
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class OrderTest {
 
 	@Autowired
@@ -48,6 +48,18 @@ public class OrderTest {
 		em.clear();
 	}
 
+	@AfterEach
+	void tearDown() {
+		tx.begin();
+
+		em.createQuery("DELETE FROM OrderItem ").executeUpdate();
+		em.createQuery("DELETE FROM Order ").executeUpdate();
+		em.createQuery("DELETE FROM Member").executeUpdate();
+		em.createQuery("DELETE FROM Item").executeUpdate();
+
+		tx.commit();
+	}
+
 	@Test
 	@DisplayName("주문을 저장하면 orderItem 도 저장된다")
 	public void test_order() {
@@ -73,7 +85,7 @@ public class OrderTest {
 
 		tx.begin();
 
-		Order foundOrder = em.find(Order.class, order.getUuid().toString());
+		Order foundOrder = em.find(Order.class, order.getUuid());
 		Member proxyMember = foundOrder.getMember();
 
 		assertThat(emf.getPersistenceUnitUtil().isLoaded(proxyMember)).isFalse();
@@ -94,7 +106,7 @@ public class OrderTest {
 
 		tx.begin();
 
-		Order foundOrder = em.find(Order.class, order.getUuid().toString());
+		Order foundOrder = em.find(Order.class, order.getUuid());
 
 		Member proxyMember = foundOrder.getMember();
 
@@ -121,8 +133,9 @@ public class OrderTest {
 		Item foundChair = em.find(Item.class, chair.getId());
 		em.remove(foundChair);
 
-		tx.commit(); // @Transactional 이기 때문에 롤백하는데 그 과정에서 fk 조건 위반 관련 에러가 발생하는 것이기에 rollBackException 이 발생한다
-
+		Assertions.assertThatThrownBy(() -> tx.commit())
+			.getCause().getCause()
+			.hasCauseInstanceOf(JdbcSQLIntegrityConstraintViolationException.class);
 	}
 
 	@Test
