@@ -1,11 +1,10 @@
 package com.prgms.springbootjpa.domain.order;
 
+import com.prgms.springbootjpa.domain.order.vo.OrderItems;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -16,7 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -40,8 +38,8 @@ public class Order extends BaseEntity {
     @JoinColumn(name = "member_id", referencedColumnName = "id")
     private Member member;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderItem> orderItems = new ArrayList<>();
+    @Embedded
+    private OrderItems orderItems;
 
     protected Order() {
     }
@@ -50,6 +48,7 @@ public class Order extends BaseEntity {
         this.orderDatetime = LocalDateTime.now();
         this.orderStatus = OrderStatus.OPENED;
         this.memo = memo;
+        this.orderItems = new OrderItems();
     }
 
     /* 연관관계 편의 메서드 */
@@ -86,7 +85,7 @@ public class Order extends BaseEntity {
         return member;
     }
 
-    public List<OrderItem> getOrderItems() {
+    public OrderItems getOrderItems() {
         return orderItems;
     }
 }

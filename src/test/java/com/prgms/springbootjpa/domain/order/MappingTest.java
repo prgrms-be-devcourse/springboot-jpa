@@ -1,6 +1,7 @@
 package com.prgms.springbootjpa.domain.order;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 import com.prgms.springbootjpa.domain.order.item.Food;
 import com.prgms.springbootjpa.domain.order.item.Item;
@@ -76,7 +77,10 @@ class MappingTest {
         var findMember = em.find(Member.class, this.member.getId());
 
         //Then
-        assertThat(findOrder.getMember()).isSameAs(findMember);
+        assertAll(
+            () -> assertThat(findOrder.getMember()).isSameAs(findMember),
+            () -> assertThat(findMember.getOrders().getOrders().get(0)).isSameAs(findOrder)
+        );
     }
 
     @Test
@@ -87,7 +91,11 @@ class MappingTest {
         var findOrderItem = em.find(OrderItem.class, this.orderItem.getId());
 
         //Then
-        assertThat(findOrder.getOrderItems().get(0)).isSameAs(findOrderItem);
+        assertAll(
+            () -> assertThat(findOrderItem.getOrder()).isSameAs(findOrder),
+            () -> assertThat(findOrder.getOrderItems().getOrderItems().get(0)).isSameAs(
+                findOrderItem)
+        );
     }
 
     @Test

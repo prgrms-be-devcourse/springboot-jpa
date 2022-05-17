@@ -2,15 +2,13 @@ package com.prgms.springbootjpa.domain.order;
 
 import com.prgms.springbootjpa.domain.order.vo.Name;
 import com.prgms.springbootjpa.domain.order.vo.NickName;
-import java.util.ArrayList;
-import java.util.List;
+import com.prgms.springbootjpa.domain.order.vo.Orders;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -34,8 +32,8 @@ public class Member extends BaseEntity {
 
     private String description;
 
-    @OneToMany(mappedBy = "member")
-    private List<Order> orders = new ArrayList<>();
+    @Embedded
+    private Orders orders;
 
     protected Member() {
     }
@@ -46,6 +44,7 @@ public class Member extends BaseEntity {
         this.age = age;
         this.address = address;
         this.description = description;
+        this.orders = new Orders();
     }
 
     /* 연관관계 편의 메서드 */
@@ -77,7 +76,7 @@ public class Member extends BaseEntity {
         return description;
     }
 
-    public List<Order> getOrders() {
+    public Orders getOrders() {
         return orders;
     }
 }

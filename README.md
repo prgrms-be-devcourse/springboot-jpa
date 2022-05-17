@@ -35,5 +35,5 @@
 - [X] 불필요한 중복 코드 리펙토링하기
 
 ### 미션 2 피드백
-- [ ] 일급 컬렉션 도입하기. (Order의 orderItmes)
+- [X] 일급 컬렉션 도입하기. (Order의 orderItmes)
 - [ ] TestFixture 개념 공부하고 도입해보기. (test)

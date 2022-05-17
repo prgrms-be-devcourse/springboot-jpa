@@ -60,12 +60,7 @@ public class OrderItem extends BaseEntity {
     }
 
     public void assignItem(Item item) {
-        if (Objects.nonNull(this.item)) {
-            this.item.getOrderItems().remove(this);
-        }
-
         this.item = item;
-        item.getOrderItems().add(this);
     }
 
     public Long getId() {
@@ -86,5 +81,22 @@ public class OrderItem extends BaseEntity {
 
     public Item getItem() {
         return item;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        OrderItem orderItem = (OrderItem) o;
+        return getId().equals(orderItem.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
     }
 }
