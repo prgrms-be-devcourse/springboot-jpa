@@ -6,34 +6,31 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.prgms.springbootjpa.exception.InvalidPriceRangeException;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class PriceTest {
 
-    @Test
+    @ParameterizedTest
+    @ValueSource(ints = {1000, 5000, 1000000})
     @DisplayName("Price 생성 성공")
-    void testCreatePriceSuccess() {
-        //Given, When
-        var price = new Price(7000);
+    void testCreatePriceSuccess(int price) {
+        //given
+        //when
+        var newPrice = new Price(price);
 
         //Then
-        assertThat(price).isNotNull();
+        assertThat(newPrice).isNotNull();
     }
 
-    @Test
-    @DisplayName("가격이 한도보다 낮아, 생성 실패")
-    void testCreatePriceFailBecauseMinPrice() {
-        //Given, When, Then
-        assertThatThrownBy(() -> new Price(999))
-            .isInstanceOf(InvalidPriceRangeException.class)
-            .hasMessageContaining(PRICE_RANGE_EXP_MSG.getMessage());
-    }
-
-    @Test
-    @DisplayName("가격이 한도보다 높아, 생성 실패")
-    void testCreatePriceFailBecauseMaxPrice() {
-        //Given, When, Then
-        assertThatThrownBy(() -> new Price(1000001))
+    @ParameterizedTest
+    @ValueSource(ints = {999, 1000001})
+    @DisplayName("가격이 범위 미만 또는 초과라 생성 실패")
+    void testCreatePriceFailBecauseInvalidRange(int price) {
+        //given
+        //when
+        //then
+        assertThatThrownBy(() -> new Price(price))
             .isInstanceOf(InvalidPriceRangeException.class)
             .hasMessageContaining(PRICE_RANGE_EXP_MSG.getMessage());
     }

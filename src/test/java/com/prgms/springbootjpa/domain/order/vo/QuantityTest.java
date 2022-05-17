@@ -6,34 +6,28 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.prgms.springbootjpa.exception.InvalidQuantityRangeException;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class QuantityTest {
 
-    @Test
+    @ParameterizedTest
+    @ValueSource(ints = {1, 50, 1000})
     @DisplayName("Quantity 생성 성공")
-    void testCreateQuantitySuccess() {
+    void testCreateQuantitySuccess(int quantity) {
         //Given, When
-        var quantity = new Quantity(77);
+        var newQuantity = new Quantity(quantity);
 
         //Then
-        assertThat(quantity).isNotNull();
+        assertThat(newQuantity).isNotNull();
     }
 
-    @Test
-    @DisplayName("수량이 너무 적어, 생성 실패")
-    void testCreateQuantityFailBecauseMinQuantity() {
+    @ParameterizedTest
+    @ValueSource(ints = {0, 1001})
+    @DisplayName("수량 범위 미만, 범위 초과라 실패")
+    void testCreateQuantityFailBecauseInvalidRange(int quantity) {
         //Given, When, Then
         assertThatThrownBy(() -> new Quantity(0))
-            .isInstanceOf(InvalidQuantityRangeException.class)
-            .hasMessageContaining(QUANTITY_RANGE_EXP_MSG.getMessage());
-    }
-
-    @Test
-    @DisplayName("수량이 너무 많아, 생성 실패")
-    void testCreateQuantityFailBecauseMaxQuantity() {
-        //Given, When, Then
-        assertThatThrownBy(() -> new Quantity(1001))
             .isInstanceOf(InvalidQuantityRangeException.class)
             .hasMessageContaining(QUANTITY_RANGE_EXP_MSG.getMessage());
     }

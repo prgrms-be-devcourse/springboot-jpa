@@ -36,4 +36,5 @@
 
 ### 미션 2 피드백
 - [X] 일급 컬렉션 도입하기. (Order의 orderItmes)
-- [ ] TestFixture 개념 공부하고 도입해보기. (test)
+- [X] TestFixture 개념 공부하고 도입해보기. (test)
+  - Test Fixture 는 @BeforeEach, @BeforeAll, @AfterEach, @AfterAll을 사용해 테스트에서 공통으로 사용되거나, 해제해야 하는 부분을 처리하는 것이다.
