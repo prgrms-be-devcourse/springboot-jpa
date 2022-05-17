@@ -19,8 +19,6 @@ class SingleEntityTest {
     @Autowired
     EntityManagerFactory emf;
 
-
-
     @Test
     @DisplayName("저장 할 수 있다.")
     void save() {
@@ -93,7 +91,8 @@ class SingleEntityTest {
         em.remove(member);
         transaction.commit();
 
-        em.find(Member.class, member.getId());
+        Member retrieveMember = em.find(Member.class, member.getId());
+        assertThat(retrieveMember).isNull();
 
 
     }
