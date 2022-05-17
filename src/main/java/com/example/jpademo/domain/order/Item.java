@@ -21,4 +21,8 @@ public class Item {
 
     @OneToMany(mappedBy = "item")
     private List<OrderItem> orderItems = new ArrayList<>();
+
+    public void addOrderItem(OrderItem orderItem) {
+        orderItem.setItem(this);
+    }
 }
