@@ -17,4 +17,8 @@ public class Book extends Item{
         super(name, price, stockQuantity);
         this.writer = writer;
     }
+
+    public Book() {
+
+    }
 }

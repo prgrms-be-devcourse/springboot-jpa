@@ -16,4 +16,8 @@ public class Food extends Item {
         super(name, price, stockQuantity);
         this.chef = chef;
     }
+
+    public Food() {
+
+    }
 }

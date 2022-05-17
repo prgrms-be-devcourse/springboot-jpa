@@ -16,4 +16,8 @@ public class Car extends Item{
         super(name, price, stockQuantity);
         this.power = power;
     }
+
+    public Car() {
+
+    }
 }
