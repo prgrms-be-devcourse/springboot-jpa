@@ -26,6 +26,7 @@ public class Order extends BaseEntity{
     private OrderStatus orderStatus;
 
     @Lob
+    @Column(name = "memo")
     private String memo;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)

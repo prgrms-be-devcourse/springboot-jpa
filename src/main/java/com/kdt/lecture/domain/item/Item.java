@@ -2,7 +2,9 @@ package com.kdt.lecture.domain.item;
 
 
 import com.kdt.lecture.domain.BaseEntity;
+import com.kdt.lecture.exception.StockException;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -11,6 +13,7 @@ import javax.persistence.*;
 @Getter
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "DTYPE")
+@NoArgsConstructor
 public abstract class Item extends BaseEntity {
 
     @Id
@@ -31,7 +34,7 @@ public abstract class Item extends BaseEntity {
 
     public void removeStock(int count) {
         if ((this.stockQuantity - count) < 0) {
-            throw new RuntimeException("재고 부족");
+            throw new StockException("재고 부족");
         }
         this.stockQuantity -= count;
     }
