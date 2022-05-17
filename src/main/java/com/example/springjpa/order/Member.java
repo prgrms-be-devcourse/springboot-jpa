@@ -51,8 +51,6 @@ public class Member extends CreationEntity {
 	}
 
 	public void addOrder(Order order) {
-		orders.add(order);
-
 		order.orderedByMember(this);
 	}
 }

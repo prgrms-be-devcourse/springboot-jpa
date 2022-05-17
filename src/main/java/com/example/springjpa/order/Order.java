@@ -66,8 +66,6 @@ public class Order extends CreationEntity {
 	}
 
 	public void addOrderItem(OrderItem orderItem) {
-		this.orderItems.add(orderItem);
-
 		orderItem.addToOrder(this);
 	}
 }
