@@ -3,6 +3,10 @@ package com.example.demo.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
 @Getter
 @Setter
 @Builder
@@ -10,6 +14,8 @@ import lombok.*;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrderItemDto {
+    @Positive
     private Long quantity;
-    private ItemDto item;
+    @NotNull
+    private @Valid ItemDto item;
 }

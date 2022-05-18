@@ -17,16 +17,20 @@ public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
-    private long orderItemId;
+    private Long orderItemId;
 
     @Column(name="quantity", nullable = false)
-    private long quantity;
+    private Long quantity;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name="item_id", nullable = false)
     private Item item;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="order_id", nullable = false)
     private Order order;
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 }

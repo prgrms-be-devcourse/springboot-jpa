@@ -1,7 +1,9 @@
 package com.example.demo.converter;
 
-import com.example.demo.domain.*;
-import com.example.demo.dto.CustomerDto;
+import com.example.demo.domain.Item;
+import com.example.demo.domain.Order;
+import com.example.demo.domain.OrderItem;
+import com.example.demo.domain.OrderStatus;
 import com.example.demo.dto.ItemDto;
 import com.example.demo.dto.OrderDto;
 import com.example.demo.dto.OrderItemDto;
@@ -19,24 +21,12 @@ public class OrderConverter {
         order.setOrderDatetime(LocalDateTime.now());
         order.setOrderStatus(OrderStatus.toOrderStatus(orderDto.getOrderStatus()));
 
-        order.setCustomer(OrderConverter.toCustomer(orderDto.getCustomer()));
+        order.setCustomer(CustomerConverter.toCustomer(orderDto.getCustomer()));
         order.getCustomer().setOrders(order);
-
-        order.setOrderItems(orderDto.getOrderItems().stream().map(OrderConverter::toOrderItem).toList());
-        order.getOrderItems().forEach((e)->{
-            e.setOrder(order);
-        });
+        for (OrderItemDto orderItem : orderDto.getOrderItems()) {
+            order.addOrderItem(OrderConverter.toOrderItem(orderItem));
+        }
         return order;
-    }
-
-    public static Customer toCustomer(CustomerDto customerDto) {
-        Customer customer = new Customer();
-
-        customer.setFirstName(customerDto.getFirstName());
-        customer.setLastName(customerDto.getLastName());
-        customer.setEmail(customerDto.getEmail());
-        System.out.println(customerDto.getEmail());
-        return customer;
     }
 
     public static OrderItem toOrderItem(OrderItemDto orderItemDto) {
@@ -62,16 +52,8 @@ public class OrderConverter {
                 .postcode(order.getPostcode())
                 .orderStatus(order.getOrderStatus().toString())
                 .orderDatetime(order.getOrderDatetime())
-                .customer(OrderConverter.toCustomerDto(order.getCustomer()))
+                .customer(CustomerConverter.toCustomerDto(order.getCustomer()))
                 .orderItems(order.getOrderItems().stream().map(OrderConverter::toOrderItemDto).toList())
-                .build();
-    }
-
-    public static CustomerDto toCustomerDto(Customer customer) {
-        return new CustomerDto().builder()
-                .firstName(customer.getFirstName())
-                .lastName(customer.getLastName())
-                .email(customer.getEmail())
                 .build();
     }
 
