@@ -1,10 +1,13 @@
 package com.programmers.jpa.domain;
 
+import com.programmers.jpa.config.DataSourceConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +15,9 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-@SpringBootTest
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@Import(DataSourceConfig.class)
 class CustomerRepositoryTest {
 
     @Autowired
@@ -22,6 +27,7 @@ class CustomerRepositoryTest {
     void deleteEach() {
         customerRepository.deleteAll();
     }
+
 
     @Test
     @DisplayName("저장 테스트")
