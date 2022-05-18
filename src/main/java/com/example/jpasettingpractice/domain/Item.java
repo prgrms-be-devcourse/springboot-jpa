@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -21,16 +23,12 @@ public class Item {
     @Column(name = "stock_quantity", nullable = false)
     private int stockQuantity;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_item_id", referencedColumnName = "id")
-    private OrderItem orderItem;
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderItem> orderItems = new ArrayList<>();
 
-    public void setOrderItem(OrderItem orderItem) {
-        if(Objects.nonNull(this.orderItem)) {
-            this.orderItem.getItems().remove(this);
-        }
-        this.orderItem = orderItem;
-        orderItem.getItems().add(this);
+    public void addOrderItem(OrderItem orderItem) {
+        this.stockQuantity -= 1;
+        orderItem.setItem(this);
     }
 
     @Override
@@ -39,11 +37,11 @@ public class Item {
         if (o == null || getClass() != o.getClass()) return false;
         Item item = (Item) o;
         return price == item.price && stockQuantity == item.stockQuantity
-                && id.equals(item.id) && orderItem.equals(item.orderItem);
+                && id.equals(item.id) && orderItems.equals(item.orderItems);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, price, stockQuantity, orderItem);
+        return Objects.hash(id, price, stockQuantity, orderItems);
     }
 }

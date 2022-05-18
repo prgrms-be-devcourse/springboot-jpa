@@ -30,8 +30,9 @@ public class OrderItem {
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order order;
 
-    @OneToMany(mappedBy = "orderItem")
-    private List<Item> items = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "item_id", referencedColumnName = "id")
+    private Item item;
 
     public void setOrder(Order order) {
         if (Objects.nonNull(this.order)) {
@@ -41,22 +42,13 @@ public class OrderItem {
         order.getOrderItems().add(this);
     }
 
-    public void addItem(Item item) {
-        item.setOrderItem(this);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        OrderItem orderItem = (OrderItem) o;
-        return price == orderItem.price && quantity == orderItem.quantity
-                && id.equals(orderItem.id) && orderId.equals(orderItem.orderId)
-                && order.equals(orderItem.order) && items.equals(orderItem.items);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, price, quantity, orderId, order, items);
+    public void setItem(Item item) {
+        if (Objects.nonNull(this.item)) {
+            this.item.getOrderItems().remove(this);
+        }
+        this.item = item;
+        this.quantity += 1;
+        this.price += item.getPrice();
+        item.getOrderItems().add(this);
     }
 }

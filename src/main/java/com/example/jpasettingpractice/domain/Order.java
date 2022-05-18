@@ -28,7 +28,7 @@ public class Order {
             nullable = false)
     private LocalDateTime orderDatetime;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
 
     @Column(name = "member_id", insertable = false, updatable = false)

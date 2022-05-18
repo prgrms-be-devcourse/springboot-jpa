@@ -23,18 +23,19 @@ class RelationMappingTest {
 
     @Test
     @DisplayName("연관관계 매핑확인")
-    void ORDER_ORDERITEM_RELATION_TEST() {
+    void RELATION_TEST() {
         EntityManager entityManager = emf.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
+
+        OrderItem orderItem = new OrderItem();
 
         Order order = new Order();
         order.setUuid(UUID.randomUUID().toString());
         order.setOrderDatetime(LocalDateTime.now());
         order.setOrderStatus(OPENED);
         order.setMemo("call me maybe");
-
-        entityManager.persist(order);
+        order.addOrderItem(orderItem);
 
         Member member = new Member();
         member.setName("changho");
@@ -43,25 +44,15 @@ class RelationMappingTest {
         member.setAddress("daegu");
         member.setDescription("hi");
         member.addOrder(order);
-
         entityManager.persist(member);
 
         Item item = new Item();
         item.setPrice(1000);
-        item.setStockQuantity(1);
+        item.setStockQuantity(2);
 
         entityManager.persist(item);
 
-        OrderItem orderItem = new OrderItem();
-        orderItem.setOrder(order);
-        orderItem.addItem(item);
-        for (Item i : orderItem.getItems()) {
-            orderItem.setPrice(orderItem.getPrice() + i.getPrice());
-            orderItem.setQuantity(orderItem.getQuantity() + i.getStockQuantity());
-        }
-        order.addOrderItem(orderItem);
-
-        entityManager.persist(orderItem);
+        item.addOrderItem(orderItem);
 
         transaction.commit();
 
@@ -74,11 +65,8 @@ class RelationMappingTest {
         assertThat(orderItemOrder).isEqualTo(order);
 
         OrderItem orderOrderItem = order.getOrderItems().get(0);
-        OrderItem itemOrderItem = item.getOrderItem();
+        OrderItem itemOrderItem = item.getOrderItems().get(0);
         assertThat(orderOrderItem).isEqualTo(orderItem);
         assertThat(itemOrderItem).isEqualTo(orderItem);
-
-        Item orderItemItem = orderItem.getItems().get(0);
-        assertThat(orderItemItem).isEqualTo(item);
     }
 }

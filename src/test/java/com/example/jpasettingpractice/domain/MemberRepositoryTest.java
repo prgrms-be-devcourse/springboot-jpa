@@ -2,6 +2,7 @@ package com.example.jpasettingpractice.domain;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,6 +33,7 @@ class MemberRepositoryTest {
     }
 
     @Test
+    @DisplayName("아이디로 멤버를 찾는다.")
     void FIND_BY_ID_TEST() {
         // Given
         Long id = member.getId();
@@ -44,6 +46,7 @@ class MemberRepositoryTest {
     }
 
     @Test
+    @DisplayName("모든 멤버를 찾을 수 있다.")
     void FIND_ALL_TEST() {
         // Given // When
         List<Member> list = memberRepository.findAll();
@@ -53,6 +56,7 @@ class MemberRepositoryTest {
     }
 
     @Test
+    @DisplayName("멤버 정보를 수정 할 수 있다.")
     void UPDATE_TEST() {
         // Given
         member.setName("brandon");
@@ -66,6 +70,7 @@ class MemberRepositoryTest {
     }
 
     @Test
+    @DisplayName("해당 아이디의 멤버 정보를 삭제 할 수 있다.")
     void DELETE_BY_ID_TEST() {
         // Given
         Long id = member.getId();
@@ -79,6 +84,7 @@ class MemberRepositoryTest {
     }
 
     @Test
+    @DisplayName("해당 객체의 멤버를 삭제 할 수 있다.")
     void DELETE_BY_ENTITY_TEST() {
         // Given
         Long id = member.getId();
