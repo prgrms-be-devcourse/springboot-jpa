@@ -1,25 +1,31 @@
 package com.example.springjpa.domain.order;
 
 import com.example.springjpa.domain.common.EntityManagerTest;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-
-import static com.example.springjpa.domain.order.OrderStatus.OPENED;
-import static com.example.springjpa.domain.order.vo.EntityUtil.getNewMember;
+import static com.example.springjpa.domain.order.EntityUtil.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class OrderPersistenceTest extends EntityManagerTest {
+    Member member;
+    Order order;
+    OrderItem orderItem;
+    OrderItem orderItem2;
+
+    @BeforeEach
+    void init() {
+        member = getNewMember();
+        order = getNewOrder(member);
+        orderItem = getNewOrderItem(100, 1, order);
+        orderItem2 = getNewOrderItem(100, 1, order);
+    }
+
     @Test
     @DisplayName("연관관계 메소드를 통해 주문 목록을 추가 할 수 있다.")
     void testAddOrderItem() {
-        Member member = getNewMember();
-        Order order = new Order("메모", OPENED, LocalDateTime.now(), member, new ArrayList<>());
-        OrderItem orderItem = new OrderItem(100, 1, order, new ArrayList<>());
-        OrderItem orderItem2 = new OrderItem(200, 2, order, new ArrayList<>());
         execWithTransaction(() -> {
             entityManager.persist(member);
             entityManager.persist(orderItem);
@@ -36,10 +42,6 @@ public class OrderPersistenceTest extends EntityManagerTest {
     @Test
     @DisplayName("주문에 아이템을 추가했을 때, OrderItem이 가진 Order가 Update되어야 한다.")
     void testAddOrderItemUpdate() {
-        Member member = getNewMember();
-        Order order = new Order("메모", OPENED, LocalDateTime.now(), member, new ArrayList<>());
-        OrderItem orderItem = new OrderItem(100, 1, order, new ArrayList<>());
-        OrderItem orderItem2 = new OrderItem(200, 2, order, new ArrayList<>());
         execWithTransaction(() -> {
             entityManager.persist(member);
             entityManager.persist(orderItem);
@@ -61,10 +63,6 @@ public class OrderPersistenceTest extends EntityManagerTest {
     @Test
     @DisplayName("객체 그래프를 탐색할 수 있다.")
     void testGraphSearch() {
-        Member member = getNewMember();
-        Order order = new Order("메모", OPENED, LocalDateTime.now(), member, new ArrayList<>());
-        OrderItem orderItem = new OrderItem(100, 1, order, new ArrayList<>());
-        OrderItem orderItem2 = new OrderItem(200, 2, order, new ArrayList<>());
         execWithTransaction(() -> {
             entityManager.persist(member);
             entityManager.persist(orderItem);

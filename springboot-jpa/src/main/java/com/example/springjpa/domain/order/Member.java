@@ -57,8 +57,15 @@ public class Member {
         Assert.isTrue(age >= AGE_MIN, AGE_VALIDATE_ERR);
     }
 
+
+    /**
+     * 고객은 주문할 수 있다.
+     * 주문할 때 고객이 결정된다.
+     *
+     * @param order
+     */
     public void addOrder(Order order) {
-        order.setMember(this);
+        order.changeMember(this);
     }
 
     public Long getId() {
@@ -145,7 +152,7 @@ public class Member {
         }
 
         public String toString() {
-            return "MemberBuilder(id=" + this.id + ", name=" + this.name + ", nickName=" + this.nickName + ", age=" + this.age + ", address=" + this.address + ", description=" + this.description + ", orders=" + this.orders + ")";
+            return "MemberBuilder(id=" + this.id + ", name=" + this.name + ", nickName=" + this.nickName + ", age=" + this.age + ", address=" + this.address + ", description=" + this.description + ")";
         }
     }
 }

@@ -8,9 +8,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import static com.example.springjpa.domain.order.EntityUtil.getNewMember;
 import static com.example.springjpa.domain.order.Member.MemberBuilder;
 import static com.example.springjpa.domain.order.OrderStatus.OPENED;
-import static com.example.springjpa.domain.order.vo.EntityUtil.getNewMember;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -21,7 +21,7 @@ class MemberPersistenceTest extends EntityManagerTest {
     @DisplayName("연관관계 메소드를 통해 주문을 추가 할 수 있다.")
     void testAddOrder() {
         Member member = getNewMember();
-        Order order = new Order("메모", OPENED, LocalDateTime.now(), member, new ArrayList<>());
+        Order order = new Order(UUID.randomUUID().toString(), "메모", OPENED, LocalDateTime.now(), member, new ArrayList<>());
         execWithTransaction(() -> {
             entityManager.persist(member);
             entityManager.persist(order);
@@ -37,8 +37,8 @@ class MemberPersistenceTest extends EntityManagerTest {
         Member member = getNewMember();
         Member member2 = getNewMember();
 
-        Order order = new Order("메모", OPENED, LocalDateTime.now(), member, new ArrayList<>());
-        Order order2 = new Order("메모2", OPENED, LocalDateTime.now(), member, new ArrayList<>());
+        Order order = new Order(UUID.randomUUID().toString(), "메모", OPENED, LocalDateTime.now(), member, new ArrayList<>());
+        Order order2 = new Order(UUID.randomUUID().toString(), "메모2", OPENED, LocalDateTime.now(), member, new ArrayList<>());
 
         execWithTransaction(() -> {
             entityManager.persist(member);
@@ -63,7 +63,7 @@ class MemberPersistenceTest extends EntityManagerTest {
     @DisplayName("객체그래프탐색을_이용한_조회")
     void testGraphSearch() {
         Member member = getNewMember();
-        Order order = new Order("메모", OPENED, LocalDateTime.now(), member, new ArrayList<>());
+        Order order = new Order(UUID.randomUUID().toString(), "메모", OPENED, LocalDateTime.now(), member, new ArrayList<>());
 
         execWithTransaction(() -> {
             entityManager.persist(order);
