@@ -12,8 +12,8 @@ spring:
     database: H2
     show-sql: true
     open-in-view: false
-    hibernate:
-      ddl-auto: create-drop
+#    hibernate:
+#      ddl-auto: create-drop
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
