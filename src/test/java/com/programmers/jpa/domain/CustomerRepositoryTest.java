@@ -28,7 +28,6 @@ class CustomerRepositoryTest {
         customerRepository.deleteAll();
     }
 
-
     @Test
     @DisplayName("저장 테스트")
     void saveTest() {
@@ -41,8 +40,8 @@ class CustomerRepositoryTest {
         assertAll(
                 () -> assertThat(savedCustomer).isPresent(),
                 () -> assertThat(savedCustomer.get().getId()).isEqualTo(customer.getId()),
-                () -> assertThat(savedCustomer.get().getFirstName()).isEqualTo(customer.getFirstName()),
-                () -> assertThat(savedCustomer.get().getLastName()).isEqualTo(customer.getLastName())
+                () -> assertThat(savedCustomer.get().getName().getFirstName()).isEqualTo(customer.getName().getFirstName()),
+                () -> assertThat(savedCustomer.get().getName().getLastName()).isEqualTo(customer.getName().getLastName())
         );
     }
 
@@ -67,13 +66,13 @@ class CustomerRepositoryTest {
         Customer customer = new Customer(1L, "hanju", "lee");
         customerRepository.save(customer);
 
-        customer.changeLastName("kim");
+        customer.getName().changeLastName("kim");
         customerRepository.save(customer);
 
         List<Customer> customers = customerRepository.findAll();
 
         assertThat(customers).hasSize(1);
-        assertThat(customers.get(0).getLastName()).isEqualTo("kim");
+        assertThat(customers.get(0).getName().getLastName()).isEqualTo("kim");
     }
 
     @Test
@@ -92,8 +91,8 @@ class CustomerRepositoryTest {
         assertAll(
                 () -> assertThat(customers).hasSize(3),
                 () -> assertThat(customers.get(0).getId()).isEqualTo(customer.getId()),
-                () -> assertThat(customers.get(0).getFirstName()).isEqualTo(customer.getFirstName()),
-                () -> assertThat(customers.get(0).getLastName()).isEqualTo(customer.getLastName())
+                () -> assertThat(customers.get(0).getName().getFirstName()).isEqualTo(customer.getName().getFirstName()),
+                () -> assertThat(customers.get(0).getName().getLastName()).isEqualTo(customer.getName().getLastName())
         );
     }
 

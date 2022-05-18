@@ -49,7 +49,7 @@ public class PersistenceContext {
         transaction.commit();   // 쿼리 수행, flush DB와 동기화
 
         Customer entity = em.find(Customer.class, 1L);
-        log.info("{} {}", entity.getFirstName(), entity.getLastName());
+        log.info("{} {}", entity.getName().getFirstName(), entity.getName().getLastName());
     }
 
     @Test
@@ -65,7 +65,7 @@ public class PersistenceContext {
         em.clear(); // 영속성 컨텍스트 초기화
 
         Customer entity = em.find(Customer.class, 2L);  // DB에서 조회
-        log.info("{} {}", entity.getFirstName(), entity.getLastName());
+        log.info("{} {}", entity.getName().getFirstName(), entity.getName().getLastName());
         em.find(Customer.class, 2L);    // 1차 캐시 사용
     }
 
@@ -82,8 +82,8 @@ public class PersistenceContext {
         transaction.begin();
 
         Customer entity = em.find(Customer.class, 1L);
-        entity.changeFirstName("kim");
-        entity.changeLastName("minji");
+        entity.getName().changeFirstName("kim");
+        entity.getName().changeLastName("minji");
 
         transaction.commit();   // UPDATE
 
