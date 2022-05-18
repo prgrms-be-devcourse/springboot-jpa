@@ -42,7 +42,6 @@ class RelationMappingTest {
         member.setAge(29);
         member.setAddress("daegu");
         member.setDescription("hi");
-
         member.addOrder(order);
 
         entityManager.persist(member);
@@ -60,6 +59,7 @@ class RelationMappingTest {
             orderItem.setPrice(orderItem.getPrice() + i.getPrice());
             orderItem.setQuantity(orderItem.getQuantity() + i.getStockQuantity());
         }
+        order.addOrderItem(orderItem);
 
         entityManager.persist(orderItem);
 

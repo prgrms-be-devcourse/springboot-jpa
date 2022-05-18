@@ -32,7 +32,7 @@ public class Member {
     @Column(name = "description", nullable = true, length = 500)
     private String description;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<Order> orders = new ArrayList<>();
 
     public void addOrder(Order order) {
@@ -44,17 +44,13 @@ public class Member {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Member member = (Member) o;
-        return id == member.id && age == member.age
-                && name.equals(member.name)
-                && nickName.equals(member.nickName)
-                && address.equals(member.address)
-                && Objects.equals(description, member.description)
-                && Objects.equals(orders, member.orders);
+        return id == member.id && age == member.age && name.equals(member.name)
+                && nickName.equals(member.nickName) && address.equals(member.address)
+                && description.equals(member.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, nickName, age, address,
-                description, orders);
+        return Objects.hash(id, name, nickName, age, address, description);
     }
 }

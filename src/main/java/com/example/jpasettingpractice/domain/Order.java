@@ -44,7 +44,7 @@ public class Order {
 
     public void setMember(Member member) {
         if (Objects.nonNull(this.member)) {
-            member.getOrders().remove(this);
+            this.member.getOrders().remove(this);
         }
         this.member = member;
         member.getOrders().add(this);

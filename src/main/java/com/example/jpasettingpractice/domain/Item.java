@@ -27,7 +27,7 @@ public class Item {
 
     public void setOrderItem(OrderItem orderItem) {
         if(Objects.nonNull(this.orderItem)) {
-            orderItem.getItems().remove(this);
+            this.orderItem.getItems().remove(this);
         }
         this.orderItem = orderItem;
         orderItem.getItems().add(this);

@@ -35,7 +35,7 @@ public class OrderItem {
 
     public void setOrder(Order order) {
         if (Objects.nonNull(this.order)) {
-            order.getOrderItems().remove(this);
+            this.order.getOrderItems().remove(this);
         }
         this.order = order;
         order.getOrderItems().add(this);
