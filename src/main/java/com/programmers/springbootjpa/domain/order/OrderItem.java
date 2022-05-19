@@ -1,11 +1,14 @@
 package com.programmers.springbootjpa.domain.order;
 
+import com.programmers.springbootjpa.domain.BaseEntity;
+import org.springframework.util.Assert;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "order_item")
-public class OrderItem {
+public class OrderItem extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -28,8 +31,22 @@ public class OrderItem {
     protected OrderItem() {}
 
     public OrderItem(int price, int quantity) {
+        validatePrice(price);
+        validateQuantity(quantity);
         this.price = price;
         this.quantity = quantity;
+    }
+
+    /* Data Validation */
+
+    private void validatePrice(int price) {
+        Assert.notNull(price, "Price should not be null.");
+        Assert.isTrue(price >= 0, "Price should be greater than or equal to 0 ");
+    }
+
+    private void validateQuantity(int quantity) {
+        Assert.notNull(quantity, "Quantity should not be null.");
+        Assert.isTrue(quantity >= 0, "Quantity should be greater than or equal to 0 ");
     }
 
     public void setOrder(Order order) {

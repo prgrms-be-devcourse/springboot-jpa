@@ -1,14 +1,15 @@
 package com.programmers.springbootjpa.domain.order;
 
+import com.programmers.springbootjpa.domain.BaseEntity;
+
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "orders")
-public class Order {
+public class Order extends BaseEntity {
     @Id
     @Column(name = "id")
     private String uuid;
@@ -20,9 +21,6 @@ public class Order {
     @Enumerated(value = EnumType.STRING)
     private OrderStatus orderStatus;
 
-    @Column(name = "order_datetime", columnDefinition = "TIMESTAMP")
-    private LocalDateTime orderDateTime;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", referencedColumnName = "id")
     private Member member;
@@ -32,11 +30,10 @@ public class Order {
 
     protected Order() {}
 
-    public Order(String uuid, String memo, OrderStatus orderStatus, LocalDateTime orderDateTime) {
+    public Order(String uuid, String memo, OrderStatus orderStatus) {
         this.uuid = uuid;
         this.memo = memo;
         this.orderStatus = orderStatus;
-        this.orderDateTime = orderDateTime;
     }
 
     public void setMember(Member member) {
@@ -63,10 +60,6 @@ public class Order {
 
     public OrderStatus getOrderStatus() {
         return orderStatus;
-    }
-
-    public LocalDateTime getOrderDateTime() {
-        return orderDateTime;
     }
 
     public Member getMember() {

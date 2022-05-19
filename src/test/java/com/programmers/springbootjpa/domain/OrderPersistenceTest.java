@@ -12,7 +12,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 import static com.programmers.springbootjpa.domain.order.OrderStatus.OPENED;
@@ -44,12 +43,10 @@ public class OrderPersistenceTest {
 
         Order firstOrder = new Order(UUID.randomUUID().toString(),
                 "order No.1",
-                OPENED,
-                LocalDateTime.now());
+                OPENED);
         Order secondOrder = new Order(UUID.randomUUID().toString(),
                 "order No.2",
-                OPENED,
-                LocalDateTime.now());
+                OPENED);
         firstOrder.setMember(member);
         secondOrder.setMember(member);
         entityManager.persist(firstOrder);
@@ -77,8 +74,7 @@ public class OrderPersistenceTest {
 
         Order order = new Order(UUID.randomUUID().toString(),
                 "order No.1",
-                OPENED,
-                LocalDateTime.now());
+                OPENED);
         entityManager.persist(order);
 
         OrderItem firstOrderItem = new OrderItem(5000, 3);
