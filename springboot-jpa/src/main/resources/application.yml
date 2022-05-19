@@ -13,3 +13,12 @@ spring:
         query.in_caluse_parameter_padding: true
         hbm2ddl:
           auto: create-drop
+  output:
+    ansi:
+      enabled: always
+
+logging:
+  level:
+    org.springframework.web.client: debug
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace
