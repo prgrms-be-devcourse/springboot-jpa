@@ -16,7 +16,7 @@ public class Item {
     private int price;
     private int stockQuantity;
 
-    private static final String NO_STOCK_ERR_MSG = "아이템의 수량이 부족합니다 않습니다. 현재 수랑: ";
+    private static final String NO_STOCK_ERR_MSG = "아이템의 수량이 부족합니다. 현재 수랑: ";
     private static final int ZERO_STOCK = 0;
     @OneToMany(mappedBy = "item")
     private List<OrderItem> orderItems;
