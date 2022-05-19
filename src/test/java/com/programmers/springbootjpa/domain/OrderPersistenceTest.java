@@ -4,6 +4,7 @@ import com.programmers.springbootjpa.domain.order.Item;
 import com.programmers.springbootjpa.domain.order.Member;
 import com.programmers.springbootjpa.domain.order.Order;
 import com.programmers.springbootjpa.domain.order.OrderItem;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +27,33 @@ public class OrderPersistenceTest {
     @Autowired
     EntityManagerFactory emf;
 
+    private EntityManager entityManager;
+    private EntityTransaction transaction;
+
+    private Order firstOrder;
+    private Order secondOrder;
+    private OrderItem firstOrderItem;
+    private OrderItem secondOrderItem;
+
+    @BeforeEach
+    void setUp() {
+        entityManager = emf.createEntityManager();
+        transaction = entityManager.getTransaction();
+
+        firstOrder = new Order(UUID.randomUUID().toString(),
+                "order No.1",
+                OPENED);
+        secondOrder = new Order(UUID.randomUUID().toString(),
+                "order No.2",
+                OPENED);
+
+        firstOrderItem = new OrderItem(5000, 3);
+        secondOrderItem = new OrderItem(10000, 1);
+    }
+
     @Test
     @DisplayName("Member - Order의 연관관계 테스트")
     void memberAndOrderAssociationMappingTest() {
-        EntityManager entityManager = emf.createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
-
         transaction.begin();
 
         Member member = new Member("Hyeonseo Jung",
@@ -41,12 +63,6 @@ public class OrderPersistenceTest {
                 "description test");
         entityManager.persist(member);
 
-        Order firstOrder = new Order(UUID.randomUUID().toString(),
-                "order No.1",
-                OPENED);
-        Order secondOrder = new Order(UUID.randomUUID().toString(),
-                "order No.2",
-                OPENED);
         firstOrder.setMember(member);
         secondOrder.setMember(member);
         entityManager.persist(firstOrder);
@@ -67,20 +83,12 @@ public class OrderPersistenceTest {
     @Test
     @DisplayName("Order - OrderItem의 연관관계 테스트")
     void OrderAndOrderItemAssociationMappingTest() {
-        EntityManager entityManager = emf.createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
-
         transaction.begin();
 
-        Order order = new Order(UUID.randomUUID().toString(),
-                "order No.1",
-                OPENED);
-        entityManager.persist(order);
+        entityManager.persist(firstOrder);
 
-        OrderItem firstOrderItem = new OrderItem(5000, 3);
-        OrderItem secondOrderItem = new OrderItem(10000, 1);
-        firstOrderItem.setOrder(order);
-        secondOrderItem.setOrder(order);
+        firstOrderItem.setOrder(firstOrder);
+        secondOrderItem.setOrder(firstOrder);
 
         entityManager.persist(firstOrderItem);
         entityManager.persist(secondOrderItem);
@@ -89,7 +97,7 @@ public class OrderPersistenceTest {
 
         entityManager.clear();
 
-        Order foundOrder = entityManager.find(Order.class, order.getUuid());
+        Order foundOrder = entityManager.find(Order.class, firstOrder.getUuid());
         OrderItem foundFirstOrderItem = entityManager.find(OrderItem.class, firstOrderItem.getId());
         OrderItem foundSecondOrderItem = entityManager.find(OrderItem.class, secondOrderItem.getId());
 
@@ -100,16 +108,11 @@ public class OrderPersistenceTest {
     @Test
     @DisplayName("OrderItem - Item의 연관관계 테스트")
     void OrderItemAndItemAssociationMappingTest() {
-        EntityManager entityManager = emf.createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
-
         transaction.begin();
 
         Item item = new Item(5000, 10);
         entityManager.persist(item);
 
-        OrderItem firstOrderItem = new OrderItem(15000, 3);
-        OrderItem secondOrderItem = new OrderItem(5000, 1);
         firstOrderItem.setItem(item);
         secondOrderItem.setItem(item);
 
