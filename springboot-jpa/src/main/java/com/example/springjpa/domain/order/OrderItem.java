@@ -113,7 +113,7 @@ public class OrderItem {
         }
 
         public String toString() {
-            return "OrderItemBuilder(id=" + this.id + ", price=" + this.price + ", quantity=" + this.quantity + ", order=" + this.order + ", item=" + this.item + ")";
+            return "OrderItemBuilder(id=" + this.id + ", price=" + this.price + ", quantity=" + this.quantity + ")";
         }
     }
 }

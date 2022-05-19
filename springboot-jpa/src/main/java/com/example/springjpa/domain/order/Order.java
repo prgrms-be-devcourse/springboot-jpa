@@ -122,7 +122,7 @@ public class Order {
         }
 
         public String toString() {
-            return "OrderBuilder(uuid=" + this.uuid + ", memo=" + this.memo + ", orderStatus=" + this.orderStatus + ", orderDateTime=" + this.orderDateTime + ", orderItems=" + this.orderItems + ")";
+            return "OrderBuilder(uuid=" + this.uuid + ", memo=" + this.memo + ", orderStatus=" + this.orderStatus + ", orderDateTime=" + this.orderDateTime + ")";
         }
     }
 }

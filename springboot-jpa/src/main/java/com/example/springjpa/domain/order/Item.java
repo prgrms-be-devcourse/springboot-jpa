@@ -99,7 +99,7 @@ public class Item {
         }
 
         public String toString() {
-            return "ItemBuilder(id=" + this.id + ", price=" + this.price + ", stockQuantity=" + this.stockQuantity + ", orderItems=" + this.orderItems + ")";
+            return "ItemBuilder(id=" + this.id + ", price=" + this.price + ", stockQuantity=" + this.stockQuantity + ")";
         }
     }
 }
