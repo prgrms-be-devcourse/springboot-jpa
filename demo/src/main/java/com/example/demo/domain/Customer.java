@@ -8,7 +8,6 @@ import javax.validation.constraints.Size;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "customer")
 public class Customer {
 
     @Id
