@@ -1,4 +1,4 @@
-package com.example.demo.domain;
+package com.example.demo.domain.order;
 
 import lombok.Getter;
 
@@ -6,17 +6,17 @@ import java.util.Arrays;
 
 @Getter
 public enum OrderStatus {
-    OPENED("1"), CANCELED("2");
+    OPENED(1), CANCELED(2);
     
-    private String code;
+    private int code;
 
-    OrderStatus(String code) {
+    OrderStatus(int code) {
         this.code = code;
     }
 
-    public static OrderStatus ofCode(String code) {
+    public static OrderStatus ofCode(int code) {
         return Arrays.stream(OrderStatus.values())
-                .filter(v -> v.getCode().equals(code))
+                .filter(v -> v.getCode() == code)
                 .findAny()
                 .orElseThrow();
     }

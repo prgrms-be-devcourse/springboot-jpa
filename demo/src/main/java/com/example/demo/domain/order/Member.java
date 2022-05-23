@@ -1,7 +1,6 @@
-package com.example.demo.domain;
+package com.example.demo.domain.order;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

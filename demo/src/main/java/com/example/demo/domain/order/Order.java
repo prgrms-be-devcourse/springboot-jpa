@@ -1,4 +1,4 @@
-package com.example.demo.domain;
+package com.example.demo.domain.order;
 
 import com.example.demo.converter.OrderStatusConverter;
 import lombok.AccessLevel;

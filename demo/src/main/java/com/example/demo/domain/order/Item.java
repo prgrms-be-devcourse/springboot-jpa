@@ -1,4 +1,4 @@
-package com.example.demo.domain;
+package com.example.demo.domain.order;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -17,7 +17,7 @@ public class Item {
     private Long id;
 
     private String name;
-    private Long price;
+    private long price;
 
     @Column(name = "stock_quantity")
     private int stockQuantity;
