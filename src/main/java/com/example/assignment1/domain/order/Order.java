@@ -18,7 +18,7 @@ import java.util.UUID;
 @Getter
 @Entity
 @Table(name = "orders")
-public class Order {
+public class Order extends BaseTimeEntity {
 
     @Id
     @Column(name = "id", columnDefinition = "BINARY(16)")
