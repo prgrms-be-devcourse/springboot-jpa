@@ -21,8 +21,9 @@ import java.util.UUID;
 public class Order {
 
     @Id
-    @Column(name = "id")
-    private String uuid;
+    @Column(name = "id", columnDefinition = "BINARY(16)")
+    @GeneratedValue(generator = "uuid2")
+    private UUID id;
 
     @Column(name = "memo")
     private String memo;
@@ -41,7 +42,6 @@ public class Order {
     private List<OrderItem> orderItems = new ArrayList<>();
 
     public Order(Member member, String memo) {
-        this.uuid = UUID.randomUUID().toString();
         this.member = member;
         this.memo = memo;
         this.orderStatus = OrderStatus.ACCEPTED;
