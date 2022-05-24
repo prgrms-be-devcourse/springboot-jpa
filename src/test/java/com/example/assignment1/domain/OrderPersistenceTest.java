@@ -31,7 +31,12 @@ public class OrderPersistenceTest {
         EntityTransaction transaction = entityManager.getTransaction();
 
         Item item = new Item("EGG", 200, 30);
-        Member customer = new Member("Yoonoh", "UNO", 25, "서울시 광진구 능동로 120");
+        Member customer = Member.builder()
+                        .name("Yoonoh")
+                        .nickName("UNO")
+                        .age(25)
+                        .address("서울시 광진구 능동로 120")
+                        .build();
 
         // when
         transaction.begin();
@@ -60,7 +65,12 @@ public class OrderPersistenceTest {
         EntityTransaction transaction = entityManager.getTransaction();
 
         Item item = new Item("EGG", 200, 30);
-        Member customer = new Member("Yoonoh", "UNO", 25, "서울시 광진구 능동로 120");
+        Member customer = Member.builder()
+                .name("Yoonoh")
+                .nickName("UNO")
+                .age(25)
+                .address("서울시 광진구 능동로 120")
+                .build();
 
         // when
         transaction.begin();

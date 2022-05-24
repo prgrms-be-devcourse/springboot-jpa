@@ -1,9 +1,6 @@
 package com.example.assignment1.domain.order;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -38,6 +35,7 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
 
+    @Builder
     public Member(String name, String nickName, int age, String address) {
         this.name = name;
         this.nickName = nickName;
