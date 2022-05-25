@@ -20,6 +20,7 @@ public class Member {
     @Column(name="nick_name", nullable = false, length = 30, unique = true)
     private String nickName;
 
+    @Column(nullable = false)
     private int age;
 
     @Column(name = "address", nullable = false)

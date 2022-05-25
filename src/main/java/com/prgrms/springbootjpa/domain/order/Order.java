@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Getter
 @Entity
 @Table(name = "orders")
-@Getter
 public class Order {
     @Id
     @Column(name = "id")
@@ -23,7 +23,7 @@ public class Order {
     private String memo;
 
     @Column(name = "order_datetime", columnDefinition = "TIMESTAMP")
-    private LocalDateTime orderDatetime;
+    private LocalDateTime createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", referencedColumnName = "id")
@@ -35,11 +35,11 @@ public class Order {
     protected Order() {
     }
 
-    public Order(String uuid, OrderStatus orderStatus, String memo, LocalDateTime orderDatetime) {
+    public Order(String uuid, OrderStatus orderStatus, String memo, LocalDateTime createdAt) {
         this.uuid = uuid;
         this.orderStatus = orderStatus;
         this.memo = memo;
-        this.orderDatetime = orderDatetime;
+        this.createdAt = createdAt;
     }
 
     public void setMember(Member member) {

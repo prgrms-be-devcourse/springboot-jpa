@@ -1,6 +1,7 @@
 package com.prgrms.springbootjpa.domain.order;
 
 import lombok.Getter;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,8 +16,10 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(nullable = false)
     private int price;
 
+    @Column(nullable = false)
     private OrderStatus orderStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)
