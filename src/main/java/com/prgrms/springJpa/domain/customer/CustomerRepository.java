@@ -1,4 +1,4 @@
-package com.prgrms.springJpa.domain;
+package com.prgrms.springJpa.domain.customer;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
