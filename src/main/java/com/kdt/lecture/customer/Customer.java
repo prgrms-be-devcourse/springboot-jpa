@@ -1,9 +1,8 @@
-package com.kdt.lecture.domain;
+package com.kdt.lecture.customer;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.swing.plaf.PanelUI;
 
 @Entity
 @Table(name = "customers")

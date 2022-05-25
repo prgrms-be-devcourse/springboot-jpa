@@ -1,6 +1,4 @@
-package com.kdt.lecture.domain;
-
-import static org.junit.jupiter.api.Assertions.*;
+package com.kdt.lecture.customer;
 
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
