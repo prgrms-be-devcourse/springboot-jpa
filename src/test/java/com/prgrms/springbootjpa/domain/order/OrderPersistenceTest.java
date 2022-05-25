@@ -1,5 +1,7 @@
 package com.prgrms.springbootjpa.domain.order;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +21,24 @@ public class OrderPersistenceTest {
     @Autowired
     EntityManagerFactory emf;
 
+    private EntityManager em;
+    private EntityTransaction tx;
+
+    @BeforeEach
+    void setUp() {
+        em = emf.createEntityManager();
+        tx = em.getTransaction();
+        tx.begin();
+    }
+
+    @AfterEach
+    void clear() {
+        tx.commit();
+    }
+
     @Test
     @DisplayName("member, order 연관관계 테스트")
     void memberOrderRelationTest() {
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        tx.begin();
-
         Member member = new Member("jerry", "jerry", 25, "address");
         em.persist(member);
 
@@ -40,17 +53,11 @@ public class OrderPersistenceTest {
         Order foundOrder = em.find(Order.class, order.getUuid());
 
         assertThat(foundOrder.getMember(), samePropertyValuesAs(foundMember));
-
-        tx.commit();
     }
 
     @Test
     @DisplayName("order, orderItem 연관관계 테스트")
     void OrderOrderItemRelationTest() {
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        tx.begin();
-
         Order order = new Order(UUID.randomUUID().toString(), OrderStatus.OPENED, "조심", LocalDateTime.now());
         em.persist(order);
 
@@ -65,17 +72,11 @@ public class OrderPersistenceTest {
         OrderItem foundOrderItem = em.find(OrderItem.class, orderItem.getId());
 
         assertThat(foundOrderItem.getOrder(), samePropertyValuesAs(foundOrder));
-
-        tx.commit();
     }
 
     @Test
     @DisplayName("item, orderItem 연관관계 테스트")
     void ItemOrderItemRelationTest() {
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        tx.begin();
-
         Item item = new Item("A", 1000, 10 );
         em.persist(item);
 
@@ -90,8 +91,6 @@ public class OrderPersistenceTest {
         OrderItem foundOrderItem = em.find(OrderItem.class, orderItem.getId());
 
         assertThat(foundOrderItem.getItem(), samePropertyValuesAs(foundItem));
-
-        tx.commit();
     }
 
 }
