@@ -51,13 +51,13 @@ public class Member {
     }
 
     public Member(String name, String nickName, int age, String address, String description) {
+        validateName(name);
+        validateNickName(nickName);
         this.name = name;
         this.nickName = nickName;
         this.age = age;
         this.address = address;
         this.description = description;
-        validateName(name);
-        validateNickName(nickName);
     }
 
     private void validateName(String name) {
