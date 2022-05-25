@@ -2,6 +2,8 @@ package com.prgrms.springbootjpa.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -16,13 +18,23 @@ public class PersistenceTest {
     @Autowired
     EntityManagerFactory emf;
 
+    private EntityManager em;
+    private EntityTransaction tx;
+
+    @BeforeEach
+    void setUp() {
+        em  = emf.createEntityManager();
+        tx = em.getTransaction();
+        tx.begin();
+    }
+
+    @AfterEach
+    void clear() {
+        tx.commit();
+    }
+
     @Test
     void testManaged() {
-         EntityManager em  = emf.createEntityManager();
-         EntityTransaction tx = em.getTransaction();
-
-         tx.begin();
-
          // given
         Customer customer = new Customer("jerry", "hong");
 
@@ -31,17 +43,10 @@ public class PersistenceTest {
 
          //then
          assertThat(em.contains(customer)).isTrue();
-
-         tx.commit();
     }
 
     @Test
     void testDetached() {
-        EntityManager em  = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-
-        tx.begin();
-
         // given
         Customer customer = new Customer("jerry", "hong");
         em.persist(customer);
@@ -51,17 +56,10 @@ public class PersistenceTest {
 
         // then
         assertThat(em.contains(customer)).isFalse();
-
-        tx.commit();
     }
 
     @Test
     void testDetachedByClear() {
-        EntityManager em  = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-
-        tx.begin();
-
         // given
         Customer customer = new Customer("jerry", "hong");
         em.persist(customer);
@@ -71,18 +69,11 @@ public class PersistenceTest {
 
         // then
         assertThat(em.contains(customer)).isFalse();
-
-        tx.commit();
     }
 
 
     @Test
     void testRemoved() {
-        EntityManager em  = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-
-        tx.begin();
-
         // given
         Customer customer = new Customer("jerry", "hong");
         em.persist(customer);
@@ -93,7 +84,5 @@ public class PersistenceTest {
         // then
         assertThat(em.contains(customer)).isFalse();
         assertThat(em.find(Customer.class, 1L)).isNull();
-
-        tx.commit();
     }
 }
