@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.study.springbootJpa.domain.Customer;
+import com.study.springbootJpa.repository.Customer;
 import com.study.springbootJpa.repository.CustomerRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -24,14 +24,10 @@ public class PersistenceContextTest {
 
 	@Autowired
 	private EntityManagerFactory managerFactory;
-	Customer customer = new Customer();
+	Customer customer = new Customer(1L, "hyeb", "park");
 
 	@BeforeEach
 	void setUp() {
-		customer.setId(1L);
-		customer.setFirstName("hyeb");
-		customer.setLastName("park");
-
 		log.info("repository deleteAll 실행으로 날아간 query");
 		repository.deleteAll();
 	}
@@ -117,8 +113,7 @@ public class PersistenceContextTest {
 		entityManager.persist(customer);
 		log.info("persist customer -> {}{}", customer.getFirstName(), customer.getLastName());
 
-		customer.setFirstName("udpate");
-		customer.setLastName("test");
+		customer.update("update", "test");
 
 		var updatedCustomer
 			= entityManager.find(Customer.class, 1L);
