@@ -1,9 +1,11 @@
 package com.prgrms.springbootjpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.prgrms.springbootjpa.global.util.EntityFieldValidator;
+import org.springframework.util.StringUtils;
+
+import javax.persistence.*;
+
+import static com.prgrms.springbootjpa.global.util.EntityFieldValidator.*;
 
 @Entity
 @Table(name="customers")
@@ -11,13 +13,18 @@ public class Customer {
     @Id
     @GeneratedValue
     private Long id;
+
+    @Column(length = 30, nullable = false)
     private String firstName;
+
+    @Column(length = 30, nullable = false)
     private String lastName;
 
     protected Customer() {
     }
 
     public Customer(String firstName, String lastName) {
+        validateCustomerField(firstName, lastName);
         this.firstName = firstName;
         this.lastName = lastName;
     }

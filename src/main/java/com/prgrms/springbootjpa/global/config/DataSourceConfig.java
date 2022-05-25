@@ -1,4 +1,4 @@
-package com.prgrms.springbootjpa.config;
+package com.prgrms.springbootjpa.global.config;
 
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.context.annotation.Bean;
