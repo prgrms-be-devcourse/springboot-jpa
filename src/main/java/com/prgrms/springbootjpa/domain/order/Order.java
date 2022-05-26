@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static com.prgrms.springbootjpa.global.util.EntityFieldValidator.validateOrderField;
+
 @Getter
 @Entity
 @Table(name = "orders")
@@ -17,6 +19,7 @@ public class Order {
     private String uuid;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private OrderStatus orderStatus;
 
     @Lob
@@ -35,7 +38,15 @@ public class Order {
     protected Order() {
     }
 
+    public Order(String uuid, OrderStatus orderStatus, LocalDateTime createdAt) {
+        validateOrderField(uuid, orderStatus, createdAt);
+        this.uuid = uuid;
+        this.orderStatus = orderStatus;
+        this.createdAt = createdAt;
+    }
+
     public Order(String uuid, OrderStatus orderStatus, String memo, LocalDateTime createdAt) {
+        validateOrderField(uuid, orderStatus, createdAt);
         this.uuid = uuid;
         this.orderStatus = orderStatus;
         this.memo = memo;

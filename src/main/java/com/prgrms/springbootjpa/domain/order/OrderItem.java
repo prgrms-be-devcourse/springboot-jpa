@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static com.prgrms.springbootjpa.global.util.EntityFieldValidator.validateOrderItem;
+
 @Entity
 @Table(name = "order_item")
 @Getter
@@ -34,6 +36,7 @@ public class OrderItem {
     }
 
     public OrderItem(int price, OrderStatus orderStatus) {
+        validateOrderItem(price, orderStatus);
         this.price = price;
         this.orderStatus = orderStatus;
     }

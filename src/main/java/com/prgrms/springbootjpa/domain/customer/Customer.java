@@ -4,6 +4,8 @@ import com.prgrms.springbootjpa.global.util.EntityFieldValidator;
 
 import javax.persistence.*;
 
+import static com.prgrms.springbootjpa.global.util.EntityFieldValidator.validateCustomerField;
+
 @Entity
 @Table(name="customers")
 public class Customer {
@@ -21,7 +23,7 @@ public class Customer {
     }
 
     public Customer(String firstName, String lastName) {
-        EntityFieldValidator.validateCustomerField(firstName, lastName);
+        validateCustomerField(firstName, lastName);
         this.firstName = firstName;
         this.lastName = lastName;
     }

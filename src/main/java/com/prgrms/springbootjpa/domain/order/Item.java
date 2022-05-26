@@ -6,6 +6,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.prgrms.springbootjpa.global.util.EntityFieldValidator.validateItemField;
+
 @Entity
 @Table(name = "item")
 @Getter
@@ -30,6 +32,7 @@ public class Item {
     }
 
     public Item(String name, int price, int stockQuantity) {
+        validateItemField(name, price, stockQuantity);
         this.name = name;
         this.price = price;
         this.stockQuantity = stockQuantity;

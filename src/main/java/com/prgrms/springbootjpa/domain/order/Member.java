@@ -6,6 +6,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.prgrms.springbootjpa.global.util.EntityFieldValidator.validateMemberField;
+
 @Entity
 @Table(name = "member")
 @Getter
@@ -23,9 +25,10 @@ public class Member {
     @Column(nullable = false)
     private int age;
 
-    @Column(name = "address", nullable = false)
+    @Column(name = "address", nullable = false, length = 200)
     private String address;
 
+    @Lob
     @Column(name = "description")
     private String description;
 
@@ -36,6 +39,7 @@ public class Member {
     }
 
     public Member(String name, String nickName, int age, String address, String description) {
+        validateMemberField(name, nickName, age, address);
         this.name = name;
         this.nickName = nickName;
         this.age = age;
@@ -44,6 +48,7 @@ public class Member {
     }
 
     public Member(String name, String nickName, int age, String address) {
+        validateMemberField(name, nickName, age, address);
         this.name = name;
         this.nickName = nickName;
         this.age = age;
