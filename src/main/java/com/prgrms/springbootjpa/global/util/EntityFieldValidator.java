@@ -1,12 +1,10 @@
 package com.prgrms.springbootjpa.global.util;
 
-import com.prgrms.springbootjpa.domain.order.Order;
 import com.prgrms.springbootjpa.domain.order.OrderStatus;
 import com.prgrms.springbootjpa.global.exception.WrongFiledException;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class EntityFieldValidator {
     public static void validateCustomerField(String firstName, String lastName) {

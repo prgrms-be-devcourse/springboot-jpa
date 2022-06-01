@@ -1,7 +1,5 @@
 package com.prgrms.springbootjpa.domain.customer;
 
-import com.prgrms.springbootjpa.global.util.EntityFieldValidator;
-
 import javax.persistence.*;
 
 import static com.prgrms.springbootjpa.global.util.EntityFieldValidator.validateCustomerField;
