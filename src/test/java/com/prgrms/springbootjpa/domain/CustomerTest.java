@@ -1,13 +1,12 @@
 package com.prgrms.springbootjpa.domain;
 
-import com.prgrms.springbootjpa.global.exception.WrongFiledException;
+import com.prgrms.springbootjpa.global.exception.IllegalFieldException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.*;
 
 class CustomerTest {
     @Nested
@@ -21,7 +20,7 @@ class CustomerTest {
             public void testFirstNameHasText() {
                 try {
                     Customer customer = new Customer(null, "hong");
-                }catch (WrongFiledException e) {
+                }catch (IllegalFieldException e) {
                     assertThat(e.getReason(), is("please input firstName"));
                 }
             }
@@ -31,7 +30,7 @@ class CustomerTest {
             public void testFirstNameLength() {
                 try {
                     Customer customer = new Customer("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "hong");
-                }catch (WrongFiledException e) {
+                }catch (IllegalFieldException e) {
                     assertThat(e.getReason(), is("1 <= firstName <= 30"));
                 }
             }
@@ -45,7 +44,7 @@ class CustomerTest {
             public void testFirstNameHasText() {
                 try {
                     Customer customer = new Customer("jerry", null);
-                }catch (WrongFiledException e) {
+                }catch (IllegalFieldException e) {
                     assertThat(e.getReason(), is("please input lastName"));
                 }
             }
@@ -55,7 +54,7 @@ class CustomerTest {
             public void testFirstNameLength() {
                 try {
                     Customer customer = new Customer("jerry", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-                }catch (WrongFiledException e) {
+                }catch (IllegalFieldException e) {
                     assertThat(e.getReason(), is("1 <= lastName <= 30"));
                 }
             }

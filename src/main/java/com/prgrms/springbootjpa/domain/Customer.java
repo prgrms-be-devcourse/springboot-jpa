@@ -1,11 +1,8 @@
 package com.prgrms.springbootjpa.domain;
 
-import com.prgrms.springbootjpa.global.util.EntityFieldValidator;
-import org.springframework.util.StringUtils;
-
 import javax.persistence.*;
 
-import static com.prgrms.springbootjpa.global.util.EntityFieldValidator.*;
+import static com.prgrms.springbootjpa.global.util.EntityFieldValidator.validateCustomerField;
 
 @Entity
 @Table(name="customers")
