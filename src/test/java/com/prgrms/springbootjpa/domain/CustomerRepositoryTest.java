@@ -1,8 +1,5 @@
 package com.prgrms.springbootjpa.domain;
 
-import static org.hamcrest.Matchers.*;
-import static org.hamcrest.MatcherAssert.*;
-
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,6 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.Optional;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.samePropertyValuesAs;
 
 @Slf4j
 @DataJpaTest
@@ -38,8 +39,8 @@ class CustomerRepositoryTest {
 
         customer.changeFirstName("yuseok");
 
-        Customer entity2 = customerRepository.findById(customer.getId()).get();
-        assertThat(entity2.getFirstName(), is("yuseok"));
+        Customer updatedEntity = customerRepository.findById(customer.getId()).get();
+        assertThat(updatedEntity.getFirstName(), is("yuseok"));
     }
 
     @Test
@@ -49,7 +50,8 @@ class CustomerRepositoryTest {
         customerRepository.save(customer);
 
         customerRepository.delete(customer);
-        Optional<Customer> ret = customerRepository.findById(customer.getId());
-        assertThat(ret, is(Optional.empty()));
+
+        Optional<Customer> nonExistentCustomer = customerRepository.findById(customer.getId());
+        assertThat(nonExistentCustomer, is(Optional.empty()));
     }
 }

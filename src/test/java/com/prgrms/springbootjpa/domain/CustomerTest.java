@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class CustomerTest {
     @Nested
@@ -18,21 +19,17 @@ class CustomerTest {
             @Test
             @DisplayName("Customer 엔티티 firstName 필드 hastText validation 테스트")
             public void testFirstNameHasText() {
-                try {
-                    Customer customer = new Customer(null, "hong");
-                }catch (IllegalFieldException e) {
-                    assertThat(e.getReason(), is("please input firstName"));
-                }
+                String exceptionReason = assertThrows(IllegalFieldException.class, () -> {Customer customer = new Customer(null, "hong");}).getReason();
+                assertThat(exceptionReason, is("please input firstName"));
             }
 
             @Test
             @DisplayName("Customer 엔티티 firstName 필드 length validation 테스트")
             public void testFirstNameLength() {
-                try {
+                String exceptionReason = assertThrows(IllegalFieldException.class, () -> {
                     Customer customer = new Customer("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "hong");
-                }catch (IllegalFieldException e) {
-                    assertThat(e.getReason(), is("1 <= firstName <= 30"));
-                }
+                }).getReason();
+                assertThat(exceptionReason, is("1 <= firstName <= 30"));
             }
         }
 
@@ -42,21 +39,19 @@ class CustomerTest {
             @Test
             @DisplayName("Customer 엔티티 lastName 필드 hastText validation 테스트")
             public void testFirstNameHasText() {
-                try {
+                String exceptionReason = assertThrows(IllegalFieldException.class, () -> {
                     Customer customer = new Customer("jerry", null);
-                }catch (IllegalFieldException e) {
-                    assertThat(e.getReason(), is("please input lastName"));
-                }
+                }).getReason();
+                assertThat(exceptionReason, is("please input lastName"));
             }
 
             @Test
             @DisplayName("Customer 엔티티 lastName 필드 length validation 테스트")
             public void testFirstNameLength() {
-                try {
+                String exceptionReason = assertThrows(IllegalFieldException.class, () -> {
                     Customer customer = new Customer("jerry", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-                }catch (IllegalFieldException e) {
-                    assertThat(e.getReason(), is("1 <= lastName <= 30"));
-                }
+                }).getReason();
+                assertThat(exceptionReason, is("1 <= lastName <= 30"));
             }
         }
     }
