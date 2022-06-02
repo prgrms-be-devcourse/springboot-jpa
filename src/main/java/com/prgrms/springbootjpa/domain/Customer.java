@@ -1,6 +1,6 @@
 package com.prgrms.springbootjpa.domain;
 
-import com.prgrms.springbootjpa.global.exception.IllegalFieldException;
+import com.prgrms.springbootjpa.global.exception.WrongFieldException;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
@@ -51,19 +51,19 @@ public class Customer {
 
     private void validateCustomerField(String firstName, String lastName) {
         if(!StringUtils.hasText(firstName)) {
-            throw new IllegalFieldException("Customer.firstName", firstName, "please input firstName");
+            throw new WrongFieldException("Customer.firstName", firstName, "please input firstName");
         }
 
         if(!validateFieldLength(firstName, 1, 30)) {
-            throw new IllegalFieldException("Customer.firstName", firstName, "1 <= firstName <= 30");
+            throw new WrongFieldException("Customer.firstName", firstName, "1 <= firstName <= 30");
         }
 
         if(!StringUtils.hasText(lastName)) {
-            throw new IllegalFieldException("Customer.lastName", lastName, "please input lastName");
+            throw new WrongFieldException("Customer.lastName", lastName, "please input lastName");
         }
 
         if(!validateFieldLength(lastName, 1, 30)) {
-            throw new IllegalFieldException("Customer.lastName", lastName, "1 <= lastName <= 30");
+            throw new WrongFieldException("Customer.lastName", lastName, "1 <= lastName <= 30");
         }
     }
 }
