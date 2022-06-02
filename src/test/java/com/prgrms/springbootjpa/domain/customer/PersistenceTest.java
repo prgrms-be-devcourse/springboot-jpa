@@ -71,7 +71,6 @@ public class PersistenceTest {
         assertThat(em.contains(customer)).isFalse();
     }
 
-
     @Test
     void testRemoved() {
         // given

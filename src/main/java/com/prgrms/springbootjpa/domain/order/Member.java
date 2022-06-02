@@ -1,12 +1,14 @@
 package com.prgrms.springbootjpa.domain.order;
 
+import com.prgrms.springbootjpa.global.exception.WrongFieldException;
 import lombok.Getter;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.prgrms.springbootjpa.global.util.EntityFieldValidator.validateMemberField;
+import static com.prgrms.springbootjpa.global.util.Validator.*;
 
 @Entity
 @Table(name = "member")
@@ -57,5 +59,35 @@ public class Member {
 
     public void addOrder(Order order) {
         order.setMember(this);
+    }
+
+    private void validateMemberField(String name, String nickName, int age, String address) {
+        if(!StringUtils.hasText(name)) {
+            throw new WrongFieldException("Member.name", name, "please input name");
+        }
+
+        if(!validateFieldLength(name, 1, 30)) {
+            throw new WrongFieldException("Member.name", name, "1 <= name <= 30");
+        }
+
+        if(!StringUtils.hasText(nickName)) {
+            throw new WrongFieldException("Member.nickName", nickName, "please input nickName");
+        }
+
+        if(!validateFieldLength(nickName, 1, 30)) {
+            throw new WrongFieldException("Member.nickName", nickName, "1 <= nickName <= 30");
+        }
+
+        if(!validateNumberSize(age, 1)) {
+            throw new WrongFieldException("Member.age", 1, "1 <= age");
+        }
+
+        if(!StringUtils.hasText(address)) {
+            throw new WrongFieldException("Member.address", address, "please input address");
+        }
+
+        if(!validateFieldLength(address, 1, 200)) {
+            throw new WrongFieldException("Member.address", address, "1 <= address <= 30");
+        }
     }
 }

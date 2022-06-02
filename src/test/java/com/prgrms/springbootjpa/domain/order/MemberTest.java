@@ -1,12 +1,13 @@
 package com.prgrms.springbootjpa.domain.order;
 
-import com.prgrms.springbootjpa.global.exception.WrongFiledException;
+import com.prgrms.springbootjpa.global.exception.WrongFieldException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 class MemberTest {
@@ -15,85 +16,79 @@ class MemberTest {
         @Nested
         class NameValidation {
             @Test
-            @DisplayName("잚못된 name 필드 입력에 정상적으로 예외를 발생하는지에 대한 테스트")
+            @DisplayName("잘못된 name 필드 입력에 정상적으로 예외를 발생하는지에 대한 테스트")
             void testNameHasText() {
-                try {
+                WrongFieldException e = assertThrows(WrongFieldException.class, () -> {
                     Member member = new Member(null, "j", 25, "경기도");
-                }catch (WrongFiledException e) {
-                    assertThat(e.getFieldName(), is("Member.name"));
-                    assertThat(e.getReason(), is("please input name"));
-                }
+                });
+                assertThat(e.getFieldName(), is("Member.name"));
+                assertThat(e.getReason(), is("please input name"));
             }
 
             @Test
-            @DisplayName("잚못된 name 필드 길이에 정상적으로 예외를 발생하는지에 대한 테스트")
+            @DisplayName("잘못된 name 필드 길이에 정상적으로 예외를 발생하는지에 대한 테스트")
             void testNameLength() {
-                try {
+                WrongFieldException e = assertThrows(WrongFieldException.class, () -> {
                     Member member = new Member("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "j", 25, "경기도");
-                }catch (WrongFiledException e) {
-                    assertThat(e.getFieldName(), is("Member.name"));
-                    assertThat(e.getReason(), is("1 <= name <= 30"));
-                }
+                });
+                assertThat(e.getFieldName(), is("Member.name"));
+                assertThat(e.getReason(), is("1 <= name <= 30"));
             }
         }
 
         @Nested
         class NickNameValidation {
             @Test
-            @DisplayName("잚못된 nickName 필드 입력에 정상적으로 예외를 발생하는지에 대한 테스트")
+            @DisplayName("잘못된 nickName 필드 입력에 정상적으로 예외를 발생하는지에 대한 테스트")
             void testNickNameHasText() {
-                try {
+                WrongFieldException e = assertThrows(WrongFieldException.class, () -> {
                     Member member = new Member("jerry",  null, 25, "경기도");
-                }catch (WrongFiledException e) {
-                    assertThat(e.getFieldName(), is("Member.nickName"));
-                    assertThat(e.getReason(), is("please input nickName"));
-                }
+                });
+                assertThat(e.getFieldName(), is("Member.nickName"));
+                assertThat(e.getReason(), is("please input nickName"));
             }
 
             @Test
-            @DisplayName("잚못된 nickName 필드 길이에 정상적으로 예외를 발생하는지에 대한 테스트")
+            @DisplayName("잘못된 nickName 필드 길이에 정상적으로 예외를 발생하는지에 대한 테스트")
             void testNickNameLength() {
-                try {
+                WrongFieldException e = assertThrows(WrongFieldException.class, () -> {
                     Member member = new Member("jerry", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", 25, "경기도");
-                }catch (WrongFiledException e) {
-                    assertThat(e.getFieldName(), is("Member.nickName"));
-                    assertThat(e.getReason(), is("1 <= nickName <= 30"));
-                }
+                });
+                assertThat(e.getFieldName(), is("Member.nickName"));
+                assertThat(e.getReason(), is("1 <= nickName <= 30"));
             }
         }
 
         @Test
         void testAgeValidation() {
-            try {
+            WrongFieldException e = assertThrows(WrongFieldException.class, () -> {
                 Member member = new Member("jerry",  "j", 0, "경기도", "");
-            }catch (WrongFiledException e) {
-                assertThat(e.getFieldName(), is("Member.age"));
-                assertThat(e.getReason(), is("1 <= age"));
-            }
+            });
+            assertThat(e.getFieldName(), is("Member.age"));
+            assertThat(e.getReason(), is("1 <= age"));
         }
 
         @Nested
         class AddressValidation {
             @Test
-            @DisplayName("잚못된 address 필드 입력에 정상적으로 예외를 발생하는지에 대한 테스트")
+            @DisplayName("잘못된 address 필드 입력에 정상적으로 예외를 발생하는지에 대한 테스트")
             void testAddressHasText() {
-                try {
+                WrongFieldException e = assertThrows(WrongFieldException.class, () -> {
                     Member member = new Member("jerry",  "j", 25, null);
-                }catch (WrongFiledException e) {
-                    assertThat(e.getFieldName(), is("Member.address"));
-                    assertThat(e.getReason(), is("please input address"));
-                }
+                });
+                assertThat(e.getFieldName(), is("Member.address"));
+                assertThat(e.getReason(), is("please input address"));
             }
 
             @Test
-            @DisplayName("잚못된 address 필드 길이에 정상적으로 예외를 발생하는지에 대한 테스트")
+            @DisplayName("잘못된 address 필드 길이에 정상적으로 예외를 발생하는지에 대한 테스트")
             void testAddressLength() {
-                try {
+                WrongFieldException e = assertThrows(WrongFieldException.class, () -> {
                     Member member = new Member("jerry", "j", 25, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-                }catch (WrongFiledException e) {
-                    assertThat(e.getFieldName(), is("Member.address"));
-                    assertThat(e.getReason(), is("1 <= address <= 30"));
-                }
+                });
+                assertThat(e.getFieldName(), is("Member.address"));
+                assertThat(e.getReason(), is("1 <= address <= 30"));
+
             }
         }
     }

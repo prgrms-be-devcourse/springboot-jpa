@@ -1,14 +1,12 @@
 package com.prgrms.springbootjpa.domain.order;
 
+import com.prgrms.springbootjpa.global.exception.WrongFieldException;
 import lombok.Getter;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-import static com.prgrms.springbootjpa.global.util.EntityFieldValidator.validateOrderItem;
+import static com.prgrms.springbootjpa.global.util.Validator.validateNumberSize;
 
 @Entity
 @Table(name = "order_item")
@@ -57,5 +55,15 @@ public class OrderItem {
 
         this.item = item;
         item.orderItems.add(this);
+    }
+
+    private void validateOrderItem(int price, OrderStatus orderStatus) {
+        if(!validateNumberSize(price, 100)) {
+            throw new WrongFieldException("OrderItem.price", price, "100 <= price");
+        }
+
+        if(orderStatus == null) {
+            throw new WrongFieldException("OrderItem.orderStatus", orderStatus, "orderStatus is required field");
+        }
     }
 }

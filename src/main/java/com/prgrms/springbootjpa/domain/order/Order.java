@@ -1,5 +1,6 @@
 package com.prgrms.springbootjpa.domain.order;
 
+import com.prgrms.springbootjpa.global.exception.WrongFieldException;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -7,8 +8,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import static com.prgrms.springbootjpa.global.util.EntityFieldValidator.validateOrderField;
 
 @Getter
 @Entity
@@ -64,5 +63,19 @@ public class Order {
 
     public void addOrderItem(OrderItem orderItem) {
         orderItem.setOrder(this);
+    }
+
+    private void validateOrderField(String uuid, OrderStatus orderStatus, LocalDateTime createdAt) {
+        if(uuid == null) {
+            throw new WrongFieldException("Order.uuid", uuid, "uuid is required field");
+        }
+
+        if(orderStatus == null) {
+            throw new WrongFieldException("Order.orderStatus", orderStatus, "orderStatus is required field");
+        }
+
+        if(createdAt == null) {
+            throw new WrongFieldException("Order.createdAt", orderStatus, "createdAt is required field");
+        }
     }
 }
