@@ -39,15 +39,15 @@ class CustomerRepositoryTest {
     void updateTest() {
         customer.changeFirstName("yuseok");
 
-        Customer entity2 = customerRepository.findById(customer.getId()).get();
-        assertThat(entity2.getFirstName(), is("yuseok"));
+        Customer updatedCustomer = customerRepository.findById(customer.getId()).get();
+        assertThat(updatedCustomer.getFirstName(), is("yuseok"));
     }
 
     @Test
     @DisplayName("고객 delete 테스트")
     void deleteTest() {
         customerRepository.delete(customer);
-        Optional<Customer> ret = customerRepository.findById(customer.getId());
-        assertThat(ret, is(Optional.empty()));
+        Optional<Customer> nonExistentCustomer = customerRepository.findById(customer.getId());
+        assertThat(nonExistentCustomer, is(Optional.empty()));
     }
 }
