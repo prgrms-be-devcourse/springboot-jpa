@@ -20,3 +20,7 @@
 
 ### 코드리뷰가 마쳤다면! 만족할 코드가 완성되었다면! Merge!
 - merge하면서 conflict가 날 수 있겠죠? Git/Github 특강을 다시보며 해결해봅시다.
+
+![image](https://user-images.githubusercontent.com/50647845/168043306-9d1db60d-1045-43a3-8bb1-46c881ed9412.png)
+
+![image](https://user-images.githubusercontent.com/50647845/168044936-a9b82ce1-0dc1-4ef9-97bd-d0747a012ca7.png)
