@@ -31,14 +31,14 @@ public class Customer {
     private String lastName;
 
     public Customer(String firstName, String lastName) {
-        Assert.isTrue(StringUtils.hasText(firstName), "이름은 빈 값이면 안됩니다.");
-        Assert.isTrue(StringUtils.hasText(lastName), "성은 빈 값이면 안됩니다.");
+        Assert.hasText(firstName, "이름은 빈 값이면 안됩니다.");
+        Assert.hasText(lastName, "성은 빈 값이면 안됩니다.");
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
     public void changeFirstName(String firstName) {
-        Assert.isTrue(StringUtils.hasText(firstName), "이름은 빈 값이면 안됩니다.");
+        Assert.hasText(firstName, "이름은 빈 값이면 안됩니다.");
         this.firstName = firstName;
     }
 
