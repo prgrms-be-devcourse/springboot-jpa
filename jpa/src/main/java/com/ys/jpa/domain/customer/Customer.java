@@ -51,7 +51,7 @@ public class Customer {
         Assert.hasText(firstName, "이름은 빈 값이면 안됩니다.");
     }
 
-    private static void validateLastName(String lastName) {
+    private void validateLastName(String lastName) {
         Assert.isTrue(StringUtils.hasText(lastName), "성은 빈 값이면 안됩니다.");
     }
 
