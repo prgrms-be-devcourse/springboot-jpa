@@ -55,10 +55,11 @@ class CustomerRepositoryTest {
         customer.setFirstName("kim");
         customer.setLastName("kiwoong");
 
-        //when
         customerRepository.save(customer);
-        customerRepository.deleteAll();
-
+        Customer findCustomer = customerRepository.findById(1L).get();
+        assertThat(customer).isEqualTo(findCustomer);
+        
+        customerRepository.deleteById(1L);
         assertThat(customerRepository.findById(1L).isEmpty()).isTrue();
     }
 }
