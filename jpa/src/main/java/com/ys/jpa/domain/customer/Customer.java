@@ -37,4 +37,9 @@ public class Customer {
         this.lastName = lastName;
     }
 
+    public void changeFirstName(String firstName) {
+        Assert.isTrue(StringUtils.hasText(firstName), "이름은 빈 값이면 안됩니다.");
+        this.firstName = firstName;
+    }
+
 }
