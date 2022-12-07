@@ -2,7 +2,6 @@ package com.ys.jpa.domain.member;
 
 import com.ys.jpa.domain.base.AbstractTimeColumn;
 import com.ys.jpa.domain.order.Order;
-import jakarta.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
@@ -12,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,7 +25,7 @@ import org.springframework.util.Assert;
 public class Member extends AbstractTimeColumn {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name")
@@ -45,7 +45,6 @@ public class Member extends AbstractTimeColumn {
     @Size(min = 1, max = 255)
     private String address;
 
-    @ColumnDefault("")
     @Column(name = "description")
     private String description;
 

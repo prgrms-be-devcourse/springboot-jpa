@@ -45,11 +45,11 @@ public class Order extends AbstractTimeColumn {
 
     @Lob
     @Column(nullable = false)
-    @ColumnDefault("부재시 전화주세요.")
+    @ColumnDefault("'부재시 전화주세요.'")
     private String memo = "부재시 전화주세요.";
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "member_id", referencedColumnName = "id")
+    @JoinColumn(name = "member_id")
     private Member member;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
