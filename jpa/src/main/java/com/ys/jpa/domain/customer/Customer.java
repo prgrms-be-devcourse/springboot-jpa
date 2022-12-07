@@ -54,5 +54,5 @@ public class Customer {
     private static void validateLastName(String lastName) {
         Assert.isTrue(StringUtils.hasText(lastName), "성은 빈 값이면 안됩니다.");
     }
-    
+
 }
