@@ -1,6 +1,5 @@
 package com.ys.jpa.domain.customer;
 
-import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
