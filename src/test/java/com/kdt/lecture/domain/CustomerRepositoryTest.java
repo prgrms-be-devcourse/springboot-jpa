@@ -1,11 +1,16 @@
 package com.kdt.lecture.domain;
 
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
 @SpringBootTest
@@ -14,6 +19,12 @@ class CustomerRepositoryTest {
     @Autowired
     CustomerRepository repository;
 
+    @BeforeEach
+    void tearDown() {
+        repository.deleteAll();
+    }
+
+    @DisplayName("고객을 저장할 수 있다.")
     @Test
     void saveTest() {
         // given
@@ -26,11 +37,12 @@ class CustomerRepositoryTest {
         repository.save(customer);
 
         // then
-        Customer entity = repository.findById(1L).get();
-        log.info("{} {}", entity.getFirstName(), entity.getLastName());
-
+        Optional<Customer> maybeCustomer = repository.findById(1L);
+        assertThat(maybeCustomer)
+                .isPresent();
     }
 
+    @DisplayName("고객을 조회할 수 있다.")
     @Test
     void findTest() {
         // given
@@ -41,13 +53,16 @@ class CustomerRepositoryTest {
         repository.save(customer);
 
         // when
-        Customer entity = repository.findById(1L).get();
+        Optional<Customer> maybeCustomer = repository.findById(1L);
 
         // then
-        log.info("{} {}", entity.getFirstName(), entity.getLastName());
+        assertThat(maybeCustomer)
+                .isPresent();
     }
 
+    @DisplayName("고객 정보를 수정할 수 있다.")
     @Test
+    @Transactional
     void updateTest() {
         // given
         Customer customer = new Customer();
@@ -57,13 +72,15 @@ class CustomerRepositoryTest {
         repository.save(customer);
 
         // when
-        customer.setLastName("taekho");
         Customer entity = repository.findById(1L).get();
+        entity.setFirstName("taekho");
 
         // then
-        log.info("{} {}", entity.getFirstName(), entity.getLastName());
+        assertThat(entity.getFirstName())
+                .isEqualTo("taekho");
     }
 
+    @DisplayName("고객 정보를 삭제할 수 있다.")
     @Test
     void deleteTest() {
         // given
@@ -77,7 +94,7 @@ class CustomerRepositoryTest {
         repository.delete(customer);
 
         // then
-        assertEquals(repository.findById(1L).isEmpty(), true);
-
+        assertThat(repository.findById(1L))
+                .isEmpty();
     }
 }
