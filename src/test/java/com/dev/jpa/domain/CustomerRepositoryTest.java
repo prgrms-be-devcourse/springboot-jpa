@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,8 +45,7 @@ class CustomerRepositoryTest {
             customerRepository.save(customer);
 
             Customer saveCustomer = customerRepository.findById(1L).get();
-            assertThat(saveCustomer.getFirstName()).isEqualTo(customer.getFirstName());
-            assertThat(saveCustomer.getLastName()).isEqualTo(customer.getLastName());
+            assertThat(saveCustomer).usingRecursiveComparison().isEqualTo(customer);
         }
     }
 
@@ -80,15 +80,15 @@ class CustomerRepositoryTest {
     @DisplayName("DB에 존재하는 데이터를 save()할 경우")
     class update {
         @Test
+        @Transactional
         @DisplayName("기존 정보가 update 된다.")
-        void update() {
+        void updateSuccess() {
             Customer customer = new Customer(1L, "kim", "min");
-            customerRepository.save(customer);
-            customer.setLastName("hee");
-
-            customerRepository.save(customer);
+            Customer save = customerRepository.save(customer);
+            save.setLastName("hee");
 
             Customer findCustomer = customerRepository.findById(1L).get();
+
             int size = customerRepository.findAll().size();
             assertThat(size).isOne();
             assertThat(findCustomer.getLastName()).isEqualTo("hee");
@@ -98,11 +98,12 @@ class CustomerRepositoryTest {
     @Test
     @DisplayName("deleteAll()을 실행하면 모든 DB 데이터가 지워진다.")
     void deleteAll() {
-        customerRepository.save(new Customer());
+        Customer customer = new Customer(1L, "kim", "min");
+        customerRepository.save(customer);
 
         customerRepository.deleteAll();
 
-        int resultSize = customerRepository.findAll().size();
-        assertThat(resultSize).isZero();
+        long size = customerRepository.count();
+        assertThat(size).isZero();
     }
 }
