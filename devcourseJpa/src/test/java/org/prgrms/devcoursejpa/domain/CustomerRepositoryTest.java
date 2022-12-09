@@ -4,11 +4,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
 class CustomerRepositoryTest {
@@ -23,26 +23,6 @@ class CustomerRepositoryTest {
         Customer savedOne = customerRepository.save(customer);
 
         assertEquals(customer, savedOne);
-    }
-
-    @Test
-    @DisplayName("이름이 length 조건보다 길 경우 생성에 실패한다.")
-    void 회원_생성_실패1() {
-        String firstName = "qwerqwerqwerqwerqwerqwerqwerqwerqwer";
-        String lastName = "Kim";
-
-        Customer customer = new Customer(firstName, lastName);
-        assertThrows(DataIntegrityViolationException.class, () -> customerRepository.save(customer));
-    }
-
-    @Test
-    @DisplayName("성이 length 조건보다 길 경우 생성에 실패한다.")
-    void 회원_생성_실패2() {
-        String firstName = "Giseo";
-        String lastName = "askdjfadvfjqoeivoidjfnoasjdnoqi";
-
-        Customer customer = new Customer(firstName, lastName);
-        assertThrows(DataIntegrityViolationException.class, () -> customerRepository.save(customer));
     }
 
     @Test

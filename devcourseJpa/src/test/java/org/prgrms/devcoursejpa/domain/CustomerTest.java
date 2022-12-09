@@ -2,7 +2,9 @@ package org.prgrms.devcoursejpa.domain;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CustomerTest {
 
@@ -37,7 +39,6 @@ public class CustomerTest {
         assertThrows(IllegalArgumentException.class, () -> new Customer("Giseo", "K1m"));
         assertThrows(IllegalArgumentException.class, () -> new Customer("G1seo", "Kim"));
     }
-
 
 
     @Test
