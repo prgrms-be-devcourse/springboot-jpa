@@ -1,32 +1,19 @@
 package com.devcourse.mission.domain.customer.repository;
 
 import com.devcourse.mission.domain.customer.entity.Customer;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Slf4j
-@SpringBootTest
-@Transactional
+@DataJpaTest
 class CustomerRepositoryTest {
 
     @Autowired
     private CustomerRepository customerRepository;
-
-    private Customer getCustomer() {
-        return Customer.builder()
-                .id(1L)
-                .age(20)
-                .address("도시")
-                .name("박현서")
-                .build();
-    }
 
     @Test
     void save_customer() {
@@ -94,5 +81,14 @@ class CustomerRepositoryTest {
 
         // then
         assertThat(mayBeCustomer).isNotPresent();
+    }
+
+    private Customer getCustomer() {
+        return Customer.builder()
+                .id(1L)
+                .age(20)
+                .address("도시")
+                .name("박현서")
+                .build();
     }
 }
