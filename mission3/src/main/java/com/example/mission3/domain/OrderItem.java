@@ -1,11 +1,16 @@
 package com.example.mission3.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 
+@Getter
 @Entity
 @Table
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderItem extends BaseEntity{
 
     @Id
@@ -23,6 +28,13 @@ public class OrderItem extends BaseEntity{
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Order order;
+
+    public OrderItem(int price, int quantity, Item item, Order order) {
+        this.price = price;
+        this.quantity = quantity;
+        this.item = item;
+        this.order = order;
+    }
 
     public void setOrder(Order order) {
         if(Objects.nonNull(this.order)){

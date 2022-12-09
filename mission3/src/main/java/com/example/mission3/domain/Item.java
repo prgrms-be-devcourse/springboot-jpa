@@ -1,7 +1,9 @@
 package com.example.mission3.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
@@ -10,6 +12,7 @@ import lombok.Setter;
 @Table(name = "item")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "item_type")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Item {
 
     @Id
@@ -27,4 +30,8 @@ public class Item {
     @Column(nullable = false)
     private long price;
 
+    public Item(String name,  long price) {
+        this.name = name;
+        this.price = price;
+    }
 }
