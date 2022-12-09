@@ -19,7 +19,7 @@ public class Customer {
     @Column( nullable = false, length = 30)
     private String address;
 
-    @Column(nullable = false, length = 30)
+    @Column(nullable = false)
     private int age;
 
     public void changeAge(int age) {
