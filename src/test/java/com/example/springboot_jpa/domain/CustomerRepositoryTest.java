@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
 @SpringBootTest
 class CustomerRepositoryTest {
 
@@ -38,7 +37,7 @@ class CustomerRepositoryTest {
     }
 
     @Test
-    @DisplayName("CREATE 테스트")
+    @DisplayName("엔티티가 정상적으로 insert 되었는지 확인")
     void insert() {
         // given
         Customer customer = new Customer();
@@ -56,7 +55,7 @@ class CustomerRepositoryTest {
     }
 
     @Test
-    @DisplayName("READ 테스트")
+    @DisplayName("전체 엔티티 객체가 정상적으로 조회되는지 확인")
     void findAll() {
         var retrievedCustomer = customerRepository.findAll();
         // then
@@ -64,7 +63,7 @@ class CustomerRepositoryTest {
     }
 
     @Test
-    @DisplayName("UPDATE 테스트")
+    @DisplayName("엔티티 객체의 수정이 정상적으로 되는지 확인")
     @Transactional
     void update() {
         Customer entity = customerRepository.findById(1L).get();
@@ -72,12 +71,11 @@ class CustomerRepositoryTest {
 
         // then
         Customer updated = customerRepository.findById(1L).get();
-        System.out.println(updated.getFirstName() + " " + updated.getLastName());
         assertThat(updated).usingRecursiveComparison().isEqualTo(entity);
     }
 
     @Test
-    @DisplayName("DELETE 테스트")
+    @DisplayName("엔티티 객체가 정상적으로 삭제되는지 확인")
     void deleteById() {
         customerRepository.deleteById(1L);
 
@@ -85,5 +83,7 @@ class CustomerRepositoryTest {
         var customers = customerRepository.findAll();
         assertThat(customers.size()).isEqualTo(1);
     }
+
+
 
 }
