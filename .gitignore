@@ -1,3 +1,4 @@
-**/build
-**/.gradle
-**/target
+/.gradle/
+/.idea/
+/build/
+/gradle/
