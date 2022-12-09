@@ -1,8 +1,9 @@
 package com.programmers.jpamission1.repository;
 
+import static org.assertj.core.api.Assertions.*;
+
 import java.util.Optional;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,8 @@ class CustomerRepositoryTest {
 
 		//then
 		Optional<Customer> maybeCustomer = customerRepository.findById(customer.getId());
-		Assertions.assertThat(maybeCustomer).isPresent();
-		Assertions.assertThat(maybeCustomer.get()).isEqualTo(savedCustomer);
+		assertThat(maybeCustomer).isPresent();
+		assertThat(maybeCustomer.get()).isEqualTo(savedCustomer);
 
 	}
 
@@ -47,8 +48,8 @@ class CustomerRepositoryTest {
 
 		//then
 		Optional<Customer> maybeCustomer = customerRepository.findById(savedCustomer.getId());
-		Assertions.assertThat(maybeCustomer).isPresent();
-		Assertions.assertThat(maybeCustomer.get()).isEqualTo(savedCustomer);
+		assertThat(maybeCustomer).isPresent();
+		assertThat(maybeCustomer.get()).isEqualTo(savedCustomer);
 
 	}
 
@@ -65,7 +66,7 @@ class CustomerRepositoryTest {
 
 		//then
 		Optional<Customer> maybeCustomer = customerRepository.findById(customer.getId());
-		Assertions.assertThat(maybeCustomer).isEmpty();
+		assertThat(maybeCustomer).isEmpty();
 
 	}
 }
