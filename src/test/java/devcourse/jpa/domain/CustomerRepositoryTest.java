@@ -72,4 +72,22 @@ class CustomerRepositoryTest {
 
         assertThat(actualSize).isEqualTo(expectedSize);
     }
+
+    @Test
+    @DisplayName("고객의 이름을 변경할 수 있다.")
+    void updateCustomerFirstName() {
+        // given
+        Customer customer = new Customer(1L, "BEFORE", "LAST");
+        customerRepository.save(customer);
+
+        // when
+        customerRepository.updateCustomerFirstName(customer.getId(), "AFTER");
+
+        // then
+        Customer foundCustomer = customerRepository.findById(customer.getId()).get();
+        String actualFirstName = foundCustomer.getFirstName();
+        String expectedLastName = "AFTER";
+
+        assertThat(actualFirstName).isEqualTo(expectedLastName);
+    }
 }
