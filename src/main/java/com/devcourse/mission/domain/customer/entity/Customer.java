@@ -21,4 +21,16 @@ public class Customer {
 
     @Column(nullable = false, length = 30)
     private int age;
+
+    public void changeAge(int age) {
+        this.age = age;
+    }
+
+    public void changeAddress(String address) {
+        this.address = address;
+    }
+
+    public void changeName(String name) {
+        this.name = name;
+    }
 }
