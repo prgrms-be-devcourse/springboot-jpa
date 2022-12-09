@@ -17,8 +17,6 @@ class CustomerRepositoryTest {
     @Autowired
     EntityManagerFactory emf;
 
-    private final String updateQuery = "";
-
     private Customer createCustomer() {
         return new Customer(1L, "Kong", "TH");
     }
@@ -106,8 +104,8 @@ class CustomerRepositoryTest {
         transaction.commit();
         em.clear();
         Customer findChangeCustomer = em.find(Customer.class, customer.getId());
-        // then
 
+        // then
         assertThat(findChangeCustomer.getFirstName()).isEqualTo(changeName);
     }
 }
