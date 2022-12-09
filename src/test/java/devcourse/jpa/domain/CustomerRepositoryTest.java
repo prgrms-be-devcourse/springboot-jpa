@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -21,7 +22,7 @@ class CustomerRepositoryTest {
 
     @Test
     @DisplayName("고객을 저장할 수 있다.")
-    void save() {
+    void saveCustomer() {
         // given
         Customer customer = new Customer();
         customer.setId(1L);
@@ -38,7 +39,7 @@ class CustomerRepositoryTest {
 
     @Test
     @DisplayName("여러 고객을 저장할 수 있다.")
-    void saveAll() {
+    void saveAllCustomers() {
         // given
         List<Customer> customers = List.of(
                 new Customer(1L, "first1", "last1"),
@@ -58,7 +59,7 @@ class CustomerRepositoryTest {
 
     @Test
     @DisplayName("모든 고객을 조회할 수 있다.")
-    void findAll() {
+    void findAllCustomers() {
         // given
         Customer customer = new Customer(1L, "FIRST", "LAST");
         customerRepository.save(customer);
@@ -89,5 +90,38 @@ class CustomerRepositoryTest {
         String expectedLastName = "AFTER";
 
         assertThat(actualFirstName).isEqualTo(expectedLastName);
+    }
+
+    @Test
+    @DisplayName("모든 고객을 삭제할 수 있다.")
+    void deleteAllCustomers() {
+        // given
+        List<Customer> customers = List.of(
+                new Customer(1L, "first1", "last1"),
+                new Customer(2L, "first2", "last2")
+        );
+        customerRepository.saveAll(customers);
+
+        // when
+        customerRepository.deleteAll();
+
+        // then
+        List<Customer> allCustomers = customerRepository.findAll();
+        assertThat(allCustomers).isEmpty();
+    }
+
+    @Test
+    @DisplayName("특정 고객을 삭제할 수 있다.")
+    void deleteCustomerById() {
+        // given
+        Customer customer = new Customer(1L, "FIRST", "LAST");
+        customerRepository.save(customer);
+
+        // when
+        customerRepository.deleteById(customer.getId());
+
+        // then
+        Optional<Customer> foundCustomer = customerRepository.findById(customer.getId());
+        assertThat(foundCustomer).isNotPresent();
     }
 }
