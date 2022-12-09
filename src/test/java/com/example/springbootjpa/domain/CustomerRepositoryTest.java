@@ -3,19 +3,30 @@ package com.example.springbootjpa.domain;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Transactional
-@DataJpaTest
+@SpringBootTest
 class CustomerRepositoryTest {
 
     @Autowired
     EntityManagerFactory emf;
+
+    @Autowired
+    CustomerRepository customerRepository;
+
+    @AfterEach
+    void clear() {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+        customerRepository.deleteAll();
+        transaction.commit();
+    }
 
     private Customer createCustomer() {
         return new Customer(1L, "Kong", "TH");
@@ -33,9 +44,7 @@ class CustomerRepositoryTest {
         em.persist(customer);
         transaction.commit();
         em.clear();
-        transaction.begin();
         Customer findCustomer = em.find(Customer.class, customer.getId());
-        em.close();
 
         // then
         assertThat(customer)
@@ -56,32 +65,12 @@ class CustomerRepositoryTest {
         em.clear();
 
         // when
-        transaction.begin();
         Customer findCustomer = em.find(Customer.class, customer.getId());
 
         // then
         assertThat(customer)
                 .usingRecursiveComparison()
                 .isEqualTo(findCustomer);
-    }
-
-    @Test
-    void delete_customer() {
-        // given
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-        Customer customer = createCustomer();
-
-        transaction.begin();
-        em.persist(customer);
-        transaction.commit();
-
-        // when
-        em.remove(customer);
-        Customer findCustomer = em.find(Customer.class, customer.getId());
-
-        // then
-        assertThat(findCustomer).isNull();
     }
 
     @Test
@@ -98,8 +87,8 @@ class CustomerRepositoryTest {
         String changeName = "changeName";
 
         // when
-        transaction.begin();
         Customer findCustomer = em.find(Customer.class, customer.getId());
+        transaction.begin();
         findCustomer.setFirstName(changeName);
         transaction.commit();
         em.clear();
@@ -107,5 +96,24 @@ class CustomerRepositoryTest {
 
         // then
         assertThat(findChangeCustomer.getFirstName()).isEqualTo(changeName);
+    }
+
+    @Test
+    void delete_customer() {
+        // given
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+        Customer customer = createCustomer();
+
+        transaction.begin();
+        em.persist(customer);
+
+        // when
+        em.remove(customer);
+        Customer findCustomer = em.find(Customer.class, customer.getId());
+        transaction.commit();
+
+        // then
+        assertThat(findCustomer).isNull();
     }
 }
