@@ -11,9 +11,10 @@ import lombok.Setter;
 @Entity
 public class Customer {
     @Id
+    @Column(name = "id")
     private String uuid;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false, length = 50)
@@ -24,6 +25,5 @@ public class Customer {
 
     @Column
     private int age;
-
 
 }

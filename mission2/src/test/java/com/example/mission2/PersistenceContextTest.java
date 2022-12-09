@@ -9,6 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,7 +40,8 @@ public class PersistenceContextTest {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
 
-        em.persist(newCustomer); // 영속화
+        // 영속화
+        em.persist(newCustomer);
 
         // 1차 캐시 조회
         var customer1 = em.find(Customer.class, uuid);
@@ -49,24 +51,28 @@ public class PersistenceContextTest {
         assertThat(newCustomer == customer1).isTrue();
         assertThat(customer1 == customer2).isTrue();
 
-        em.clear(); // customer 준 영속
+        // customer 준영속
+        em.clear();
 
-        // 쿼리가 전송되기전에  영속성 컨텍스트 clear하여 DB에서 찾을 수 없음
+        // 쿼리가 전송되기전에 영속성 컨텍스트 clear하여 DB에서 찾을 수 없음
         var customer3 = em.find(Customer.class, uuid);
         assertThat(customer3).isNull();
 
         // 다시 영속화
-        em.merge(newCustomer); //merge 시 select 쿼리가 날라간다.
+        em.merge(newCustomer);
         var customer4 = em.find(Customer.class, uuid);
         assertThat(customer4).isNotNull();
 
         transaction.commit();
 
-        em.clear();
 
         // db 조회
+        transaction.begin();
         var customer5 = em.find(Customer.class, uuid);
+        transaction.commit();
         assertThat(customer5).isNotNull();
+
+        // 트랜잯션이 끝날때 1차 캐시도 사라진다고 알고 있는데 오ㅐ 1차 캐시에서 가져올까요..???
         assertThat(customer4 == customer5).isFalse();
 
     }
@@ -167,7 +173,3 @@ public class PersistenceContextTest {
     }
 
 }
-
-// 궁금증
-// 1차 캐시는 transaction이 끝나면 사라지는줄알았는데
-// transaction이 끝나도 여전히 영속화 되엉있음.
