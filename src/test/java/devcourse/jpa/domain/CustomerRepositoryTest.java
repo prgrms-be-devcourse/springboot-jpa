@@ -5,11 +5,15 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
 @SpringBootTest
+@Transactional
 class CustomerRepositoryTest {
 
     @Autowired
@@ -30,5 +34,42 @@ class CustomerRepositoryTest {
         // then
         Customer entity = customerRepository.findById(1L).get();
         log.info("{} {}", entity.getLastName(), entity.getFirstName());
+    }
+
+    @Test
+    @DisplayName("여러 고객을 저장할 수 있다.")
+    void saveAll() {
+        // given
+        List<Customer> customers = List.of(
+                new Customer(1L, "first1", "last1"),
+                new Customer(2L, "first2", "last2")
+        );
+
+        // when
+        customerRepository.saveAll(customers);
+
+        // then
+        List<Customer> foundCustomers = customerRepository.findAll();
+        int expectedSize = customers.size();
+        int actualSize = foundCustomers.size();
+
+        assertThat(actualSize).isEqualTo(expectedSize);
+    }
+
+    @Test
+    @DisplayName("모든 고객을 조회할 수 있다.")
+    void findAll() {
+        // given
+        Customer customer = new Customer(1L, "FIRST", "LAST");
+        customerRepository.save(customer);
+
+        // when
+        List<Customer> foundCustomers = customerRepository.findAll();
+
+        // then
+        int expectedSize = 1;
+        int actualSize = foundCustomers.size();
+
+        assertThat(actualSize).isEqualTo(expectedSize);
     }
 }
