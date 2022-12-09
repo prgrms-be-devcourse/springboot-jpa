@@ -1,0 +1,81 @@
+package org.prgrms.devcoursejpa.domain;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.dao.DataIntegrityViolationException;
+
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@DataJpaTest
+class CustomerRepositoryTest {
+    @Autowired
+    CustomerRepository customerRepository;
+
+    @Test
+    @DisplayName("회원이 성공적으로 저장된다.")
+    void 회원_저장() {
+        Customer customer = new Customer("Giseo", "Kim");
+
+        Customer savedOne = customerRepository.save(customer);
+
+        assertEquals(customer, savedOne);
+    }
+
+    @Test
+    @DisplayName("이름이 length 조건보다 길 경우 생성에 실패한다.")
+    void 회원_생성_실패1() {
+        String firstName = "qwerqwerqwerqwerqwerqwerqwerqwerqwer";
+        String lastName = "Kim";
+
+        Customer customer = new Customer(firstName, lastName);
+        assertThrows(DataIntegrityViolationException.class, () -> customerRepository.save(customer));
+    }
+
+    @Test
+    @DisplayName("성이 length 조건보다 길 경우 생성에 실패한다.")
+    void 회원_생성_실패2() {
+        String firstName = "Giseo";
+        String lastName = "askdjfadvfjqoeivoidjfnoasjdnoqi";
+
+        Customer customer = new Customer(firstName, lastName);
+        assertThrows(DataIntegrityViolationException.class, () -> customerRepository.save(customer));
+    }
+
+    @Test
+    @DisplayName("회원의 이름이 성공적으로 변경된다.")
+    void updateTest() {
+        String firstName = "Giseo";
+        String lastName = "Kim";
+
+        Customer customer = new Customer(firstName, lastName);
+        Customer savedOne = customerRepository.save(customer);
+
+        assertEquals(firstName, savedOne.getFirstName());
+        assertEquals(lastName, savedOne.getLastName());
+
+        customer.changeFirstName("Kiseo");
+        Customer updatedCustomer = customerRepository.save(customer);
+
+        assertEquals(updatedCustomer, customer);
+        assertEquals("Kiseo", updatedCustomer.getFirstName());
+        assertEquals("Kim", updatedCustomer.getLastName());
+    }
+
+    @Test
+    void deleteTest() {
+        String firstName = "Giseo";
+        String lastName = "Kim";
+
+        Customer customer = new Customer(firstName, lastName);
+        Customer savedOne = customerRepository.save(customer);
+
+        customerRepository.deleteById(savedOne.getId());
+        Optional<Customer> optionalCustomer = customerRepository.findById(savedOne.getId());
+
+        assertTrue(optionalCustomer.isEmpty());
+    }
+}
