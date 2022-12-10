@@ -10,6 +10,7 @@ spring:
     show-sql: true
     properties:
       hibernate:
+        format_sql: true
         dialect: org.hibernate.dialect.H2Dialect
         hbm2ddl:
           auto: create-drop
