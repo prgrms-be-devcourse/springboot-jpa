@@ -10,38 +10,35 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
 @SpringBootTest
 @Slf4j
+@Transactional
 class CustomerRepositoryTest {
 
     @Autowired
     CustomerRepository customerRepository;
-
-    @BeforeEach
-    void setup() {
-        customerRepository.deleteAll();
-    }
 
     @Test
     @DisplayName("customer를 save하면 findAll를 하면 Customer가 들어있다.")
     void saveTestAndFindTest() {
         //given
         Customer customer = Customer.builder()
+                .id(1L)
                 .firstName("장")
                 .lastName("주")
                 .build();
 
         //when
         customerRepository.save(customer);
-        List<Customer> customers = customerRepository.findAll();
-
+        Customer foundCustomer = customerRepository.findById(1L).get();
 
         //then
-        assertThat(customers.isEmpty(), is(false));
+        assertThat(foundCustomer, samePropertyValuesAs(customer));
     }
 
     @Test
@@ -56,14 +53,12 @@ class CustomerRepositoryTest {
                 .build();
 
         //when
-        customerRepository.save(customer);
-        Customer updateCustomer = customerRepository.findById(1L).get();
-        updateCustomer.update("기","웅");
-
-        Customer foundCustomer = customerRepository.findById(1L).get();
+        Customer save = customerRepository.save(customer);
+        save.update("기","웅");
+        Customer update = customerRepository.findById(1L).get();
 
         //then
-        assertThat(foundCustomer.getFirstName(), is("기"));
+        assertThat(update.getFirstName(), is("기"));
     }
 
     @Test
@@ -83,6 +78,5 @@ class CustomerRepositoryTest {
 
         //then
         assertThat(customers.isEmpty(), is(true));
-
     }
 }
