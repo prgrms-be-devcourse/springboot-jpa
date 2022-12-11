@@ -5,20 +5,27 @@ spring:
     url: jdbc:h2:mem:test
     username: sa
     password:
+  h2:
+    console:
+      enabled: true
   # JPA 설정값 세팅
   jpa:
     generate-ddl: true
     database: H2
-    show-sql: true
     open-in-view: false
     properties:
       hibernate:
+        show-sql: true
         format_sql: true
         use_sql_comments: true
         dialect: org.hibernate.dialect.H2Dialect
         check_nullability: true  # null 체크 옵션
         hbm2ddl:
           auto: create-drop
-  h2:
-    console:
-      enabled: true
+logging:
+    level:
+        org:
+        hibernate:
+            type:
+            descriptor:
+                sql: trace

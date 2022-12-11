@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class CustomerTest {
 
     @Test
-    @DisplayName("Customer 생성 테스트")
+    @DisplayName("[성공] Customer를 생성할 수 있다.")
     void createTest() {
         //given
         String firstName = "joosung";
@@ -25,7 +25,7 @@ class CustomerTest {
     }
 
     @Test
-    @DisplayName("Customer 수정 테스트")
+    @DisplayName("[성공] Customer의 필드를 수정할 수 있다")
     void updateTest() {
         //given
         String firstName = "joosung";
