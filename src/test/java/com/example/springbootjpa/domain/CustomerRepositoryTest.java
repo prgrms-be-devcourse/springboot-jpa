@@ -6,11 +6,14 @@ import jakarta.persistence.EntityTransaction;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
+@DataJpaTest
+@Transactional(propagation = Propagation.NOT_SUPPORTED)
 class CustomerRepositoryTest {
 
     @Autowired
@@ -89,7 +92,7 @@ class CustomerRepositoryTest {
         // when
         Customer findCustomer = em.find(Customer.class, customer.getId());
         transaction.begin();
-        findCustomer.setFirstName(changeName);
+        findCustomer.changeFirstName(changeName);
         transaction.commit();
         em.clear();
         Customer findChangeCustomer = em.find(Customer.class, customer.getId());
