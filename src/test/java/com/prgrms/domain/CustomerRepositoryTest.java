@@ -105,6 +105,8 @@ class CustomerRepositoryTest {
         Customer savedCustomer = repository.findById(1L).get();
         savedCustomer.setFirstName("이");
 
+        repository.save(savedCustomer);
+
         //then
         assertEquals(savedCustomer.getFirstName(), "이");
     }
@@ -120,6 +122,8 @@ class CustomerRepositoryTest {
         //when
         Customer savedCustomer = repository.findById(1L).get();
         savedCustomer.setLastName("수린");
+
+        repository.save(savedCustomer);
 
         //then
         assertEquals(savedCustomer.getLastName(), "수린");
