@@ -125,7 +125,7 @@ class OrderServiceTest {
     }
 
     @Test
-    @DisplayName("주문이 삭제됐을 때 모든 주문된 상품 재고가 복귀된다.")
+    @DisplayName("주문이 삭제됐을 때 모든 주문된 상품 재고가 복구된다.")
     void delete_order_then_increase_item_stock_quantity() {
         // given
         long savedOrderId = orderService.order(customer.getId(), List.of(orderItem));
@@ -180,7 +180,7 @@ class OrderServiceTest {
     }
 
     @Test
-    @DisplayName("주문된 상품을 수량을 변경할 수 있다.")
+    @DisplayName("주문된 상품의 수량을 변경할 수 있다.")
     void update_orderItem_quantity() {
         // given
         long savedOrderId = orderService.order(customer.getId(), List.of(orderItem));

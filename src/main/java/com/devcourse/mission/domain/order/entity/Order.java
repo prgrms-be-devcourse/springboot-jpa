@@ -38,7 +38,6 @@ public class Order {
         return new Order(customer);
     }
 
-
     public void pointCustomer(Customer customer) {
         this.customer = customer;
     }
@@ -52,8 +51,6 @@ public class Order {
         }
         this.orderItems.add(orderItem);
     }
-
-
     public void removeOrderItemByItemId(long itemId) {
         Optional<OrderItem> mayBeOrderItem = getMayBeOrderItem(itemId);
         mayBeOrderItem.ifPresent(orderItem -> {
