@@ -6,9 +6,7 @@ import lombok.*;
 @Getter
 @Table(name = "customers")
 @Entity
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Customer {
     @Id
     private Long id;
@@ -21,4 +19,12 @@ public class Customer {
 
     @Column(nullable = false)
     private int age;
+
+    @Builder
+    public Customer(Long id, String name, String address, int age) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.age = age;
+    }
 }
