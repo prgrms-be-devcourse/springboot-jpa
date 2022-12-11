@@ -1,10 +1,4 @@
 spring:
-  datasource:
-    hikari:
-      driver-class-name: org.h2.Driver
-      url: ${DB_URL}
-      username: ${DB_USER}
-      password: ${DB_PASSWORD}
   jpa:
     show_sql: true
     hibernate:

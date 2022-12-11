@@ -12,10 +12,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import com.programmers.jpapractice.domain.Customer;
 
-import lombok.extern.slf4j.Slf4j;
-
 @DataJpaTest
-@Slf4j
 class CustomerRepositoryTest {
 
 	@Autowired
