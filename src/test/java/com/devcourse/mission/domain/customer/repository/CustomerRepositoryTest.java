@@ -4,12 +4,17 @@ import com.devcourse.mission.domain.customer.entity.Customer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.test.context.ActiveProfiles;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
+@EnableJpaRepositories
+@ActiveProfiles("test")
 class CustomerRepositoryTest {
 
     @Autowired
@@ -19,13 +24,14 @@ class CustomerRepositoryTest {
     void save_customer() {
         // given
         Customer customer = getCustomer();
+        List<Customer> all = customerRepository.findAll();
+        System.out.println("all.size() = " + all.size());
 
         // when
         Customer savedCustomer = customerRepository.save(customer);
 
         // then
         assertThat(savedCustomer)
-                .hasFieldOrPropertyWithValue("id", 1L)
                 .hasFieldOrPropertyWithValue("age", 20)
                 .hasFieldOrPropertyWithValue("address", "도시")
                 .hasFieldOrPropertyWithValue("name", "박현서");
@@ -47,19 +53,13 @@ class CustomerRepositoryTest {
     }
 
     @Test
-    void update_customer() {
+    void merge_customer() {
         // given
         Customer customer = getCustomer();
         Customer savedCustomer = customerRepository.save(customer);
 
         // when
-        Customer updateCustomer = Customer.builder()
-                .id(savedCustomer.getId())
-                .age(3)
-                .name("서현박")
-                .address("시골")
-                .build();
-
+        Customer updateCustomer = new Customer(savedCustomer.getId(), "서현박", "시골", 3);
         Customer updatedCustomer = customerRepository.save(updateCustomer);
         Customer findCustomer = customerRepository.findById(savedCustomer.getId()).get();
 
@@ -67,6 +67,24 @@ class CustomerRepositoryTest {
         assertThat(findCustomer)
                 .usingRecursiveComparison()
                 .isEqualTo(updatedCustomer);
+    }
+
+    @Test
+    void dirty_checking_customer() {
+        // given
+        Customer customer = getCustomer();
+        Customer savedCustomer = customerRepository.save(customer);
+
+        // when
+        savedCustomer.changeName("서현박");
+        savedCustomer.changeAddress("시골");
+        savedCustomer.changeAge(3);
+        Customer findCustomer = customerRepository.findById(savedCustomer.getId()).get();
+
+        // then
+        assertThat(findCustomer)
+                .usingRecursiveComparison()
+                .isEqualTo(savedCustomer);
     }
 
     @Test
@@ -84,11 +102,6 @@ class CustomerRepositoryTest {
     }
 
     private Customer getCustomer() {
-        return Customer.builder()
-                .id(1L)
-                .age(20)
-                .address("도시")
-                .name("박현서")
-                .build();
+        return new Customer("박현서", "도시", 20);
     }
 }

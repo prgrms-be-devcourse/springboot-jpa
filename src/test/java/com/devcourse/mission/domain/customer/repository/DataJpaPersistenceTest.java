@@ -7,8 +7,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -16,7 +17,8 @@ import java.util.NoSuchElementException;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
-@AutoConfigureTestEntityManager
+@EnableJpaRepositories
+@ActiveProfiles("test")
 public class DataJpaPersistenceTest {
 
     @Autowired
@@ -51,6 +53,7 @@ public class DataJpaPersistenceTest {
 
         assertThat(findCustomer)
                 .usingRecursiveComparison()
+                .ignoringFields("id")
                 .isEqualTo(customer);
     }
 
@@ -71,6 +74,7 @@ public class DataJpaPersistenceTest {
 
         assertThat(findCustomer)
                 .usingRecursiveComparison()
+                .ignoringFields("id")
                 .isEqualTo(customer);
     }
 
@@ -102,7 +106,6 @@ public class DataJpaPersistenceTest {
                 .orElseThrow(() -> new NoSuchElementException("[ERROR] 존재하지 않은 고객입니다."));
 
         assertThat(findCustomer)
-                .hasFieldOrPropertyWithValue("id", 1L)
                 .hasFieldOrPropertyWithValue("name", "updatedName")
                 .hasFieldOrPropertyWithValue("address", "updatedAddress")
                 .hasFieldOrPropertyWithValue("age", 99);
@@ -134,6 +137,7 @@ public class DataJpaPersistenceTest {
         // 8.Insert_customers :: DB
         assertThat(findCustomers)
                 .usingRecursiveComparison()
+                .ignoringFields("id")
                 .isEqualTo(customerDummy());
     }
 
@@ -151,10 +155,11 @@ public class DataJpaPersistenceTest {
         // 1.Select_customers :: DB
         // 2.customers :: Managed
         // 3.Delete_customers :: Write_Behind
+        List<Customer> findCustomers = customerRepository.findAll();
         customerRepository.deleteAll();
 
         // 4.Select_customer :: First_Level_Cache
-        customerDummy().forEach(customer -> customerRepository.findById(customer.getId()));
+        findCustomers.forEach(customer -> customerRepository.findById(customer.getId()));
 
         // 5.Select_customers :: First_Level_Cache
         // 6.Delete_customers :: DB
@@ -166,6 +171,7 @@ public class DataJpaPersistenceTest {
         // 10.Select_customers :: First_Level_Cache
         assertThat(savedCustomers)
                 .usingRecursiveComparison()
+                .ignoringFields("id")
                 .isEqualTo(customerDummy());
     }
 
@@ -194,6 +200,7 @@ public class DataJpaPersistenceTest {
 
         assertThat(savedCustomers)
                 .usingRecursiveComparison()
+                .ignoringFields("id")
                 .isEqualTo(customerDummy());
     }
 
@@ -209,11 +216,7 @@ public class DataJpaPersistenceTest {
         em.clear();
 
         // 1.Select_customer :: DB
-        List<Customer> findCustomers = customerDummy()
-                .stream()
-                .map(customer -> customerRepository.findById(customer.getId())
-                        .orElseThrow(() -> new NoSuchElementException("[ERROR] 존재하지 않은 고객입니다." + customer)))
-                .toList();
+        List<Customer> findCustomers = customerRepository.findAll();
 
         // 2.Select_customers :: DB
         // 3.Delete_customers :: Write_Behind
@@ -251,31 +254,33 @@ public class DataJpaPersistenceTest {
         customerRepository.findAll();
 
         // 5.Select_customers :: DB
-        customerRepository.saveAll(customerDummy());
+        // 6.Insert_customers :: First_Level_Cache
+        List<Customer> savedCustomers = customerRepository.saveAll(customerDummy());
 
-        // 6.Insert_customers :: DB
-        // 7.Select_customers :: First_Level_Cache
-        List<Customer> findCustomers = customerDummy().stream()
+        // 7.Insert_customers :: DB
+        // 8.Select_customers :: First_Level_Cache
+        List<Customer> findCustomers = savedCustomers.stream()
                 .map(customer -> customerRepository.findById(customer.getId()).get())
                 .toList();
 
         assertThat(findCustomers)
                 .usingRecursiveComparison()
+                .ignoringFields("id")
                 .isEqualTo(customerDummy());
     }
 
 
     private Customer getCustomer() {
-        return new Customer(1L, "박현서", "도시", 1);
+        return new Customer("박현서", "도시", 1);
     }
 
     private List<Customer> customerDummy() {
         return List.of(
-                new Customer(1L, "박현서1", "도시1", 1),
-                new Customer(2L, "박현서2", "도시2", 2),
-                new Customer(3L, "박현서3", "도시3", 3),
-                new Customer(4L, "박현서4", "도시4", 4),
-                new Customer(5L, "박현서5", "도시5", 5)
+                new Customer("박현서1", "도시1", 1),
+                new Customer("박현서2", "도시2", 2),
+                new Customer("박현서3", "도시3", 3),
+                new Customer("박현서4", "도시4", 4),
+                new Customer("박현서5", "도시5", 5)
         );
     }
 }

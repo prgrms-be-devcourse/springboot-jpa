@@ -1,14 +1,14 @@
 package com.devcourse.mission.domain.customer.repository;
 
 import com.devcourse.mission.domain.customer.entity.Customer;
-import jakarta.persistence.EntityManager;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 import java.util.Objects;
@@ -16,21 +16,13 @@ import java.util.Objects;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
+@EnableJpaRepositories
 @AutoConfigureTestEntityManager
+@ActiveProfiles("test")
 public class JpaPersistenceTest {
 
     @Autowired
-    private EntityManager em;
-
-    @BeforeEach
-    void setUp() {
-        em.joinTransaction();
-    }
-
-    @AfterEach
-    void close() {
-        em.close();
-    }
+    private TestEntityManager em;
 
     @Test
     @DisplayName("비영속 상태인 customer를 DB를 통해 조회한다.")
@@ -123,7 +115,9 @@ public class JpaPersistenceTest {
     @DisplayName("비영속 상태인 customer들을 삭제하고 DB 조회했을 때 null을 반환한다.")
     void delete_all_new_customers_then_find() {
         // 1.customers :: Managed
-        customerDummy().forEach(em::persist);
+        List<Customer> savedCustomers = customerDummy().stream()
+                                                        .map(em::persist)
+                                                        .toList();
 
         // 2.Insert_customers :: DB
         em.flush();
@@ -133,7 +127,7 @@ public class JpaPersistenceTest {
         em.clear();
 
         // 4.Select_customers :: DB
-        List<Customer> findCustomers = customerDummy()
+        List<Customer> findCustomers = savedCustomers
                 .stream()
                 .map(customer -> em.find(Customer.class, customer.getId()))
                 .toList();
@@ -172,12 +166,7 @@ public class JpaPersistenceTest {
         // 3.customer :: Detach
         em.clear();
 
-        Customer updateCustomer = Customer.builder()
-                .id(customer.getId())
-                .name("newName")
-                .age(1000)
-                .address("new도시")
-                .build();
+        Customer updateCustomer = new Customer(customer.getId(), "newName", "new도시", 1000);
 
         // 4.Select_customer :: DB
         // 5.updateCustomer :: Managed
@@ -225,23 +214,22 @@ public class JpaPersistenceTest {
 
         // SUCCESS
         assertThat(findCustomer)
-                .hasFieldOrPropertyWithValue("id", 1L)
                 .hasFieldOrPropertyWithValue("address", "수정된 주소입니다.")
                 .hasFieldOrPropertyWithValue("name", "수정된 이름입니다.")
                 .hasFieldOrPropertyWithValue("age", 5);
     }
 
     private Customer getCustomer() {
-        return new Customer(1L, "박현서", "도시", 1);
+        return new Customer( "박현서", "도시", 1);
     }
 
     private List<Customer> customerDummy() {
         return List.of(
-                new Customer(1L, "박현서1", "도시1", 1),
-                new Customer(2L, "박현서2", "도시2", 2),
-                new Customer(3L, "박현서3", "도시3", 3),
-                new Customer(4L, "박현서4", "도시4", 4),
-                new Customer(5L, "박현서5", "도시5", 5)
+                new Customer("박현서1", "도시1", 1),
+                new Customer("박현서2", "도시2", 2),
+                new Customer("박현서3", "도시3", 3),
+                new Customer("박현서4", "도시4", 4),
+                new Customer("박현서5", "도시5", 5)
         );
     }
 }
