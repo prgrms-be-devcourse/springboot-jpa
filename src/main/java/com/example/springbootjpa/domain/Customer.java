@@ -1,15 +1,14 @@
 package com.example.springbootjpa.domain;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Setter
 @Table(name = "customer")
 @Entity
 public class Customer {
@@ -23,5 +22,9 @@ public class Customer {
 
     @Column(name = "last_name", length = 30)
     private String lastName;
+
+    public void changeFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
 }
