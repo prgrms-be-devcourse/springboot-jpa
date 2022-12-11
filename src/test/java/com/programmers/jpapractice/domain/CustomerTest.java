@@ -1,4 +1,4 @@
-package com.programmers.jpapractice.repository.domain;
+package com.programmers.jpapractice.domain;
 
 import static org.assertj.core.api.Assertions.*;
 

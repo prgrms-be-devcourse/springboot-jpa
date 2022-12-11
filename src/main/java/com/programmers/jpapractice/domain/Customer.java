@@ -1,4 +1,4 @@
-package com.programmers.jpapractice.repository.domain;
+package com.programmers.jpapractice.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
