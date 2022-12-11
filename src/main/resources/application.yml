@@ -1,13 +1,15 @@
 spring:
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:test
+    url: jdbc:h2:tcp://localhost/~/.order
     username: sa
-    password:
+    password: 1234
 
   jpa:
     database: h2
     generate-ddl: true
-    show-sql: true
+#    show-sql: true
+    properties:
+      format_sql: true
     hibernate:
       ddl-auto: create-drop
