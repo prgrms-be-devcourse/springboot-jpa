@@ -57,10 +57,8 @@ public class OrderItem {
     }
 
     public void combineFrom(OrderItem orderItem) {
-        System.out.println("orderItem.getTotalPrice() be= " + orderItem.getTotalPrice());
         this.totalPrice += orderItem.getTotalPrice();
         this.quantity += orderItem.getQuantity();
-        System.out.println("orderItem.getTotalPrice() af= " + totalPrice);
     }
 
     public boolean isSame(OrderItem orderItem) {
