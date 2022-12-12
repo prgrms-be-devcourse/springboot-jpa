@@ -9,10 +9,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
-@Setter
 @Entity
 @NoArgsConstructor
 public class Customer {
@@ -34,5 +32,13 @@ public class Customer {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public void changeFirstName(String newFirstName) {
+        this.firstName = newFirstName;
+    }
+
+    public void changeLastName(String newLastName) {
+        this.lastName = newLastName;
     }
 }

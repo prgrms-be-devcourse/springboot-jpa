@@ -36,8 +36,8 @@ public class CustomerRepositoryTest {
         String newFirstName = "tlsdud";
         String newLastName = "fortune";
         Customer savedCustomer = customerRepository.findById(customer.getId()).get();
-        savedCustomer.setFirstName(newFirstName);
-        savedCustomer.setLastName(newLastName);
+        savedCustomer.changeFirstName(newFirstName);
+        savedCustomer.changeLastName(newLastName);
 
         Customer updatedCustomer = customerRepository.findById(customer.getId()).get();
 
