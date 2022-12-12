@@ -14,7 +14,7 @@ public class Customer {
         return id;
     }
 
-    public void setId(long id) {
+    public void changeId(long id) {
         this.id = id;
     }
 
@@ -22,7 +22,7 @@ public class Customer {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public void changeFirstName(String firstName) {
         this.firstName = firstName;
     }
 
@@ -30,7 +30,7 @@ public class Customer {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    public void changeLastName(String lastName) {
         this.lastName = lastName;
     }
 }

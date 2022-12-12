@@ -25,9 +25,9 @@ class CustomerRepositoryTest {
         String firstName = "first";
         String lastName = "last";
         Customer customer = new Customer();
-        customer.setId(id);
-        customer.setFirstName(firstName);
-        customer.setLastName(lastName);
+        customer.changeId(id);
+        customer.changeFirstName(firstName);
+        customer.changeLastName(lastName);
         customerRepository.save(customer);
 
         //when
@@ -47,17 +47,17 @@ class CustomerRepositoryTest {
         String firstName = "first";
         String lastName = "last";
         Customer customer = new Customer();
-        customer.setId(id);
-        customer.setFirstName(firstName);
-        customer.setLastName(lastName);
+        customer.changeId(id);
+        customer.changeFirstName(firstName);
+        customer.changeLastName(lastName);
         customerRepository.save(customer);
 
         //when
         Customer found = customerRepository.findById(1L).get();
         String newFirstName = "newFirst";
         String newLastName = "newLast";
-        found.setFirstName(newFirstName);
-        found.setLastName(newLastName);
+        found.changeFirstName(newFirstName);
+        found.changeLastName(newLastName);
         Customer foundAfterUpdate = customerRepository.findById(1L).get();
 
         //then
@@ -75,9 +75,9 @@ class CustomerRepositoryTest {
         String firstName = "first";
         String lastName = "last";
         Customer customer = new Customer();
-        customer.setId(id);
-        customer.setFirstName(firstName);
-        customer.setLastName(lastName);
+        customer.changeId(id);
+        customer.changeFirstName(firstName);
+        customer.changeLastName(lastName);
         Customer saved = customerRepository.save(customer);
 
         //when
