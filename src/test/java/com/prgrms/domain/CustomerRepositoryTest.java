@@ -49,7 +49,8 @@ class CustomerRepositoryTest {
 
         //given
         Customer customer1 = new Customer(1L, "seo", "yewon1");
-        Customer customer2 = new Customer(2L, "seo", "yewon1");
+        Customer customer2 = new Customer(2L, "seo", "yewon2");
+
         repository.save(customer1);
         repository.save(customer2);
 
@@ -57,7 +58,7 @@ class CustomerRepositoryTest {
         List<Customer> customerList = repository.findAll();
 
         //then
-        assertEquals(2, customerList.size());
+        customerList.forEach(System.out::println);
         assertEquals(customer1, customerList.get(0));
         assertEquals(customer2, customerList.get(1));
 
@@ -106,9 +107,10 @@ class CustomerRepositoryTest {
         savedCustomer.setFirstName("이");
 
         repository.save(savedCustomer);
+        Customer updated = repository.findById(1L).get();
 
         //then
-        assertEquals(savedCustomer.getFirstName(), "이");
+        assertEquals(updated.getFirstName(), "이");
     }
 
     @DisplayName("해당 id를 가진 고객의 lastName 을 수정할 수 있다.")
@@ -124,9 +126,10 @@ class CustomerRepositoryTest {
         savedCustomer.setLastName("수린");
 
         repository.save(savedCustomer);
+        Customer updated = repository.findById(1L).get();
 
         //then
-        assertEquals(savedCustomer.getLastName(), "수린");
+        assertEquals(updated.getLastName(), "수린");
     }
 
     @DisplayName("저장되어있는 customer정보를 모두 삭제한다")
@@ -174,13 +177,10 @@ class CustomerRepositoryTest {
         repository.save(customer1);
 
         //when&then
-        assertThatThrownBy(() -> repository.deleteById(2L)).isInstanceOf(
-            EmptyResultDataAccessException.class);
+        assertThatThrownBy(() -> repository.deleteById(2L))
+            .isInstanceOf(EmptyResultDataAccessException.class);
 
     }
-
-
-
 
 
 }
