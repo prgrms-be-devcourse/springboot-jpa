@@ -24,13 +24,12 @@ public class Customer {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id;
 
-	@Column(name = "firstName", nullable = false)
+	@Column(name = "firstName", nullable = false, length = 8)
 	@NotBlank
 	@Size(min = 2, max = 10)
 	private String firstName;
 
-
-	@Column(name = "lastName", nullable = false)
+	@Column(name = "lastName", nullable = false, length = 8)
 	@NotBlank
 	@Size(min = 2, max = 10)
 	private String lastName;

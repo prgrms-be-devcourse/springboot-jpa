@@ -1,6 +1,7 @@
 package com.programmers.jpamission1.domain;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -32,19 +33,22 @@ class EntityLifeCycleTest {
 		tx = em.getTransaction();
 	}
 
-	Customer persistCustomer() {
-		tx.begin();
-		Customer customer = new Customer();
-		customer.updateFullName("geonwoo", "Lee");
-		em.persist(customer);
-		return customer;
+	@AfterEach
+	void tearDown() {
+		em.close();
 	}
 
 	@Test
 	@DisplayName("영속 상태 테스트")
 	void managedTest() {
 
-		Customer customer = persistCustomer();
+		tx.begin();
+
+		Customer customer = new Customer();
+		customer.updateFullName("geonwoo", "Lee");
+
+		em.persist(customer);
+
 		tx.commit();
 
 		Assertions.assertThat(em.contains(customer)).isTrue();
@@ -55,8 +59,14 @@ class EntityLifeCycleTest {
 	@DisplayName("삭제 상태 테스트")
 	void removedTest() {
 
-		Customer customer = persistCustomer();
+		tx.begin();
+
+		Customer customer = new Customer();
+		customer.updateFullName("geonwoo", "Lee");
+
+		em.persist(customer);
 		em.remove(customer);
+
 		tx.commit();
 
 		Assertions.assertThat(em.contains(customer)).isFalse();
@@ -67,8 +77,14 @@ class EntityLifeCycleTest {
 	@DisplayName("준영속 상태 테스트")
 	void detachedTest() {
 
-		Customer customer = persistCustomer();
+		tx.begin();
+
+		Customer customer = new Customer();
+		customer.updateFullName("geonwoo", "Lee");
+
+		em.persist(customer);
 		em.detach(customer);
+
 		tx.commit();
 
 		Assertions.assertThat(em.contains(customer)).isFalse();
@@ -79,7 +95,13 @@ class EntityLifeCycleTest {
 	@DisplayName("동일성 테스트")
 	void identityTest() {
 
-		Customer customer = persistCustomer();
+		tx.begin();
+
+		Customer customer = new Customer();
+		customer.updateFullName("geonwoo", "Lee");
+
+		em.persist(customer);
+
 		tx.commit();
 
 		Customer customer1 = em.find(Customer.class, customer.getId());
@@ -95,10 +117,17 @@ class EntityLifeCycleTest {
 
 		String firstName = "Derrick";
 		String lastName = "Rose";
-		Customer customer = persistCustomer();
+
+		tx.begin();
+
+		Customer customer = new Customer();
+		customer.updateFullName("geonwoo", "Lee");
+
+		em.persist(customer);
 
 		customer.updateFullName(firstName, lastName);
 		tx.commit();
+
 		Customer findCustomer = em.find(Customer.class, customer.getId());
 
 		Assertions.assertThat(findCustomer.getFirstName()).isEqualTo(firstName);
