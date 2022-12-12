@@ -59,10 +59,8 @@ class OrderRepositoryTest {
 
         OrderItem findOrderItem = findOrder.get().getOrderItems().get(0);
 
+        assertThat(emf.getPersistenceUnitUtil().isLoaded(findOrderItem.getItem())).isFalse(); // 테스트 실패
         assertThat(findOrderItem.getPrice()).isEqualTo(4000);
-        //assertThat(emf.getPersistenceUnitUtil().isLoaded(findOrderItem.getItem())).isFalse(); // 테스트 실패
-
-        findOrderItem.getItem().getName();
         assertThat(emf.getPersistenceUnitUtil().isLoaded(findOrderItem.getItem())).isTrue();
     }
 
