@@ -1,36 +1,26 @@
 package com.devcourse.mission.domain.customer.repository;
 
 import com.devcourse.mission.domain.customer.entity.Customer;
-import jakarta.persistence.EntityManager;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DataJpaTest
+@DataJpaTest(showSql = false)
 @AutoConfigureTestEntityManager
+@ActiveProfiles("test")
 public class JpaPersistenceTest {
 
     @Autowired
-    private EntityManager em;
-
-    @BeforeEach
-    void setUp() {
-        em.joinTransaction();
-    }
-
-    @AfterEach
-    void close() {
-        em.close();
-    }
+    private TestEntityManager em;
 
     @Test
     @DisplayName("비영속 상태인 customer를 DB를 통해 조회한다.")
