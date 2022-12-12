@@ -8,12 +8,7 @@ spring:
     open-in-view: false
     hibernate:
       ddl-auto: create
-    show-sql: false
+    show-sql: true
     properties:
+      dialect: org.hibernate.dialect.H2Dialect
       hibernate.format_sql: false
-server:
-  servlet:
-    encoding:
-      charset: UTF-8
-      enabled: true
-      force: true
