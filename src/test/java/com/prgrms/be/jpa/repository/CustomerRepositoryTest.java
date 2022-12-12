@@ -17,27 +17,23 @@ import static org.hamcrest.Matchers.is;
 @DataJpaTest
 class CustomerRepositoryTest {
 
-    private static final String FIRST = "Suyoung";
-    private static final String LAST = "Lee";
+    private static final String FIRST = "수영";
+    private static final String LAST = "이";
+    private static final Long ID = 1L;
 
     @Autowired
     CustomerRepository repository;
 
     @AfterEach
     void tearDown() {
-        log.info("deleteAll 수행 전");
         repository.deleteAll();
-        log.info("deleteAll 수행 후");
     }
 
     @Test
     @DisplayName("고객 정보를 삽입할 수 있다.")
     void insert_test() {
         // given
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setFirstName(FIRST);
-        customer.setLastName(LAST);
+        Customer customer = new Customer(ID, FIRST, LAST);
 
         // when
         repository.save(customer);
@@ -53,10 +49,7 @@ class CustomerRepositoryTest {
     @DisplayName("고객 정보를 조회할 수 있다.")
     void find_test() {
         // given
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setFirstName("Suyoung");
-        customer.setLastName("Lee");
+        Customer customer = new Customer(ID, FIRST, LAST);
         repository.save(customer);
 
         // when
@@ -72,22 +65,18 @@ class CustomerRepositoryTest {
     @DisplayName("고객 정보를 수정할 수 있다.")
     void update_test() {
         // given
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setFirstName("Suyoung");
-        customer.setLastName("Lee");
+        Customer customer = new Customer(ID, FIRST, LAST);
         repository.save(customer);
 
         // when
-        String chgFirst = "Taehyun";
-        String chgLast = "Gong";
+        String chgFirst = "태현";
+        String chgLast = "공";
 
         Optional<Customer> optionalCustomer = repository.findById(1L);
         assertThat(optionalCustomer.isPresent(), is(true));
 
         Customer entity = optionalCustomer.get();
-        entity.setFirstName(chgFirst); // 따로 update를 하지 않아도 dirty checking 덕분에 스냅샷과 비교를 하고 달라지면 커밋이 된 후에 자동적으로 update 쿼리가 날라감.
-        entity.setLastName(chgLast);
+        entity.changeName(chgFirst, chgLast);
 
         // then
         Optional<Customer> updateEntity = repository.findById(1L);
@@ -101,10 +90,7 @@ class CustomerRepositoryTest {
     @DisplayName("고객 정보를 삭제할 수 있다.")
     void delete_test() {
         // given
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setFirstName("Suyoung");
-        customer.setLastName("Lee");
+        Customer customer = new Customer(ID, FIRST, LAST);
         repository.save(customer);
 
         // when

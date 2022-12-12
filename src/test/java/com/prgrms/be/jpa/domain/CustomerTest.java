@@ -17,7 +17,6 @@ import java.util.Set;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-@DataJpaTest
 class CustomerTest {
 
     private static final Long ID = 1L;
@@ -41,10 +40,7 @@ class CustomerTest {
     @DisplayName("id에 null을 넣을 수 없다.")
     void id_fail_test() {
         // given
-        Customer customer = new Customer();
-        customer.setId(null);
-        customer.setFirstName(FIRST);
-        customer.setLastName(LAST);
+        Customer customer = new Customer(null, FIRST, LAST);
 
         // when
         Set<ConstraintViolation<Customer>> violations = validator.validate(customer);
@@ -61,10 +57,7 @@ class CustomerTest {
     @DisplayName("이름(firstName)을 1~5자 범위 밖으로 설정할 수 없다.")
     void firstName_fail_test(String firstName) {
         // given
-        Customer customer = new Customer();
-        customer.setId(ID);
-        customer.setFirstName(firstName);
-        customer.setLastName(LAST);
+        Customer customer = new Customer(ID, firstName, LAST);
 
         // when
         Set<ConstraintViolation<Customer>> violations = validator.validate(customer);
@@ -81,10 +74,7 @@ class CustomerTest {
     @DisplayName("성(lastName)을 1~2자 범위 밖으로 설정할 수 없다.")
     void lastName_fail_test(String lastName) {
         // given
-        Customer customer = new Customer();
-        customer.setId(ID);
-        customer.setFirstName(FIRST);
-        customer.setLastName(lastName);
+        Customer customer = new Customer(ID, FIRST, lastName);
 
         // when
         Set<ConstraintViolation<Customer>> violations = validator.validate(customer);
@@ -97,10 +87,7 @@ class CustomerTest {
     @DisplayName("고객 정상적인 id와 범위 내의 길이를 가진 이름, 성을 설정할 수 있다.")
     void success_test() {
         // given
-        Customer customer = new Customer();
-        customer.setId(ID);
-        customer.setFirstName(FIRST);
-        customer.setLastName(LAST);
+        Customer customer = new Customer(ID, FIRST, LAST);
 
         // when
         Set<ConstraintViolation<Customer>> violations = validator.validate(customer);

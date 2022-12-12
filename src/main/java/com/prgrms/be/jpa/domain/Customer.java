@@ -1,6 +1,8 @@
 package com.prgrms.be.jpa.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
@@ -11,7 +13,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Getter
-@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "customers")
 public class Customer {
@@ -29,4 +32,9 @@ public class Customer {
     @Size(min = 1, max = 2, message = "성을 1 ~ 2자 이내로 입력해주세요.")
     @NotBlank(message = "성을 입력해주세요.")
     private String lastName;
+
+    public void changeName(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 }
