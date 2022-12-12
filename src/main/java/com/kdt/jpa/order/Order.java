@@ -34,6 +34,16 @@ public class Order extends BaseEntity {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
 
+    public Order() {
+    }
+
+    public Order(String uuid, LocalDateTime orderDatetime, OrderStatus orderStatus, String memo) {
+        this.uuid = uuid;
+        this.orderDatetime = orderDatetime;
+        this.orderStatus = orderStatus;
+        this.memo = memo;
+    }
+
     public void setMember(Member member) {
         if(Objects.nonNull(this.member)) {
             this.member.getOrders().remove(this);

@@ -27,6 +27,14 @@ public class OrderItem extends BaseEntity {
     @JoinColumn(name = "item_id", referencedColumnName = "id")
     private Item item;
 
+    public OrderItem() {
+    }
+
+    public OrderItem(int price, int quantity) {
+        this.price = price;
+        this.quantity = quantity;
+    }
+
     public void setOrder(Order order) {
         if (Objects.nonNull(this.order)) {
             this.order.getOrderItems().remove(this);
