@@ -30,8 +30,24 @@ public class Item {
     @Column(nullable = false)
     private long price;
 
-    public Item(String name,  long price) {
+    public Item(String name, long price) {
         this.name = name;
         this.price = price;
+    }
+    public Item(String name, long price, int stock) {
+        this.name = name;
+        this.price = price;
+        this.stock = stock;
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", stock=" + stock +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                '}';
     }
 }

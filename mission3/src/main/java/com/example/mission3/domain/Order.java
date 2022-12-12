@@ -14,7 +14,7 @@ import java.util.List;
 @Entity
 @Table(name = "orders")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Order extends BaseEntity{
+public class Order extends BaseEntity {
 
     @Id
     @Column(name = "id")
@@ -29,7 +29,7 @@ public class Order extends BaseEntity{
     @Column(nullable = false)
     private String address;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
 
     public Order(String uuid, String email, String address) {

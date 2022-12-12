@@ -11,7 +11,7 @@ import java.util.Objects;
 @Entity
 @Table
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class OrderItem extends BaseEntity{
+public class OrderItem extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,21 +23,20 @@ public class OrderItem extends BaseEntity{
     @Column(nullable = false)
     private int quantity;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Item item;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Order order;
 
-    public OrderItem(int price, int quantity, Item item, Order order) {
+    public OrderItem(int price, int quantity, Item item) {
         this.price = price;
         this.quantity = quantity;
         this.item = item;
-        this.order = order;
     }
 
     public void setOrder(Order order) {
-        if(Objects.nonNull(this.order)){
+        if (Objects.nonNull(this.order)) {
             this.order.getOrderItems().remove(this);
         }
         this.order = order;
