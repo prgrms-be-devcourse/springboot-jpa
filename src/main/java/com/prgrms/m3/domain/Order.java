@@ -1,7 +1,6 @@
 package com.prgrms.m3.domain;
 
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -50,7 +49,7 @@ public class Order extends BaseEntity {
 
     //연관관계 편의 메소드
     public void registerMember(Member member) {
-        if(Objects.nonNull(this.member)) {
+        if (Objects.nonNull(this.member)) {
             this.member.getOrders().remove(this);
         }
 

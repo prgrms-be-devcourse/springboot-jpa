@@ -1,17 +1,15 @@
 package com.prgrms.m3.domain;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Getter
 @Setter
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-//@DiscriminatorColumn(name = "DTYPE")
+@DiscriminatorColumn(name = "DTYPE")
 @Table(name = "item")
 @Entity
 @NoArgsConstructor

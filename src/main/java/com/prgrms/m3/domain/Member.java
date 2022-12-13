@@ -32,7 +32,7 @@ public class Member extends BaseEntity {
     private String description;
 
     @OneToMany(mappedBy = "member")
-    private List<Order> orders = new ArrayList<>();
+    private final List<Order> orders = new ArrayList<>();
 
     public Member(String name, String nickName, int age, String address) {
         this.name = name;

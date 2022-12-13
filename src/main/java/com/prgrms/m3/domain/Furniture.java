@@ -1,9 +1,7 @@
 package com.prgrms.m3.domain;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -12,7 +10,7 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("FURNITURE")
 @NoArgsConstructor
-public class Furniture extends Item{
+public class Furniture extends Item {
     private int width;
     private int height;
 

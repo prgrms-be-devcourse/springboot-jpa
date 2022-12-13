@@ -1,6 +1,9 @@
 package com.prgrms.m3.repository;
 
-import com.prgrms.m3.domain.*;
+import com.prgrms.m3.domain.Car;
+import com.prgrms.m3.domain.Member;
+import com.prgrms.m3.domain.Order;
+import com.prgrms.m3.domain.OrderItem;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,7 +14,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
 class OrderRepositoryTest {

@@ -3,7 +3,6 @@ package com.prgrms.m3.repository;
 import com.prgrms.m3.domain.Car;
 import com.prgrms.m3.domain.Item;
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +33,7 @@ class ItemRepositoryTest {
         //then
         assertEquals(1, items.size());
     }
+
     @Test
     @DisplayName("상품을 성공적으로 찾을 수 있다.")
     void 조회() {
@@ -96,5 +96,14 @@ class ItemRepositoryTest {
 
     public Car getCar() {
         return new Car(100, 20000, 5);
+    }
+
+
+    @Test
+    void 쿼리() {
+        List<Item> car = itemRepository.findByType("CAR");
+        for (Item item : car) {
+            System.out.println(item.getClass().getCanonicalName());
+        }
     }
 }
