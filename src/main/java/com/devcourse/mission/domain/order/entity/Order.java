@@ -4,9 +4,10 @@ import com.devcourse.mission.domain.customer.entity.Customer;
 import com.devcourse.mission.domain.orderitem.entity.OrderItem;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.Optional;
 @Table(name = "orders")
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
+@DynamicUpdate
 public class Order {
     @Id
     @GeneratedValue
@@ -30,6 +31,7 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
+    @Builder
     public Order(Customer customer) {
         this.customer = customer;
     }

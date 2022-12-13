@@ -3,7 +3,7 @@ package com.devcourse.mission.domain.customer.entity;
 import com.devcourse.mission.domain.order.entity.Order;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -14,7 +14,6 @@ import java.util.List;
 @Table(name = "customers")
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 public class Customer {
     @Id @GeneratedValue
     @Column(name = "customer_id", nullable = false)
@@ -39,6 +38,7 @@ public class Customer {
         this.age = age;
     }
 
+    @Builder
     public Customer(String name, String address, int age) {
         this.name = name;
         this.address = address;

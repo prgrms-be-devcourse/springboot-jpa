@@ -2,7 +2,7 @@ package com.devcourse.mission.domain.item.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,7 +12,6 @@ import java.util.Objects;
 @Table(name = "items")
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 public class Item {
     @Id @GeneratedValue
     @Column(name = "item_id", nullable = false)
@@ -27,6 +26,7 @@ public class Item {
     @Column(name = "stock_quantity", nullable = false)
     private int stockQuantity;
 
+    @Builder
     public Item(String title, int price, int stockQuantity) {
         this.title = title;
         this.price = price;

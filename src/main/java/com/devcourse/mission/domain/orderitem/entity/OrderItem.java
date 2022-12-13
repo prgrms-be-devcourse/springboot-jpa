@@ -4,7 +4,7 @@ import com.devcourse.mission.domain.item.entity.Item;
 import com.devcourse.mission.domain.order.entity.Order;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "order_item")
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 public class OrderItem {
     @Id @GeneratedValue
     @Column(name = "order_item_id")
@@ -32,6 +31,7 @@ public class OrderItem {
     @JoinColumn(name = "order_id")
     private Order order;
 
+    @Builder
     private OrderItem(Item item, int totalPrice, int quantity) {
         this.totalPrice = totalPrice;
         this.quantity = quantity;
