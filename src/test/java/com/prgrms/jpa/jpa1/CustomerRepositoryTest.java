@@ -2,82 +2,73 @@ package com.prgrms.jpa.jpa1;
 
 import com.prgrms.jpa.jpa1.domain.Customer;
 import com.prgrms.jpa.jpa1.repository.CustomerRepository;
-import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.util.Lists;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
+
 @Slf4j
+@DataJpaTest
 public class CustomerRepositoryTest {
+
+    private static final String firstName = "lee";
+    private static final String lastName = "surin";
 
     @Autowired
     CustomerRepository repository;
-
-    @BeforeEach
-    void setUp() {
-
-    }
-
-    @AfterEach
-    void clear() {
-        repository.deleteAll();
-    }
 
     @Test
     @DisplayName("고객을 저장할 수 있다.")
     void INSERT_TEST() {
         Customer customer = new Customer();
         customer.setId(1L);
-        customer.setFirstName("surin");
-        customer.setLastName("lee");
+        customer.setFirstName(firstName);
+        customer.setLastName(lastName);
 
         repository.save(customer);
 
         Customer findCustomer = repository.findById(1L).get();
 
-        assertThat(findCustomer.getFirstName())
-                .isEqualTo(
-                        customer.getFirstName());
+        String getFirstName = findCustomer.getFirstName();
+        String getLastName = findCustomer.getLastName();
 
-        assertThat(findCustomer.getLastName())
-                .isEqualTo(
-                        customer.getLastName());
+        assertThat(getFirstName).isEqualTo(firstName);
+        assertThat(getLastName).isEqualTo(lastName);
     }
 
     @Test
-    @Transactional
     @DisplayName("고객의 이름을 수정할 수 있다.")
     void UPDATE_TEST() {
         Customer customer = new Customer();
         customer.setId(1L);
-        customer.setFirstName("surin");
-        customer.setLastName("lee");
+        customer.setFirstName(firstName);
+        customer.setLastName(lastName);
 
         repository.save(customer);
 
-        Customer beforeChangeCusotmer = repository.findById(1L).get();
-        beforeChangeCusotmer.setFirstName("su");
-        beforeChangeCusotmer.setLastName("rin");
+        Customer beforeChangeCustomer = repository.findById(1L).get();
+
+        String changeFirstName = "su";
+        String changeLastName = "rin";
+
+        beforeChangeCustomer.setFirstName("su");
+        beforeChangeCustomer.setLastName("rin");
 
         Customer afterChangeCustomer = repository.findById(1L).get();
 
-        assertThat(beforeChangeCusotmer.getFirstName())
-                .isEqualTo(
-                        afterChangeCustomer.getFirstName());
-        assertThat(beforeChangeCusotmer.getLastName())
-                .isEqualTo(
-                        afterChangeCustomer.getLastName());
+        String findFirstName = afterChangeCustomer.getFirstName();
+        String findLastName = afterChangeCustomer.getLastName();
+
+        assertThat(changeFirstName).isEqualTo(findFirstName);
+        assertThat(changeLastName).isEqualTo(findLastName);
     }
 
     @Test
@@ -94,9 +85,10 @@ public class CustomerRepositoryTest {
         Customer findCustomer = repository.findById(customer.getId()).get();
 
         // Then
-        assertThat(customer.getId())
-                .isEqualTo(
-                        findCustomer.getId());
+        Long id = customer.getId();
+        Long findCustomerId = findCustomer.getId();
+
+        assertThat(findCustomerId).isEqualTo(id);
     }
 
     @Test
@@ -121,8 +113,10 @@ public class CustomerRepositoryTest {
         List<Customer> findAllCustomers = repository.findAll();
 
         // Then
-        assertThat(findAllCustomers.size())
-                .isEqualTo(2);
+        int realSize = findAllCustomers.size();
+        int expectedSize = 2;
+
+        assertThat(realSize).isEqualTo(expectedSize);
     }
 
     @Test
@@ -140,8 +134,9 @@ public class CustomerRepositoryTest {
         repository.deleteById(1L);
 
         // then
-        assertThat(repository.findById(1L))
-                .isEqualTo(
+        Optional<Customer> findCustomer = repository.findById(1L);
+
+        assertThat(findCustomer).isEqualTo(
                         Optional.empty());
     }
 
@@ -166,8 +161,7 @@ public class CustomerRepositoryTest {
         repository.deleteAll();
 
         // then
-        assertThat(repository.findAll()
-                .size())
-                .isEqualTo(0);
+        List<Customer> findCustomers = repository.findAll();
+        assertThat(findCustomers).isEmpty();
     }
 }
