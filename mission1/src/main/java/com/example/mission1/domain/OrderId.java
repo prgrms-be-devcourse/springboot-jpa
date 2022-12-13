@@ -6,8 +6,7 @@ import lombok.*;
 import java.io.Serializable;
 
 @Getter
-@Setter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EqualsAndHashCode
 @AllArgsConstructor
 @Embeddable

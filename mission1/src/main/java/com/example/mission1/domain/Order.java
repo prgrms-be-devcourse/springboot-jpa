@@ -7,12 +7,10 @@ import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Getter
-@Setter
 @Entity
 @Table(name = "orders")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -22,10 +20,10 @@ public class Order {
     private OrderId id;
 
     @Column(columnDefinition = "TIMESTAMP")
-    private LocalDateTime cratedAt;
+    private LocalDateTime createdAt;
 
     public Order(OrderId id) {
         this.id = id;
-        cratedAt = LocalDateTime.now();
+        createdAt = LocalDateTime.now();
     }
 }

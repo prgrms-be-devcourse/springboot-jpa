@@ -1,7 +1,6 @@
 package com.example.mission1.repository;
 
 import com.example.mission1.domain.Customer;
-import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -21,9 +20,6 @@ class CustomerRepositoryTest {
     @Autowired
     CustomerRepository customerRepository;
 
-    @Autowired
-    EntityManager entityManager;
-
     Customer newCustomer;
 
     String uuid = UUID.randomUUID().toString();
@@ -31,13 +27,7 @@ class CustomerRepositoryTest {
     @BeforeEach
     void create() {
         customerRepository.deleteAll();
-        newCustomer = Customer.builder()
-                .uuid(uuid)
-                .name("장영지")
-                .email("youngji804@naver.com")
-                .address("안양시 동안구")
-                .build();
-
+        newCustomer = new Customer(uuid,"영지","youngji804@naver.com","안양시 동안구");
         customerRepository.save(newCustomer);
     }
 
@@ -48,7 +38,7 @@ class CustomerRepositoryTest {
 
         assertThat(findCustomer.isPresent()).isTrue();
         assertThat(findCustomer.get().getEmail()).isEqualTo(newCustomer.getEmail());
-
+        log.info("{}",findCustomer.get());
         var customers = customerRepository.findAll();
 
         assertThat(customers.size()).isEqualTo(1);
@@ -58,7 +48,7 @@ class CustomerRepositoryTest {
     @DisplayName("등록된 customer의 주소를 변경하고 변경을 확인한다.")
     void update() {
         var findCustomer = customerRepository.findById(uuid).get();
-        findCustomer.setAddress("이사감~");
+        findCustomer.changeAddress("이사감~");
 
         var reFindCustomer = customerRepository.findById(uuid).get();
         assertThat(findCustomer.getAddress()).isEqualTo(reFindCustomer.getAddress());

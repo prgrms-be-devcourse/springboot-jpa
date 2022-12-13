@@ -25,8 +25,6 @@ class OrderRepositoryTest {
 
         var findOrder = orderRepository.findById(new OrderId("youngji@naver", "우리집"));
         assertThat(findOrder.isPresent()).isTrue();
-        assertThat(findOrder.get().getCratedAt()).isEqualTo(newOrder.getCratedAt());
-
+        assertThat(findOrder.get().getCreatedAt()).isEqualTo(newOrder.getCreatedAt());
     }
-
 }
