@@ -22,7 +22,7 @@ class CustomerRepositoryTest {
 	void saveAndFindSuccessTest() {
 
 		//given
-		Customer customer = new Customer(1L, "geonwoo", "Lee");
+		Customer customer = new Customer("geonwoo", "Lee");
 
 		//when
 		Customer savedCustomer = customerRepository.save(customer);
@@ -63,7 +63,7 @@ class CustomerRepositoryTest {
 	void updateSuccessTest() {
 
 		//given
-		Customer customer = new Customer(1L, "geonwoo", "Lee");
+		Customer customer = new Customer("geonwoo", "Lee");
 		Customer savedCustomer = customerRepository.save(customer);
 
 		//when
@@ -82,7 +82,7 @@ class CustomerRepositoryTest {
 	void updateFailTest() {
 
 		//given
-		Customer customer = new Customer(1L, "geonwoo", "Lee");
+		Customer customer = new Customer("geonwoo", "Lee");
 		Customer savedCustomer = customerRepository.save(customer);
 
 		//when
@@ -98,7 +98,7 @@ class CustomerRepositoryTest {
 	void deleteSuccessTest() {
 
 		//given
-		Customer customer = new Customer(1L, "geonwoo", "Lee");
+		Customer customer = new Customer("geonwoo", "Lee");
 		Customer savedCustomer = customerRepository.save(customer);
 
 		//when

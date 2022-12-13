@@ -9,7 +9,6 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -17,22 +16,26 @@ import lombok.NoArgsConstructor;
 @Getter
 @Table(name = "customer")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 public class Customer {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id;
 
-	@Column(name = "firstName", nullable = false, length = 8)
+	@Column(name = "first_name", nullable = false, length = 8)
 	@NotBlank
 	@Size(min = 2, max = 10)
 	private String firstName;
 
-	@Column(name = "lastName", nullable = false, length = 8)
+	@Column(name = "last_name", nullable = false, length = 8)
 	@NotBlank
 	@Size(min = 2, max = 10)
 	private String lastName;
+
+	public Customer(String firstName, String lastName) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
 
 	public void updateFullName(String firstName, String lastName) {
 		this.firstName = firstName;
