@@ -28,9 +28,9 @@ class CustomerRepositoryTest {
     void select_test() {
         // given
         customer = new Customer();
-        customer.changeId(1L);
-        customer.changeFirstName("eunbi");
-        customer.changeLastName("choi");
+        customer.setId(1L);
+        customer.setFirstName("eunbi");
+        customer.setLastName("choi");
         repository.save(customer);
 
         // when
@@ -47,9 +47,9 @@ class CustomerRepositoryTest {
     void insert_test() {
         // given
         customer = new Customer();
-        customer.changeId(1L);
-        customer.changeFirstName("eunbi");
-        customer.changeLastName("choi");
+        customer.setId(1L);
+        customer.setFirstName("eunbi");
+        customer.setLastName("choi");
 
         // when
         Customer insertedCustomer = repository.save(customer);
@@ -66,14 +66,14 @@ class CustomerRepositoryTest {
     void update_test() {
         // given
         customer = new Customer();
-        customer.changeId(1L);
-        customer.changeFirstName("eunbi");
-        customer.changeLastName("choi");
+        customer.setId(1L);
+        customer.setFirstName("eunbi");
+        customer.setLastName("choi");
         repository.save(customer);
 
         // when
         Customer entity = repository.findById(customer.getId()).get();
-        entity.changeFirstName("Hong");
+        entity.setFirstName("Hong");
 
         assertThat(entity.getFirstName()).isEqualTo("Hong");
     }
@@ -83,9 +83,9 @@ class CustomerRepositoryTest {
     void delete_test() {
         // given
         customer = new Customer();
-        customer.changeId(1L);
-        customer.changeFirstName("eunbi");
-        customer.changeLastName("choi");
+        customer.setId(1L);
+        customer.setFirstName("eunbi");
+        customer.setLastName("choi");
         repository.save(customer);
 
         // when
