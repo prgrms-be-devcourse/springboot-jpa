@@ -112,8 +112,8 @@ public class DataJpaPersistenceTest {
     }
 
     @Test
-    @DisplayName("비영속 상태인 customer 전체 삭제, 전체 저장할 때 1차 캐시에서 잘못된 정보를 가져와 예외가 발생한다.")
-    void delete_all_save_all_exception() {
+    @DisplayName("비영속 상태인 customer들을 전체 삭제한 후 전체 저장한다.")
+    void delete_all_save_all() {
         // 1.customers :: Managed
         // 2.Insert_customer :: Write_Behind
         customerDummy().forEach(em::persist);
@@ -143,7 +143,7 @@ public class DataJpaPersistenceTest {
 
     @Test
     @DisplayName("비영속 상태인 customer 모든 회원 삭제, 각각 회원을 조회 후 모든 회원 저장에 성공한다.")
-    void delete_all_find_each_save_all_exception() {
+    void delete_all_find_each_save_all() {
         // 1.Select_customer :: First_Level_Cache
         // 2.customers :: Managed
         // 3.Insert_customer :: Write_Behind
@@ -177,7 +177,7 @@ public class DataJpaPersistenceTest {
 
     @Test
     @DisplayName("비영속 상태인 customer 모든 회원 삭제, 모든 회원을 조회 후 모든 회원 저장에 성공한다.")
-    void delete_all_find_all_save_all_exception() {
+    void delete_all_find_all_save_all() {
         // 1.Select_customer :: First_Level_Cache
         // 2.customers :: Managed
         // 3.Insert_customer :: Write_Behind
@@ -206,7 +206,7 @@ public class DataJpaPersistenceTest {
 
     @Test
     @DisplayName("비영속 상태인 모든 회원 삭제, 모든 회원 수정 후 모든 회원 검색 결과가 []로 성공한다.")
-    void delete_all_update_each_find_all_exception() {
+    void delete_all_update_each_find_all() {
         // 1.Select_customers :: DB
         // 2.customers :: Managed
         // 3.Insert_customers :: Write_Behind
