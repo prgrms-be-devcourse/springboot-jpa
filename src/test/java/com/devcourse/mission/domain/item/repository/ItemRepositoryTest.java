@@ -47,7 +47,7 @@ class ItemRepositoryTest {
     @DisplayName("상품 검색에 성공한다.")
     void find_item_by_id() {
         // given
-        Item item = new Item(1L, "책", 10000, 10);
+        Item item = new Item("책", 10000, 10);
         itemRepository.saveAndFlush(item);
 
         // when
@@ -63,7 +63,7 @@ class ItemRepositoryTest {
     @DisplayName("상품 수정에 성공한다.")
     void update_item() {
         // given
-        Item item = new Item(1L, "책", 10000, 10);
+        Item item = new Item("책", 10000, 10);
         Item savedItem = itemRepository.saveAndFlush(item);
 
         // when
@@ -82,7 +82,7 @@ class ItemRepositoryTest {
     @DisplayName("상품 삭제에 성공한다.")
     void delete_item() {
         // given
-        Item item = new Item(1L, "책", 10000, 10);
+        Item item = new Item("책", 10000, 10);
         Item savedItem = itemRepository.saveAndFlush(item);
 
         // when
