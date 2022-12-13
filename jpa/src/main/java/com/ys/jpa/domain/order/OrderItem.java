@@ -55,6 +55,10 @@ public class OrderItem extends AbstractTimeColumn {
         this.quantity = quantity;
     }
 
+    public static OrderItem create(int price, int quantity) {
+        return new OrderItem(price, quantity);
+    }
+
     private void validatePrice(int price) {
         Assert.isTrue(price > 0, "가격은 0보다 작을 수 없습니다");
     }

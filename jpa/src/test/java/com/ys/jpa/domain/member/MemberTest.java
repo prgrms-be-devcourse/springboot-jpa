@@ -3,7 +3,9 @@ package com.ys.jpa.domain.member;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.ys.jpa.domain.order.Order;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -86,6 +88,20 @@ class MemberTest {
         assertEquals(nickName, member.getNickName());
         assertEquals(address, member.getAddress());
         assertEquals(age, member.getAge());
+    }
+
+    @DisplayName("addOrder - 연관관계 편의 메서드 테스트  ")
+    @Test
+    void addOrder() {
+        //given
+        Member member = new Member("ys", "ysking", 28, "서울시 노원구");
+        Order order = Order.createDefaultMessage();
+        //when
+        member.addOrder(order);
+
+        //then
+        assertTrue(member.getOrders().contains(order));
+        assertEquals(order.getMember(), member);
     }
 
 }

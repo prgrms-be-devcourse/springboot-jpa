@@ -2,7 +2,9 @@ package com.ys.jpa.domain.order.item;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.ys.jpa.domain.order.OrderItem;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -30,6 +32,20 @@ class ItemTest {
         //when & then
         assertThrows(IllegalArgumentException.class,
             () -> new Item(price, quantity) {});
+    }
+
+    @DisplayName("changeOrderItem - 연관관계 편의 메서드 테스트  ")
+    @Test
+    void changeOrderItem() {
+        //given
+        OrderItem orderItem = OrderItem.create(10, 5);
+        Item item = new Car(50, 10, 100);
+        //when
+        item.changeOrderItem(orderItem);
+
+        //then
+        assertTrue(orderItem.getItems().contains(item));
+        assertEquals(orderItem, item.getOrderItem());
     }
 
 }
