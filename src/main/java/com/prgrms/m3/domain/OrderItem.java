@@ -40,19 +40,16 @@ public class OrderItem extends BaseEntity{
     }
 
     public static OrderItem createOrderItem(Item item, int quantity) {
-        int totalPrice = item.getPrice() * quantity;
         item.removeStock(quantity);
 
-        return new OrderItem(totalPrice, quantity, item);
+        return new OrderItem(item.getPrice(), quantity, item);
     }
 
     public void addOrder(Order order) {
         if (Objects.nonNull(this.order)) {
             this.order.getOrderItems().remove(this);
         }
-
         this.order = order;
-        order.getOrderItems().add(this);
     }
 
     public void cancel() {
@@ -61,5 +58,15 @@ public class OrderItem extends BaseEntity{
 
     public int getTotalPrice() {
         return getQuantity() * getPrice();
+    }
+
+    public void decreaseQuantity(int quantity) {
+        this.quantity -= quantity;
+        item.addStock(quantity);
+    }
+
+    public void increaseQuantity(int quantity) {
+        this.quantity += quantity;
+        item.removeStock(quantity);
     }
 }

@@ -1,7 +1,7 @@
 package com.prgrms.m3.domain;
 
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,6 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "member")
 @Getter
+@NoArgsConstructor
 public class Member extends BaseEntity {
     @Id
     @Column(name = "member_id")
@@ -33,4 +34,10 @@ public class Member extends BaseEntity {
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
 
+    public Member(String name, String nickName, int age, String address) {
+        this.name = name;
+        this.nickName = nickName;
+        this.age = age;
+        this.address = address;
+    }
 }
