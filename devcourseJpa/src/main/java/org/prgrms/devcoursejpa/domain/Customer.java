@@ -3,6 +3,7 @@ package org.prgrms.devcoursejpa.domain;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
@@ -43,18 +44,16 @@ public class Customer {
     }
 
     private void validateLastName(String lastName) {
-        if (!StringUtils.hasText(lastName.trim())) {
-            throw new IllegalArgumentException("성은 필수 입력사항");
-        }
+        Assert.hasText(lastName, "성은 필수 입력사항");
+
         if (!lastName.matches("\\D*")) {
             throw new IllegalArgumentException("이름에 숫자는 포함될 수 없습니다.");
         }
     }
 
     private void validateFirstName(String firstName) {
-        if (!StringUtils.hasText(firstName.trim())) {
-            throw new IllegalArgumentException("이름은 필수 입력사항");
-        }
+        Assert.hasText(firstName, "이름은 필수 입력사항");
+
         if (!firstName.matches("\\D*")) {
             throw new IllegalArgumentException("이름에 숫자는 포함될 수 없습니다.");
         }

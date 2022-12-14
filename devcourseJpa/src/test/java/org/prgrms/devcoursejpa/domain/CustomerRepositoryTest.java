@@ -50,6 +50,7 @@ class CustomerRepositoryTest {
         assertEquals(updatedCustomer, customer);
         assertEquals("Kiseo", updatedCustomer.getFirstName());
         assertEquals("Kim", updatedCustomer.getLastName());
+
     }
 
     @Test
@@ -109,4 +110,5 @@ class CustomerRepositoryTest {
 
         return new Customer(firstName, lastName);
     }
+
 }

@@ -5,9 +5,10 @@ spring:
     username: sa
     password:
   jpa:
+    generate-ddl: true
     open-in-view: false
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
     show-sql: true
     properties:
       hibernate.format_sql: true
