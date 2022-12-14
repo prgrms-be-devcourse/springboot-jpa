@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import static kdt.springbootjpa.order.entity.OrderStatus.OPENED;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 public class OrderPersistenceTest {
@@ -21,7 +22,7 @@ public class OrderPersistenceTest {
     EntityManagerFactory entityManagerFactory;
 
     @Test
-    void 저장하기_단방향관계() {
+    void 저장하기_양방향관계() {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
@@ -39,10 +40,17 @@ public class OrderPersistenceTest {
                 .orderDatetime(LocalDateTime.now())
                 .memo("memo")
                 .build();
-        order.setMember(member);
-        entityManager.persist(order);
 
+        order.setMember(member);
+        //member.addOrder(order);
+
+        entityManager.persist(order);
         transaction.commit();
         entityManager.clear();
+
+        Order savedOrder = entityManager.find(Order.class, order.getUuid());
+        Member savedMember = entityManager.find(Member.class, 1L);
+        assertThat(savedOrder.getMember().getId()).isEqualTo(savedMember.getId());
+        assertThat(savedMember.getOrders().get(0).getUuid()).isEqualTo(savedOrder.getUuid());
     }
 }

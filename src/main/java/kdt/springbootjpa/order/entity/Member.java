@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,7 +19,11 @@ public class Member {
     private String address;
     private String description;
 
-    public void addOrder(Order order) {
+    @OneToMany(mappedBy = "member") //연관관계 관리 주체 : Order의 member 필드
+    private List<Order> orders;
+
+    public void addOrder(Order order) { //연관관계 편의 메소드, member와 order를 연결
+        orders.add(order);
         order.setMember(this);
     }
 
@@ -28,6 +33,6 @@ public class Member {
         this.name = name;
         this.address = address;
         this.description = description;
-        this.orders = orders;
+        this.orders = new ArrayList<>();
     }
 }

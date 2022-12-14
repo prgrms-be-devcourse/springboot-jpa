@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -39,7 +40,11 @@ public class Order {
         this.member = member;
     }
 
-    public void setMember(Member member){
+    public void setMember(Member member){ //연관관계 편의 메소드, member와 order를 연결
+        if(Objects.nonNull(this.member)) {
+            this.member.getOrders().remove(this);
+        }
         this.member = member;
+        member.getOrders().add(this);
     }
 }
