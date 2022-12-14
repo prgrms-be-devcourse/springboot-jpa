@@ -57,6 +57,20 @@ public class CustomerTest {
         List<String> msgs = violations.stream().map(ConstraintViolation::getMessage).toList();
 
         assertThat(msgs.size()).isEqualTo(1);
-        assertThat(msgs).contains("널이어서는 안됩니다");
+        assertThat(msgs).contains("공백일 수 없습니다");
+    }
+
+    @Test
+    @DisplayName("[실패] Customer 생성 시, 성/이름이 공백인 경우")
+    void testBlank() {
+        String firstName = " ";
+        String lastName = "";
+        Customer customer = Customer.builder().firstName(firstName).lastName(lastName).build();
+
+        Set<ConstraintViolation<Customer>> violations = validator.validate(customer);
+        List<String> msgs = violations.stream().map(ConstraintViolation::getMessage).toList();
+
+        assertThat(msgs.size()).isEqualTo(2);
+        assertThat(msgs).contains("공백일 수 없습니다");
     }
 }

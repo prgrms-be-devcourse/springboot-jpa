@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Getter
@@ -20,11 +21,11 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NotBlank
     @Size(max = 20, message = "20자 이내로 입력해주세요")
     private String firstName;
 
-    @NotNull
+    @NotBlank
     @Size(max = 20, message = "20자 이내로 입력해주세요")
     private String lastName;
 
