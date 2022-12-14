@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.*;
 
 import java.time.LocalDateTime;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +23,6 @@ public class OrderAndMemberMappingTest {
 
 	@Autowired
 	MemberRepository memberRepository;
-
-	@AfterEach
-	void tearDown() {
-		orderRepository.deleteAll();
-		memberRepository.deleteAll();
-	}
 
 	@Test
 	@DisplayName("연관관계 매핑 test - 회원의 주문 조회 성공")

@@ -2,7 +2,6 @@ package com.programmers.jpapractice.domain;
 
 import static org.assertj.core.api.Assertions.*;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +20,6 @@ public class OrderItemAndItemMappingTest {
 
 	@Autowired
 	ItemRepository itemRepository;
-
-	@AfterEach
-	void tearDown() {
-		orderItemRepository.deleteAll();
-		itemRepository.deleteAll();
-	}
 
 	@Test
 	@DisplayName("연관관계 매핑 test - 상품의 주문상품 조회 성공")

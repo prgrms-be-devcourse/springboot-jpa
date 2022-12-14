@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.*;
 
 import java.util.Optional;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +16,6 @@ class CustomerRepositoryTest {
 
 	@Autowired
 	CustomerRepository repository;
-
-	@AfterEach
-	void tearDown() {
-		repository.deleteAll();
-	}
 
 	@Test
 	@DisplayName("올바른 고객 정보로 저장을 하면 저장에 성공한다.")
