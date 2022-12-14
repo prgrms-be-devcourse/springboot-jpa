@@ -6,6 +6,8 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
@@ -18,13 +20,14 @@ public class CustomerRepositoryTest {
     @DisplayName("[성공] Customer 저장 및 조회하기")
     void testSaveAndGetCustomer() {
         Customer customer = Customer.builder().firstName("tlsdud").lastName("fortune").build();
-
         customerRepository.save(customer);
+
         Customer savedCustomer = customerRepository.findById(customer.getId()).get();
 
         assertThat(savedCustomer.getFirstName()).isEqualTo(customer.getFirstName());
         assertThat(savedCustomer.getLastName()).isEqualTo(customer.getLastName());
-        assertThat(customerRepository.findAll().size()).isEqualTo(1);
+        List<Customer> customers = customerRepository.findAll();
+        assertThat(customers.size()).isEqualTo(1);
     }
 
     @Test
@@ -40,10 +43,10 @@ public class CustomerRepositoryTest {
         savedCustomer.changeLastName(newLastName);
 
         Customer updatedCustomer = customerRepository.findById(customer.getId()).get();
-
         assertThat(updatedCustomer.getFirstName()).isEqualTo(newFirstName);
         assertThat(updatedCustomer.getLastName()).isEqualTo(newLastName);
-        assertThat(customerRepository.findAll().size()).isEqualTo(1);
+        List<Customer> customers = customerRepository.findAll();
+        assertThat(customers.size()).isEqualTo(1);
     }
 
     @Test
@@ -51,10 +54,11 @@ public class CustomerRepositoryTest {
     void testDeleteCustomer() {
         Customer customer = Customer.builder().firstName("sinyoung").lastName("bok").build();
         customerRepository.save(customer);
-        Customer savedCustomer = customerRepository.findById(customer.getId()).get();
 
+        Customer savedCustomer = customerRepository.findById(customer.getId()).get();
         customerRepository.delete(savedCustomer);
 
-        assertThat(customerRepository.findAll().size()).isEqualTo(0);
+        List<Customer> customers = customerRepository.findAll();
+        assertThat(customers.size()).isEqualTo(0);
     }
 }
