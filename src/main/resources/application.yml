@@ -3,3 +3,11 @@ spring:
     url: jdbc:mysql://localhost:3306/jpa_mission
     username: root
     password: root1234!
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
