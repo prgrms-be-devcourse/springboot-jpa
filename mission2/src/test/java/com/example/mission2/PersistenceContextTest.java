@@ -9,7 +9,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,11 +29,7 @@ public class PersistenceContextTest {
     void persistenceContextTest() {
         // 비영속 객체
         var uuid = UUID.randomUUID().toString();
-        var newCustomer = new Customer();
-        newCustomer.setUuid(uuid);
-        newCustomer.setName("영지");
-        newCustomer.setAddress("안양시 영지네");
-        newCustomer.setEmail("youngji804@naver.com");
+        var newCustomer = new Customer(uuid,"youngji804@naver.com","안양시 영지네","영지",28);
 
         EntityManager em = emf.createEntityManager();
         EntityTransaction transaction = em.getTransaction();
@@ -65,14 +60,14 @@ public class PersistenceContextTest {
 
         transaction.commit();
 
+        EntityManager em2 = emf.createEntityManager();
 
         // db 조회
         transaction.begin();
-        var customer5 = em.find(Customer.class, uuid);
+        var customer5 = em2.find(Customer.class, uuid);
         transaction.commit();
         assertThat(customer5).isNotNull();
 
-        // 트랜잯션이 끝날때 1차 캐시도 사라진다고 알고 있는데 오ㅐ 1차 캐시에서 가져올까요..???
         assertThat(customer4 == customer5).isFalse();
 
     }
@@ -81,11 +76,7 @@ public class PersistenceContextTest {
     @DisplayName("remove는 commit 전에 이뤄져도 쿼리가 날라다.")
     void removeTest() {
         var uuid = UUID.randomUUID().toString();
-        var newCustomer = new Customer();
-        newCustomer.setUuid(uuid);
-        newCustomer.setName("영지");
-        newCustomer.setAddress("안양시 영지네");
-        newCustomer.setEmail("youngji804@naver.com");
+        var newCustomer = new Customer(uuid,"youngji804@naver.com","안양시 영지네","영지",28);
 
         EntityManager em = emf.createEntityManager();
         EntityTransaction transaction = em.getTransaction();
@@ -111,11 +102,7 @@ public class PersistenceContextTest {
     @DisplayName("update 감지 테스트 - 트랜잭션이 끝난다고 준영속화가 되는 것이 아님")
     void updateTest() {
         var uuid = UUID.randomUUID().toString();
-        var newCustomer = new Customer();
-        newCustomer.setUuid(uuid);
-        newCustomer.setName("영지");
-        newCustomer.setAddress("안양시 영지네");
-        newCustomer.setEmail("youngji804@naver.com");
+        var newCustomer = new Customer(uuid,"youngji804@naver.com","안양시 영지네","영지",28);
 
         EntityManager em = emf.createEntityManager();
         EntityTransaction transaction = em.getTransaction();
@@ -123,29 +110,26 @@ public class PersistenceContextTest {
 
         transaction.begin();
         em.persist(newCustomer); // 영속화
-        newCustomer.setAge(28);
+        newCustomer.changeAge(28);
         transaction.commit();
 
         em.detach(newCustomer); // 준영속
 
         transaction.begin();
-        newCustomer.setAge(29); // 적용 안됨
+        newCustomer.changeAge(29); // 적용 안됨
         transaction.commit();
 
         transaction.begin();
         em.merge(newCustomer); // 영속화
-        newCustomer.setName("새이름"); // 적용됨
+        newCustomer.changeName("새이름"); // 적용됨
         transaction.commit();
     }
 
     @Test
+    @DisplayName("중복 id insert fail 테스트")
     void insertFailTest() {
         var uuid = UUID.randomUUID().toString();
-        var newCustomer = new Customer();
-        newCustomer.setUuid(uuid);
-        newCustomer.setName("영지");
-        newCustomer.setAddress("안양시 영지네");
-        newCustomer.setEmail("youngji804@naver.com");
+        var newCustomer = new Customer(uuid,"youngji804@naver.com","안양시 영지네","영지",28);
 
         EntityManager em = emf.createEntityManager();
         EntityTransaction transaction = em.getTransaction();
@@ -153,11 +137,6 @@ public class PersistenceContextTest {
         // 한번의 insert 쿼리 발생 -> 영속
         transaction.begin();
         em.persist(newCustomer);
-        em.persist(newCustomer);
-        transaction.commit();
-
-        // newCustoer가 영속화 되어있어 쿼리가 날라가지 않음??
-        transaction.begin();
         em.persist(newCustomer);
         transaction.commit();
 
