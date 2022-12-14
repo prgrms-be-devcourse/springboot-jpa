@@ -35,10 +35,8 @@ public class Order {
     public Order() {
     }
 
-    public Order(Member member, OrderStatus orderStatus, LocalDateTime orderDateTime) {
+    public Order(Member member) {
         this.member = member;
-        this.orderStatus = orderStatus;
-        this.orderDateTime = orderDateTime;
     }
 
     public void addOrderItem(OrderItem orderItem) {

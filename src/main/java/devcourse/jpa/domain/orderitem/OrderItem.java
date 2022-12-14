@@ -29,8 +29,7 @@ public class OrderItem {
     public OrderItem() {
     }
 
-    public OrderItem(Order order, Item item) {
-        this.order = order;
+    public OrderItem(Item item) {
         this.item = item;
     }
 
