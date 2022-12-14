@@ -29,15 +29,18 @@ class OrderRepositoryTest {
     @Autowired
     ItemRepository itemRepository;
 
-    Member member;
-    Car car;
-    OrderItem orderItem;
+    private Member member;
+    private Car car;
+    private OrderItem orderItem;
+
+    private static final int STOCK_QUANTITY = 5;
+    private static final int ORDER_QUANTITY = 3;
 
     @BeforeEach
     void setup() {
         member = memberRepository.save(new Member("kiseo", "k", 26, "카타르"));
-        car = itemRepository.save(new Car(100, 20000, 5));
-        orderItem = OrderItem.createOrderItem(car, 3);
+        car = itemRepository.save(new Car(100, 20000, STOCK_QUANTITY));
+        orderItem = OrderItem.createOrderItem(car, ORDER_QUANTITY);
     }
 
 
@@ -103,6 +106,6 @@ class OrderRepositoryTest {
         findOrder.getOrderItems().forEach(orderItem -> orderItem.increaseQuantity(1));
 
         Order updatedOrder = orderRepository.findById(savedOrder.getId()).get();
-        assertEquals(4, updatedOrder.getOrderItems().get(0).getQuantity());
+        assertEquals(STOCK_QUANTITY - 1, updatedOrder.getOrderItems().get(0).getQuantity());
     }
 }

@@ -98,12 +98,4 @@ class ItemRepositoryTest {
         return new Car(100, 20000, 5);
     }
 
-
-    @Test
-    void 쿼리() {
-        List<Item> car = itemRepository.findByType("CAR");
-        for (Item item : car) {
-            System.out.println(item.getClass().getCanonicalName());
-        }
-    }
 }

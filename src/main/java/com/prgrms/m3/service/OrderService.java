@@ -13,12 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
+@Transactional(readOnly = true)
 public class OrderService {
     private final OrderRepository orderRepository;
     private final MemberRepository memberRepository;
     private final ItemRepository itemRepository;
 
+    @Transactional
     public Long order(Long memberId, Long itemId, int count) {
         Member findMember = memberRepository.findById(memberId)
                 .orElseThrow(() -> new RuntimeException("존재하지 않는 회원입니다."));
@@ -35,6 +36,7 @@ public class OrderService {
         return order.getId();
     }
 
+    @Transactional
     public void cancel(Long orderId) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new RuntimeException("존재하지 않는 주문번호입니다."));

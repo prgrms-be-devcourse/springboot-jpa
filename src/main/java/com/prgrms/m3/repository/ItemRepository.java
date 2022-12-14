@@ -8,6 +8,4 @@ import java.util.List;
 
 public interface ItemRepository extends JpaRepository<Item, Long> {
 
-    @Query("select i from Item i where type(i) in (:type)")
-    List<Item> findByType(String type);
 }

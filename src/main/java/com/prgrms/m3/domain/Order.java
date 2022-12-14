@@ -26,7 +26,7 @@ public class Order extends BaseEntity {
     @Lob
     private String memo;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 

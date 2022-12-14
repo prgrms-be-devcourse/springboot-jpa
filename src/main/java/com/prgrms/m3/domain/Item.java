@@ -1,5 +1,6 @@
 package com.prgrms.m3.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @DiscriminatorColumn(name = "DTYPE")
 @Table(name = "item")
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class Item extends BaseEntity {
     @Id
     @Column(name = "item_id")

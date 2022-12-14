@@ -1,5 +1,6 @@
 package com.prgrms.m3.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "member")
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends BaseEntity {
     @Id
     @Column(name = "member_id")
@@ -23,6 +24,7 @@ public class Member extends BaseEntity {
     @Column(nullable = false, length = 30, unique = true)
     private String nickName;
 
+    @Column(name = "age", nullable = false)
     private int age;
 
     @Column(name = "address", nullable = false)
