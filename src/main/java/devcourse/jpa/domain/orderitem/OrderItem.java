@@ -36,6 +36,7 @@ public class OrderItem {
 
     public void enrollOrder(Order order) {
         this.order = order;
+        order.addOrderItem(this);
     }
 
     public Long getId() {
