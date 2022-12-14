@@ -44,6 +44,7 @@ public class OrderItemAndItemMappingTest {
 		Item item = new Item("노트북", 1000000, 100);
 		OrderItem orderItem = new OrderItem(2000000, 2);
 		orderItem.setItem(item);
+		itemRepository.save(item);
 		orderItemRepository.save(orderItem);
 
 		// when

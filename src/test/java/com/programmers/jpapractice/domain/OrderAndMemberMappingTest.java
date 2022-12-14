@@ -47,6 +47,7 @@ public class OrderAndMemberMappingTest {
 		Member member = new Member("권성준", "Jerome", 26, "서울시", "백엔드 개발자 지망생입니다.");
 		Order order = new Order(LocalDateTime.now(), OrderStatus.OPENED, "부재 시 연락주세요.");
 		order.setMember(member);
+		memberRepository.save(member);
 		orderRepository.save(order);
 
 		// when

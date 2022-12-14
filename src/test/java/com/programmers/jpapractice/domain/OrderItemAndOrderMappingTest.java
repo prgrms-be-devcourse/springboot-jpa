@@ -47,6 +47,7 @@ public class OrderItemAndOrderMappingTest {
 		Order order = new Order(LocalDateTime.now(), OrderStatus.OPENED, "부재 시 연락주세요.");
 		OrderItem orderItem = new OrderItem(2000000, 2);
 		orderItem.setOrder(order);
+		orderRepository.save(order);
 		orderItemRepository.save(orderItem);
 
 		// when

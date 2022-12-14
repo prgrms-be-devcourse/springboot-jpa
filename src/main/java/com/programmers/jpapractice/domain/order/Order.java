@@ -43,11 +43,11 @@ public class Order extends BaseEntity {
 	@Lob
 	private String memo;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id", referencedColumnName = "id")
 	private Member member;
 
-	@OneToMany(mappedBy = "order")
+	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
 	private List<OrderItem> orderItems = new ArrayList<>();
 
 	public Order(LocalDateTime orderDatetime, OrderStatus orderStatus, String memo) {
