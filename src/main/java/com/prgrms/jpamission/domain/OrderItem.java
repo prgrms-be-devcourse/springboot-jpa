@@ -3,6 +3,7 @@ package com.prgrms.jpamission.domain;
 import com.prgrms.jpamission.domain.item.Item;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -18,10 +19,10 @@ public class OrderItem extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 10)
     private int price;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 10)
     private int quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)

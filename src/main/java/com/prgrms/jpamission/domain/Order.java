@@ -2,6 +2,7 @@ package com.prgrms.jpamission.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -17,10 +18,15 @@ public class Order extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String memo;
+
     @Enumerated(value = EnumType.STRING)
+    @Column(nullable = false, name = "order_status")
+    @ColumnDefault("OPENED")
     private OrderStatus orderStatus;
-    @Column(columnDefinition = "TIMESTAMP")
+
+    @Column(columnDefinition = "TIMESTAMP", name = "order_datetime", nullable = false)
     private LocalDateTime orderDateTime;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

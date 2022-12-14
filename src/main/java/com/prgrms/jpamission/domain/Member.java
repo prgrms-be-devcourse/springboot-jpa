@@ -20,10 +20,10 @@ public class Member {
     @Column(name = "id")
     private String uuid;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 20)
     private String name;
 
-    @Column(name = "nick_name", unique = true, nullable = false)
+    @Column(name = "nick_name", unique = true, nullable = false, length = 20)
     private String nickName;
 
     @Column(length = 3, nullable = false)
@@ -31,6 +31,7 @@ public class Member {
 
     @Column(unique = true, nullable = false)
     private String address;
+
     private String description;
 
     @OneToMany(mappedBy = "members")

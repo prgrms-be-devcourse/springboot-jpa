@@ -18,6 +18,7 @@ public abstract class Item extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private int price;
+
     @Column(name = "stock_quantity", nullable = false)
     private int stockQuantity;
 
