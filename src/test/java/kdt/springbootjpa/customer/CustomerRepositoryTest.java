@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 @DataJpaTest
 public class CustomerRepositoryTest {
@@ -22,10 +24,12 @@ public class CustomerRepositoryTest {
         Customer customer = Customer.builder().firstName("tlsdud").lastName("fortune").build();
         customerRepository.save(customer);
 
-        Customer savedCustomer = customerRepository.findById(customer.getId()).get();
-
-        assertThat(savedCustomer.getFirstName()).isEqualTo(customer.getFirstName());
-        assertThat(savedCustomer.getLastName()).isEqualTo(customer.getLastName());
+        Optional<Customer> savedCustomer = customerRepository.findById(customer.getId());
+        assertThat(savedCustomer)
+                .hasValueSatisfying(customer1 -> assertAll(
+                        () -> assertThat(customer1.getFirstName()).isEqualTo("tlsdud"),
+                        () -> assertThat(customer1.getLastName()).isEqualTo("fortune")
+                ));
         List<Customer> customers = customerRepository.findAll();
         assertThat(customers).hasSize(1);
     }
@@ -42,9 +46,12 @@ public class CustomerRepositoryTest {
         savedCustomer.changeFirstName(newFirstName);
         savedCustomer.changeLastName(newLastName);
 
-        Customer updatedCustomer = customerRepository.findById(customer.getId()).get();
-        assertThat(updatedCustomer.getFirstName()).isEqualTo(newFirstName);
-        assertThat(updatedCustomer.getLastName()).isEqualTo(newLastName);
+        Optional<Customer> updatedCustomer = customerRepository.findById(customer.getId());
+        assertThat(updatedCustomer)
+                .hasValueSatisfying(customer1 -> assertAll(
+                        () -> assertThat(customer1.getFirstName()).isEqualTo(newFirstName),
+                        () -> assertThat(customer1.getLastName()).isEqualTo(newLastName)
+                ));
         List<Customer> customers = customerRepository.findAll();
         assertThat(customers).hasSize(1);
     }
