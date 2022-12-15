@@ -22,7 +22,6 @@ import org.hibernate.annotations.ColumnDefault;
 import org.springframework.util.Assert;
 
 @Getter
-@Setter
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "dis")
 @Table(name = "item")

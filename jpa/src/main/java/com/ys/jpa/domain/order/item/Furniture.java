@@ -10,7 +10,6 @@ import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.springframework.util.Assert;
 
-@Setter
 @Getter
 @Entity
 @DiscriminatorValue("FURNITURE")

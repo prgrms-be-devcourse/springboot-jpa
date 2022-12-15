@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,9 +26,11 @@ public class Customer {
     private long id;
 
     @Column(nullable = false) @Comment("이름")
+    @NotNull(message = "이름은 빈 값일 수 없습니다")
     private String firstName;
 
     @Column(nullable = false) @Comment("성")
+    @NotNull(message = "성은 빈 값일 수 없습니다") @Size(min = 1, max = 20)
     private String lastName;
 
     public Customer(String firstName, String lastName) {

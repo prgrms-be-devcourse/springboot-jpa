@@ -34,7 +34,7 @@ import org.springframework.util.StringUtils;
 public class Order extends AbstractTimeColumn {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @Column(name = "order_datetime", columnDefinition = "TIMESTAMP", nullable = false)

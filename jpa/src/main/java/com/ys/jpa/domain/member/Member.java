@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -29,16 +31,18 @@ public class Member extends AbstractTimeColumn {
     private Long id;
 
     @Column(name = "name")
+    @NotNull(message = "이름은 빈 값일 수 없습니다")
     @Size(min = 2)
     private String name;
 
     @Column(nullable = false, unique = true)
+    @NotNull(message = "닉네임은 빈 값일 수 없습니다")
     @Size(min = 2)
     private String nickName;
 
     @ColumnDefault("1")
     @Column(nullable = false)
-    @Size(min = 1)
+    @Min(1)
     private int age;
 
     @Column(nullable = false)
@@ -53,18 +57,6 @@ public class Member extends AbstractTimeColumn {
 
     public void addOrder(Order order) {
         order.changeMember(this);
-    }
-
-    public Member(String name, String nickName, int age, String address, String description) {
-        validateName(name);
-        validateAge(age);
-        validateNickName(nickName);
-        validateAddress(address);
-        this.name = name;
-        this.nickName = nickName;
-        this.age = age;
-        this.address = address;
-        this.description = description;
     }
 
     public Member(String name, String nickName, int age, String address) {
