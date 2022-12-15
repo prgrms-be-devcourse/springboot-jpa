@@ -4,13 +4,12 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Setter
 @Entity
 @Table(name = "orders")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -32,14 +31,20 @@ public class Order extends BaseEntity {
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    public Order(String uuid, String email, String address) {
+    public Order(String uuid, String email, String address, String createdBy ) {
         this.uuid = uuid;
         this.orderStatus = OrderStatus.OPENED;
         this.email = email;
         this.address = address;
+        super.setCratedAt(LocalDateTime.now());
+        super.setCreatedBy(createdBy);
     }
 
     public void addOrderItem(OrderItem orderItems) {
         orderItems.setOrder(this);
+    }
+
+    public void changeOrderStatus(OrderStatus orderStatus){
+        this.orderStatus = orderStatus;
     }
 }

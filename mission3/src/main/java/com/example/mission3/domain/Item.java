@@ -1,18 +1,15 @@
 package com.example.mission3.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
-@Setter
 @Entity
 @Table(name = "item")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "item_type")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString
 public class Item {
 
     @Id
@@ -30,24 +27,20 @@ public class Item {
     @Column(nullable = false)
     private long price;
 
-    public Item(String name, long price) {
-        this.name = name;
-        this.price = price;
-    }
     public Item(String name, long price, int stock) {
         this.name = name;
         this.price = price;
         this.stock = stock;
     }
 
-    @Override
-    public String toString() {
-        return "Item{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", stock=" + stock +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                '}';
+    public Item(String name, long price, int stock,String description) {
+        this.name = name;
+        this.price = price;
+        this.stock = stock;
+        this.description = description;
+    }
+
+    public void changeStock(int stock) {
+        this.stock = stock;
     }
 }

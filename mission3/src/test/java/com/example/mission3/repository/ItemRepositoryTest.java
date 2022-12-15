@@ -33,23 +33,20 @@ class ItemRepositoryTest {
         itemRepository.save(item);
         log.info(item.getId() + ""); // 1
 
-        Food food = new Food("라면", 500, 7);
-        food.setChef("최현석");
+        Food food = new Food("라면", 500, 7,"최현석");
         itemRepository.save(food);
 
-        Drink drink = new Drink("커피", 1500);
+        Drink drink = new Drink("커피", 1500,10);
         itemRepository.save(drink);
-
-        List<Item> items = itemRepository.findAll();
-        assertThat(items.size()).isEqualTo(3);
-        assertThat(items.get(0)).isEqualTo(item);
-
-        items.forEach(item1 -> log.info(item1.toString()));
     }
 
     @Test
     @DisplayName("특정 type의 item을 찾을 수 있다.")
     void findByTypeTest() {
+        List<Item> items = itemRepository.findAll();
+        assertThat(items.size()).isEqualTo(3);
+        assertThat(items.get(0)).isEqualTo(item);
+
         List<Food> foods = itemRepository.findAllFoodItems();
         assertThat(foods.size()).isEqualTo(1);
         assertThat(foods.get(0).getChef()).isEqualTo("최현석");
@@ -65,7 +62,7 @@ class ItemRepositoryTest {
         Optional<Item> findItem = itemRepository.findById(Math.toIntExact(item.getId()));
         assertThat(findItem.isPresent()).isTrue();
 
-        findItem.get().setStock(100);
+        findItem.get().changeStock(100);
 
         Optional<Item> updateItem = itemRepository.findById(Math.toIntExact(item.getId()));
         assertThat(updateItem.isPresent()).isTrue();
