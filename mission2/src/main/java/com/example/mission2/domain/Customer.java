@@ -10,6 +10,13 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Customer {
 
+    public Customer(String uuid, String email, String address, String name) {
+        this.uuid = uuid;
+        this.email = email;
+        this.address = address;
+        this.name = name;
+    }
+
     public Customer(String uuid, String email, String address, String name, int age) {
         this.uuid = uuid;
         this.email = email;

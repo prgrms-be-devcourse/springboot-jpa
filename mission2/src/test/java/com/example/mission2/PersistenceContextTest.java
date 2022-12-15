@@ -15,6 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 
 @DataJpaTest
 @Transactional(propagation = Propagation.NOT_SUPPORTED)
@@ -96,13 +98,17 @@ public class PersistenceContextTest {
         em.remove(newCustomer);
 
         transaction.commit();
+
+        var customer = em.find(Customer.class, uuid);
+        assertThat(customer).isNull();
+
     }
 
     @Test
     @DisplayName("update 감지 테스트 - 트랜잭션이 끝난다고 준영속화가 되는 것이 아님")
     void updateTest() {
         var uuid = UUID.randomUUID().toString();
-        var newCustomer = new Customer(uuid,"youngji804@naver.com","안양시 영지네","영지",28);
+        var newCustomer = new Customer(uuid,"youngji804@naver.com","안양시 영지네","영지");
 
         EntityManager em = emf.createEntityManager();
         EntityTransaction transaction = em.getTransaction();
@@ -119,10 +125,20 @@ public class PersistenceContextTest {
         newCustomer.changeAge(29); // 적용 안됨
         transaction.commit();
 
+        var findCustomer = em.find(Customer.class, uuid);
+        assertThat(findCustomer).isNotNull();
+        assertThat(findCustomer.getAge()).isEqualTo(28);
+
         transaction.begin();
-        em.merge(newCustomer); // 영속화
+        newCustomer = em.merge(newCustomer); // 영속화 - 병합 엔티티를 새로 반환
         newCustomer.changeName("새이름"); // 적용됨
         transaction.commit();
+
+        var findCustomer2 = em.find(Customer.class, uuid);
+        assertThat(findCustomer2).isNotNull();
+        assertThat(findCustomer2.getName()).isEqualTo("새이름");
+        assertThat(findCustomer2.getAge()).isEqualTo(29);
+
     }
 
     @Test
@@ -140,14 +156,14 @@ public class PersistenceContextTest {
         em.persist(newCustomer);
         transaction.commit();
 
-        try {
-            transaction.begin();
-            em.clear();
+
+        transaction.begin();
+        em.clear();
+        assertThrows(Exception.class, ()->{
             em.persist(newCustomer); // 중복 key 로 insert error
             transaction.commit();
-        } catch (Exception e) {
-            log.info(e.getMessage());
-        }
+        });
+
 
     }
 
