@@ -42,7 +42,7 @@ public class CustomerTest {
         Set<ConstraintViolation<Customer>> violations = validator.validate(customer);
         List<String> msgs = violations.stream().map(ConstraintViolation::getMessage).toList();
 
-        assertThat(msgs.size()).isEqualTo(1);
+        assertThat(msgs).hasSize(1);
         assertThat(msgs).contains("20자 이내로 입력해주세요");
     }
 
@@ -56,7 +56,7 @@ public class CustomerTest {
         Set<ConstraintViolation<Customer>> violations = validator.validate(customer);
         List<String> msgs = violations.stream().map(ConstraintViolation::getMessage).toList();
 
-        assertThat(msgs.size()).isEqualTo(1);
+        assertThat(msgs).hasSize(1);
         assertThat(msgs).contains("공백일 수 없습니다");
     }
 
@@ -70,7 +70,7 @@ public class CustomerTest {
         Set<ConstraintViolation<Customer>> violations = validator.validate(customer);
         List<String> msgs = violations.stream().map(ConstraintViolation::getMessage).toList();
 
-        assertThat(msgs.size()).isEqualTo(2);
+        assertThat(msgs).hasSize(2);
         assertThat(msgs).contains("공백일 수 없습니다");
     }
 }

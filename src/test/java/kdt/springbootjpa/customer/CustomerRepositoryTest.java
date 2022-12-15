@@ -27,7 +27,7 @@ public class CustomerRepositoryTest {
         assertThat(savedCustomer.getFirstName()).isEqualTo(customer.getFirstName());
         assertThat(savedCustomer.getLastName()).isEqualTo(customer.getLastName());
         List<Customer> customers = customerRepository.findAll();
-        assertThat(customers.size()).isEqualTo(1);
+        assertThat(customers).hasSize(1);
     }
 
     @Test
@@ -46,7 +46,7 @@ public class CustomerRepositoryTest {
         assertThat(updatedCustomer.getFirstName()).isEqualTo(newFirstName);
         assertThat(updatedCustomer.getLastName()).isEqualTo(newLastName);
         List<Customer> customers = customerRepository.findAll();
-        assertThat(customers.size()).isEqualTo(1);
+        assertThat(customers).hasSize(1);
     }
 
     @Test
@@ -59,6 +59,6 @@ public class CustomerRepositoryTest {
         customerRepository.delete(savedCustomer);
 
         List<Customer> customers = customerRepository.findAll();
-        assertThat(customers.size()).isEqualTo(0);
+        assertThat(customers).isEmpty();
     }
 }
