@@ -28,7 +28,7 @@ public class Order extends BaseEntity {
     @Column(nullable = false)
     private String address;
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order",  cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
 
     public Order(String uuid, String email, String address, String createdBy ) {

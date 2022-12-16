@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 @Getter
@@ -27,6 +28,7 @@ public class OrderItem extends BaseEntity {
     private Item item;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
     private Order order;
 
     public OrderItem(int price, int quantity, Item item) {

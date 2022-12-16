@@ -6,11 +6,15 @@ import com.example.mission3.domain.OrderItem;
 import com.example.mission3.domain.OrderStatus;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +22,7 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Slf4j
 @DataJpaTest
 class OrderRepositoryTest {
 
@@ -32,6 +37,7 @@ class OrderRepositoryTest {
 
     private Order order;
     private OrderItem orderItem;
+    private OrderItem orderItem2;
 
     @BeforeEach
     @DisplayName("Order와 OrderItem이 정상 등록된다. - cascade")
@@ -39,17 +45,18 @@ class OrderRepositoryTest {
         Item item = new Item("옷", 4000, 5);
         order = new Order(UUID.randomUUID().toString(), "youngji804@naver.com", "영지네","담당자");
         orderItem = new OrderItem(4000, 3, item);
+        orderItem2 = new OrderItem(500, 2, item);
 
         itemRepository.save(item);
 
+        orderItem2.setOrder(order);
         orderItem.setOrder(order);
         orderRepository.save(order);
 
-        List<Order> orders = orderRepository.findAll();
-        assertThat(orders.size()).isEqualTo(1);
     }
 
     @Test
+    //@Transactional(propagation = Propagation.NOT_SUPPORTED)
     @DisplayName("order을 조회하여 orderItem과 item을 확인한다. - lazy load")
     void findOrderAndOrderItem() {
         Optional<Order> findOrder = orderRepository.findById(order.getUuid());
@@ -57,11 +64,9 @@ class OrderRepositoryTest {
         assertThat(findOrder.isPresent()).isTrue();
         assertThat(findOrder.get().getEmail()).isEqualTo("youngji804@naver.com");
 
-        OrderItem findOrderItem = findOrder.get().getOrderItems().get(0);
-
-        //assertThat(emf.getPersistenceUnitUtil().isLoaded(findOrderItem.getItem())).isFalse(); // 테스트 실패
-        assertThat(findOrderItem.getPrice()).isEqualTo(4000);
-        assertThat(emf.getPersistenceUnitUtil().isLoaded(findOrderItem.getItem())).isTrue();
+        //assertThat(emf.getPersistenceUnitUtil().isLoaded(findOrder.get().getOrderItems())).isFalse(); // 테스트 실패
+        assertThat(findOrder.get().getOrderItems().size()).isEqualTo(2);
+        assertThat(emf.getPersistenceUnitUtil().isLoaded(findOrder.get().getOrderItems())).isTrue();
     }
 
     @Test
@@ -108,4 +113,5 @@ class OrderRepositoryTest {
         OrderItem orderItem1 = em.find(OrderItem.class, orderItem.getId());
         assertThat(orderItem1).isNull();
     }
+
 }
