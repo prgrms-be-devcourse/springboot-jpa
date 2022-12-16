@@ -4,6 +4,7 @@ import kdt.springbootjpa.order.entity.Item;
 import kdt.springbootjpa.order.entity.Member;
 import kdt.springbootjpa.order.entity.Order;
 import kdt.springbootjpa.order.entity.OrderItem;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -24,6 +25,7 @@ public class OrderPersistenceTest {
     EntityManagerFactory entityManagerFactory;
 
     @Test
+    @DisplayName("Order를 저장하기 -order에서 member를 매핑하는 방식")
     void Order_저장하기1() {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -52,11 +54,16 @@ public class OrderPersistenceTest {
 
         Order savedOrder = entityManager.find(Order.class, order.getUuid());
         Member savedMember = entityManager.find(Member.class, member.getId());
-        assertThat(savedOrder.getMember().getId()).isEqualTo(savedMember.getId());
-        assertThat(savedMember.getOrders().get(0).getUuid()).isEqualTo(savedOrder.getUuid());
+        assertThat(savedOrder)
+                .usingRecursiveComparison()
+                .isEqualTo(savedMember.getOrders().get(0));
+        assertThat(savedMember)
+                .usingRecursiveComparison()
+                .isEqualTo(savedOrder.getMember());
     }
 
     @Test
+    @DisplayName("Order를 저장하기 -member에서 order를 매핑하는 방식")
     void Order_저장하기2() {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -84,11 +91,16 @@ public class OrderPersistenceTest {
 
         Order savedOrder = entityManager.find(Order.class, order.getUuid());
         Member savedMember = entityManager.find(Member.class, member.getId());
-        assertThat(savedOrder.getMember().getId()).isEqualTo(savedMember.getId());
-        assertThat(savedMember.getOrders().get(0).getUuid()).isEqualTo(savedOrder.getUuid());
+        assertThat(savedOrder)
+                .usingRecursiveComparison()
+                .isEqualTo(savedMember.getOrders().get(0));
+        assertThat(savedMember)
+                .usingRecursiveComparison()
+                .isEqualTo(savedOrder.getMember());
     }
 
     @Test
+    @DisplayName("OrderItem을 저장하기 -양방향인 orderItem에서 order를 매핑하는 방식")
     void OrderItem_저장하기1() {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -127,11 +139,16 @@ public class OrderPersistenceTest {
         Order returnedOrder = entityManager.find(Order.class, order.getUuid());
         Item returnItem = entityManager.find(Item.class, item.getId());
 
-        assertThat(returnedOrderItem.getItem().getId()).isEqualTo(returnItem.getId());
-        assertThat(returnedOrderItem.getOrder().getUuid()).isEqualTo(returnedOrder.getUuid());
+        assertThat(returnItem)
+                .usingRecursiveComparison()
+                .isEqualTo(returnedOrderItem.getItem());
+        assertThat(returnedOrder)
+                .usingRecursiveComparison()
+                .isEqualTo(returnedOrderItem.getOrder());
     }
 
     @Test
+    @DisplayName("OrderItem을 저장하기 -양방향인 order에서 orderItem을 매핑하는 방식")
     void OrderItem_저장하기2() {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -170,7 +187,11 @@ public class OrderPersistenceTest {
         Order returnedOrder = entityManager.find(Order.class, order.getUuid());
         Item returnItem = entityManager.find(Item.class, item.getId());
 
-        assertThat(returnedOrderItem.getOrder().getUuid()).isEqualTo(returnedOrder.getUuid());
-        assertThat(returnedOrderItem.getItem().getId()).isEqualTo(returnItem.getId());
+        assertThat(returnItem)
+                .usingRecursiveComparison()
+                .isEqualTo(returnedOrderItem.getItem());
+        assertThat(returnedOrder)
+                .usingRecursiveComparison()
+                .isEqualTo(returnedOrderItem.getOrder());
     }
 }
