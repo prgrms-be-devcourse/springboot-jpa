@@ -1,16 +1,19 @@
-package com.example.springboot_jpa.domain;
+package com.example.springboot_jpa.domain.customer;
 
+import com.example.springboot_jpa.global.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "customers")
-public class Customer {
+public class Customer extends BaseEntity {
     @Id
     private long id;
+
     private String firstName;
     private String lastName;
+
 
     public long getId() {
         return id;

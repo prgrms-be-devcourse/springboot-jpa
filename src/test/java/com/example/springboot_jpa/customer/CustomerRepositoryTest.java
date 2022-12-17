@@ -1,5 +1,7 @@
-package com.example.springboot_jpa.domain;
+package com.example.springboot_jpa.customer;
 
+import com.example.springboot_jpa.domain.customer.Customer;
+import com.example.springboot_jpa.domain.customer.CustomerRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
