@@ -1,0 +1,16 @@
+Spring :
+  h2:
+    console:
+      enabled: true
+  jpa:
+    generate-ddl: true  #ddl option
+    hibernate:
+      ddl-auto:
+    database: H2
+    open-in-view: false
+    show-sql: true    #sql 쿼리 확인
+    properties:
+      hibernate:
+        query.in_clause_parameter_padding: true
+        hbm2ddl:
+          auto: create-drop
