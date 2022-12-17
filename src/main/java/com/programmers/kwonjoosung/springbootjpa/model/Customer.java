@@ -1,6 +1,7 @@
 package com.programmers.kwonjoosung.springbootjpa.model;
 
 import lombok.AccessLevel;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
@@ -11,7 +12,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED) // protected 기본 생성자
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
 @Table(name = "customers")
@@ -19,10 +20,10 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id; // Long vs long ....
+    private Long id;
 
     @Column(name = "first_name", nullable = false, length = 20) @Comment("이름")
-    @NotBlank // @NotNull vs @NotBlank
+    @NotBlank
     private String firstName;
 
     @Column(name = "last_name", nullable = false, length = 20) @Comment("성")

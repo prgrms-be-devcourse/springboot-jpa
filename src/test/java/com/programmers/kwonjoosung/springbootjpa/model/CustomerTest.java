@@ -1,114 +1,82 @@
 package com.programmers.kwonjoosung.springbootjpa.model;
 
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-@Slf4j
+
 class CustomerTest {
+
+    private static final String firstName = "joosung";
+    private static final String lastName = "kwon";
+    private Customer customer = new Customer(firstName, lastName);
+
 
     @Test
     @DisplayName("[성공] Customer를 생성할 수 있다.")
     void createTest() {
-        //given
-        String firstName = "joosung";
-        String lastName = "kwon";
-        //when
-        Customer customer = new Customer(firstName, lastName);
+        //given & when
+        Customer newCustomer = new Customer(firstName, lastName);
         //then
-        assertThat(customer.getFirstName()).isEqualTo(firstName);
-        assertThat(customer.getLastName()).isEqualTo(lastName);
-        log.info("customer : firstName {}, lastName {}", customer.getFirstName(), customer.getLastName());
+        assertThat(newCustomer)
+                .hasFieldOrPropertyWithValue("firstName", firstName)
+                .hasFieldOrPropertyWithValue("lastName", lastName);
     }
 
     @Test
     @DisplayName("[성공] Customer의 필드를 수정할 수 있다")
     void updateTest() {
-        //given
-        String firstName = "joosung";
-        String lastName = "kwon";
-        Customer customer = new Customer(firstName, lastName);
-        log.info("customer : firstName {}, lastName {}", customer.getFirstName(), customer.getLastName());
         //when
         customer.changeFirstName("SUNGJOO");
         customer.changeLastName("KIM");
         //then
-        assertThat(customer.getFirstName()).isEqualTo("SUNGJOO");
-        assertThat(customer.getLastName()).isEqualTo("KIM");
-        log.info("customer : firstName {}, lastName {}", customer.getFirstName(), customer.getLastName());
+        assertThat(customer)
+                .hasFieldOrPropertyWithValue("firstName", "SUNGJOO")
+                .hasFieldOrPropertyWithValue("lastName", "KIM");
     }
 
     @Test
     @DisplayName("[실패] 이름에는 숫자가 들어갈 수 없다")
     void nameValidationTest() {
-        //given
-        String firstName = "joosung";
-        String lastName = "kwon";
-        //when
-        Customer customer = new Customer(firstName, lastName);
-        //then
-        assertThrows(IllegalArgumentException.class, () -> {
-            customer.changeFirstName("joosung2");
-            customer.changeLastName("kwon2");
-        });
-    }
-
-    @Test
-    @DisplayName("[실패] 이름에는 null, 공백, space 이 입력 될 수 없다")
-    void nameValidationTest2() {
-        //given
-        String firstName = "joosung";
-        String lastName = "kwon";
-        //when
-        Customer customer = new Customer(firstName, lastName);
-        //then
         assertAll(
-                () -> assertThrows(NullPointerException.class, () -> customer.changeFirstName(null)),
-                () -> assertThrows(IllegalArgumentException.class, () -> customer.changeFirstName("")),
-                () -> assertThrows(IllegalArgumentException.class, () -> customer.changeFirstName(" ")),
-                () -> assertThrows(NullPointerException.class, () -> customer.changeLastName(null)),
-                () -> assertThrows(IllegalArgumentException.class, () -> customer.changeLastName("")),
-                () -> assertThrows(IllegalArgumentException.class, () -> customer.changeLastName(" "))
+                () -> assertThrows(IllegalArgumentException.class, () -> customer.changeFirstName("SUNGJOO1")),
+                () -> assertThrows(IllegalArgumentException.class, () -> customer.changeLastName("KIM1"))
         );
     }
 
-    @Test
+    @ParameterizedTest
+    @ValueSource(strings = {" ",""})
+    @DisplayName("[실패] 이름에는 공백, space 이 입력 될 수 없다")
+    void nameValidationTest2(String value) {
+        assertAll(
+                () -> assertThrows(IllegalArgumentException.class, () -> customer.changeFirstName(value)),
+                () -> assertThrows(IllegalArgumentException.class, () -> customer.changeLastName(value))
+        );
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"joosungjoosungjoosungjoosung"})
     @DisplayName("[실패] 이름은 20자를 넘을 수 없다")
-    void nameValidationTest3() {
-        //given
-        String firstName = "joosung";
-        String lastName = "kwon";
-        //when
-        Customer customer = new Customer(firstName, lastName);
-        //then
+    void nameValidationTest3(String value) {
         assertAll(
-                () -> assertThrows(IllegalArgumentException.class, () -> customer.changeFirstName("joosungjoosungjoosungjoosung")),
-                () -> assertThrows(IllegalArgumentException.class, () -> customer.changeLastName("kwonkwonkwonkwonkwonkwonkwon"))
+                () -> assertThrows(IllegalArgumentException.class, () -> customer.changeFirstName(value)),
+                () -> assertThrows(IllegalArgumentException.class, () -> customer.changeLastName(value))
         );
     }
 
-    @Test
+    @ParameterizedTest
+    @ValueSource(strings = {" ","","joosungjoosungjoosungjoosung"})
     @DisplayName("[실패] 이름 규칙에 맞지 않으면 생성할 수 없다")
-    void nameValidationTest4() {
-        //given
-        String firstName = "joosung";
-        String lastName = "kwon";
-        //when
-        //then
+    void nameValidationTest4(String value) {
         assertAll(
-                () -> assertThrows(NullPointerException.class, () -> new Customer(null, lastName)), // @NotBlank가 동작하는 것인지?
-                () -> assertThrows(IllegalArgumentException.class, () -> new Customer("", lastName)),
-                () -> assertThrows(IllegalArgumentException.class, () -> new Customer(" ", lastName)),
+                () -> assertThrows(NullPointerException.class, () -> new Customer(null, lastName)), // @NotBlank가 동작하는 것인지? -> valid는 다른 방식으로 검증 필요함
                 () -> assertThrows(NullPointerException.class, () -> new Customer(firstName, null)),
-                () -> assertThrows(IllegalArgumentException.class, () -> new Customer(firstName, "")),
-                () -> assertThrows(IllegalArgumentException.class, () -> new Customer(firstName, " ")),
-                () -> assertThrows(IllegalArgumentException.class, () -> new Customer("joosungjoosungjoosungjoosung", lastName)),
-                () -> assertThrows(IllegalArgumentException.class, () -> new Customer(firstName, "kwonkwonkwonkwonkwonkwonkwon")),
-                () -> assertThrows(IllegalArgumentException.class, () -> new Customer("joosung2", lastName)),
-                () -> assertThrows(IllegalArgumentException.class, () -> new Customer(firstName, "kwon2"))
+                () -> assertThrows(IllegalArgumentException.class, () -> new Customer(firstName, value)),
+                () -> assertThrows(IllegalArgumentException.class, () -> new Customer(value, lastName))
         );
     }
 

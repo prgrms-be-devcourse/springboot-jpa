@@ -2,18 +2,17 @@ package com.programmers.kwonjoosung.springbootjpa.repository;
 
 import com.programmers.kwonjoosung.springbootjpa.model.Customer;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-//@RequiredArgsConstructor -> 안되는 이유가 뭘까?
+
 @Slf4j
 @DataJpaTest
-@Transactional
 class CustomerRepositoryTest {
 
     @Autowired
@@ -29,13 +28,13 @@ class CustomerRepositoryTest {
 
         //given
         Customer customer = generateTestCustomer();
-        //when
         customerRepository.save(customer);
+        //when
         Customer savedCustomer = customerRepository.findById(customer.getId()).get();
         //then
-        assertThat(savedCustomer.getFirstName()).isEqualTo(customer.getFirstName());
-        assertThat(savedCustomer.getLastName()).isEqualTo(customer.getLastName());
-        log.info("savedCustomer : firstName {}, lastName {}", savedCustomer.getFirstName(), savedCustomer.getLastName());
+        assertThat(savedCustomer)
+                .hasFieldOrPropertyWithValue("firstName", customer.getFirstName())
+                .hasFieldOrPropertyWithValue("lastName", customer.getLastName());
     }
 
     @Test
@@ -45,7 +44,6 @@ class CustomerRepositoryTest {
         //given
         Customer customer = generateTestCustomer();
         Customer savedCustomer = customerRepository.save(customer);
-        log.info("savedCustomer : firstName {}, lastName {}", savedCustomer.getFirstName(), savedCustomer.getLastName());
 
         //when
         savedCustomer.changeFirstName("SUNGJOO");
@@ -53,9 +51,9 @@ class CustomerRepositoryTest {
         Customer updatedCustomer = customerRepository.findById(customer.getId()).get();
 
         //then
-        assertThat(updatedCustomer.getFirstName()).isEqualTo("SUNGJOO");
-        assertThat(updatedCustomer.getLastName()).isEqualTo("KIM");
-        log.info("updatedCustomer : firstName {}, lastName {}", savedCustomer.getFirstName(), savedCustomer.getLastName());
+        assertThat(updatedCustomer)
+                .hasFieldOrPropertyWithValue("firstName", "SUNGJOO")
+                .hasFieldOrPropertyWithValue("lastName", "KIM");
     }
 
     @Test
@@ -65,12 +63,11 @@ class CustomerRepositoryTest {
         //given
         Customer customer = generateTestCustomer();
         customerRepository.save(customer);
-        Customer savedCustomer = customerRepository.findById(customer.getId()).get();
-        log.info("savedCustomer : firstName {}, lastName {}", savedCustomer.getFirstName(), savedCustomer.getLastName());
         //when
         customerRepository.delete(customer);
+        boolean isCustomerExists = customerRepository.findById(customer.getId()).isPresent();
         //then
-        assertThat(customerRepository.findById(customer.getId()).isPresent()).isFalse();
+        assertThat(isCustomerExists).isFalse();
     }
 
 }
