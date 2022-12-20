@@ -42,10 +42,6 @@ public class Member extends BaseEntity {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
-
     @Builder
     public Member(String name, String nickName, int age, String address, String description) {
         this.name = name;
@@ -53,6 +49,10 @@ public class Member extends BaseEntity {
         this.age = age;
         this.address = address;
         this.description = description;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
     public void addOrder(Order order) {

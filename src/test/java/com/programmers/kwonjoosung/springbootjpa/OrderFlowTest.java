@@ -4,15 +4,11 @@ import com.programmers.kwonjoosung.springbootjpa.model.*;
 import com.programmers.kwonjoosung.springbootjpa.repository.MemberRepository;
 import com.programmers.kwonjoosung.springbootjpa.repository.OrderRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -66,6 +62,14 @@ public class OrderFlowTest {
                     .price(10000)
                     .build();
 
+            private Order addItem(Order order) {
+                OrderItem orderKeyboard = new OrderItem(keyboard, 1);
+                OrderItem orderMouse = new OrderItem(mouse, 1);
+                order.addOrderItem(orderKeyboard);
+                order.addOrderItem(orderMouse);
+                return order;
+            }
+
             @Test
             @DisplayName("주문 생성 테스트")
             void createProductTest() {
@@ -93,12 +97,8 @@ public class OrderFlowTest {
                 member = generateMember();
                 Member savedMember = memberRepository.save(member);
                 Order order = new Order(savedMember);
-                OrderItem orderKeyboard = new OrderItem(keyboard, 1);
-                OrderItem orderMouse = new OrderItem(mouse, 1);
                 //when
-                order.addOrderItem(orderKeyboard);
-                order.addOrderItem(orderMouse);
-                Order savedOrder = orderRepository.save(order);
+                Order savedOrder = orderRepository.save(addItem(order));
                 //then
                 assertThat(savedOrder)
                         .usingRecursiveComparison()
@@ -106,8 +106,7 @@ public class OrderFlowTest {
                 assertThat(savedOrder.getMember())
                         .usingRecursiveComparison()
                         .isEqualTo(savedMember);
-                assertThat(savedOrder.getOrderItems())
-                        .contains(orderKeyboard, orderMouse);
+                assertThat(savedOrder.getOrderItems().size()).isEqualTo(2);
                 log.info("member: {} , orderItems() : {}, order : {}",
                         savedOrder.getMember(), savedOrder.getOrderItems(), savedOrder);
             }
@@ -119,10 +118,7 @@ public class OrderFlowTest {
                 member = generateMember();
                 Member savedMember = memberRepository.save(member);
                 Order order = new Order(savedMember);
-                OrderItem orderKeyboard = new OrderItem(keyboard, 1);
-                OrderItem orderMouse = new OrderItem(mouse, 1);
-                order.putOrderItems(List.of(orderKeyboard, orderMouse));
-                Order savedOrder = orderRepository.save(order);
+                Order savedOrder = orderRepository.save(addItem(order));
                 //when
                 savedOrder.getOrderItems().get(0).addStock(1); // 키보드 재고 1개 추가 -> get("제품명") 필요할 듯
 
@@ -140,13 +136,7 @@ public class OrderFlowTest {
                 member = generateMember();
                 Member savedMember = memberRepository.save(member);
                 Order order = new Order(savedMember);
-                List<OrderItem> items = new ArrayList<>();
-                OrderItem orderKeyboard = new OrderItem(keyboard, 1);
-                OrderItem orderMouse = new OrderItem(mouse, 1);
-                items.add(orderKeyboard);
-                items.add(orderMouse);
-                order.putOrderItems(items);
-                Order savedOrder = orderRepository.save(order);
+                Order savedOrder = orderRepository.save(addItem(order));
                 //when
                 savedOrder.getOrderItems().remove(0);
                 //then
