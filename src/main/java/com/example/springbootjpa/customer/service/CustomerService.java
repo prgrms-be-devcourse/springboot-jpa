@@ -2,10 +2,12 @@ package com.example.springbootjpa.customer.service;
 
 import com.example.springbootjpa.customer.model.Customer;
 import com.example.springbootjpa.customer.repository.CustomerRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class CustomerService {
     private final CustomerRepository repository;
     public CustomerService(CustomerRepository repository) {
