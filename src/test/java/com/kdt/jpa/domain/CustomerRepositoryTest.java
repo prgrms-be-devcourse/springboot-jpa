@@ -28,10 +28,11 @@ class CustomerRepositoryTest {
     @DisplayName("고객 정보가 저장된다.")
     void test_save() {
         //given
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setFirstName("taehee");
-        customer.setLastName("kim");
+        Customer customer = Customer.builder()
+                .id(1L)
+                .firstName("taehee")
+                .lastName("kim")
+                .build();
 
         //when
         customerRepository.save(customer);
@@ -46,15 +47,17 @@ class CustomerRepositoryTest {
     @DisplayName("고객 정보가 수정된다.")
     void test_update() {
         //given
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setFirstName("taehee");
-        customer.setLastName("kim");
+        Customer customer = Customer.builder()
+                .id(1L)
+                .firstName("taehee")
+                .lastName("kim")
+                .build();
+
         Customer entity = customerRepository.save(customer);
 
         //when
-        entity.setFirstName("minji");
-        entity.setLastName("kim");
+        entity.updateFirstName("minji");
+        entity.updateLastName("kim");
 
         //then
         Customer selectedEntity = customerRepository.findById(1L).get();
@@ -67,10 +70,12 @@ class CustomerRepositoryTest {
     @DisplayName("고객 정보 단건을 고객 아이디를 통해 조회한다.")
     void test_findById() {
         //given
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setFirstName("taehee");
-        customer.setLastName("kim");
+        Customer customer = Customer.builder()
+                .id(1L)
+                .firstName("taehee")
+                .lastName("kim")
+                .build();
+
         customerRepository.save(customer);
 
         //when
@@ -84,15 +89,17 @@ class CustomerRepositoryTest {
     @DisplayName("고객 정보 목록을 조회한다.")
     void test_findAll() {
         //given
-        Customer customer1 = new Customer();
-        customer1.setId(1L);
-        customer1.setFirstName("taehee");
-        customer1.setLastName("kim");
+        Customer customer1 = Customer.builder()
+                .id(1L)
+                .firstName("taehee")
+                .lastName("kim")
+                .build();
 
-        Customer customer2 = new Customer();
-        customer2.setId(2L);
-        customer2.setFirstName("minji");
-        customer2.setLastName("kim");
+        Customer customer2 = Customer.builder()
+                .id(2L)
+                .firstName("minji")
+                .lastName("kim")
+                .build();
 
         customerRepository.saveAll(Lists.newArrayList(customer1, customer2));
 
