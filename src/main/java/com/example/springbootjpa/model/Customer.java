@@ -1,5 +1,6 @@
-package com.example.springbootjpa.customer.model;
+package com.example.springbootjpa.model;
 
+import com.example.springbootjpa.audit.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Entity
 @Table(name = "customers")
-public class Customer {
+public class Customer extends BaseEntity {
     @Id
     private Long id;
     private String firstName;

@@ -1,7 +1,7 @@
 package com.example.springbootjpa.customer.repository;
 
 import com.example.springbootjpa.BaseTestContainer;
-import com.example.springbootjpa.customer.model.Customer;
+import com.example.springbootjpa.model.Customer;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

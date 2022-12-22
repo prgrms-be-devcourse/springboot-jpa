@@ -1,7 +1,7 @@
-package com.example.springbootjpa.customer.service;
+package com.example.springbootjpa.service;
 
-import com.example.springbootjpa.customer.model.Customer;
-import com.example.springbootjpa.customer.repository.CustomerRepository;
+import com.example.springbootjpa.model.Customer;
+import com.example.springbootjpa.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
