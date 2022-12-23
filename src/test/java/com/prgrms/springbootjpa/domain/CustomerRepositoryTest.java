@@ -15,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 @DataJpaTest
-//@SpringBootTest
 class CustomerRepositoryTest {
     @Autowired
     private CustomerRepository customerRepository;
@@ -29,10 +28,7 @@ class CustomerRepositoryTest {
     @DisplayName("고객을 저장할 수 있다.")
     void testInsert() {
         // Given
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setLastName("Kim");
-        customer.setFirstName("Changgyu");
+        Customer customer = createCustomer();
 
         // When
         Customer entity = customerRepository.save(customer);
@@ -45,10 +41,7 @@ class CustomerRepositoryTest {
     @DisplayName("고객을 조회할 수 있다.")
     void testFind() {
         // Given
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setLastName("Kim");
-        customer.setFirstName("Changgyu");
+        Customer customer = createCustomer();
         customerRepository.save(customer);
 
         // When
@@ -62,15 +55,12 @@ class CustomerRepositoryTest {
     @DisplayName("고객을 수정할 수 있다.")
     void testUpdate() {
         // Given
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setLastName("Kim");
-        customer.setFirstName("Changgyu");
+        Customer customer = createCustomer();
         customerRepository.save(customer);
 
         // When
         Customer entity = customerRepository.findById(1L).orElseThrow();
-        entity.setLastName("Park");
+        entity.changeFirstName("Park");
         customerRepository.save(entity);
         Customer updated = customerRepository.findById(1L).orElseThrow();
 
@@ -82,10 +72,7 @@ class CustomerRepositoryTest {
     @DisplayName("고객을 삭제할 수 있다.")
     void testDelete() {
         // Given
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setLastName("Kim");
-        customer.setFirstName("Changgyu");
+        Customer customer = createCustomer();
         customerRepository.save(customer);
 
         // When
@@ -93,5 +80,13 @@ class CustomerRepositoryTest {
 
         // Then
         assertThat(customerRepository.findById(1L), is(Optional.empty()));
+    }
+
+    private Customer createCustomer() {
+        return Customer.builder()
+                .id(1L)
+                .firstName("Kim")
+                .lastName("Changgyu")
+                .build();
     }
 }

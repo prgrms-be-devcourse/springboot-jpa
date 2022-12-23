@@ -1,7 +1,9 @@
 package com.prgrms.springbootjpa.domain.order;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
@@ -9,6 +11,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "member")
 public class Member extends BaseEntity {
@@ -19,9 +22,10 @@ public class Member extends BaseEntity {
     @Column(name = "name", nullable = false, length = 30)
     private String name;
 
-    @Column(nullable = false, length = 30, unique = true)
+    @Column(name = "nick_name", nullable = false, length = 30, unique = true)
     private String nickName;
 
+    @Column(name = "age")
     private int age;
 
     @Column(name = "address", nullable = false)
@@ -31,7 +35,7 @@ public class Member extends BaseEntity {
     private String description;
 
     // Order Entity의 member 컬럼이 FK 관리의 주체
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) // ** cascade 주의
     private List<Order> orders = new ArrayList<>();
 
     public void addOrder(Order order) {
