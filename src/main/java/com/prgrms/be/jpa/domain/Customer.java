@@ -21,13 +21,10 @@ public class Customer {
     @Id
     @NotNull
     private Long id;
-
-    @NotNull
     @Size(min = 1, max = 5, message = "이름을 1 ~ 5자 이내로 입력해주세요.")
     @NotBlank(message = "이름을 입력해주세요.")
     private String firstName;
 
-    @NotNull
     @Size(min = 1, max = 2, message = "성을 1 ~ 2자 이내로 입력해주세요.")
     @NotBlank(message = "성을 입력해주세요.")
     private String lastName;
