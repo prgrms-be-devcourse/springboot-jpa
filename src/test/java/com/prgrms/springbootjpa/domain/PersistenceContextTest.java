@@ -35,10 +35,7 @@ public class PersistenceContextTest {
 
         transaction.begin();
 
-        Customer customer = new Customer();     // 비영속 상태
-        customer.setId(1L);
-        customer.setLastName("Kim");
-        customer.setFirstName("Changgyu");
+        Customer customer = createCustomer();   // 비영속 상태
 
         entityManager.persist(customer);        // 비영속 -> 영속 (영속화)
 
@@ -53,10 +50,7 @@ public class PersistenceContextTest {
 
         transaction.begin();
 
-        Customer customer = new Customer();     // 비영속 상태
-        customer.setId(1L);
-        customer.setLastName("Kim");
-        customer.setFirstName("Changgyu");
+        Customer customer = createCustomer();   // 비영속 상태
 
         entityManager.persist(customer);        // 비영속 -> 영속 (영속화)
 
@@ -77,10 +71,7 @@ public class PersistenceContextTest {
 
         transaction.begin();
 
-        Customer customer = new Customer();     // 비영속 상태
-        customer.setId(1L);
-        customer.setLastName("Kim");
-        customer.setFirstName("Changgyu");
+        Customer customer = createCustomer();   // 비영속 상태
 
         entityManager.persist(customer);        // 비영속 -> 영속 (영속화)
 
@@ -88,8 +79,8 @@ public class PersistenceContextTest {
 
         transaction.begin();
 
-        customer.setLastName("Park");
-        customer.setFirstName("David");
+        customer.changeFirstName("Park");
+        customer.changeLastName("David");
 
         transaction.commit();                   // Customer(id = 1L)의 변경 감지 -> Update Query
 
@@ -107,10 +98,7 @@ public class PersistenceContextTest {
 
         transaction.begin();
 
-        Customer customer = new Customer();     // 비영속 상태
-        customer.setId(1L);
-        customer.setLastName("Kim");
-        customer.setFirstName("Changgyu");
+        Customer customer = createCustomer();   // 비영속 상태
 
         entityManager.persist(customer);        // 비영속 -> 영속 (영속화)
 
@@ -126,5 +114,13 @@ public class PersistenceContextTest {
 
         Customer updated = entityManager.find(Customer.class, 1L);
         assertThat(updated, is(nullValue(Customer.class)));
+    }
+
+    private Customer createCustomer() {
+        return Customer.builder()
+                .id(1L)
+                .firstName("Kim")
+                .lastName("Changgyu")
+                .build();
     }
 }

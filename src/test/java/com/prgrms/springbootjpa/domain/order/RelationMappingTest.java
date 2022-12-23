@@ -72,7 +72,7 @@ public class RelationMappingTest {
         order.setUuid(UUID.randomUUID().toString());
         order.setOrderDatetime(LocalDateTime.now());
         order.setOrderStatus(OPENED);
-        order.setMemo("부재시 전화주세요.");
+        order.setDescription("부재시 전화주세요.");
         order.setCreatedBy("changgyu");
         order.setCreatedAt(LocalDateTime.now());
 

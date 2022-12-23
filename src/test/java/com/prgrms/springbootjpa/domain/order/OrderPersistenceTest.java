@@ -12,6 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import static org.hamcrest.Matchers.*;
+import static org.hamcrest.MatcherAssert.*;
 import static com.prgrms.springbootjpa.domain.order.OrderStatus.*;
 
 @Slf4j
@@ -23,12 +25,7 @@ public class OrderPersistenceTest {
     @Test
     @DisplayName("FK를 이용해 회원을 다시 조회한다.")
     void testUsingFK() {
-        Member member = new Member();
-        member.setName("Changgyu Kim");
-        member.setAddress("서울");
-        member.setAge(25);
-        member.setNickName("구구");
-        member.setDescription("백둥이");
+        Member member = createMember();
 
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -41,7 +38,7 @@ public class OrderPersistenceTest {
         order.setUuid(UUID.randomUUID().toString());
         order.setOrderDatetime(LocalDateTime.now());
         order.setOrderStatus(OPENED);
-        order.setMemo("부재시 전화주세요.");
+        order.setDescription("부재시 전화주세요.");
         order.setMemberId(memberEntity.getId());            // FK 직접 지정
 
         entityManager.persist(order);
@@ -52,6 +49,9 @@ public class OrderPersistenceTest {
         Member orderMemberEntity = entityManager.find(Member.class, orderEntity.getMemberId());
         // 객체지향과 관계형 데이터베이스의 패러다임의 불일치를 해소했는가...?
         log.info("Nickname : {}", orderMemberEntity.getNickName());
+
+        assertThat(orderMemberEntity, samePropertyValuesAs(memberEntity));
+        assertThat(order, samePropertyValuesAs(orderEntity));
     }
 
     @Test
@@ -62,12 +62,8 @@ public class OrderPersistenceTest {
 
         transaction.begin();
 
-        Member member = new Member();
-        member.setName("Changgyu Kim");
-        member.setAddress("서울");
-        member.setAge(25);
-        member.setNickName("구구");
-        member.setDescription("백둥이");
+        Member member = createMember();
+        member.setNickName("팔팔");
 
         entityManager.persist(member);
 
@@ -75,7 +71,7 @@ public class OrderPersistenceTest {
         order.setUuid(UUID.randomUUID().toString());
         order.setOrderStatus(OPENED);
         order.setOrderDatetime(LocalDateTime.now());
-        order.setMemo("부재시 연락주세요.");
+        order.setDescription("부재시 연락주세요.");
         order.setMember(member);
 
         entityManager.persist(order);
@@ -89,5 +85,19 @@ public class OrderPersistenceTest {
         log.info("{}", entity.getMember().getName());           // 객체 그래프 탐색
         log.info("{}", entity.getMember().getOrders().size());
         log.info("{}", order.getMember().getOrders().size());
+
+        // 영속성 전이를 통해 Member 는 영속화가 이루어짐
+        assertThat(entity.getMember().getOrders(), hasSize(1));
+        assertThat(entity.getMember().getNickName(), is("팔팔"));
+    }
+
+    private Member createMember() {
+        Member member = new Member();
+        member.setName("Changgyu Kim");
+        member.setAddress("서울");
+        member.setAge(25);
+        member.setNickName("구구");
+        member.setDescription("백둥이");
+        return member;
     }
 }

@@ -25,7 +25,8 @@ public class Order extends BaseEntity {
     private OrderStatus orderStatus;
 
     @Lob
-    private String memo;
+    @Column(name = "description")
+    private String description;
 
     // Member FK
     @Column(name = "member_id", insertable = false, updatable = false)
