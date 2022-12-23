@@ -3,6 +3,7 @@ package com.prgrms.be.jpa.repository;
 import com.prgrms.be.jpa.domain.Customer;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,14 @@ class CustomerRepositoryTest {
     private static final String FIRST = "수영";
     private static final String LAST = "이";
     private static final Long ID = 1L;
-
     @Autowired
     CustomerRepository repository;
+    private Customer customer;
+
+    @BeforeEach
+    void setUp() {
+        customer = new Customer(ID, FIRST, LAST);
+    }
 
     @AfterEach
     void tearDown() {
@@ -32,9 +38,6 @@ class CustomerRepositoryTest {
     @Test
     @DisplayName("고객 정보를 삽입할 수 있다.")
     void insert_test() {
-        // given
-        Customer customer = new Customer(ID, FIRST, LAST);
-
         // when
         repository.save(customer);
 
@@ -49,7 +52,6 @@ class CustomerRepositoryTest {
     @DisplayName("고객 정보를 조회할 수 있다.")
     void find_test() {
         // given
-        Customer customer = new Customer(ID, FIRST, LAST);
         repository.save(customer);
 
         // when
@@ -65,13 +67,11 @@ class CustomerRepositoryTest {
     @DisplayName("고객 정보를 수정할 수 있다.")
     void update_test() {
         // given
-        Customer customer = new Customer(ID, FIRST, LAST);
+        String chgFirst = "태현";
+        String chgLast = "공";
         repository.save(customer);
 
         // when
-        String chgFirst = "태현";
-        String chgLast = "공";
-
         Optional<Customer> optionalCustomer = repository.findById(1L);
         assertThat(optionalCustomer.isPresent(), is(true));
 
@@ -90,7 +90,6 @@ class CustomerRepositoryTest {
     @DisplayName("고객 정보를 삭제할 수 있다.")
     void delete_test() {
         // given
-        Customer customer = new Customer(ID, FIRST, LAST);
         repository.save(customer);
 
         // when
