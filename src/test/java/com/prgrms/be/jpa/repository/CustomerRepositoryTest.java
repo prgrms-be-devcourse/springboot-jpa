@@ -83,7 +83,7 @@ class CustomerRepositoryTest {
         assertThat(updateEntity.isPresent(), is(true));
         assertThat(updateEntity.get().getFirstName(), is(chgFirst));
         assertThat(updateEntity.get().getLastName(), is(chgLast));
-//        log.info("{} {}", updateEntity.getLastName(), updateEntity.getFirstName());
+
     }
 
     @Test
