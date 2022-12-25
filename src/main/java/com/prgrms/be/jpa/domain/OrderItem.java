@@ -1,5 +1,6 @@
-package com.prgrms.be.jpa.domain.order;
+package com.prgrms.be.jpa.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -9,12 +10,12 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Getter
-@NoArgsConstructor
 @Entity
-@Table(name = "order_item")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderItem extends BaseEntity {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue
     private Long id;
 
     @NotNull
@@ -56,10 +57,15 @@ public class OrderItem extends BaseEntity {
         }
 
         this.order = order;
-        order.getOrderItems().add(this);
+        this.order.getOrderItems().add(this);
     }
 
     public void setItem(Item item) {
+        if (Objects.nonNull(this.item)) {
+            this.item.getOrderItems().remove(this);
+        }
+
         this.item = item;
+        this.item.getOrderItems().add(this);
     }
 }
