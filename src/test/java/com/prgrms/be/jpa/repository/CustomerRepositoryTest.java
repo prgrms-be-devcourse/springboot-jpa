@@ -2,7 +2,6 @@ package com.prgrms.be.jpa.repository;
 
 import com.prgrms.be.jpa.domain.Customer;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,11 +27,6 @@ class CustomerRepositoryTest {
     @BeforeEach
     void setUp() {
         customer = new Customer(ID, FIRST, LAST);
-    }
-
-    @AfterEach
-    void tearDown() {
-        repository.deleteAll();
     }
 
     @Test
