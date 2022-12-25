@@ -1,18 +1,18 @@
-package com.prgrms.be.jpa.domain.order;
+package com.prgrms.be.jpa.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Getter
-@NoArgsConstructor
 @Entity
 @DiscriminatorValue("FOOD")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Food extends Item {
-    @Column(name = "chef")
+
     private String chef;
 
     public Food(int price, int stockQuantity, String chef) {

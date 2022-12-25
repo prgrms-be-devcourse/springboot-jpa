@@ -1,23 +1,19 @@
-package com.prgrms.be.jpa.domain.order;
+package com.prgrms.be.jpa.domain;
 
-import lombok.AllArgsConstructor;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @DiscriminatorValue("FURNITURE")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Furniture extends Item {
-    @Column(name = "width")
-    private int width;
 
-    @Column(name = "height")
+    private int width;
     private int height;
 
     public Furniture(int price, int stockQuantity, int width, int height) {
