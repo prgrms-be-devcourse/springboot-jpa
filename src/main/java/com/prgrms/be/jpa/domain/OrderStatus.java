@@ -1,4 +1,4 @@
-package com.prgrms.be.jpa.domain.order;
+package com.prgrms.be.jpa.domain;
 
 public enum OrderStatus {
     OPENED, CANCELLED

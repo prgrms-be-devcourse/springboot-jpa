@@ -1,7 +1,7 @@
 package com.prgrms.be.jpa.repository;
 
-import com.prgrms.be.jpa.domain.order.Order;
-import com.prgrms.be.jpa.domain.order.OrderStatus;
+import com.prgrms.be.jpa.domain.Order;
+import com.prgrms.be.jpa.domain.OrderStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

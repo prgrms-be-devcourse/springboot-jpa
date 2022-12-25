@@ -1,7 +1,7 @@
 package com.prgrms.be.jpa.repository;
 
-import com.prgrms.be.jpa.domain.order.Member;
-import com.prgrms.be.jpa.domain.order.Order;
+import com.prgrms.be.jpa.domain.Member;
+import com.prgrms.be.jpa.domain.Order;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-import static com.prgrms.be.jpa.domain.order.OrderStatus.CANCELLED;
-import static com.prgrms.be.jpa.domain.order.OrderStatus.OPENED;
+import static com.prgrms.be.jpa.domain.OrderStatus.CANCELLED;
+import static com.prgrms.be.jpa.domain.OrderStatus.OPENED;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -32,11 +32,7 @@ class OrderRepositoryTest {
         // given
         Member member = new Member("이수영", "항시영", 25, "대구광역시 남구");
         Order orderOpened = new Order(UUID.randomUUID().toString(), LocalDateTime.now(), OPENED, member);
-        orderOpened.setCreatedAt(LocalDateTime.now());
-        orderOpened.setCreatedBy("suyoung lee");
         Order orderCancelled = new Order(UUID.randomUUID().toString(), LocalDateTime.now(), CANCELLED, member);
-        orderOpened.setCreatedAt(LocalDateTime.now());
-        orderOpened.setCreatedBy("suyoung lee");
 
         // when
         memberRepository.save(member);
@@ -55,11 +51,7 @@ class OrderRepositoryTest {
         // given
         Member member = new Member("이수영", "항시영", 25, "대구광역시 남구");
         Order orderOpened = new Order(UUID.randomUUID().toString(), LocalDateTime.now(), OPENED, member);
-        orderOpened.setCreatedAt(LocalDateTime.now());
-        orderOpened.setCreatedBy("suyoung lee");
         Order orderCancelled = new Order(UUID.randomUUID().toString(), LocalDateTime.now(), OPENED, member);
-        orderCancelled.setCreatedAt(LocalDateTime.now());
-        orderCancelled.setCreatedBy("suyoung lee");
 
         // when
         memberRepository.save(member);
@@ -79,11 +71,7 @@ class OrderRepositoryTest {
         // given
         Member member = new Member("이수영", "항시영", 25, "대구광역시 남구");
         Order orderOpened = new Order(UUID.randomUUID().toString(), LocalDateTime.now(), OPENED, "1234", member);
-        orderOpened.setCreatedAt(LocalDateTime.now());
-        orderOpened.setCreatedBy("suyoung lee");
         Order orderCancelled = new Order(UUID.randomUUID().toString(), LocalDateTime.now(), CANCELLED, member);
-        orderOpened.setCreatedAt(LocalDateTime.now());
-        orderOpened.setCreatedBy("suyoung lee");
 
         // when
         memberRepository.save(member);
