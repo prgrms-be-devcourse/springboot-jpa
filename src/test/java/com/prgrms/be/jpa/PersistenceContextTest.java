@@ -170,6 +170,8 @@ public class PersistenceContextTest {
     void persistence_not_update_test() {
         // given
         Customer customer = new Customer(ID, FIRST, LAST);
+        String chgFirstName = "태현";
+        String chgLastName = "공";
         EntityManager em = emf.createEntityManager();
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
@@ -179,8 +181,6 @@ public class PersistenceContextTest {
         transaction.commit();
         em.clear();
 
-        String chgFirstName = "태현";
-        String chgLastName = "공";
         transaction.begin();
         customer.changeName(chgFirstName, chgLastName);
         transaction.commit();
@@ -197,6 +197,8 @@ public class PersistenceContextTest {
     void persistence_before_update_unpersist_test() {
         // given
         Customer customer = new Customer(ID, FIRST, LAST);
+        String chgFirstName = "태현";
+        String chgLastName = "공";
         EntityManager em = emf.createEntityManager();
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
@@ -205,8 +207,6 @@ public class PersistenceContextTest {
         em.persist(customer);
         transaction.commit();
 
-        String chgFirstName = "태현";
-        String chgLastName = "공";
         transaction.begin();
         customer.changeName(chgFirstName, chgLastName);
         em.clear();
