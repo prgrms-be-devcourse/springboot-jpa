@@ -3,7 +3,6 @@ package com.kdt.jpa.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.id.ForeignGenerator;
 
 import java.util.List;
 import java.util.Objects;
@@ -24,8 +23,8 @@ public class OrderItem {
     @ManyToOne(fetch = LAZY)
     private Orders order;
 
-    @OneToMany(mappedBy = "")
-    private List<Item> item;
+    @OneToMany(mappedBy = "orderItem")
+    private List<Item> items;
 
     public void setOrder(Orders order) {
         if (Objects.nonNull(this.order)) {
@@ -34,6 +33,10 @@ public class OrderItem {
 
         this.order = order;
         order.getOrderItems().add(this);
+    }
+
+    public void addItem(Item item) {
+        item.setOrderItem(this);
     }
 }
 

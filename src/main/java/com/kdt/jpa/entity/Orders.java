@@ -42,8 +42,11 @@ public class Orders {
         if (Objects.nonNull(this.customer)) {
             this.customer.getOrderList().remove(this);
         }
-
         this.customer = customer;
         customer.getOrderList().add(this);
+    }
+
+    public void addOrderItem(OrderItem orderItem) {
+        orderItem.setOrder(this);
     }
 }
