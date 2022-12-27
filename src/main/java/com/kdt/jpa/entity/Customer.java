@@ -21,9 +21,8 @@ public class Customer extends BaseEntity {
     @Column(length = 10, nullable = false)
     private String lastName;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Orders> orderList = new ArrayList<>();
-
 
     public Customer(String firstName, String lastName) {
         this.firstName = firstName;
