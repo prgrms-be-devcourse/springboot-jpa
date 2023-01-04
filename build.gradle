@@ -36,6 +36,9 @@ dependencies {
 
     // Entity validation 관련한 어노테이션을 위한 의존성
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // 구아바 관련 의존성
+    implementation group: 'com.google.guava', name: 'guava', version: '31.1-jre'
 }
 
 tasks.named('test') {

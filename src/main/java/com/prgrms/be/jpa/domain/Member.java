@@ -5,10 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.google.common.base.Preconditions.checkArgument;
 
 @Getter
 @Entity
@@ -20,19 +24,20 @@ public class Member extends BaseEntity {
     @Column(name = "member_id")
     private Long id;
 
-    @NotNull
-    @Size(min = 2, max = 10)
+    @NotBlank
+    @Size(min = 2, max = 17)
     private String name;
 
-    @NotNull
-    @Size(min = 2, max = 10)
+    @NotBlank
+    @Size(max = 12)
     @Column(unique = true)
     private String nickName;
 
-    @NotNull
+    @Positive
+    @Max(value = 200)
     private int age;
 
-    @NotNull
+    @NotBlank
     private String address;
 
     private String description;
@@ -45,12 +50,12 @@ public class Member extends BaseEntity {
     }
 
     public Member(String name, String nickName, int age, String address, String description) {
-        if (name.isBlank()) {
-            throw new IllegalArgumentException("이름은 공백만으로 구성될 수 없습니다.");
-        }
-        if (nickName.isBlank()) {
-            throw new IllegalArgumentException("닉네임은 공백만으로 구성될 수 없습니다.");
-        }
+        checkArgument(!name.isBlank(), "이름이 비어있거나 공백으로만 이루어지면 안됩니다.", name);
+        checkArgument(2 <= name.length() && name.length() <= 17, "이름은 2자 ~ 17자 범위에 속해야합니다.", name);
+        checkArgument(!nickName.isBlank(), "닉네임이 비어있거나 공백으로만 이루어지면 안됩니다.", nickName);
+        checkArgument(nickName.length() <= 12, "닉네임은 12자이하여야 합니다.", nickName);
+        checkArgument(0 < age && age <= 200, "나이가 음수이거나 150세를 넘을 수 없습니다.", age);
+        checkArgument(!address.isBlank(), "주소가 비어있거나 공백으로만 이루어지면 안됩니다.", address);
 
         this.name = name;
         this.nickName = nickName;
