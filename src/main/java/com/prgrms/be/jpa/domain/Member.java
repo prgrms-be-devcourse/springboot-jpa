@@ -48,6 +48,9 @@ public class Member extends BaseEntity {
         if (name.isBlank()) {
             throw new IllegalArgumentException("이름은 공백만으로 구성될 수 없습니다.");
         }
+        if (nickName.isBlank()) {
+            throw new IllegalArgumentException("닉네임은 공백만으로 구성될 수 없습니다.");
+        }
 
         this.name = name;
         this.nickName = nickName;
