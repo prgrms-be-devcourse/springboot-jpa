@@ -4,7 +4,6 @@ import com.prgrms.be.jpa.repository.ItemRepository;
 import com.prgrms.be.jpa.repository.MemberRepository;
 import com.prgrms.be.jpa.repository.OrderItemRepository;
 import com.prgrms.be.jpa.repository.OrderRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static com.prgrms.be.jpa.domain.OrderStatus.OPENED;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 @DataJpaTest
 public class OrderOrderItemItemPersistenceTest {
@@ -47,11 +48,12 @@ public class OrderOrderItemItemPersistenceTest {
         // when
         Order getOrder = orderRepository.save(order);
         Optional<Order> updatedOrder = orderRepository.findById(order.getUuid());
-        Assertions.assertThat(updatedOrder).isPresent();
+        assertThat(updatedOrder).isPresent();
 
         // then
-        Assertions.assertThat(updatedOrder.get().getOrderItems())
-                .hasSize(2)
-                .isSameAs(getOrder.getOrderItems());
+        assertAll(
+                () -> assertThat(updatedOrder.get().getOrderItems()).hasSize(2),
+                () -> assertThat(updatedOrder.get().getOrderItems()).isSameAs(getOrder.getOrderItems())
+        );
     }
 }

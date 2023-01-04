@@ -39,10 +39,7 @@ public class Order extends BaseEntity {
     private List<OrderItem> orderItems = new ArrayList<>();
 
     public Order(String uuid, LocalDateTime orderDatetime, OrderStatus orderStatus, Member member) {
-        this.uuid = uuid;
-        this.orderDatetime = orderDatetime;
-        this.orderStatus = orderStatus;
-        setMember(member);
+        this(uuid, orderDatetime, orderStatus, "", member);
     }
 
     public Order(String uuid, LocalDateTime orderDatetime, OrderStatus orderStatus, String memo, Member member) {
