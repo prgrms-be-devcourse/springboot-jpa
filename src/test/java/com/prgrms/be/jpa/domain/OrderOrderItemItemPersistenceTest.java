@@ -4,7 +4,6 @@ import com.prgrms.be.jpa.repository.ItemRepository;
 import com.prgrms.be.jpa.repository.MemberRepository;
 import com.prgrms.be.jpa.repository.OrderItemRepository;
 import com.prgrms.be.jpa.repository.OrderRepository;
-import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,7 +16,6 @@ import java.util.UUID;
 
 import static com.prgrms.be.jpa.domain.OrderStatus.OPENED;
 
-@Slf4j
 @DataJpaTest
 public class OrderOrderItemItemPersistenceTest {
 
