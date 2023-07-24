@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.Getter;
 
+import java.util.Objects;
+
 @Entity
 @Getter
 public class Customer {
@@ -14,6 +16,8 @@ public class Customer {
     }
 
     public Customer(String firstName, String lastName) {
+        validateFirstName(firstName);
+        validateLastName(lastName);
         this.firstName = firstName;
         this.lastName = lastName;
     }
@@ -26,4 +30,26 @@ public class Customer {
 
     @Column(length = 2, nullable = false)
     private String lastName;
+
+    public void changeFirstName(String firstName) {
+        validateFirstName(firstName);
+        this.firstName = firstName;
+    }
+
+    public void changeLastName(String lastName) {
+        validateLastName(lastName);
+        this.lastName = lastName;
+    }
+
+    private static void validateLastName(String lastName) {
+        if (Objects.isNull(lastName) || lastName.isBlank()) {
+            throw new IllegalArgumentException("성이 비어있습니다.");
+        }
+    }
+
+    private static void validateFirstName(String firstName) {
+        if (Objects.isNull(firstName) || firstName.isBlank()) {
+            throw new IllegalArgumentException("이름이 비어있습니다.");
+        }
+    }
 }
