@@ -4,6 +4,7 @@ import com.kdt.kdtjpa.domain.Customer;
 import com.kdt.kdtjpa.domain.CustomerRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,6 +28,7 @@ public class JPATest {
         repository.deleteAll();
     }
 
+    @DisplayName("Customer 객체를 저장하고 조회하면 같은 값을 보장한다.")
     @Test
     void insert_test() {
         // Given
@@ -43,6 +45,7 @@ public class JPATest {
         assertThat(customer).isEqualTo(entity);
     }
 
+    @DisplayName("Customer 값이 없는데 조회하면 예외를 발생한다.")
     @Test
     void find_test() {
         // When, Then
@@ -50,6 +53,7 @@ public class JPATest {
                 .isInstanceOf(NoSuchElementException.class);
     }
 
+    @DisplayName("Customer 값을 update한 다음 조회하면 같은 객체를 보장한다.")
     @Test
     void update_test() {
         // Given
@@ -69,6 +73,7 @@ public class JPATest {
         assertThat(entity).isEqualTo(updated);
     }
 
+    @DisplayName("Customer 객체를 저장, 삭제 후 조회 하면 예외가 발생한다.")
     @Test
     void delete_test() {
         // Given
