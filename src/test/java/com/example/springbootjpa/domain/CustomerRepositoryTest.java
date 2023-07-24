@@ -1,5 +1,6 @@
 package com.example.springbootjpa.domain;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +17,18 @@ class CustomerRepositoryTest {
     @Autowired
     private CustomerRepository customerRepository;
 
+    Customer customer;
+
+    @BeforeEach
+    void setUp() {
+        customer = Customer.builder()
+                .username("hong")
+                .address("서울시").build();
+    }
+
     @Test
     @DisplayName("고객 생성")
     void saveTest() throws Exception {
-
-        //given
-        Customer customer = getCustomer();
 
         //when
         Customer savedCustomer = customerRepository.save(customer);
@@ -36,7 +43,6 @@ class CustomerRepositoryTest {
     void findByIdTest() throws Exception {
 
         //given
-        Customer customer = getCustomer();
         Customer savedCustomer = customerRepository.save(customer);
 
         //when
@@ -52,7 +58,6 @@ class CustomerRepositoryTest {
     void findAllTest() throws Exception {
 
         //given
-        Customer customer = getCustomer();
         Customer savedCustomer = customerRepository.save(customer);
 
         //when
@@ -68,7 +73,6 @@ class CustomerRepositoryTest {
     void updateTest() throws Exception {
 
         //given
-        Customer customer = getCustomer();
         Customer savedCustomer = customerRepository.save(customer);
 
         //when
@@ -89,7 +93,6 @@ class CustomerRepositoryTest {
     void deleteAllTest() throws Exception {
 
         //given
-        Customer customer = getCustomer();
         customerRepository.save(customer);
 
         //when
@@ -99,13 +102,5 @@ class CustomerRepositoryTest {
         List<Customer> customers = customerRepository.findAll();
         assertThat(customers.isEmpty()).isEqualTo(true);
         assertThat(customers.size()).isEqualTo(0);
-    }
-
-    private Customer getCustomer() {
-        Customer customer = Customer.builder()
-                .username("hong")
-                .address("서울시").build();
-
-        return customer;
     }
 }
