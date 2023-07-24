@@ -5,7 +5,6 @@ import lombok.*;
 
 @Entity
 @Table(name = "customers")
-@Getter
 @EqualsAndHashCode
 @NoArgsConstructor(access =AccessLevel.PROTECTED)
 public class Customer {
