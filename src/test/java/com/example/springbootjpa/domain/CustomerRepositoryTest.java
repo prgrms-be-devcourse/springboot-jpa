@@ -81,7 +81,8 @@ class CustomerRepositoryTest {
                 .address("부산시")
                 .build();
 
-        savedCustomer.updateCustomer(updateCustomer);
+        savedCustomer.updateUsername(updateCustomer.getUsername());
+        savedCustomer.updateAddress(updateCustomer.getAddress());
 
         //then
         assertThat(savedCustomer.getUsername()).isEqualTo("kim");

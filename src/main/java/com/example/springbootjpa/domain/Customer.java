@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import static com.example.springbootjpa.golbal.ErrorCode.INVALID_ADDRESS;
 import static com.example.springbootjpa.golbal.ErrorCode.INVALID_USERNAME;
 
 @Getter
@@ -30,26 +31,34 @@ public class Customer {
     @Column(nullable = false)
     private String address;
 
-    public void updateCustomer(Customer customer) {
-        this.username = customer.getUsername();
-        this.address = customer.getAddress();
-    }
-
     @Builder
     public Customer(Long id, String username, String address) {
         this.id = id;
-        validateInformation(username, address);
+        validateUsername(username);
         this.username = username;
+        validateUsername(address);
         this.address = address;
     }
 
-    private void validateInformation(String username, String address) {
+    public void updateUsername(String username) {
+        validateUsername(username);
+        this.username = username;
+    }
+
+    public void updateAddress(String address) {
+        validateAddress(address);
+        this.address = address;
+    }
+
+    private void validateUsername(String username) {
         if (!StringUtils.hasText(username)) {
             throw new DomainException(INVALID_USERNAME);
         }
+    }
 
+    private void validateAddress(String address) {
         if (!StringUtils.hasText(address)) {
-            throw new DomainException(INVALID_USERNAME);
+            throw new DomainException(INVALID_ADDRESS);
         }
     }
 }
