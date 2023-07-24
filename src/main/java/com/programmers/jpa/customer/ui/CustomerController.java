@@ -5,10 +5,9 @@ import com.programmers.jpa.customer.application.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RestController
@@ -20,7 +19,27 @@ public class CustomerController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/customers")
-    public Long create(CreateRequest createRequest) {
+    public Long createCustomer(@RequestBody CreateRequest createRequest) {
         return customerService.create(createRequest);
+    }
+
+    @GetMapping("/customers/{id}")
+    public FindResponse findCustomer(@PathVariable Long id) {
+        return customerService.findById(id);
+    }
+
+    @GetMapping("/customers")
+    public List<FindResponse> findCustomers() {
+        return customerService.findAll();
+    }
+
+    @PatchMapping("/customers")
+    public Long updateCustomer(@RequestBody UpdateRequest updateRequest) {
+        return customerService.update(updateRequest);
+    }
+
+    @DeleteMapping("/customers/{id}")
+    public void deleteCustomer(@PathVariable Long id) {
+        customerService.deleteById(id);
     }
 }
