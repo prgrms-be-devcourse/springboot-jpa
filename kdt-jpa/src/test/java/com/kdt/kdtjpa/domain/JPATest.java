@@ -1,7 +1,5 @@
-package com.kdt.kdtjpa;
+package com.kdt.kdtjpa.domain;
 
-import com.kdt.kdtjpa.domain.Customer;
-import com.kdt.kdtjpa.domain.CustomerRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -32,10 +30,11 @@ public class JPATest {
     @Test
     void insert_test() {
         // Given
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setFirstName("junho");
-        customer.setLastName("hwang");
+        Customer customer = Customer.createCustomer()
+                .id(1L)
+                .lastName("Hwang")
+                .firstName("Junho")
+                .build();
 
         // When
         repository.save(customer);
@@ -57,16 +56,17 @@ public class JPATest {
     @Test
     void update_test() {
         // Given
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setFirstName("junho");
-        customer.setLastName("hwang");
+        Customer customer = Customer.createCustomer()
+                .id(1L)
+                .lastName("Hwang")
+                .firstName("Junho")
+                .build();
         repository.save(customer);
 
         // When
         Customer entity = repository.findById(1L).orElseThrow();
-        entity.setFirstName("backend");
-        entity.setLastName("programmers");
+        entity.changeFirstName("Kim");
+        entity.changeLastName("Happy");
 
         // Then
         Customer updated = repository.findById(1L).orElseThrow();
@@ -77,10 +77,11 @@ public class JPATest {
     @Test
     void delete_test() {
         // Given
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setFirstName("junho");
-        customer.setLastName("hwang");
+        Customer customer = Customer.createCustomer()
+                .id(1L)
+                .lastName("Hwang")
+                .firstName("Junho")
+                .build();
         repository.save(customer);
 
         // When
