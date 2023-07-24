@@ -1,7 +1,7 @@
 package com.programmers.week.order.domain;
 
-import com.programmers.week.Message;
 import com.programmers.week.base.BaseEntity;
+import com.programmers.week.exception.Message;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;

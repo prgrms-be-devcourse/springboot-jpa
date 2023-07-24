@@ -39,10 +39,10 @@ public class CustomerController {
     return customerService.update(request);
   }
 
-  @ResponseStatus
-  @DeleteMapping("/customers/{id}")
-  public void delete(@PathVariable Long id) {
-    customerService.deleteById(id);
-  }
+    @ResponseStatus
+    @DeleteMapping("/customers/{id}")
+    public void delete(@PathVariable Long id) {
+        customerService.deleteById(id);
+    }
 
 }

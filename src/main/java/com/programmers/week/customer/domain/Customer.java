@@ -1,6 +1,6 @@
 package com.programmers.week.customer.domain;
 
-import com.programmers.week.Message;
+import com.programmers.week.exception.Message;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -17,23 +17,18 @@ public class Customer {
   @GeneratedValue
   private Long id;
 
-  @Column(length = 5, nullable = false)
-  private String firstName;
+    @Column(length = 5, nullable = false)
+    private String firstName;
 
-  @Column(length = 2, nullable = false)
-  private String lastName;
+    @Column(length = 2, nullable = false)
+    private String lastName;
 
-  public Customer(String firstName, String lastName) {
-    validateFirstName(firstName);
-    validateLastName(lastName);
-    this.firstName = firstName;
-    this.lastName = lastName;
-  }
-
-  public void changeFirstName(String firstName) {
-    validateFirstName(firstName);
-    this.firstName = firstName;
-  }
+    public Customer(String firstName, String lastName) {
+        validateFirstName(firstName);
+        validateLastName(lastName);
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
   private static void validateFirstName(String firstName) {
     if (Objects.isNull(firstName) || firstName.isBlank()) {

@@ -1,4 +1,4 @@
-package com.programmers.week.customer.ui;
+package com.programmers.week.customer.presentation;
 
 import com.programmers.week.customer.domain.Customer;
 
