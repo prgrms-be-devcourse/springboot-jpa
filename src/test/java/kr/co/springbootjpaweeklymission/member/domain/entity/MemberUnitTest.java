@@ -1,7 +1,9 @@
 package kr.co.springbootjpaweeklymission.member.domain.entity;
 
 import jakarta.validation.ConstraintViolationException;
+import kr.co.springbootjpaweeklymission.member.domain.model.Address;
 import kr.co.springbootjpaweeklymission.member.domain.model.MemberCreatorFactory;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -16,13 +18,21 @@ class MemberUnitTest {
     @Autowired
     private TestEntityManager testEntityManager;
 
+    private Address address;
+
+    @BeforeEach
+    void setUp() {
+        address = Address.builder()
+                .street("000도 00시")
+                .build();
+    }
+
     @ParameterizedTest
     @CsvSource(value = {"exampenaver.com", "@naver.com", "example@", "\\ "})
     @DisplayName(value = "이메일은 example@domainName.domainTop 형식을 따른다.")
     void 이메일이_유효한_형식인지_검증(String email) {
         // Given
-        final Member member
-                = MemberCreatorFactory.createMember(email, "010-0000-0000", "addressTest");
+        final Member member = MemberCreatorFactory.createMember(email, "010-0000-0000", address);
 
         // When, Then
         assertThatThrownBy(() -> testEntityManager.persistAndFlush(member))
@@ -33,8 +43,7 @@ class MemberUnitTest {
     @CsvSource(value = {"010-12-5678", "01012345678", "0", "\\ ", "030-1234-1234"})
     void 전화번호_형식이_맞지_않음(String cellPhone) {
         // Given
-        final Member member
-                = MemberCreatorFactory.createMember("example@domain.top", cellPhone, "addressTest");
+        final Member member = MemberCreatorFactory.createMember("example@domain.top", cellPhone, address);
 
         // When, Then
         assertThatThrownBy(() -> testEntityManager.persistAndFlush(member))

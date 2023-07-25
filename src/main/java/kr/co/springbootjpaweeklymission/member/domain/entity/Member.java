@@ -3,6 +3,7 @@ package kr.co.springbootjpaweeklymission.member.domain.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import kr.co.springbootjpaweeklymission.global.common.Regexp;
+import kr.co.springbootjpaweeklymission.member.domain.model.Address;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,11 +30,11 @@ public class Member {
     @Column(name = "cell_phone", length = 15, nullable = false, unique = true)
     private String cellPhone;
 
-    @Column(name = "address", length = 30, nullable = false)
-    private String address;
+    @Embedded
+    private Address address;
 
     @Builder
-    private Member(String name, String email, String cellPhone, String address) {
+    private Member(String name, String email, String cellPhone, Address address) {
         this.name = name;
         this.email = email;
         this.cellPhone = cellPhone;

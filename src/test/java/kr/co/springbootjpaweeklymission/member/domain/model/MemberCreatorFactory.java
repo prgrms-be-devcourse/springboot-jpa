@@ -8,11 +8,14 @@ public class MemberCreatorFactory {
                 .name("testName")
                 .email("example@domain.top")
                 .cellPhone("010-0000-0000")
-                .address("00도 00시 00동 000동 0000호")
+                .address(Address.builder()
+                        .street("00도 00시")
+                        .detail("000동 0000호")
+                        .build())
                 .build();
     }
 
-    public static Member createMember(String email, String cellPhone, String address) {
+    public static Member createMember(String email, String cellPhone, Address address) {
         return Member.builder()
                 .name("testName")
                 .email(email)
