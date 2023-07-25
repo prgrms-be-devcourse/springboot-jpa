@@ -1,6 +1,7 @@
 package com.lecture.jpa.domain;
 
 import jakarta.transaction.Transactional;
+import java.util.Optional;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -10,6 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.samePropertyValuesAs;
 
 @SpringBootTest
 @Transactional
@@ -26,10 +30,7 @@ class CustomerRepositoryTest {
     @Test
     void 고객정보가_저장되는지_확인한다() {
         // Given
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setFirstName("beomu");
-        customer.setLastName("kim");
+        Customer customer = new Customer(1L, "beomu", "kim");
 
         // When
         customerRepository.save(customer);
@@ -43,10 +44,7 @@ class CustomerRepositoryTest {
     @Test
     void 고객정보가_수정되는지_확인한다() {
         // Given
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setFirstName("beomu");
-        customer.setLastName("kim");
+        Customer customer = new Customer(1L, "beomu", "kim");
         Customer entity = customerRepository.save(customer);
 
         // When
@@ -63,33 +61,22 @@ class CustomerRepositoryTest {
     @Test
     void 단건조회를_확인한다() {
         // Given
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setFirstName("beomu");
-        customer.setLastName("kim");
+        Customer customer = new Customer(1L, "beomu", "kim");
         customerRepository.save(customer);
 
         // When
-        Customer selected = customerRepository.findById(customer.getId()).get();
+        Optional<Customer> selected = customerRepository.findById(customer.getId());
 
         // Then
-        assertThat(customer.getId()).isEqualTo(selected.getId());
+        assertThat(selected.isPresent(), is(true));
+        assertThat(customer, samePropertyValuesAs(selected.get()));
     }
 
     @Test
     void 리스트조회를_확인한다() {
         // Given
-        Customer customer1 = new Customer();
-        customer1.setId(1L);
-        customer1.setFirstName("beomu");
-        customer1.setLastName("kim");
-
-        Customer customer2 = new Customer();
-        customer2.setId(2L);
-        customer2.setFirstName("heungmin");
-        customer2.setLastName("son");
-
-
+        Customer customer1 = new Customer(1L, "beomu", "kim");
+        Customer customer2 = new Customer(2L, "heungmin", "son");
 
         customerRepository.saveAll(Lists.newArrayList(customer1, customer2));
 
