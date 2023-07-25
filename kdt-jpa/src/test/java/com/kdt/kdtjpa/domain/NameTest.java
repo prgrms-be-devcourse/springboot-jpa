@@ -21,8 +21,8 @@ class NameTest {
 
     @DisplayName("값이 같으면 Name 객체의 동등성을 보장한다.")
     @Test
-    void equals_and_HashCode() {
-        // Given,When
+    void when_nameValueIsSame_Expects_SameObject() {
+        // Given, When
         Name name1 = new Name("Hwang");
         Name name2 = new Name("Hwang");
 
@@ -33,8 +33,8 @@ class NameTest {
 
     @DisplayName("값이 같으면 Name 객체의 동등성을 보장하지 않는다.")
     @Test
-    void equals_and_HashCode2() {
-        // Given,When
+    void when_nameValueIsNotSame_Expects_DifferentObject() {
+        // Given, When
         Name name1 = new Name("Hwang");
         Name name2 = new Name("Kim");
 
