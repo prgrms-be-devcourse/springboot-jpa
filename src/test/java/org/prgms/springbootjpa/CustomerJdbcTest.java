@@ -4,7 +4,8 @@ import org.junit.jupiter.api.*;
 
 import java.sql.*;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CustomerJdbcTest {
@@ -49,7 +50,7 @@ public class CustomerJdbcTest {
     void save() throws SQLException {
         int row = statement.executeUpdate(INSERT_SQL);
 
-        assertThat(row).isEqualTo(1);
+        assertThat(row, is(1));
     }
 
     @Test
@@ -60,7 +61,7 @@ public class CustomerJdbcTest {
 
         while (resultSet.next()) {
             String fullName = resultSet.getString("first_name") + " " + resultSet.getString("last_name");
-            assertThat(fullName).isEqualTo("hyeonji park");
+            assertThat(fullName, is("hyeonji park"));
         }
     }
 
@@ -74,10 +75,10 @@ public class CustomerJdbcTest {
 
         while (resultSet.next()) {
             String fullName = resultSet.getString("first_name") + " " + resultSet.getString("last_name");
-            assertThat(fullName).isEqualTo("hyeonz park");
+            assertThat(fullName, is("hyeonz park"));
         }
 
-        assertThat(row).isEqualTo(1);
+        assertThat(row, is(1));
     }
 
     @Test
@@ -93,7 +94,7 @@ public class CustomerJdbcTest {
             checked = true;
         }
 
-        assertThat(row).isEqualTo(1);
-        assertThat(checked).isFalse();
+        assertThat(row, is(1));
+        assertThat(checked, is(false));
     }
 }
