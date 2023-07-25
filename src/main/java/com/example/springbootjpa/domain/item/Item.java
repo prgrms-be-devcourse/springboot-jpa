@@ -55,7 +55,7 @@ public abstract class Item {
     public void removeStock(int quantity) {
         int restStock = this.stockQuantity - quantity;
         if (restStock < 0) {
-            throw new InvalidDomainConditionException(ErrorCode.INVALID_MOUSE_COLOR);
+            throw new InvalidDomainConditionException(ErrorCode.OUT_OF_STOCK);
         }
         this.stockQuantity = restStock;
     }
