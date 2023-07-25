@@ -18,14 +18,12 @@ public class Customer {
     private String lastName;
 
     public Customer(long id, String firstName, String lastName) {
-        System.out.println("Customer.Customer");
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
     public Customer() {
-        System.out.println("Customer.Customer - basic Constructor");
     }
 
     public void changeFirstName(String firstName) {
