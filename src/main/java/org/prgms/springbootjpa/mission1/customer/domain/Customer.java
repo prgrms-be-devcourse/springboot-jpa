@@ -1,4 +1,4 @@
-package org.prgms.springbootjpa.customer.domain;
+package org.prgms.springbootjpa.mission1.customer.domain;
 
 import org.apache.ibatis.type.Alias;
 

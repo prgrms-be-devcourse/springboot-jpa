@@ -1,6 +1,6 @@
-package org.prgms.springbootjpa.customer.repository;
+package org.prgms.springbootjpa.mission1.customer.repository;
 
-import org.prgms.springbootjpa.customer.domain.Customer;
+import org.prgms.springbootjpa.mission1.customer.domain.Customer;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;

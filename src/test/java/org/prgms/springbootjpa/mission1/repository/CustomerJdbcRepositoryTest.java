@@ -1,10 +1,10 @@
-package org.prgms.springbootjpa.repository;
+package org.prgms.springbootjpa.mission1.repository;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.prgms.springbootjpa.customer.repository.CustomerJdbcRepository;
-import org.prgms.springbootjpa.customer.domain.Customer;
+import org.prgms.springbootjpa.mission1.customer.repository.CustomerJdbcRepository;
+import org.prgms.springbootjpa.mission1.customer.domain.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;

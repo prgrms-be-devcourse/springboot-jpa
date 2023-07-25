@@ -1,4 +1,4 @@
-package org.prgms.springbootjpa;
+package org.prgms.springbootjpa.mission1;
 
 import org.junit.jupiter.api.*;
 

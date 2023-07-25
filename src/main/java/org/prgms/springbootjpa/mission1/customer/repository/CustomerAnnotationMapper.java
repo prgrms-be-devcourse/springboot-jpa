@@ -1,9 +1,9 @@
-package org.prgms.springbootjpa.customer.repository;
+package org.prgms.springbootjpa.mission1.customer.repository;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import org.prgms.springbootjpa.customer.domain.Customer;
+import org.prgms.springbootjpa.mission1.customer.domain.Customer;
 
 import java.util.List;
 

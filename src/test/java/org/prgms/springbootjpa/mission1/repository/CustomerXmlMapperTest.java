@@ -1,10 +1,10 @@
-package org.prgms.springbootjpa.repository;
+package org.prgms.springbootjpa.mission1.repository;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.prgms.springbootjpa.customer.repository.CustomerAnnotationMapper;
-import org.prgms.springbootjpa.customer.domain.Customer;
+import org.prgms.springbootjpa.mission1.customer.repository.CustomerXmlMapper;
+import org.prgms.springbootjpa.mission1.customer.domain.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,7 +15,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 @SpringBootTest
-class CustomerAnnotationMapperTest {
+class CustomerXmlMapperTest {
     static final String DROP_TABLE_SQL = "DROP TABLE customers IF EXISTS";
     static final String CREATE_TABLE_SQL = "CREATE TABLE customers (id SERIAL, first_name VARCHAR(255), last_name VARCHAR(255))";
 
@@ -23,14 +23,14 @@ class CustomerAnnotationMapperTest {
     JdbcTemplate jdbcTemplate;
 
     @Autowired
-    CustomerAnnotationMapper customerAnnotationMapper;
+    CustomerXmlMapper customerMapper;
 
     @BeforeEach
     void setup() {
         jdbcTemplate.update(DROP_TABLE_SQL);
         jdbcTemplate.update(CREATE_TABLE_SQL);
 
-        customerAnnotationMapper.save(insertCustomer);
+        customerMapper.save(insertCustomer);
     }
 
     Customer insertCustomer = new Customer(1L, "hyeonji", "park");
@@ -38,7 +38,7 @@ class CustomerAnnotationMapperTest {
     @Test
     @DisplayName("customer를 추가하고 조회할 수 있다.")
     void save() {
-        Customer customer = customerAnnotationMapper.findById(insertCustomer.getId());
+        Customer customer = customerMapper.findById(insertCustomer.getId());
 
         assertThat(insertCustomer, samePropertyValuesAs(customer));
     }
@@ -48,9 +48,9 @@ class CustomerAnnotationMapperTest {
     void update() {
         insertCustomer.changeFirstName("hyeonz");
 
-        customerAnnotationMapper.update(insertCustomer);
+        customerMapper.update(insertCustomer);
 
-        Customer customer = customerAnnotationMapper.findById(insertCustomer.getId());
+        Customer customer = customerMapper.findById(insertCustomer.getId());
 
         assertThat(insertCustomer, samePropertyValuesAs(customer));
     }
@@ -58,9 +58,9 @@ class CustomerAnnotationMapperTest {
     @Test
     @DisplayName("모든 customer를 조회할 수 있다.")
     void findAll() {
-        customerAnnotationMapper.save(new Customer(2L, "hyeonji", "kim"));
+        customerMapper.save(new Customer(2L, "hyeonji", "kim"));
 
-        List<Customer> customers = customerAnnotationMapper.findAll();
+        List<Customer> customers = customerMapper.findAll();
 
         assertThat(customers.size(), is(2));
     }
@@ -68,9 +68,9 @@ class CustomerAnnotationMapperTest {
     @Test
     @DisplayName("id로 customer를 삭제할 수 있다.")
     void deleteById() {
-        customerAnnotationMapper.deleteById(insertCustomer.getId());
+        customerMapper.deleteById(insertCustomer.getId());
 
-        List<Customer> customers = customerAnnotationMapper.findAll();
+        List<Customer> customers = customerMapper.findAll();
 
         assertThat(customers, empty());
     }

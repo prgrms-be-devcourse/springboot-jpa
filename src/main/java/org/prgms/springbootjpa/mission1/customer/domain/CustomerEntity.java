@@ -1,4 +1,4 @@
-package org.prgms.springbootjpa.customer.domain;
+package org.prgms.springbootjpa.mission1.customer.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
