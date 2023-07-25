@@ -21,8 +21,10 @@ public class Customer {
     @Column(name = "last_name", nullable = false, length = 30)
     private String lastName;
 
-    public Customer(long id, String firstName, String lastName) {
-        this.id = id;
+    protected Customer() {
+    }
+
+    public Customer(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
@@ -37,5 +39,9 @@ public class Customer {
 
     public String getLastName() {
         return lastName;
+    }
+
+    public void update(String firstName) {
+        this.firstName = firstName;
     }
 }
