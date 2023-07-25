@@ -1,31 +1,28 @@
 package com.example.kdt.spring.jpa.domain;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Optional;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 @SpringBootTest
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class CustomerRepositoryTest {
 
     @Autowired
     private CustomerRepository repository;
 
     @Test
+    @Order(1)
     @DisplayName("고객을 생성할 수 있다.")
     void createTest() {
         // Given
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setFirstName("honggu");
-        customer.setLastName("honggu");
+        Customer customer = new Customer(1L, "honggu", "honggu");
 
         // When
         repository.save(customer);
@@ -36,22 +33,24 @@ class CustomerRepositoryTest {
     }
 
     @Test
+    @Order(2)
     @DisplayName("고객을 업데이트 할 수 있다.")
     void updateTest() {
         // Given
         Customer customer = repository.findById(1L).get();
 
         // When
-        customer.setLastName("범모");
+        customer.updateFullName("구", "범모");
         repository.save(customer);
 
         // Then
         Customer retrievedCustomer = repository.findById(1L).get();
         assertEquals("범모", retrievedCustomer.getLastName());
-        assertEquals("honggu", retrievedCustomer.getFirstName());
+        assertEquals("구", retrievedCustomer.getFirstName());
     }
 
     @Test
+    @Order(3)
     @DisplayName("고객을 삭제할 수 있다.")
     void deleteTest() {
         // Given
