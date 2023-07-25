@@ -1,6 +1,7 @@
 package com.kdt.lecture.domain;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
@@ -14,6 +15,12 @@ public class Customer {
     private String firstName;
     @Column(nullable = false)
     private String lastName;
+
+    @Builder
+    public Customer(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
     public void updateCustomerName(String firstName, String lastName) {
         this.firstName = firstName;

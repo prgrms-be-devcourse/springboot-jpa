@@ -18,7 +18,6 @@ class CustomerRepositoryTest {
     void test() {
         // Given
         Customer customer = new Customer();
-        customer.setId(1L);
         customer.setFirstName("honggu");
         customer.setLastName("Kang");
 //        customer.setAge(33);
