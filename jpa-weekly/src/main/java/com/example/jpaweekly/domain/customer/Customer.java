@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,10 +25,12 @@ public class Customer {
   private Long id;
 
   @Column(nullable = false, length = 30)
+  @Pattern(regexp = "^[a-zA-Z가-힣]*$")
   @NotBlank
   private String firstName;
 
   @Column(nullable = false, length = 30)
+  @Pattern(regexp = "^[a-zA-Z가-힣]*$")
   @NotBlank
   private String lastName;
 
