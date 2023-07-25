@@ -1,6 +1,6 @@
-package com.example.springbootjpa.domain;
+package com.example.springbootjpa.domain.customer;
 
-import com.example.springbootjpa.golbal.exception.DomainException;
+import com.example.springbootjpa.golbal.exception.InvalidDomainConditionException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullSource;
@@ -17,7 +17,7 @@ class CustomerTest {
     void create_invalidUsernameTest(String invalidUsername) throws Exception {
 
         //given -> when -> then
-        assertThrows(DomainException.class,
+        assertThrows(InvalidDomainConditionException.class,
                 () -> Customer.builder()
                         .username(invalidUsername)
                         .address("부산시").build());
@@ -30,7 +30,7 @@ class CustomerTest {
     void create_invalidAddressTest(String invalidAddress) throws Exception {
 
         //given -> when -> then
-        assertThrows(DomainException.class,
+        assertThrows(InvalidDomainConditionException.class,
                 () -> Customer.builder()
                         .username("hong")
                         .address(invalidAddress)
@@ -50,7 +50,7 @@ class CustomerTest {
                 .build();
 
         //when -> then
-        assertThrows(DomainException.class,
+        assertThrows(InvalidDomainConditionException.class,
                 () -> customer.updateUsername(invalidUsername));
     }
 
@@ -67,7 +67,7 @@ class CustomerTest {
                 .build();
 
         //when -> then
-        assertThrows(DomainException.class,
+        assertThrows(InvalidDomainConditionException.class,
                 () -> customer.updateAddress(invalidAddress));
     }
 }
