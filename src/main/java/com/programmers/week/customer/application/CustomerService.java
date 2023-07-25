@@ -43,7 +43,6 @@ public class CustomerService {
 
   @Transactional
   public Long update(CustomerUpdateRequest customerUpdateRequest) {
-    System.out.println("test=======> " + customerUpdateRequest.toString());
     Customer customer = customerRepository.findById(customerUpdateRequest.id())
             .orElseThrow(() -> new IllegalArgumentException("고객이 존재하지 않습니다."));
     customer.changeFirstName(customerUpdateRequest.firstName());
