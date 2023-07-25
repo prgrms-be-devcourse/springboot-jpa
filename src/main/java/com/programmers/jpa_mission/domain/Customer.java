@@ -7,9 +7,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 @Entity
 @Table(name = "customera")
 public class Customer {
+    private static final String NAME_PATTERN = "^[가-힣a-zA-Z]*$";
+    private static final String INVALID_NAME = "이름으로는 한글 또는 영어만 가능합니다.";
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -25,6 +30,8 @@ public class Customer {
     }
 
     public Customer(String firstName, String lastName) {
+        validateName(firstName, NAME_PATTERN);
+        validateName(lastName, NAME_PATTERN);
         this.firstName = firstName;
         this.lastName = lastName;
     }
@@ -43,5 +50,14 @@ public class Customer {
 
     public void update(String firstName) {
         this.firstName = firstName;
+    }
+
+    private void validateName(String name, String regex) {
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(name);
+
+        if (!matcher.matches()) {
+            throw new IllegalArgumentException(INVALID_NAME);
+        }
     }
 }
