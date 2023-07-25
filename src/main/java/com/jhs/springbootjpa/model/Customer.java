@@ -5,6 +5,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import org.springframework.util.StringUtils;
 
+import java.util.regex.Pattern;
+
 @Entity
 public class Customer {
 
@@ -26,7 +28,8 @@ public class Customer {
     }
 
     private void validateName(String name) {
-        if (!StringUtils.hasText(name)) {
+        String namePattern = "^[a-zA-Zㄱ-ㅎ가-힣]*$";
+        if (!StringUtils.hasText(name) || !Pattern.matches(namePattern, name)) {
             throw new IllegalArgumentException("이름은 빈 값일 수 없습니다");
         }
     }
