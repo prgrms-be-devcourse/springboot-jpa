@@ -5,12 +5,13 @@ import lombok.*;
 
 @Entity
 @Table(name = "customers")
-@EqualsAndHashCode
-@NoArgsConstructor(access =AccessLevel.PROTECTED)
+@EqualsAndHashCode(of = {"id"})
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Customer {
 
     @Id
-    private long id;
+    private Long id;
+
     @Embedded
     @AttributeOverride(name = "name", column = @Column(name = "first_name"))
     private Name firstName;
@@ -20,10 +21,18 @@ public class Customer {
     private Name lastName;
 
     @Builder(builderMethodName = "createCustomer")
-    public Customer(long id, String firstName, String lastName) {
+    public Customer(Long id, String firstName, String lastName) {
         this.id = id;
         this.firstName = new Name(firstName);
         this.lastName = new Name(lastName);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getFullName() {
+        return firstName.getName() + " " + lastName.getName();
     }
 
     public void changeFirstName(String firstName) {
