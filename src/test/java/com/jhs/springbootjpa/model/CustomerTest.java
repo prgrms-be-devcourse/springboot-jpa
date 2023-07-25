@@ -38,7 +38,8 @@ class CustomerTest {
                 Arguments.arguments("", "Ju"),
                 Arguments.arguments("hongseok", ""),
                 Arguments.arguments("hongseok", " "),
-                Arguments.arguments(" ", "Ju")
+                Arguments.arguments(" ", "Ju"),
+                Arguments.arguments("&", "12")
         );
     }
 }
