@@ -3,6 +3,7 @@ package me.kimihiqq.springbootjpa.domain.customer;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -37,6 +38,7 @@ class CustomerRepositoryTest {
         customerRepository.deleteAll();
     }
 
+    @DisplayName("고객 정보 저장 테스트")
     @Test
     public void testSaveCustomer() {
         // Given
@@ -48,6 +50,7 @@ class CustomerRepositoryTest {
         assertThat(savedCustomer.getLastName()).isEqualTo("유");
     }
 
+    @DisplayName("고객 이름 변경 테스트")
     @Transactional
     @Test
     public void testUpdateCustomerName() {
@@ -62,6 +65,7 @@ class CustomerRepositoryTest {
         assertThat(savedCustomer.getLastName()).isEqualTo("유");
     }
 
+    @DisplayName("고객 ID로 찾기 테스트")
     @Test
     public void testFindCustomerById() {
         // Given
@@ -77,6 +81,7 @@ class CustomerRepositoryTest {
         assertThat(foundCustomer.getLastName()).isEqualTo("유");
     }
 
+    @DisplayName("모든 고객 찾기 테스트")
     @Test
     public void testFindAllCustomers() {
         // Given
@@ -90,6 +95,7 @@ class CustomerRepositoryTest {
         assertThat(customers).containsExactlyInAnyOrder(savedCustomer,savedCustomer2);
     }
 
+    @DisplayName("고객 ID로 삭제 테스트")
     @Test
     public void testDeleteCustomerById() {
         // Given
