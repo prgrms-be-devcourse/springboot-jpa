@@ -1,6 +1,8 @@
-package com.example.springbootjpa.domain;
+package com.example.springbootjpa.domain.customer;
 
-import com.example.springbootjpa.golbal.exception.DomainException;
+import com.example.springbootjpa.domain.order.Order;
+import com.example.springbootjpa.golbal.ErrorCode;
+import com.example.springbootjpa.golbal.exception.InvalidDomainConditionException;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,8 +14,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 
-import static com.example.springbootjpa.golbal.ErrorCode.INVALID_ADDRESS;
 import static com.example.springbootjpa.golbal.ErrorCode.INVALID_USERNAME;
 
 @Getter
@@ -23,6 +27,7 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "customer_id")
     private Long id;
 
     @Column(nullable = false)
@@ -31,12 +36,15 @@ public class Customer {
     @Column(nullable = false)
     private String address;
 
+    @OneToMany(mappedBy = "customer")
+    private List<Order> orders = new ArrayList<>();
+
     @Builder
     public Customer(Long id, String username, String address) {
         this.id = id;
         validateUsername(username);
         this.username = username;
-        validateUsername(address);
+        validateAddress(address);
         this.address = address;
     }
 
@@ -52,13 +60,13 @@ public class Customer {
 
     private void validateUsername(String username) {
         if (!StringUtils.hasText(username)) {
-            throw new DomainException(INVALID_USERNAME);
+            throw new InvalidDomainConditionException(INVALID_USERNAME);
         }
     }
 
     private void validateAddress(String address) {
         if (!StringUtils.hasText(address)) {
-            throw new DomainException(INVALID_ADDRESS);
+            throw new InvalidDomainConditionException(ErrorCode.INVALID_ADDRESS);
         }
     }
 }
