@@ -37,13 +37,28 @@ class MemberRepositoryTest {
         //given
         Member member = new Member("username", "nickname", "address");
         memberRepository.save(member);
-        em.clear();
 
         //when
         Optional<Member> optionalMember = memberRepository.findById(member.getId());
 
         //then
         assertThat(optionalMember).isNotEmpty();
+        Member findMember = optionalMember.get();
+        assertThat(findMember).isEqualTo(member);
+    }
+
+    @Test
+    @DisplayName("성공: member 조회 - 영속성 컨텍스트 초기화")
+    void find_ClearPersistenceContext() {
+        //given
+        Member member = new Member("username", "nickname", "address");
+        memberRepository.save(member);
+        em.clear();
+
+        //when
+        Optional<Member> optionalMember = memberRepository.findById(member.getId());
+
+        //then
         Member findMember = optionalMember.get();
         assertThat(findMember).isNotEqualTo(member);
         assertThat(findMember).usingRecursiveComparison().isEqualTo(findMember);
