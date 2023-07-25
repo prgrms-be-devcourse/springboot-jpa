@@ -58,6 +58,7 @@ class CustomerRepositoryTest {
 
     @Test
     @DisplayName("고객을 삭제할 수 있다.")
+    @Order(4)
     void deleteCustomer() {
         Customer customer = repository.findById(1L).get();
         repository.delete(customer);
