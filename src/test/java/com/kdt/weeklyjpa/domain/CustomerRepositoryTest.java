@@ -64,15 +64,35 @@ class CustomerRepositoryTest {
     }
 
     @Test
+    @Transactional
     @DisplayName("Customer_update_테스트")
     void updateCustomerTest() {
         // given
-        Customer customer1 = new Customer("Youngmyung", "Kim");
-
+        Customer customer = new Customer("Youngmyung", "Kim");
 
         // when
+        customerRepository.save(customer);
+        Customer savedCustomer = customerRepository.findById(customer.getId()).get();
+        savedCustomer.updateFirstName("NewFirstName");
 
         // then
+        assertThat(customer.getFirstName()).isEqualTo("NewFirstName");
     }
 
+    @Test
+    @DisplayName("Customer_delete_테스트")
+    void deleteCustomerTest() {
+        // given
+        Customer customer1 = new Customer("Youngmyung", "Kim");
+        Customer customer2 = new Customer("Test1", "Hong");
+
+        // when
+        customerRepository.save(customer1);
+        customerRepository.save(customer2);
+        customerRepository.deleteById(customer1.getId());
+        List<Customer> customers = customerRepository.findAll();
+
+        // then
+        assertThat(customers).hasSize(1);
+    }
 }
