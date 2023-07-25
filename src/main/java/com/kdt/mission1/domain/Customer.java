@@ -3,12 +3,13 @@ package com.kdt.mission1.domain;
 import lombok.Getter;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
 @Getter
 public class Customer {
-    @Id
+    @Id @GeneratedValue
     private long id;
     private String firstName;
     private String lastName;
@@ -20,8 +21,5 @@ public class Customer {
     }
 
     public Customer() {
-        this.id = 0L;
-        this.firstName = "firstname";
-        this.lastName = "lastname";
     }
 }
