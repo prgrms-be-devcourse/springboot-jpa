@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 
 @SpringBootTest
@@ -47,6 +49,13 @@ class CustomerRepositoryTest {
     }
 
     @Test
+    void 조회_실패_테스트() {
+        //when & then
+        assertThatThrownBy(() -> repository.findById(1L).orElseThrow())
+                .isInstanceOf(NoSuchElementException.class);
+    }
+
+    @Test
     void 수정_성공_테스트() {
         //given
         Customer customer = new Customer("BeomChul", "Shin");
@@ -66,7 +75,7 @@ class CustomerRepositoryTest {
     void 삭제_성공_테스트() {
         //given
         Customer customer = new Customer("BeomChul", "Shin");
-        Customer saved = repository.save(customer);
+        repository.save(customer);
         List<Customer> savedList = repository.findAll();
 
         //when
@@ -75,5 +84,20 @@ class CustomerRepositoryTest {
         //then
         List<Customer> deletedList = repository.findAll();
         assertThat(deletedList.size()).isNotEqualTo(savedList.size());
+    }
+
+    @Test
+    void 삭제_실패_테스트() {
+        //given
+        Customer customer = new Customer("BeomChul", "Shin");
+        Customer saved = repository.save(customer);
+        long id = saved.getId();
+
+        //when
+        repository.deleteAll();
+
+        //then
+        assertThatThrownBy(() -> repository.findById(id).orElseThrow())
+                .isInstanceOf(NoSuchElementException.class);
     }
 }
