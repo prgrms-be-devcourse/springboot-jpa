@@ -24,32 +24,47 @@ public class Customer {
     @Column(name = "last_name", nullable = false, length = 50)
     private String lastName;
 
+    protected Customer() {
+    }
+
+    public Customer(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     public Customer(Long id, String firstName, String lastName) {
-        validateName(firstName, lastName);
+        validateName(firstName);
+        validateName(lastName);
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
-    protected Customer() {
+    public void changeFirstName(String firstName) {
+        validateName(firstName);
+        this.firstName = firstName;
     }
 
-    private void validateName(String firstName, String lastName) {
-        checkEmptyName(firstName, lastName);
-        checkIllegalCharacter(firstName, lastName);
+    public void changeLastName(String lastName) {
+        validateName(lastName);
+        this.lastName = lastName;
     }
 
-    private void checkEmptyName(String firstName, String lastName) {
-        if (!StringUtils.hasText(firstName) || !StringUtils.hasText(lastName)) {
+    private void validateName(String name) {
+        checkEmptyName(name);
+        checkIllegalCharacter(name);
+    }
+
+    private void checkEmptyName(String name) {
+        if (!StringUtils.hasText(name)) {
             throw new IllegalNameException("[ERROR] 이름 값은 비어있을 수 없습니다!");
         }
     }
 
-    private void checkIllegalCharacter(String firstName, String lastName) {
+    private void checkIllegalCharacter(String name) {
         String pattern = "^[a-zA-Zㄱ-ㅎ가-힣]*$";
 
-        if (!Pattern.matches(pattern, firstName) ||
-                !Pattern.matches(pattern, lastName)) {
+        if (!Pattern.matches(pattern, name)) {
             throw new IllegalNameException("[ERROR] 이름 값은 한글과 영문만 가능합니다!");
         }
     }
