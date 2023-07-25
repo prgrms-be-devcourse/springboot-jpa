@@ -1,7 +1,5 @@
 package org.prgrms.studyjpa.domain;
 
-import jakarta.persistence.EntityManager;
-import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +9,7 @@ import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -28,7 +27,7 @@ class CustomerRepositoryTest {
         repository.save(customer);
 
         Customer findCustomer = repository.findById(customer.getId()).get();
-        assertThat(customer, is(findCustomer));
+        assertThat(customer, samePropertyValuesAs(findCustomer));
     }
 
     @Test
@@ -63,6 +62,6 @@ class CustomerRepositoryTest {
         Customer customer = repository.findById(1L).get();
         repository.delete(customer);
         Optional<Customer> findCustomer = repository.findById(1L);
-        assertThat(findCustomer.isEmpty(), is(true));
+        assertTrue(findCustomer.isEmpty());
     }
 }

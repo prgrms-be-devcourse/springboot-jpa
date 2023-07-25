@@ -18,12 +18,14 @@ public class Customer {
     private String lastName;
 
     public Customer(long id, String firstName, String lastName) {
+        System.out.println("Customer.Customer");
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
     public Customer() {
+        System.out.println("Customer.Customer - basic Constructor");
     }
 
     public void changeFirstName(String firstName) {
@@ -34,16 +36,4 @@ public class Customer {
         this.lastName = lastName;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Customer customer = (Customer) o;
-        return id == customer.id && firstName.equals(customer.firstName) && lastName.equals(customer.lastName);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, firstName, lastName);
-    }
 }
