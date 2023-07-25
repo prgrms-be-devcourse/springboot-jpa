@@ -2,7 +2,10 @@ package com.lecture.jpa.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Customer {
     @Id
