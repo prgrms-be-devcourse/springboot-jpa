@@ -1,0 +1,8 @@
+package com.example.jpaweekly.domain.customer.dto;
+
+public record CustomerUpdate(
+        Long id,
+        String firstName,
+        String lastName
+) {
+}
