@@ -28,4 +28,16 @@ class MemberUnitTest {
         assertThatThrownBy(() -> testEntityManager.persistAndFlush(member))
                 .isInstanceOf(ConstraintViolationException.class);
     }
+
+    @ParameterizedTest
+    @CsvSource(value = {"010-12-5678", "01012345678", "0", "\\ ", "030-1234-1234"})
+    void 전화번호_형식이_맞지_않음(String cellPhone) {
+        // Given
+        final Member member
+                = MemberCreatorFactory.createMember("example@domain.top", cellPhone, "addressTest");
+
+        // When, Then
+        assertThatThrownBy(() -> testEntityManager.persistAndFlush(member))
+                .isInstanceOf(ConstraintViolationException.class);
+    }
 }

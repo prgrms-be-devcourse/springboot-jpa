@@ -25,6 +25,7 @@ public class Member {
     @Column(name = "email", length = 20, nullable = false, unique = true)
     private String email;
 
+    @Pattern(regexp = Regexp.KOREA_CELL_PHONE_PATTERN)
     @Column(name = "cell_phone", length = 15, nullable = false, unique = true)
     private String cellPhone;
 
