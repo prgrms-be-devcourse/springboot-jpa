@@ -1,5 +1,11 @@
 package com.example.jpaweekly.domain.customer;
-import jakarta.persistence.*;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -12,6 +18,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "customer")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Customer {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
@@ -30,5 +37,11 @@ public class Customer {
 
   public void updateLastName(String inputLastName) {
     this.lastName = inputLastName;
+  }
+
+  @Builder
+  private Customer(String firstName, String lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
   }
 }
