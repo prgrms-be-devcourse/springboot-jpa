@@ -32,4 +32,13 @@ public class MemberCreatorFactory {
                 .street("00도 00시")
                 .build();
     }
+
+    public static MemberCreatorRequest createMemberCreatorRequest(String name, String email, String cellPhone) {
+        return MemberCreatorRequest.builder()
+                .name(name)
+                .email(email)
+                .cellPhone(cellPhone)
+                .street("00도 00시")
+                .build();
+    }
 }
