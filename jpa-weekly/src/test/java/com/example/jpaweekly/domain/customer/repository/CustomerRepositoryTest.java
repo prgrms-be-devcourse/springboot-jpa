@@ -45,7 +45,7 @@ class CustomerRepositoryTest {
 
   @Test
   @DisplayName("성공 : 고객 성 수정")
-  void updateCustomer() {
+  void updateCustomerLastName() {
     //given
     Customer savedCustomer = customerRepository.save(customer);
     Customer foundCustomer = customerRepository.findById(savedCustomer.getId()).get();
@@ -56,6 +56,21 @@ class CustomerRepositoryTest {
 
     // then
     assertThat(foundCustomer.getLastName()).isEqualTo(updatedLastName);
+  }
+
+  @Test
+  @DisplayName("성공 : 고객 이름 수정")
+  void updateCustomerFirstName() {
+    //given
+    Customer savedCustomer = customerRepository.save(customer);
+    Customer foundCustomer = customerRepository.findById(savedCustomer.getId()).get();
+    final String updatedLastName = "준영";
+
+    // when
+    foundCustomer.updateFirstName(updatedLastName);
+
+    // then
+    assertThat(foundCustomer.getFirstName()).isEqualTo(updatedLastName);
   }
 
   @Test
