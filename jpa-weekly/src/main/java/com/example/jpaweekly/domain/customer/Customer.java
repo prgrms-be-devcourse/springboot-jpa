@@ -1,9 +1,11 @@
 package com.example.jpaweekly.domain.customer;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 
 @Entity
 @Getter
@@ -15,9 +17,11 @@ public class Customer {
   private long id;
 
   @Column(nullable = false, length = 30)
+  @NotBlank
   private String firstName;
 
   @Column(nullable = false, length = 30)
+  @NotBlank
   private String lastName;
 
   public void updateFirstName(String inputFirstName) {
