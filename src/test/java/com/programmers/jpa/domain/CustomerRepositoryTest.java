@@ -20,10 +20,7 @@ class CustomerRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        customer = Customer.builder()
-                .firstName("yiseul")
-                .lastName("park")
-                .build();
+        customer = new Customer("yiseul", "park");
     }
 
     @Test
