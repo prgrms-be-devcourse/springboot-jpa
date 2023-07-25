@@ -28,9 +28,20 @@ public class Customer {
     }
 
     private void validateName(String name) {
-        String namePattern = "^[a-zA-Zㄱ-ㅎ가-힣]*$";
-        if (!StringUtils.hasText(name) || !Pattern.matches(namePattern, name)) {
+        validateNameNotEmpty(name);
+        validatePattern(name);
+    }
+
+    private void validateNameNotEmpty(String name) {
+        if (!StringUtils.hasText(name)) {
             throw new IllegalArgumentException("이름은 빈 값일 수 없습니다");
+        }
+    }
+
+    private void validatePattern(String name) {
+        String namePattern = "^[a-zA-Zㄱ-ㅎ가-힣]*$";
+        if (!Pattern.matches(namePattern, name)) {
+            throw new IllegalArgumentException("한글과 영어만 사용가능합니다");
         }
     }
 }
