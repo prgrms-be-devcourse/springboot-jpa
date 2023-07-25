@@ -43,7 +43,6 @@ class CustomerRepositoryTest {
     void testUpdate() {
         // Given
         Customer customer = new Customer(2L, "seongwon", "choi");
-        Customer saved = repository.save(customer);
         Customer persistCustomer = repository.findById(customer.getId()).get();
         // When
         persistCustomer.setFirstName("jerry");
