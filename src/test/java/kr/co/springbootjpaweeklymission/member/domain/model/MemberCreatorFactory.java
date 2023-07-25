@@ -1,6 +1,7 @@
 package kr.co.springbootjpaweeklymission.member.domain.model;
 
 import kr.co.springbootjpaweeklymission.member.domain.entity.Member;
+import kr.co.springbootjpaweeklymission.member.dto.MemberCreatorRequest;
 
 public class MemberCreatorFactory {
     public static Member createMember() {
@@ -10,7 +11,6 @@ public class MemberCreatorFactory {
                 .cellPhone("010-0000-0000")
                 .address(Address.builder()
                         .street("00도 00시")
-                        .detail("000동 0000호")
                         .build())
                 .build();
     }
@@ -21,6 +21,15 @@ public class MemberCreatorFactory {
                 .email(email)
                 .cellPhone(cellPhone)
                 .address(address)
+                .build();
+    }
+
+    public static MemberCreatorRequest createMemberCreatorRequest() {
+        return MemberCreatorRequest.builder()
+                .name("testName")
+                .email("example@domain.top")
+                .cellPhone("010-0000-0000")
+                .street("00도 00시")
                 .build();
     }
 }
