@@ -56,7 +56,7 @@ class CustomerTest {
 
     @DisplayName("유저 수정 실패 - 잘못된 주소")
     @ParameterizedTest
-    @ValueSource(strings = {"", " ",})
+    @ValueSource(strings = {"", " "})
     @NullSource
     void update_invalidAddressTest(String invalidAddress) throws Exception {
 

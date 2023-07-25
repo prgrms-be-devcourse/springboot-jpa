@@ -101,7 +101,7 @@ class CustomerRepositoryTest {
 
         //then
         List<Customer> customers = customerRepository.findAll();
-        assertThat(customers.isEmpty()).isEqualTo(true);
-        assertThat(customers.size()).isEqualTo(0);
+        assertThat(customers).isEmpty();
+        assertThat(customers).hasSize(0);
     }
 }
