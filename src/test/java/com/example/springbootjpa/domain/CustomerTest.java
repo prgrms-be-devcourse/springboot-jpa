@@ -12,7 +12,7 @@ class CustomerTest {
 
     @DisplayName("유저 생성 실패 - 잘못된 이름")
     @ParameterizedTest
-    @ValueSource(strings = {"", " ",})
+    @ValueSource(strings = {"", " "})
     @NullSource
     void create_invalidUsernameTest(String invalidUsername) throws Exception {
 
@@ -25,7 +25,7 @@ class CustomerTest {
 
     @DisplayName("유저 생성 실패 - 잘못된 주소")
     @ParameterizedTest
-    @ValueSource(strings = {"", " ",})
+    @ValueSource(strings = {"", " "})
     @NullSource
     void create_invalidAddressTest(String invalidAddress) throws Exception {
 
@@ -39,7 +39,7 @@ class CustomerTest {
 
     @DisplayName("유저 수정 실패 - 잘못된 이름")
     @ParameterizedTest
-    @ValueSource(strings = {"", " ",})
+    @ValueSource(strings = {"", " "})
     @NullSource
     void update_invalidUsernameTest(String invalidUsername) throws Exception {
 
