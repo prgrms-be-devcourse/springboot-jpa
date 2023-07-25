@@ -1,4 +1,4 @@
-package prgms.jpa_practice.config.domain;
+package prgms.jpa_w1.config.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
