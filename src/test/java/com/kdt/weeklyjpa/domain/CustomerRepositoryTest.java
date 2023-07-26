@@ -32,7 +32,7 @@ class CustomerRepositoryTest {
 
         // when
         Customer saved = customerRepository.save(customer);
-        Optional<Customer> foundById = customerRepository.findById(saved.getCustomer_id());
+        Optional<Customer> foundById = customerRepository.findById(saved.getCustomerId());
 
         // then
         assertThat(foundById)
@@ -69,7 +69,7 @@ class CustomerRepositoryTest {
 
         // when
         customerRepository.save(customer);
-        Customer savedCustomer = customerRepository.findById(customer.getCustomer_id()).get();
+        Customer savedCustomer = customerRepository.findById(customer.getCustomerId()).get();
         savedCustomer.updateFirstName("NewFirstName");
 
         // then
@@ -86,7 +86,7 @@ class CustomerRepositoryTest {
         // when
         customerRepository.save(customer1);
         customerRepository.save(customer2);
-        customerRepository.deleteById(customer1.getCustomer_id());
+        customerRepository.deleteById(customer1.getCustomerId());
         List<Customer> customers = customerRepository.findAll();
 
         // then
