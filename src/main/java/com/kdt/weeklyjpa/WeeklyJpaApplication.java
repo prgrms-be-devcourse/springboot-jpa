@@ -9,5 +9,4 @@ public class WeeklyJpaApplication {
     public static void main(String[] args) {
         SpringApplication.run(WeeklyJpaApplication.class, args);
     }
-
 }

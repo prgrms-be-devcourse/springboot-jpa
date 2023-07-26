@@ -3,7 +3,6 @@ package com.kdt.weeklyjpa.domain.orderitem;
 import com.kdt.weeklyjpa.domain.item.Item;
 import com.kdt.weeklyjpa.domain.order.Order;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Positive;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,11 +17,9 @@ public class OrderItem {
     private Long orderItemId;
 
     @Column(name = "price", nullable = false)
-    @Positive
     private Integer price;
 
     @Column(name = "quantity", nullable = false)
-    @Positive
     private Integer quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
