@@ -23,7 +23,7 @@ import javax.persistence.InheritanceType;
 public abstract class Item {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "item_id")
     private Long id;
 

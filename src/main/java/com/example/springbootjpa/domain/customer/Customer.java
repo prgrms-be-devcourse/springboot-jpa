@@ -26,7 +26,7 @@ import static com.example.springbootjpa.golbal.ErrorCode.INVALID_USERNAME;
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "customer_id")
     private Long id;
 
