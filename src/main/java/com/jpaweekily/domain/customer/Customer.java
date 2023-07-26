@@ -26,10 +26,6 @@ public class Customer {
         this.lastName = lastName;
     }
 
-    public static CustomerResponse from(Customer customer) {
-        return new CustomerResponse(customer.getFirstName(), customer.getLastName());
-    }
-
     public void changeFirstName(String firstName) {
         this.firstName = firstName;
     }

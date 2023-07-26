@@ -5,5 +5,4 @@ public record CustomerUpdate (
         String firstName,
         String lastName
 ) {
-
 }

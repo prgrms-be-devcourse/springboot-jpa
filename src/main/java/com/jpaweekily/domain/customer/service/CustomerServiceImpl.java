@@ -6,6 +6,8 @@ import com.jpaweekily.domain.customer.dto.CustomerRequest;
 import com.jpaweekily.domain.customer.dto.CustomerResponse;
 import com.jpaweekily.domain.customer.dto.CustomerUpdate;
 import com.jpaweekily.domain.customer.repository.CustomerRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,6 +39,11 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.findAll().stream()
                 .map(CustomerMapper::convertEntityToResponse)
                 .toList();
+    }
+
+    public Page<CustomerResponse> findCustomersWithPaging(Pageable pageable) {
+        return customerRepository.findAll(pageable)
+                .map(CustomerMapper::convertEntityToResponse);
     }
 
     @Transactional
