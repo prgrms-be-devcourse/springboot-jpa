@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Transactional
@@ -47,6 +49,7 @@ class MemberServiceTest {
         assertThat(actual.getMemberId()).isEqualTo(memberId);
         assertThat(actual.getEmail()).isEqualTo("updateEmail");
         assertThat(actual.getCellPhone()).isEqualTo("010-7777-7777");
+        assertThat(actual.getModifiedAt()).isEqualTo(LocalDate.now());
     }
 
     @DisplayName("특정 Id에 해당하는 회원 삭제하는 테스트")
