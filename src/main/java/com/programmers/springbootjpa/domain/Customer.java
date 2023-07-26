@@ -39,4 +39,12 @@ public class Customer {
         this.nickName = nickName;
         this.address = address;
     }
+
+    public void changeNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public void changeAddress(Address address) {
+        this.address = address;
+    }
 }
