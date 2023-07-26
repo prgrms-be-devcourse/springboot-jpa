@@ -24,9 +24,8 @@ public class Customer {
     private String lastName;
 
     @Builder
-    public Customer(long id, String firstName, String lastName) {
+    public Customer(String firstName, String lastName) {
         validateName(firstName, lastName);
-        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
     }
