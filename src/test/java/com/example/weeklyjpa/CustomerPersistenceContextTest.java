@@ -1,6 +1,7 @@
 package com.example.weeklyjpa;
 
 import com.example.weeklyjpa.domain.customer.Customer;
+import com.example.weeklyjpa.domain.member.Member;
 import com.example.weeklyjpa.repository.CustomerRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;

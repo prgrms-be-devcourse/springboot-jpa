@@ -4,7 +4,7 @@ spring:
       enabled: true
 
   jpa:
-    generate-ddl: true
+    generate-ddl: true # 테이블이 자동으로 생성된다.
     database: H2
     show-sql: true
     open-in-view: false
@@ -13,5 +13,5 @@ spring:
         dialect: org.hibernate.dialect.H2Dialect
         query.in_clause_parameter_padding: true
         hdm2ddl:
-          auto: crete-drop
+          auto: crete-drop # 어플리케이션 종료시 생성한 ddl을 제거한다.
 

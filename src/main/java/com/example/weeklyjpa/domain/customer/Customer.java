@@ -1,19 +1,16 @@
 package com.example.weeklyjpa.domain.customer;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import static lombok.AccessLevel.PROTECTED;
-
 @Entity
 @Getter
-@Table(name= "customers")
-@NoArgsConstructor(access = PROTECTED)
+@NoArgsConstructor
 public class Customer {
-
     @Id
-    @GeneratedValue
     private Long id;
 
     @Column(nullable = false)
@@ -22,10 +19,11 @@ public class Customer {
     @Column(nullable = false)
     private String lastName;
 
-    public Customer(String firstName,String lastName){
+    public Customer(String firstName, String lastName){
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
 
     public void changeFirstName(String firstName){
         this.firstName = firstName;
