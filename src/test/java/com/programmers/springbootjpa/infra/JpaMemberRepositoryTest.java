@@ -3,21 +3,15 @@ package com.programmers.springbootjpa.infra;
 import com.programmers.springbootjpa.domain.Address;
 import com.programmers.springbootjpa.domain.Member;
 import com.programmers.springbootjpa.domain.MemberRepository;
-import com.programmers.springbootjpa.ui.dto.MemberSaveRequest;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityNotFoundException;
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Transactional
@@ -32,7 +26,7 @@ class JpaMemberRepositoryTest {
     @Test
     void save() {
         // given
-        Member member = Member.of(new MemberSaveRequest("kim", "1234", new Address("ilsan", "12345")));
+        Member member = new Member("kim", "1234", new Address("ilsan", "12345"));
 
         // when
         memberRepository.save(member);
@@ -46,7 +40,7 @@ class JpaMemberRepositoryTest {
     @Test
     void update() {
         // given
-        Member member = Member.of(new MemberSaveRequest("kim", "1234", new Address("ilsan", "12345")));
+        Member member = new Member("kim", "1234", new Address("ilsan", "12345"));
         memberRepository.save(member);
         Member findMember = memberRepository.findById(member.getId()).get();
 
@@ -64,7 +58,7 @@ class JpaMemberRepositoryTest {
     @Test
     void delete() {
         // given
-        Member member = Member.of(new MemberSaveRequest("kim", "1234", new Address("ilsan", "12345")));
+        Member member = new Member("kim", "1234", new Address("ilsan", "12345"));
         memberRepository.save(member);
 
         // when
@@ -80,7 +74,7 @@ class JpaMemberRepositoryTest {
     @Test
     void detach() {
         // given
-        Member member = Member.of(new MemberSaveRequest("kim", "1234", new Address("ilsan", "12345")));
+        Member member = new Member("kim", "1234", new Address("ilsan", "12345"));
         memberRepository.save(member);
 
         // when

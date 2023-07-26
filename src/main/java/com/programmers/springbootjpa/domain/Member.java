@@ -1,7 +1,6 @@
 package com.programmers.springbootjpa.domain;
 
 
-import com.programmers.springbootjpa.ui.dto.MemberSaveRequest;
 import jakarta.persistence.*;
 
 @Entity
@@ -12,12 +11,13 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 25)
+    @Column(name = "name", nullable = false, length = 25)
     private String name;
 
-    @Column(nullable = false, length = 25)
+    @Column(name = "password", nullable = false, length = 25)
     private String password;
 
+    @Embedded
     private Address address;
 
     protected Member() {}
@@ -26,10 +26,6 @@ public class Member {
         this.name = name;
         this.password = password;
         this.address = address;
-    }
-
-    public static Member of(MemberSaveRequest memberSaveRequest){
-        return new Member(memberSaveRequest.name(), memberSaveRequest.password(), memberSaveRequest.address());
     }
 
     public Long getId() {

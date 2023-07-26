@@ -2,7 +2,6 @@ package com.programmers.springbootjpa.infra;
 
 import com.programmers.springbootjpa.domain.Member;
 import com.programmers.springbootjpa.domain.MemberRepository;
-import com.programmers.springbootjpa.ui.dto.MemberSaveRequest;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Repository;
@@ -37,11 +36,9 @@ public class JpaMemberRepository implements MemberRepository {
     @Override
     @Transactional
     public void delete(Long id) {
-        Member member = entityManager.find(Member.class, id);
-
-        if (member == null) {
-            throw new EntityNotFoundException("id do not exists");
-        }
+        Member member = findById(id).orElseThrow(
+                () -> new EntityNotFoundException("id do not exists")
+        );
 
         entityManager.remove(member);
     }
