@@ -1,18 +1,11 @@
 package com.programmers.jpa.domain;
 
-import jakarta.persistence.EntityManager;
-import org.assertj.core.api.recursive.comparison.RecursiveComparisonConfiguration;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.Comparator;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,20 +17,11 @@ class MemberRepositoryTest {
     @Autowired
     TestEntityManager em;
 
-    RecursiveComparisonConfiguration dateTimeConfig;
-
-    @BeforeEach
-    void init() {
-        dateTimeConfig = RecursiveComparisonConfiguration.builder()
-                .withComparatorForType(Comparator.comparing(a -> a.truncatedTo(ChronoUnit.MILLIS)), LocalDateTime.class)
-                .build();
-    }
-
     @Test
     @DisplayName("성공: member 저장")
     void save() {
         //given
-        Member member = new Member("username", "nickname", "address");
+        Member member = new Member("firstName", "lastName");
 
         //when
         memberRepository.save(member);
@@ -51,7 +35,7 @@ class MemberRepositoryTest {
     @DisplayName("성공: member 조회 - 1차 캐시에서 조회")
     void find() {
         //given
-        Member member = new Member("username", "nickname", "address");
+        Member member = new Member("firstName", "lastName");
         memberRepository.save(member);
 
         //when
@@ -67,7 +51,7 @@ class MemberRepositoryTest {
     @DisplayName("성공: member 조회 - 데이터 베이스에서 조회")
     void find_ClearPersistenceContext() {
         //given
-        Member member = new Member("username", "nickname", "address");
+        Member member = new Member("firstName", "lastName");
         memberRepository.save(member);
         em.flush();
         em.clear();
@@ -78,35 +62,34 @@ class MemberRepositoryTest {
         //then
         Member findMember = optionalMember.get();
         assertThat(findMember).isNotEqualTo(member);
-        assertThat(findMember).usingRecursiveComparison(dateTimeConfig)
-                .isEqualTo(member);
+        assertThat(findMember).usingRecursiveComparison().isEqualTo(member);
     }
 
     @Test
     @DisplayName("성공: member 업데이트")
     void update() {
         //given
-        Member member = new Member("username", "nickname", "address");
+        Member member = new Member("firstName", "lastName");
         memberRepository.save(member);
-        String updateNickname = "updateNickname";
-        String updateAddress = "updateAddress";
+        String updateFirstName = "updateFirstName";
+        String updateLastName = "updateLastName";
 
         //when
-        member.update(updateNickname, updateAddress);
+        member.update(updateFirstName, updateLastName);
 
         //then
         em.flush();
         em.clear();
         Member findMember = memberRepository.findById(member.getId()).get();
-        assertThat(findMember.getNickname()).isEqualTo(updateNickname);
-        assertThat(findMember.getAddress()).isEqualTo(updateAddress);
+        assertThat(findMember.getFirstName()).isEqualTo(updateFirstName);
+        assertThat(findMember.getLastName()).isEqualTo(updateLastName);
     }
 
     @Test
     @DisplayName("성공: member 삭제")
     void delete() {
         //given
-        Member member = new Member("username", "nickname", "address");
+        Member member = new Member("firstName", "lastName");
         memberRepository.save(member);
 
         //when

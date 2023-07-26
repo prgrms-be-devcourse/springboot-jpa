@@ -3,8 +3,6 @@ package com.programmers.jpa.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Entity
 public class Member {
@@ -12,32 +10,25 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
-    @Column(name = "name", nullable = false, length = 20, unique = true)
-    private String username;
-    @Column(name = "nickname", nullable = false, length = 20, unique = true)
-    private String nickname;
-    @Column(name = "address", nullable = false, length = 200)
-    private String address;
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
+    @Column(name = "first_name", nullable = false, length = 20)
+    private String firstName;
+    @Column(name = "last_name", nullable = false, length = 20)
+    private String lastName;
 
     public Member() {
     }
 
-    public Member(String username, String nickname, String address) {
-        this.username = username;
-        this.nickname = nickname;
-        this.address = address;
-        this.createdAt = LocalDateTime.now();
+    public Member(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
-    public void update(String nickname, String address) {
-        if(nickname != null) {
-            this.nickname = nickname;
+    public void update(String firstName, String lastName) {
+        if(firstName != null) {
+            this.firstName = firstName;
         }
-        if(address != null) {
-            this.address = address;
+        if(lastName != null) {
+            this.lastName = lastName;
         }
     }
 }
