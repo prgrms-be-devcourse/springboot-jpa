@@ -9,11 +9,11 @@ import java.util.List;
 public interface CustomerXmlMapper {
     void save(Customer customer);
 
-    Customer findById(long id);
+    Customer findById(Long id);
 
     List<Customer> findAll();
 
     void update(Customer customer);
 
-    void deleteById(long id);
+    void deleteById(Long id);
 }

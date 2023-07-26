@@ -13,7 +13,7 @@ public interface CustomerAnnotationMapper {
     void save(Customer customer);
 
     @Select("SELECT * FROM customers WHERE id = #{id}")
-    Customer findById(long id);
+    Customer findById(Long id);
 
     @Select("SELECT * FROM customers")
     List<Customer> findAll();
@@ -22,5 +22,5 @@ public interface CustomerAnnotationMapper {
     void update(Customer customer);
 
     @Update("DELETE FROM customers WHERE id = #{id}")
-    void deleteById(long id);
+    void deleteById(Long id);
 }

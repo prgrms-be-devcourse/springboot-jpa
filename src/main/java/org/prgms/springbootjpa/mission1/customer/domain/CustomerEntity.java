@@ -8,11 +8,11 @@ import javax.persistence.Table;
 @Table(name = "customers")
 public class CustomerEntity {
     @Id
-    private long id;
+    private Long id;
     private String firstName;
     private String lastName;
 
-    public CustomerEntity(long id, String firstName, String lastName) {
+    public CustomerEntity(Long id, String firstName, String lastName) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -22,7 +22,7 @@ public class CustomerEntity {
 
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

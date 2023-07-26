@@ -26,7 +26,7 @@ public class CustomerJdbcRepository {
                 customer.getId(), customer.getFirstName(), customer.getLastName());
     }
 
-    public Customer findById(long id) {
+    public Customer findById(Long id) {
         return jdbcTemplate.queryForObject("SELECT * FROM customers WHERE id = ?", customerRowMapper, id);
     }
 
@@ -41,7 +41,7 @@ public class CustomerJdbcRepository {
         return findById(customer.getId());
     }
 
-    public int deleteById(long id) {
+    public int deleteById(Long id) {
         return jdbcTemplate.update("DELETE FROM customers WHERE id = ?", id);
     }
 }
