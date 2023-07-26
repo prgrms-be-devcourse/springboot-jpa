@@ -16,7 +16,6 @@ import lombok.Setter;
 @Entity
 @Table(name = "customers")
 @Getter
-@Setter
 @NoArgsConstructor
 @EqualsAndHashCode
 public class Customer {
@@ -52,5 +51,17 @@ public class Customer {
                 request.getNickName(),
                 request.getAddress()
         );
+    }
+
+    public void updateName(String name) {
+        this.name = name;
+    }
+
+    public void updateAge(Integer age) {
+        this.age = age;
+    }
+
+    public void updateAddress(String address) {
+        this.address = address;
     }
 }
