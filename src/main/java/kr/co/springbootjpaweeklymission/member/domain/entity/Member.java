@@ -41,4 +41,12 @@ public class Member extends BaseTimeEntity {
         this.cellPhone = cellPhone;
         this.address = address;
     }
+
+    public String getStreet() {
+        return address.getStreet();
+    }
+
+    public String getDetail() {
+        return address.getDetail();
+    }
 }

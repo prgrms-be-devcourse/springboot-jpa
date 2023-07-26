@@ -2,14 +2,12 @@ package kr.co.springbootjpaweeklymission.member.presentation;
 
 import kr.co.springbootjpaweeklymission.member.application.MemberService;
 import kr.co.springbootjpaweeklymission.member.dto.MemberCreatorRequest;
+import kr.co.springbootjpaweeklymission.member.dto.MemberReadResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,5 +20,12 @@ public class MemberController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(memberService.createMember(creatorRequest));
+    }
+
+    @GetMapping("/{email}")
+    public ResponseEntity<MemberReadResponse> getMember(@PathVariable String email) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(memberService.getMember(email));
     }
 }
