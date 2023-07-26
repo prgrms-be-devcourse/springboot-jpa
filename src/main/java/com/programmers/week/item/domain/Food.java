@@ -12,7 +12,7 @@ import java.util.Objects;
 @Getter
 public class Food extends Item {
 
-  @Column(length = 5, nullable = false)
+  @Column(length = 5)
   private String chef;
 
   protected Food() {

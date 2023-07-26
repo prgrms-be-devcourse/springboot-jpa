@@ -5,7 +5,10 @@ import com.programmers.week.customer.domain.Customer;
 import com.programmers.week.customer.infra.CustomerRepository;
 import com.programmers.week.customer.ui.CustomerResponse;
 import com.programmers.week.customer.ui.CustomerUpdateRequest;
+import com.programmers.week.customer.ui.PageRequestDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,11 +37,9 @@ public class CustomerService {
             .orElseThrow(() -> new IllegalArgumentException("고객이 존재하지 않습니다."));
   }
 
-  public List<CustomerResponse> findAll() {
-    List<Customer> customers = customerRepository.findAll();
-    return customers.stream()
-            .map(CustomerResponse::from)
-            .toList();
+  public Page<CustomerResponse> findAll(PageRequest pageRequest) {
+    Page<Customer> customerPage = customerRepository.findAll(pageRequest);
+    return customerPage.map(CustomerResponse::from);
   }
 
   @Transactional

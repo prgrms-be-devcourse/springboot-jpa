@@ -12,9 +12,6 @@ public class OrderItem extends BaseEntity {
   @GeneratedValue
   private Long id;
 
-  private int price;
-  private int quantity;
-
   @ManyToOne
   @JoinColumn(name = "order_id")
   private Order order;
@@ -25,6 +22,11 @@ public class OrderItem extends BaseEntity {
 
   protected OrderItem() {
 
+  }
+
+  public OrderItem(Order order, Item item) {
+    this.order = order;
+    this.item = item;
   }
 
 }

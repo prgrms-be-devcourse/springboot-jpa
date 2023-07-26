@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
+@Table(name = "orders")
 public class Order extends BaseEntity {
   @Id
   @GeneratedValue
@@ -21,9 +22,15 @@ public class Order extends BaseEntity {
 
   }
 
-  void changeOrderStatus(OrderStatus orderStatus, String memo) {
+  public Order(OrderStatus orderStatus, String memo) {
     validateOrderStatus(orderStatus);
     validateMemo(memo);
+    this.orderStatus = orderStatus;
+    this.memo = memo;
+  }
+
+  void changeOrderStatus(OrderStatus orderStatus, String memo) {
+    validateOrderStatus(orderStatus);
     this.orderStatus = orderStatus;
   }
 
