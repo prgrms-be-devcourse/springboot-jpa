@@ -24,7 +24,7 @@ public class Member {
 
     public Member(String firstName, String lastName) {
         validateFirstName(firstName);
-        validateFirstName(lastName);
+        validateLastName(lastName);
         this.firstName = firstName;
         this.lastName = lastName;
     }
@@ -52,8 +52,8 @@ public class Member {
         }
     }
 
-    private boolean invalidName(String firstName) {
-        boolean valid = NAME_PATTERN.matcher(firstName).matches();
+    private boolean invalidName(String name) {
+        boolean valid = NAME_PATTERN.matcher(name).matches();
         return !valid;
     }
 }
