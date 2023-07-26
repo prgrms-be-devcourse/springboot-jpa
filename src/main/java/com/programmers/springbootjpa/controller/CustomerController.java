@@ -7,7 +7,6 @@ import com.programmers.springbootjpa.service.CustomerService;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,7 +24,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CustomerController {
 
-    @Autowired
     private final CustomerService customerService;
 
     @PostMapping
@@ -41,7 +39,7 @@ public class CustomerController {
 
         return ResponseEntity.ok(customerResponse);
     }
-    
+
     @GetMapping
     public ResponseEntity<List<CustomerResponse>> readAllCustomer() {
         List<CustomerResponse> customerResponses = customerService.readAllCustomer();
