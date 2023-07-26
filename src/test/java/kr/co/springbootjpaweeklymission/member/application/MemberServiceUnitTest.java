@@ -5,9 +5,9 @@ import kr.co.springbootjpaweeklymission.global.error.model.ErrorResult;
 import kr.co.springbootjpaweeklymission.member.domain.entity.Member;
 import kr.co.springbootjpaweeklymission.member.domain.model.MemberCreatorFactory;
 import kr.co.springbootjpaweeklymission.member.domain.repository.MemberRepository;
-import kr.co.springbootjpaweeklymission.member.dto.MemberCreatorRequest;
-import kr.co.springbootjpaweeklymission.member.dto.MemberDetailResponse;
-import kr.co.springbootjpaweeklymission.member.dto.MemberSimpleResponse;
+import kr.co.springbootjpaweeklymission.member.dto.request.MemberPutRequest;
+import kr.co.springbootjpaweeklymission.member.dto.response.MemberDetailResponse;
+import kr.co.springbootjpaweeklymission.member.dto.response.MemberSimpleResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -36,12 +36,12 @@ class MemberServiceUnitTest {
     @Mock
     private MemberRepository memberRepository;
 
-    private MemberCreatorRequest creator;
+    private MemberPutRequest creator;
     private Member member;
 
     @BeforeEach
     void setUp() {
-        creator = MemberCreatorFactory.createMemberCreatorRequest();
+        creator = MemberCreatorFactory.createMemberPutRequest();
         member = MemberCreatorFactory.createMember();
     }
 
@@ -108,8 +108,8 @@ class MemberServiceUnitTest {
     @CsvSource(value = {"", "ex2@naver.com", "ex3@naver.com"})
     void getMembers_test() {
         // Given
-        final Member otherMember = MemberCreatorFactory.createMember("other@naver.com");
-        List<Member> members = new ArrayList<>(List.of(member, otherMember));
+        final Member other = MemberCreatorFactory.createMember("other@naver.com", "010-1212-1212");
+        List<Member> members = new ArrayList<>(List.of(member, other));
         given(memberRepository.findAll()).willReturn(members);
 
         // When

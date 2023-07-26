@@ -1,9 +1,9 @@
 package kr.co.springbootjpaweeklymission.member.presentation;
 
 import kr.co.springbootjpaweeklymission.member.application.MemberService;
-import kr.co.springbootjpaweeklymission.member.dto.MemberCreatorRequest;
-import kr.co.springbootjpaweeklymission.member.dto.MemberDetailResponse;
-import kr.co.springbootjpaweeklymission.member.dto.MemberSimpleResponse;
+import kr.co.springbootjpaweeklymission.member.dto.request.MemberPutRequest;
+import kr.co.springbootjpaweeklymission.member.dto.response.MemberDetailResponse;
+import kr.co.springbootjpaweeklymission.member.dto.response.MemberSimpleResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +19,10 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping
-    public ResponseEntity<Long> createMember(@RequestBody @Validated MemberCreatorRequest creatorRequest) {
+    public ResponseEntity<Long> createMember(@RequestBody @Validated MemberPutRequest putRequest) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(memberService.createMember(creatorRequest));
+                .body(memberService.createMember(putRequest));
     }
 
     @GetMapping("/{email}")
@@ -32,10 +32,24 @@ public class MemberController {
                 .body(memberService.getMember(email));
     }
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<List<MemberSimpleResponse>> getMembers() {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(memberService.getMembers());
+    }
+
+    @PutMapping("/{memberId}")
+    public ResponseEntity<Long> updateMember(@PathVariable Long memberId, @Validated MemberPutRequest putRequest) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(memberService.updateMember(memberId, putRequest));
+    }
+
+    @DeleteMapping("/{memberId}")
+    public ResponseEntity<Long> deleteMember(@PathVariable Long memberId) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(memberService.deleteMember(memberId));
     }
 }

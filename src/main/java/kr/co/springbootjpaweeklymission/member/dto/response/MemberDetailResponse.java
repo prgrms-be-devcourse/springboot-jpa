@@ -1,4 +1,4 @@
-package kr.co.springbootjpaweeklymission.member.dto;
+package kr.co.springbootjpaweeklymission.member.dto.response;
 
 import kr.co.springbootjpaweeklymission.member.domain.entity.Member;
 import lombok.Builder;

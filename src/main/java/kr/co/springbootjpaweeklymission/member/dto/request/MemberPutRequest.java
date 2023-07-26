@@ -1,4 +1,4 @@
-package kr.co.springbootjpaweeklymission.member.dto;
+package kr.co.springbootjpaweeklymission.member.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -11,7 +11,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class MemberCreatorRequest {
+public class MemberPutRequest {
     @NotBlank(message = "이름을 입력하세요.")
     private String name;
 

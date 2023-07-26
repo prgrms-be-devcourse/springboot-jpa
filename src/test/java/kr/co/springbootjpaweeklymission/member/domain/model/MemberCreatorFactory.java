@@ -1,7 +1,7 @@
 package kr.co.springbootjpaweeklymission.member.domain.model;
 
 import kr.co.springbootjpaweeklymission.member.domain.entity.Member;
-import kr.co.springbootjpaweeklymission.member.dto.MemberCreatorRequest;
+import kr.co.springbootjpaweeklymission.member.dto.request.MemberPutRequest;
 
 public class MemberCreatorFactory {
     public static Member createMember() {
@@ -15,11 +15,11 @@ public class MemberCreatorFactory {
                 .build();
     }
 
-    public static Member createMember(String email) {
+    public static Member createMember(String email, String cellPhone) {
         return Member.builder()
                 .name("testName")
                 .email(email)
-                .cellPhone("010-0000-0000")
+                .cellPhone(cellPhone)
                 .address(Address.builder()
                         .street("00도 00시")
                         .build())
@@ -35,8 +35,8 @@ public class MemberCreatorFactory {
                 .build();
     }
 
-    public static MemberCreatorRequest createMemberCreatorRequest() {
-        return MemberCreatorRequest.builder()
+    public static MemberPutRequest createMemberPutRequest() {
+        return MemberPutRequest.builder()
                 .name("testName")
                 .email("example@domain.top")
                 .cellPhone("010-0000-0000")
@@ -44,9 +44,9 @@ public class MemberCreatorFactory {
                 .build();
     }
 
-    public static MemberCreatorRequest createMemberCreatorRequest(String name, String email, String cellPhone) {
-        return MemberCreatorRequest.builder()
-                .name(name)
+    public static MemberPutRequest createMemberPutRequest(String email, String cellPhone) {
+        return MemberPutRequest.builder()
+                .name("testName")
                 .email(email)
                 .cellPhone(cellPhone)
                 .street("00도 00시")

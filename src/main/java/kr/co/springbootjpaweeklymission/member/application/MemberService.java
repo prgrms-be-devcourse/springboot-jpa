@@ -5,9 +5,9 @@ import kr.co.springbootjpaweeklymission.global.error.exception.EntityNotFoundExc
 import kr.co.springbootjpaweeklymission.global.error.model.ErrorResult;
 import kr.co.springbootjpaweeklymission.member.domain.entity.Member;
 import kr.co.springbootjpaweeklymission.member.domain.repository.MemberRepository;
-import kr.co.springbootjpaweeklymission.member.dto.MemberCreatorRequest;
-import kr.co.springbootjpaweeklymission.member.dto.MemberDetailResponse;
-import kr.co.springbootjpaweeklymission.member.dto.MemberSimpleResponse;
+import kr.co.springbootjpaweeklymission.member.dto.request.MemberPutRequest;
+import kr.co.springbootjpaweeklymission.member.dto.response.MemberDetailResponse;
+import kr.co.springbootjpaweeklymission.member.dto.response.MemberSimpleResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,10 +21,10 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     @Transactional
-    public Long createMember(MemberCreatorRequest creatorRequest) {
-        isEmail(creatorRequest.getEmail());
-        isCellPhone(creatorRequest.getCellPhone());
-        final Member member = creatorRequest.toMember();
+    public Long createMember(MemberPutRequest putRequest) {
+        isEmail(putRequest.getEmail());
+        isCellPhone(putRequest.getCellPhone());
+        final Member member = putRequest.toMember();
 
         return memberRepository.save(member).getMemberId();
     }
@@ -32,14 +32,32 @@ public class MemberService {
     public MemberDetailResponse getMember(String email) {
         final Member member = memberRepository.findByEmail(email)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorResult.NOT_FOUND_MEMBER));
+
         return MemberDetailResponse.toDto(member);
     }
 
     public List<MemberSimpleResponse> getMembers() {
         final List<Member> members = memberRepository.findAll();
+
         return members.stream()
                 .map(MemberSimpleResponse::toDto)
                 .toList();
+    }
+
+    public Long updateMember(Long memberId, MemberPutRequest putRequest) {
+        final Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorResult.NOT_FOUND_MEMBER));
+        member.updateMemberInformation(putRequest);
+
+        return memberId;
+    }
+
+    public Long deleteMember(Long memberId) {
+        final Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorResult.NOT_FOUND_MEMBER));
+        memberRepository.delete(member);
+
+        return memberId;
     }
 
     private void isEmail(String email) {

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.co.springbootjpaweeklymission.member.domain.entity.Member;
 import kr.co.springbootjpaweeklymission.member.domain.model.MemberCreatorFactory;
 import kr.co.springbootjpaweeklymission.member.domain.repository.MemberRepository;
-import kr.co.springbootjpaweeklymission.member.dto.MemberCreatorRequest;
+import kr.co.springbootjpaweeklymission.member.dto.request.MemberPutRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,13 +33,13 @@ class MemberControllerTest {
     @Autowired
     private MemberRepository memberRepository;
 
-    private MemberCreatorRequest creatorRequest;
-    private MemberCreatorRequest invalidRequest;
+    private MemberPutRequest creatorRequest;
+    private MemberPutRequest invalidRequest;
 
     @BeforeEach
     void setUp() {
-        creatorRequest = MemberCreatorFactory.createMemberCreatorRequest();
-        invalidRequest = MemberCreatorFactory.createMemberCreatorRequest(" ", " ", " ");
+        creatorRequest = MemberCreatorFactory.createMemberPutRequest();
+        invalidRequest = MemberCreatorFactory.createMemberPutRequest(" ", " ");
     }
 
     @DisplayName("유저 등록 API")
@@ -75,6 +75,6 @@ class MemberControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(invalidRequest)))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.validationExceptions.size()").value(3));
+                .andExpect(jsonPath("$.validationExceptions.size()").value(2));
     }
 }

@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Pattern;
 import kr.co.springbootjpaweeklymission.global.common.BaseTimeEntity;
 import kr.co.springbootjpaweeklymission.global.common.Regexp;
 import kr.co.springbootjpaweeklymission.member.domain.model.Address;
+import kr.co.springbootjpaweeklymission.member.dto.request.MemberPutRequest;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -48,5 +49,15 @@ public class Member extends BaseTimeEntity {
 
     public String getDetail() {
         return address.getDetail();
+    }
+
+    public void updateMemberInformation(MemberPutRequest putRequest) {
+        this.name = putRequest.getName();
+        this.email = putRequest.getEmail();
+        this.cellPhone = putRequest.getCellPhone();
+        this.address = Address.builder()
+                .street(putRequest.getStreet())
+                .detail(putRequest.getDetails())
+                .build();
     }
 }
