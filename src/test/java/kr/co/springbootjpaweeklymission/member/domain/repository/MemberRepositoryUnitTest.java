@@ -3,6 +3,7 @@ package kr.co.springbootjpaweeklymission.member.domain.repository;
 import kr.co.springbootjpaweeklymission.member.domain.entity.Member;
 import kr.co.springbootjpaweeklymission.member.domain.model.MemberCreatorFactory;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -21,14 +22,16 @@ class MemberRepositoryUnitTest {
         member = MemberCreatorFactory.createMember();
     }
 
+    @DisplayName("유저 레포지토리 주입 검증")
     @Test
-    void 유저_레포지토리_주입_검증() {
+    void memberRepositoryBeanRegisterTest() {
         // Then
         assertThat(memberRepository).isNotNull();
     }
 
+    @DisplayName("유저 등록")
     @Test
-    void 유저_등록() {
+    void memberRegisterTest() {
         // When
         final Member actual = memberRepository.save(member);
 
@@ -36,8 +39,9 @@ class MemberRepositoryUnitTest {
         assertThat(actual.getMemberId()).isNotNull();
     }
 
+    @DisplayName("유저 주소가 잘 등록되는지 검증")
     @Test
-    void 유저_주소가_잘_등록되는_지_검증() {
+    void memberAddressRegisterTest() {
         // When
         final Member actual = memberRepository.save(member);
 

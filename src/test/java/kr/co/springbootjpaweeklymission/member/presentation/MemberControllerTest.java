@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.co.springbootjpaweeklymission.member.domain.model.MemberCreatorFactory;
 import kr.co.springbootjpaweeklymission.member.dto.MemberCreatorRequest;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -35,8 +36,9 @@ class MemberControllerTest {
         invalidRequest = MemberCreatorFactory.createMemberCreatorRequest(" ", " ", " ");
     }
 
+    @DisplayName("유저 등록 API")
     @Test
-    void 유저_등록_API() throws Exception {
+    void memberRegisterAPITest() throws Exception {
         // When, Then
         mockMvc.perform(post("/api/v1/members")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -44,8 +46,9 @@ class MemberControllerTest {
                 .andExpect(status().isCreated());
     }
 
+    @DisplayName("이름, 이메일, 핸드폰 번호 형식이 잘못된 유저 등록 API 요청")
     @Test
-    void 이름_이메일_핸드폰번호_형식이_잘못된_유저_등록_API_요청() throws Exception {
+    void memberCreatorRequestMethodArgumentNotValidExceptionTest() throws Exception {
         // When, Then
         mockMvc.perform(post("/api/v1/members")
                         .contentType(MediaType.APPLICATION_JSON)

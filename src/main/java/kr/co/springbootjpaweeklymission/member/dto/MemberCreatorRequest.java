@@ -27,14 +27,16 @@ public class MemberCreatorRequest {
     private String details = "";
 
     public Member toMember() {
+        final Address address = Address.builder()
+                .street(this.street)
+                .detail(this.details)
+                .build();
+
         return Member.builder()
                 .name(this.name)
                 .cellPhone(this.cellPhone)
                 .email(this.email)
-                .address(Address.builder()
-                        .street(this.street)
-                        .detail(this.details)
-                        .build())
+                .address(address)
                 .build();
     }
 }

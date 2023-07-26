@@ -5,6 +5,8 @@ import kr.co.springbootjpaweeklymission.member.domain.model.Address;
 import kr.co.springbootjpaweeklymission.member.domain.model.MemberCreatorFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.DisplayNameGeneration;
+import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @DataJpaTest
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class MemberUnitTest {
     @Autowired
     private TestEntityManager testEntityManager;
@@ -28,9 +31,9 @@ class MemberUnitTest {
     }
 
     @ParameterizedTest
-    @CsvSource(value = {"exampenaver.com", "@naver.com", "example@", "\\ "})
-    @DisplayName(value = "이메일은 example@domainName.domainTop 형식을 따른다.")
-    void 이메일이_유효한_형식인지_검증(String email) {
+    @CsvSource(value = {"example.com", "@gmail.com", "example@", "\\ "})
+    @DisplayName(value = "이메일이 example@domainName.domainTop 형식을 따르지 않음")
+    void emailValidationConstraintViolationExceptionTest(String email) {
         // Given
         final Member member = MemberCreatorFactory.createMember(email, "010-0000-0000", address);
 
@@ -39,9 +42,10 @@ class MemberUnitTest {
                 .isInstanceOf(ConstraintViolationException.class);
     }
 
+    @DisplayName("핸드폰번호가 000-0000-0000 형식을 따르지 않음")
     @ParameterizedTest
     @CsvSource(value = {"010-12-5678", "01012345678", "0", "\\ ", "030-1234-1234"})
-    void 전화번호_형식이_맞지_않음(String cellPhone) {
+    void cellPhoneValidationConstraintViolationExceptionTest(String cellPhone) {
         // Given
         final Member member = MemberCreatorFactory.createMember("example@domain.top", cellPhone, address);
 
