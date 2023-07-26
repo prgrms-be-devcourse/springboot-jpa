@@ -16,6 +16,15 @@ public class Customer {
     @Column(name = "age", nullable = false)
     private int age;
 
+    protected Customer() {
+
+    }
+
+    public Customer(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
     public Long getId() {
         return id;
     }

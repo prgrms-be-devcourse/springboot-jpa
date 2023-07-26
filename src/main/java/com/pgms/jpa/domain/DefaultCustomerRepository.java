@@ -34,11 +34,14 @@ public class DefaultCustomerRepository {
     }
 
     public void delete(Long id) {
-        Customer findCustomer = findById(id).orElseThrow(() -> new NoSuchElementException(ErrorCode.NO_SUCH_ELEMENT.getMsg()));
+        Customer findCustomer = findById(id)
+                .orElseThrow(() -> new NoSuchElementException(ErrorCode.NO_SUCH_ELEMENT.getMsg()));
         entityManager.remove(findCustomer);
     }
 
     public void deleteAll() {
-        entityManager.createQuery("delete from Customer c", Customer.class);
+        findAll().stream()
+                .map(Customer::getId)
+                .forEach(this::delete);
     }
 }
