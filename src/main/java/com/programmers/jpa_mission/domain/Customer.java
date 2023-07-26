@@ -11,7 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Entity
-@Table(name = "customera")
+@Table(name = "customers")
 public class Customer {
     private static final String NAME_PATTERN = "^[가-힣a-zA-Z]*$";
     private static final String INVALID_NAME = "이름으로는 한글 또는 영어만 가능합니다.";
