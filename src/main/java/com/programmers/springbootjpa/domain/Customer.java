@@ -18,7 +18,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode
 public class Customer {
 
@@ -38,9 +37,16 @@ public class Customer {
     @Column(name = "address", nullable = false, length = 100)
     private String address;
 
+
+    private Customer(String name, Integer age, String nickName, String address) {
+        this.name = name;
+        this.age = age;
+        this.nickName = nickName;
+        this.address = address;
+    }
+
     public static Customer of(CustomerCreateRequest request) {
         return new Customer(
-                request.getId(),
                 request.getName(),
                 request.getAge(),
                 request.getNickName(),

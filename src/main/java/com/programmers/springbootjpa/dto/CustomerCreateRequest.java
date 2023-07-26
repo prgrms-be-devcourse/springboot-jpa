@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CustomerCreateRequest {
 
-    private Long id;
     private String name;
     private Integer age;
     private String nickName;
