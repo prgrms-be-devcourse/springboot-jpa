@@ -1,5 +1,6 @@
 package com.programmers.jpa.customer.domain;
 
+import com.programmers.jpa.base.domain.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,7 +11,16 @@ import java.util.Objects;
 
 @Entity
 @Getter
-public class Customer {
+public class Customer extends BaseEntity {
+
+    @Id @GeneratedValue
+    private Long id;
+
+    @Column(length = 5, nullable = false)
+    private String firstName;
+
+    @Column(length = 2, nullable = false)
+    private String lastName;
 
     protected Customer() {
     }
@@ -21,15 +31,6 @@ public class Customer {
         this.firstName = firstName;
         this.lastName = lastName;
     }
-
-    @Id @GeneratedValue
-    private Long id;
-
-    @Column(length = 5, nullable = false)
-    private String firstName;
-
-    @Column(length = 2, nullable = false)
-    private String lastName;
 
     public void changeFirstName(String firstName) {
         validateFirstName(firstName);
