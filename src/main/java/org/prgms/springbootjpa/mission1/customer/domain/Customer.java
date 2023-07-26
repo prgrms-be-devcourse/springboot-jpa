@@ -4,17 +4,17 @@ import org.apache.ibatis.type.Alias;
 
 @Alias("customers")
 public class Customer {
-    private final long id;
+    private final Long id;
     private String firstName;
     private final String lastName;
 
-    public Customer(long id, String firstName, String lastName) {
+    public Customer(Long id, String firstName, String lastName) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
