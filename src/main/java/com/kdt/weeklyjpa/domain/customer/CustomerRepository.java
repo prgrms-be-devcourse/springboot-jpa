@@ -1,4 +1,4 @@
-package com.kdt.weeklyjpa.domain;
+package com.kdt.weeklyjpa.domain.customer;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
