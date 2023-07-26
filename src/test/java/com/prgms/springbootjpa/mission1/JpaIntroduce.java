@@ -7,9 +7,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.List;
 
 @DataJpaTest
 public class JpaIntroduce {
@@ -28,17 +25,14 @@ public class JpaIntroduce {
 
         //then
         Assertions.assertThat(saved)
-            .extracting("firstName", "lastName")
-            .containsAll(List.of(customer.getFirstName(), customer.getLastName()));
+            .isEqualTo(customer);
     }
 
     @Test
-    @DisplayName("reade - customer 조회한다.")
+    @DisplayName("read - customer 조회한다.")
     void 조회() {
-
         //given
         Customer customer = new Customer("길동", "홍");
-        customerRepository.save(customer);
         Customer saved = customerRepository.save(customer);
 
         //when
@@ -46,8 +40,7 @@ public class JpaIntroduce {
 
         //then
         Assertions.assertThat(selected)
-            .extracting("firstName", "lastName")
-            .containsAll(List.of(customer.getFirstName(), customer.getLastName()));
+            .isEqualTo(customer);
     }
 
     @Test
@@ -63,8 +56,7 @@ public class JpaIntroduce {
 
         //then
         Assertions.assertThat(updated)
-            .extracting("firstName", "lastName")
-            .containsAll(List.of(customer.getFirstName(), customer.getLastName()));
+            .isEqualTo(customer);
     }
 
     @Test
