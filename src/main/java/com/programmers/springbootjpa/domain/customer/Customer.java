@@ -1,4 +1,4 @@
-package com.programmers.springbootjpa.domain;
+package com.programmers.springbootjpa.domain.customer;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;

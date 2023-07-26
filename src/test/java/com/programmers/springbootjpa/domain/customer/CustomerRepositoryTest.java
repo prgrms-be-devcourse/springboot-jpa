@@ -1,5 +1,7 @@
-package com.programmers.springbootjpa.domain;
+package com.programmers.springbootjpa.domain.customer;
 
+import com.programmers.springbootjpa.domain.customer.Customer;
+import com.programmers.springbootjpa.domain.customer.CustomerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
