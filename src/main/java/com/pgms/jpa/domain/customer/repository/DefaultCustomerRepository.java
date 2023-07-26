@@ -1,5 +1,6 @@
-package com.pgms.jpa.domain;
+package com.pgms.jpa.domain.customer.repository;
 
+import com.pgms.jpa.domain.customer.Customer;
 import com.pgms.jpa.global.ErrorCode;
 import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Repository;

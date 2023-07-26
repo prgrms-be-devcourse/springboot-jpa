@@ -1,4 +1,4 @@
-package com.pgms.jpa.domain;
+package com.pgms.jpa.domain.customer;
 
 import jakarta.persistence.*;
 

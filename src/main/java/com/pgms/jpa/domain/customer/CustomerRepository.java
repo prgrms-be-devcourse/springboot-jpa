@@ -1,5 +1,6 @@
-package com.pgms.jpa.domain;
+package com.pgms.jpa.domain.customer;
 
+import com.pgms.jpa.domain.customer.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

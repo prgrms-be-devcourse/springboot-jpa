@@ -1,5 +1,7 @@
 package com.pgms.jpa.domain;
 
+import com.pgms.jpa.domain.customer.Customer;
+import com.pgms.jpa.domain.customer.repository.DefaultCustomerRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;

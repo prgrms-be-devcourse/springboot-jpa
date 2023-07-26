@@ -1,7 +1,7 @@
 package com.pgms.jpa.service;
 
-import com.pgms.jpa.domain.Customer;
-import com.pgms.jpa.domain.DefaultCustomerRepository;
+import com.pgms.jpa.domain.customer.Customer;
+import com.pgms.jpa.domain.customer.repository.DefaultCustomerRepository;
 import com.pgms.jpa.global.ErrorCode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
