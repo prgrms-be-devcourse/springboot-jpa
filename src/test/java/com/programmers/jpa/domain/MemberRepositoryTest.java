@@ -1,11 +1,16 @@
 package com.programmers.jpa.domain;
 
 import jakarta.persistence.EntityManager;
+import org.assertj.core.api.recursive.comparison.RecursiveComparisonConfiguration;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.Comparator;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -16,6 +21,15 @@ class MemberRepositoryTest {
     MemberRepository memberRepository;
     @Autowired
     EntityManager em;
+
+    RecursiveComparisonConfiguration dateTimeConfig;
+
+    @BeforeEach
+    void init() {
+        dateTimeConfig = RecursiveComparisonConfiguration.builder()
+                .withComparatorForType(Comparator.comparing(a -> a.truncatedTo(ChronoUnit.MILLIS)), LocalDateTime.class)
+                .build();
+    }
 
     @Test
     @DisplayName("성공: member 저장")
@@ -61,7 +75,8 @@ class MemberRepositoryTest {
         //then
         Member findMember = optionalMember.get();
         assertThat(findMember).isNotEqualTo(member);
-        assertThat(findMember).usingRecursiveComparison().isEqualTo(findMember);
+        assertThat(findMember).usingRecursiveComparison(dateTimeConfig)
+                .isEqualTo(member);
     }
 
     @Test
