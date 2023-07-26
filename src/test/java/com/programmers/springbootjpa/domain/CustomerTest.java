@@ -12,7 +12,6 @@ class CustomerTest {
     @Test
     void of() {
         CustomerCreateRequest request = new CustomerCreateRequest(
-                1L,
                 "Kim Jae Won",
                 28,
                 "hanjo",
@@ -21,7 +20,6 @@ class CustomerTest {
 
         Customer customer = Customer.of(request);
 
-        assertThat(customer.getId()).isEqualTo(1L);
         assertThat(customer.getName()).isEqualTo("Kim Jae Won");
         assertThat(customer.getAge()).isEqualTo(28);
         assertThat(customer.getNickName()).isEqualTo("hanjo");

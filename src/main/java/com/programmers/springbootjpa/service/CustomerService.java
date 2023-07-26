@@ -37,4 +37,13 @@ public class CustomerService {
 
         return CustomerResponse.of(customer);
     }
+
+    @Transactional
+    public void deleteCustomerById(Long id) {
+        if (!customerRepository.existsById(id)) {
+            throw new IllegalArgumentException("해당 ID에 해당하는 구매자가 없습니다.");
+        }
+
+        customerRepository.deleteById(id);
+    }
 }
