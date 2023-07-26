@@ -6,7 +6,7 @@ import lombok.Builder;
 import java.time.LocalDate;
 
 @Builder
-public record MemberReadResponse(
+public record MemberDetailResponse(
         String email,
         String name,
         String cellPhone,
@@ -15,9 +15,8 @@ public record MemberReadResponse(
         LocalDate createdAt,
         LocalDate modifiedAt
 ) {
-
-    public static MemberReadResponse toDto(Member member) {
-        return MemberReadResponse.builder()
+    public static MemberDetailResponse toDto(Member member) {
+        return MemberDetailResponse.builder()
                 .name(member.getName())
                 .email(member.getEmail())
                 .cellPhone(member.getCellPhone())
@@ -27,5 +26,4 @@ public record MemberReadResponse(
                 .modifiedAt(member.getModifiedAt())
                 .build();
     }
-
 }

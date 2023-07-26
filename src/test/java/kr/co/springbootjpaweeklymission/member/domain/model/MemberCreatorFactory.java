@@ -15,6 +15,17 @@ public class MemberCreatorFactory {
                 .build();
     }
 
+    public static Member createMember(String email) {
+        return Member.builder()
+                .name("testName")
+                .email(email)
+                .cellPhone("010-0000-0000")
+                .address(Address.builder()
+                        .street("00도 00시")
+                        .build())
+                .build();
+    }
+
     public static Member createMember(String email, String cellPhone, Address address) {
         return Member.builder()
                 .name("testName")

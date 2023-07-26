@@ -6,10 +6,13 @@ import kr.co.springbootjpaweeklymission.global.error.model.ErrorResult;
 import kr.co.springbootjpaweeklymission.member.domain.entity.Member;
 import kr.co.springbootjpaweeklymission.member.domain.repository.MemberRepository;
 import kr.co.springbootjpaweeklymission.member.dto.MemberCreatorRequest;
-import kr.co.springbootjpaweeklymission.member.dto.MemberReadResponse;
+import kr.co.springbootjpaweeklymission.member.dto.MemberDetailResponse;
+import kr.co.springbootjpaweeklymission.member.dto.MemberSimpleResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -26,10 +29,17 @@ public class MemberService {
         return memberRepository.save(member).getMemberId();
     }
 
-    public MemberReadResponse getMember(String email) {
+    public MemberDetailResponse getMember(String email) {
         final Member member = memberRepository.findByEmail(email)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorResult.NOT_FOUND_MEMBER));
-        return MemberReadResponse.toDto(member);
+        return MemberDetailResponse.toDto(member);
+    }
+
+    public List<MemberSimpleResponse> getMembers() {
+        final List<Member> members = memberRepository.findAll();
+        return members.stream()
+                .map(MemberSimpleResponse::toDto)
+                .toList();
     }
 
     private void isEmail(String email) {

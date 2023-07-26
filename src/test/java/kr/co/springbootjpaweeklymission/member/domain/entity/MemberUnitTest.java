@@ -30,9 +30,9 @@ class MemberUnitTest {
                 .build();
     }
 
+    @DisplayName(value = "이메일이 example@domainName.domainTop 형식을 따르지 않음")
     @ParameterizedTest
     @CsvSource(value = {"example.com", "@gmail.com", "example@", "\\ "})
-    @DisplayName(value = "이메일이 example@domainName.domainTop 형식을 따르지 않음")
     void email_validation_constraintViolationException_test(String email) {
         // Given
         final Member member = MemberCreatorFactory.createMember(email, "010-0000-0000", address);

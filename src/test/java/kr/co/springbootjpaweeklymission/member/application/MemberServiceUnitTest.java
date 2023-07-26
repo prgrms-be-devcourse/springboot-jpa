@@ -6,17 +6,21 @@ import kr.co.springbootjpaweeklymission.member.domain.entity.Member;
 import kr.co.springbootjpaweeklymission.member.domain.model.MemberCreatorFactory;
 import kr.co.springbootjpaweeklymission.member.domain.repository.MemberRepository;
 import kr.co.springbootjpaweeklymission.member.dto.MemberCreatorRequest;
-import kr.co.springbootjpaweeklymission.member.dto.MemberReadResponse;
+import kr.co.springbootjpaweeklymission.member.dto.MemberDetailResponse;
+import kr.co.springbootjpaweeklymission.member.dto.MemberSimpleResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -33,10 +37,12 @@ class MemberServiceUnitTest {
     private MemberRepository memberRepository;
 
     private MemberCreatorRequest creator;
+    private Member member;
 
     @BeforeEach
     void setUp() {
         creator = MemberCreatorFactory.createMemberCreatorRequest();
+        member = MemberCreatorFactory.createMember();
     }
 
     @DisplayName("유저 서비스 주입 검증")
@@ -87,15 +93,30 @@ class MemberServiceUnitTest {
     @Test
     void get_member() {
         // Given
-        final Member member = MemberCreatorFactory.createMember();
         given(memberRepository.findByEmail(any(String.class))).willReturn(Optional.of(member));
 
         // When
-        MemberReadResponse actual = memberService.getMember(member.getEmail());
+        MemberDetailResponse actual = memberService.getMember(member.getEmail());
 
         // Then
         assertThat(actual.email()).isEqualTo(member.getEmail());
         assertThat(actual.cellPhone()).isEqualTo(member.getCellPhone());
+    }
+
+    @DisplayName("모든 회원을 조회한다.")
+    @Test
+    @CsvSource(value = {"", "ex2@naver.com", "ex3@naver.com"})
+    void get_all_member() {
+        // Given
+        final Member otherMember = MemberCreatorFactory.createMember("other@naver.com");
+        List<Member> members = new ArrayList<>(List.of(member, otherMember));
+        given(memberRepository.findAll()).willReturn(members);
+
+        // When
+        final List<MemberSimpleResponse> actual = memberService.getMembers();
+
+        // Then
+        assertThat(actual).hasSize(2);
     }
 
     private static Object getMemberId(InvocationOnMock invocation)
