@@ -31,38 +31,38 @@ class MemberRepositoryUnitTest {
         savedMember = memberRepository.save(member);
     }
 
-    @DisplayName("유저 레포지토리 주입 검증")
+    @DisplayName("유저 레포지토리가 잘 주입되는 지 검증하는 테스트")
     @Test
-    void member_repository_bean_register_test() {
+    void memberRepository_bean_test() {
         // Then
         assertThat(memberRepository).isNotNull();
     }
 
-    @DisplayName("유저 등록")
+    @DisplayName("유저가 잘 등록되는 지 테스트")
     @Test
-    void member_register_test() {
+    void save_getMemberId_test() {
         // Then
         assertThat(savedMember.getMemberId()).isNotNull();
     }
 
-    @DisplayName("유저 주소가 잘 등록되는지 검증")
+    @DisplayName("유저 주소가 잘 등록되는지 검증하는 테스트")
     @Test
-    void member_address_register_test() {
+    void save_getAddress_test() {
         // Then
         assertThat(savedMember.getAddress().getStreet()).isEqualTo(member.getAddress().getStreet());
         assertThat(savedMember.getAddress().getDetail()).isEqualTo(member.getAddress().getDetail());
     }
 
-    @DisplayName("회원 등록 시, 생성일이 자동 등록 된다.")
+    @DisplayName("회원 등록 시, 생성일이 자동 등록 되는 지 검증하는 테스트")
     @Test
-    void member_createAt_register() {
+    void save_getCreatedAt_test() {
         // Then
         assertThat(savedMember.getCreatedAt()).isEqualTo(LocalDate.now());
     }
 
-    @DisplayName("이메일로 회원을 조회한다")
+    @DisplayName("이메일로 회원을 조회하는 테스트")
     @Test
-    void find_member_by_id() {
+    void findByEmail_test() {
         // When
         final Member actual = memberRepository.findByEmail(member.getEmail())
                 .orElseThrow(() -> new EntityNotFoundException(ErrorResult.NOT_FOUND_MEMBER));

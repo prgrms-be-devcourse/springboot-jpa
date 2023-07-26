@@ -45,16 +45,16 @@ class MemberServiceUnitTest {
         member = MemberCreatorFactory.createMember();
     }
 
-    @DisplayName("유저 서비스 주입 검증")
+    @DisplayName("유저 서비스가 주입 됐는 지 검증")
     @Test
-    void member_service_bean_test() {
+    void memberService_bean_test() {
         // Then
         assertThat(memberService).isNotNull();
     }
 
-    @DisplayName("등록할 유저의 이메일이 중복됨")
+    @DisplayName("등록할 유저의 이메일이 중복되어 DuplicateException 예외가 발생")
     @Test
-    void email_duplicate_exception_test() {
+    void createMember_email_duplicateException_test() {
         // Given
         given(memberRepository.existsByEmail(any(String.class))).willReturn(true);
 
@@ -64,9 +64,9 @@ class MemberServiceUnitTest {
                 .hasMessage(ErrorResult.DUPLICATED_EMAIL.getMessage());
     }
 
-    @DisplayName("등록할 유저의 핸드폰 번호가 중복됨")
+    @DisplayName("등록할 유저의 핸드폰 번호가 중복되어 DuplicateException 예외가 발생")
     @Test
-    void cellPhone_duplicateException_test() {
+    void createMember_cellPhone_duplicateException_test() {
         // Given
         given(memberRepository.existsByCellPhone(any(String.class))).willReturn(true);
 
@@ -76,9 +76,9 @@ class MemberServiceUnitTest {
                 .hasMessage(ErrorResult.DUPLICATED_CELL_PHONE.getMessage());
     }
 
-    @DisplayName("유저를 등록")
+    @DisplayName("유저를 등록되는 지 테스트")
     @Test
-    void member_register_test() {
+    void createMember_test() {
         // Given
         given(memberRepository.save(any(Member.class))).willAnswer(MemberServiceUnitTest::getMemberId);
 
@@ -89,9 +89,9 @@ class MemberServiceUnitTest {
         assertThat(actual).isNotNull();
     }
 
-    @DisplayName("이메일에 해당하는 회원을 조회한다")
+    @DisplayName("해당 이메일과 일치하는 회원을 조회하는 테스트")
     @Test
-    void get_member() {
+    void getMember_test() {
         // Given
         given(memberRepository.findByEmail(any(String.class))).willReturn(Optional.of(member));
 
@@ -103,10 +103,10 @@ class MemberServiceUnitTest {
         assertThat(actual.cellPhone()).isEqualTo(member.getCellPhone());
     }
 
-    @DisplayName("모든 회원을 조회한다.")
+    @DisplayName("모든 회원을 조회하는 테스트")
     @Test
     @CsvSource(value = {"", "ex2@naver.com", "ex3@naver.com"})
-    void get_all_member() {
+    void getMembers_test() {
         // Given
         final Member otherMember = MemberCreatorFactory.createMember("other@naver.com");
         List<Member> members = new ArrayList<>(List.of(member, otherMember));
