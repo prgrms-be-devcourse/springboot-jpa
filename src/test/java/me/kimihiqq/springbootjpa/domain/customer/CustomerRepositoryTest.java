@@ -1,6 +1,5 @@
 package me.kimihiqq.springbootjpa.domain.customer;
 
-import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -9,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -51,7 +51,6 @@ class CustomerRepositoryTest {
     }
 
     @DisplayName("고객 이름 변경 테스트")
-    @Transactional
     @Test
     public void testUpdateCustomerName() {
         // Given
@@ -59,10 +58,12 @@ class CustomerRepositoryTest {
 
         // When
         savedCustomer.updateName("산슬", "유");
+        customerRepository.save(savedCustomer);
 
         // Then
-        assertThat(savedCustomer.getFirstName()).isEqualTo("산슬");
-        assertThat(savedCustomer.getLastName()).isEqualTo("유");
+        Customer updatedCustomer = customerRepository.findById(savedCustomer.getId()).orElse(null);
+        assertThat(updatedCustomer.getFirstName()).isEqualTo("산슬");
+        assertThat(updatedCustomer.getLastName()).isEqualTo("유");
     }
 
     @DisplayName("고객 ID로 찾기 테스트")
@@ -103,9 +104,9 @@ class CustomerRepositoryTest {
 
         // When
         customerRepository.deleteById(savedCustomer.getId());
-        Customer deletedCustomer = customerRepository.findById(savedCustomer.getId()).orElse(null);
+        Optional<Customer> deletedCustomer = customerRepository.findById(savedCustomer.getId());
 
         // Then
-        assertThat(deletedCustomer).isNull();
+        assertThat(deletedCustomer).isEmpty();
     }
 }
