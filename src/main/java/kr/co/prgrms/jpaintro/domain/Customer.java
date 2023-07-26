@@ -7,13 +7,17 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import kr.co.prgrms.jpaintro.exception.IllegalNameException;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.util.StringUtils;
 
 import java.util.regex.Pattern;
 
-@Getter
+
 @Entity
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "customer")
 public class Customer {
     @Id
@@ -24,18 +28,10 @@ public class Customer {
     @Column(name = "last_name", nullable = false, length = 50)
     private String lastName;
 
-    protected Customer() {
-    }
-
     public Customer(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
-    public Customer(Long id, String firstName, String lastName) {
         validateName(firstName);
         validateName(lastName);
-        this.id = id;
+
         this.firstName = firstName;
         this.lastName = lastName;
     }

@@ -61,7 +61,7 @@ class CustomerRepositoryTest {
     @DisplayName("모든 고객 조회 성공 테스트")
     void findAllCustomersTest() {
         // given
-        Customer customer2 = new Customer(2L, "애송이", "고");
+        Customer customer2 = new Customer("애송이", "고");
 
         // when
         repository.save(customer1);
