@@ -2,6 +2,7 @@ package kr.co.springbootjpaweeklymission.member.domain.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
+import kr.co.springbootjpaweeklymission.global.common.BaseTimeEntity;
 import kr.co.springbootjpaweeklymission.global.common.Regexp;
 import kr.co.springbootjpaweeklymission.member.domain.model.Address;
 import lombok.AccessLevel;
@@ -13,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "tbl_members")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member {
+public class Member extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id", length = 4, nullable = false, unique = true)
