@@ -7,6 +7,7 @@ import com.programmers.springbootjpa.ui.dto.MemberSaveRequest;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -71,5 +72,26 @@ class JpaMemberRepositoryTest {
 
         // then
         assertThat(memberRepository.findById(member.getId())).isEqualTo(Optional.empty());
+    }
+
+    /*
+    미션 2 - 영속성 컨텍스트 생명주기 실습
+     */
+    @Test
+    void detach() {
+        // given
+        Member member = Member.of(new MemberSaveRequest("kim", "1234", new Address("ilsan", "12345")));
+        memberRepository.save(member);
+
+        // when
+        entityManager.detach(member);
+        member.changeName("park");
+
+        entityManager.flush();
+        entityManager.clear();
+
+        // then
+        Member findMember = memberRepository.findById(member.getId()).get();
+        assertThat(findMember.getName()).isEqualTo("kim");
     }
 }
