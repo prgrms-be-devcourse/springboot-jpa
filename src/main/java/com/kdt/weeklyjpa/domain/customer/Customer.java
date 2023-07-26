@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long customer_id;
+    private Long customerId;
 
     @Column(name = "first_name", nullable = false, length = 20)
     @NotBlank

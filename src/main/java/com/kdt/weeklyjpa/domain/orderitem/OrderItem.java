@@ -1,5 +1,6 @@
-package com.kdt.weeklyjpa.domain;
+package com.kdt.weeklyjpa.domain.orderitem;
 
+import com.kdt.weeklyjpa.domain.item.Item;
 import com.kdt.weeklyjpa.domain.order.Order;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Positive;
@@ -25,6 +26,10 @@ public class OrderItem {
     private Integer quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id", referencedColumnName = "order_id")
+    @JoinColumn(name = "order_id", referencedColumnName = "orderId")
     private Order order;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "item_id", referencedColumnName = "itemId")
+    private Item item;
 }

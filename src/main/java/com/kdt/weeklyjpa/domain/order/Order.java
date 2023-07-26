@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long order_id;
+    private Long orderId;
 
     @Lob
     @Column(name = "memo")
@@ -29,6 +29,6 @@ public class Order {
     private LocalDateTime orderDatetime;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
+    @JoinColumn(name = "customer_id", referencedColumnName = "customerId")
     private Customer customer;
 }
