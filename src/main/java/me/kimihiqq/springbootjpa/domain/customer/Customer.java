@@ -1,15 +1,17 @@
 package me.kimihiqq.springbootjpa.domain.customer;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import me.kimihiqq.springbootjpa.exception.InvalidNameException;
+
+import java.util.regex.Pattern;
+
 @Entity
 @Getter
-@NoArgsConstructor
-@EqualsAndHashCode
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Customer {
 
     @Id
@@ -17,10 +19,10 @@ public class Customer {
     @Column(name = "id")
     private long id;
 
-    @Column
+    @Column(name = "first_name", nullable = false, length = 50)
     private String firstName;
 
-    @Column
+    @Column(name = "last_name", nullable = false, length = 50)
     private String lastName;
 
     @Builder
@@ -37,12 +39,14 @@ public class Customer {
     }
 
     private void validateName(String firstName, String lastName) {
-        if (firstName == null || firstName.trim().isEmpty()) {
-            throw new InvalidNameException("이름은 비어 있거나 NULL 일 수 없습니다.");
+        String pattern = "^[a-zA-Zㄱ-ㅎ가-힣]+$";
+
+        if (!Pattern.matches(pattern, firstName)) {
+            throw new InvalidNameException("이름은 한글과 영문만 가능하며, 비어 있거나 NULL 일 수 없습니다.");
         }
 
-        if (lastName == null || lastName.trim().isEmpty()) {
-            throw new InvalidNameException("성은 비어 있거나 NULL 일 수 없습니다.");
+        if (!Pattern.matches(pattern, lastName)) {
+            throw new InvalidNameException("성은 한글과 영문만 가능하며, 비어 있거나 NULL 일 수 없습니다.");
         }
     }
 }
