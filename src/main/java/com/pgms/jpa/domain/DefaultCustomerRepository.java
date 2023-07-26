@@ -3,11 +3,13 @@ package com.pgms.jpa.domain;
 import com.pgms.jpa.global.ErrorCode;
 import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+@Transactional(readOnly = true)
 @Repository
 public class DefaultCustomerRepository {
 
@@ -17,6 +19,7 @@ public class DefaultCustomerRepository {
         this.entityManager = entityManager;
     }
 
+    @Transactional
     public Long save(Customer customer) {
         entityManager.persist(customer);
         return customer.getId();
@@ -33,12 +36,14 @@ public class DefaultCustomerRepository {
         return customers;
     }
 
+    @Transactional
     public void delete(Long id) {
         Customer findCustomer = findById(id)
                 .orElseThrow(() -> new NoSuchElementException(ErrorCode.NO_SUCH_ELEMENT.getMsg()));
         entityManager.remove(findCustomer);
     }
 
+    @Transactional
     public void deleteAll() {
         findAll().stream()
                 .map(Customer::getId)

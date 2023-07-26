@@ -36,4 +36,8 @@ public class Customer {
     public int getAge() {
         return age;
     }
+
+    public void changeName(String name) {
+        this.name = name;
+    }
 }
