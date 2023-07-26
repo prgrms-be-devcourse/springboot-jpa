@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -46,7 +47,7 @@ class MemberRepositoryTest {
     }
 
     @Test
-    @DisplayName("성공: member 조회")
+    @DisplayName("성공: member 조회 - 1차 캐시에서 조회")
     void find() {
         //given
         Member member = new Member("username", "nickname", "address");
@@ -62,11 +63,12 @@ class MemberRepositoryTest {
     }
 
     @Test
-    @DisplayName("성공: member 조회 - 영속성 컨텍스트 초기화")
+    @DisplayName("성공: member 조회 - 데이터 베이스에서 조회")
     void find_ClearPersistenceContext() {
         //given
         Member member = new Member("username", "nickname", "address");
         memberRepository.save(member);
+        em.flush();
         em.clear();
 
         //when
@@ -111,6 +113,7 @@ class MemberRepositoryTest {
 
         //then
         em.flush();
+        em.clear();
         Optional<Member> optionalMember = memberRepository.findById(member.getId());
         assertThat(optionalMember).isEmpty();
     }
