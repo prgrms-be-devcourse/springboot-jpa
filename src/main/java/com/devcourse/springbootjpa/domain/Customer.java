@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import com.devcourse.springbootjpa.exception.InvalidCustomerException;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,11 +18,13 @@ import lombok.Getter;
 @Getter
 public class Customer {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
+	@Column(length = 20, nullable=false)
 	private String firstName;
 
+	@Column(length = 10, nullable=false)
 	private String lastName;
 
 	protected Customer() {
@@ -75,4 +78,5 @@ public class Customer {
 	public int hashCode() {
 		return Objects.hash(id, firstName, lastName);
 	}
+
 }
