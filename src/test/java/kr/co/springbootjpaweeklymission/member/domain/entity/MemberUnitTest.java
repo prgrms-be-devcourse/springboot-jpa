@@ -33,7 +33,7 @@ class MemberUnitTest {
     @ParameterizedTest
     @CsvSource(value = {"example.com", "@gmail.com", "example@", "\\ "})
     @DisplayName(value = "이메일이 example@domainName.domainTop 형식을 따르지 않음")
-    void emailValidationConstraintViolationExceptionTest(String email) {
+    void email_validation_constraintViolationException_test(String email) {
         // Given
         final Member member = MemberCreatorFactory.createMember(email, "010-0000-0000", address);
 
@@ -45,7 +45,7 @@ class MemberUnitTest {
     @DisplayName("핸드폰번호가 000-0000-0000 형식을 따르지 않음")
     @ParameterizedTest
     @CsvSource(value = {"010-12-5678", "01012345678", "0", "\\ ", "030-1234-1234"})
-    void cellPhoneValidationConstraintViolationExceptionTest(String cellPhone) {
+    void cellPhone_validation_constraintViolationException_test(String cellPhone) {
         // Given
         final Member member = MemberCreatorFactory.createMember("example@domain.top", cellPhone, address);
 

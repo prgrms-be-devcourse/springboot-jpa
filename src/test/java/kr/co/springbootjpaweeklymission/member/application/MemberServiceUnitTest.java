@@ -22,7 +22,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-public class MemberServiceUnitTest {
+class MemberServiceUnitTest {
 
     @InjectMocks
     private MemberService memberService;
@@ -32,14 +32,14 @@ public class MemberServiceUnitTest {
 
     @DisplayName("유저 서비스 주입 검증")
     @Test
-    void memberServiceBeanTest() {
+    void member_service_bean_test() {
         // Then
         assertThat(memberService).isNotNull();
     }
 
     @DisplayName("등록할 유저의 이메일이 중복됨")
     @Test
-    void emailDuplicateExceptionTest() {
+    void email_duplicate_exception_test() {
         // Given
         final MemberCreatorRequest creator = MemberCreatorFactory.createMemberCreatorRequest();
         given(memberRepository.existsByEmail(any(String.class))).willReturn(true);
@@ -52,7 +52,7 @@ public class MemberServiceUnitTest {
 
     @DisplayName("등록할 유저의 핸드폰 번호가 중복됨")
     @Test
-    void cellPhoneDuplicateExceptionTest() {
+    void cellPhone_duplicateException_test() {
         // Given
         final MemberCreatorRequest creator = MemberCreatorFactory.createMemberCreatorRequest();
         given(memberRepository.existsByCellPhone(any(String.class))).willReturn(true);
@@ -65,7 +65,7 @@ public class MemberServiceUnitTest {
 
     @DisplayName("유저를 등록")
     @Test
-    void memberRegisterTest() {
+    void member_register_test() {
         // Given
         final MemberCreatorRequest creator = MemberCreatorFactory.createMemberCreatorRequest();
         given(memberRepository.save(any(Member.class))).willAnswer(MemberServiceUnitTest::getMemberId);
