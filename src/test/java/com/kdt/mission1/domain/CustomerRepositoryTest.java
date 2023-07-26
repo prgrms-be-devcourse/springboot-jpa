@@ -1,48 +1,41 @@
 package com.kdt.mission1.domain;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.transaction.annotation.Transactional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.samePropertyValuesAs;
 
-@SpringBootTest
-@TestMethodOrder(value = MethodOrderer.OrderAnnotation.class)
+@DataJpaTest
 @Rollback(value = false)
-@Transactional
 class CustomerRepositoryTest {
 
     @Autowired
     private CustomerRepository repository;
 
-//    @BeforeEach
-//    void setup() {
-//        repository.deleteAll();
-//    }
 
     @Test
     @DisplayName("객체를 저장할 수 있다")
-    @Order(1)
     public void testSave() {
         // Given
-        Customer customer = new Customer(1L, "seongwon", "choi");
+        Customer customer = new Customer("seongwon", "choi");
         // When
-        repository.save(customer);
+        Customer saved = repository.save(customer);
         // Then
-        Customer persistCustomer = repository.findById(1L).get();
+        Customer persistCustomer = repository.findById(saved.getId()).get();
         assertThat(customer, samePropertyValuesAs(persistCustomer));
 
     }
 
     @Test
     @DisplayName("저장된 객체를 수정해 다시 저장할 수 있다")
-    @Order(2)
     void testUpdate() {
         // Given
-        Customer customer = new Customer(2L, "seongwon", "choi");
+        Customer customer = new Customer("seongwon", "choi");
+        repository.save(customer);
         Customer persistCustomer = repository.findById(customer.getId()).get();
         // When
         persistCustomer.setFirstName("jerry");
@@ -56,7 +49,6 @@ class CustomerRepositoryTest {
 
     @Test
     @DisplayName("dirty check 를 통해 save 없이 객체를 수정할 수 있다")
-    @Order(3)
     void testDirtyCheckingUpdate() {
 
         // Given
