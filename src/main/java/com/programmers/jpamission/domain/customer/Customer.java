@@ -1,5 +1,6 @@
 package com.programmers.jpamission.domain.customer;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,7 +18,8 @@ import lombok.NoArgsConstructor;
 public class Customer {
 
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    @Column(name = "customer_id")
+    private Long customerId;
 
     @Embedded
     private Name name;

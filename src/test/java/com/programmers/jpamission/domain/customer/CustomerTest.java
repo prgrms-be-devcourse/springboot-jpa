@@ -26,7 +26,7 @@ class CustomerTest {
         assertThat(repository).isNotNull();
     }
 
-    @DisplayName("직원 등록 - 성공")
+    @DisplayName("고객 등록 - 성공")
     @Test
     void customer_create() {
         // given
@@ -43,7 +43,7 @@ class CustomerTest {
                 .contains(customer1, customer2);
     }
 
-    @DisplayName("직원 등록 실패 - 이름 길이")
+    @DisplayName("고객 등록 실패 - 이름 길이")
     @ParameterizedTest
     @CsvSource({
             ", 신", "1234567891011121314151617181920, 신"
@@ -55,7 +55,7 @@ class CustomerTest {
                 .hasMessage(ErrorMessage.INVALID_FIRST_NAME_REQUEST.getMessage());
     }
 
-    @DisplayName("직원 등록 실패 - 성 길이")
+    @DisplayName("고객 등록 실패 - 성 길이")
     @ParameterizedTest
     @CsvSource({
             "재윤, ", "재윤, 123456789000"
@@ -67,7 +67,7 @@ class CustomerTest {
                 .hasMessage(ErrorMessage.INVALID_LAST_NAME_REQUEST.getMessage());
     }
 
-    @DisplayName("직원 이름 수정 - 성공")
+    @DisplayName("고객 이름 수정 - 성공")
     @Test
     void customer_name_update() {
         // given
@@ -82,7 +82,7 @@ class CustomerTest {
         assertThat(customer.getName()).isEqualTo(name);
     }
 
-    @DisplayName("직원 삭제 - 성공")
+    @DisplayName("고객 삭제 - 성공")
     @Test
     void customer_delete() {
         // given
