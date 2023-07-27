@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
 @SpringBootTest
-//@Transactional
+@Transactional
 class CustomerRepositoryTest {
     @Autowired
     CustomerRepository customerRepository;
@@ -62,9 +62,11 @@ class CustomerRepositoryTest {
 
             // Then
             List<Customer> customerList = customerRepository.findAll();
+            Customer entity = customerList.get(0);
+
             assertThat(customerList.size()).isEqualTo(1);
-            assertThat(customer2.getId()).isEqualTo(1L);
-            assertThat(customer2.getFirstName()).isEqualTo(customer2.getFirstName());
+            assertThat(entity.getId()).isEqualTo(1L);
+
         }
     }
 
