@@ -24,4 +24,9 @@ public class Customer {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
+    public void updateName(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 }
