@@ -16,13 +16,20 @@ import static org.hamcrest.Matchers.*;
 @SpringBootTest
 class CustomerRepositoryTest {
     @Autowired
-    CustomerRepository repository;
+    EntityManagerFactory emf;
 
     @Autowired
-    EntityManagerFactory emf;
+    CustomerRepository repository;
+
+    EntityManager entityManager;
+
+    EntityTransaction transaction;
+
 
     @BeforeEach
     void setUp() {
+        entityManager = emf.createEntityManager();
+        transaction = entityManager.getTransaction();
         repository.deleteAll();
     }
 
@@ -30,9 +37,6 @@ class CustomerRepositoryTest {
 
     @Test
     void 저장() {
-        EntityManager entityManager = emf.createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
-
         transaction.begin();
 
         entityManager.persist(customer);
@@ -42,9 +46,6 @@ class CustomerRepositoryTest {
 
     @Test
     void 조회_1차캐시_이용() {
-        EntityManager entityManager = emf.createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
-
         transaction.begin();
 
         entityManager.persist(customer);
@@ -58,9 +59,6 @@ class CustomerRepositoryTest {
 
     @Test
     void 조회_DB_이용() {
-        EntityManager entityManager = emf.createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
-
         transaction.begin();
 
         entityManager.persist(customer);
@@ -75,9 +73,6 @@ class CustomerRepositoryTest {
 
     @Test
     void 수정_dirtyCheck_적용() {
-        EntityManager entityManager = emf.createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
-
         transaction.begin();
 
         entityManager.persist(customer);
@@ -96,9 +91,6 @@ class CustomerRepositoryTest {
 
     @Test
     void 수정_dirtyCheck_적용_안됨() {
-        EntityManager entityManager = emf.createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
-
         transaction.begin();
 
         entityManager.persist(customer);
@@ -119,9 +111,6 @@ class CustomerRepositoryTest {
 
     @Test
     void 삭제() {
-        EntityManager entityManager = emf.createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
-
         transaction.begin();
 
         entityManager.persist(customer);
