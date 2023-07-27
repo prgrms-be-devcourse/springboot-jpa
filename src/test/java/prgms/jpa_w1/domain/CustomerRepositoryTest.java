@@ -48,8 +48,8 @@ class CustomerRepositoryTest {
             // Given
             Customer customer = new Customer();
             customer.setId(1L);
-            customer.setFirstName("honggu");
-            customer.setLastName("kang");
+            customer.setFirstName("oh");
+            customer.setLastName("sehan");
 
             // When
             customerRepository.save(customer);
@@ -65,13 +65,13 @@ class CustomerRepositoryTest {
             // Given
             Customer customer1 = new Customer();
             customer1.setId(1L);
-            customer1.setFirstName("hongu");
-            customer1.setLastName("kang");
+            customer1.setFirstName("oh");
+            customer1.setLastName("sehan");
 
             Customer customer2 = new Customer();
             customer2.setId(1L);
-            customer2.setFirstName("honggu");
-            customer2.setLastName("kang");
+            customer2.setFirstName("five");
+            customer2.setLastName("hanse");
 
             // When
             customerRepository.save(customer1);
@@ -94,8 +94,8 @@ class CustomerRepositoryTest {
             // Given
             Customer customer = new Customer();
             customer.setId(1L);
-            customer.setFirstName("honggu");
-            customer.setLastName("kang");
+            customer.setFirstName("oh");
+            customer.setLastName("sehan");
             customerRepository.save(customer);
 
             // When
@@ -128,13 +128,13 @@ class CustomerRepositoryTest {
         // Given
         Customer customer = new Customer();
         customer.setId(1L);
-        customer.setFirstName("honggu");
-        customer.setLastName("kang");
+        customer.setFirstName("oh");
+        customer.setLastName("sehan");
         Customer entity = customerRepository.save(customer);
 
         // When
-        entity.setFirstName("guppy");
-        entity.setLastName("hong");
+        entity.setFirstName("five");
+        entity.setLastName("hanse");
 
         // Then
         Customer selectedEntity = customerRepository.findById(1L).get();
