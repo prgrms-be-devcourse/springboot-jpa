@@ -61,7 +61,8 @@ class CustomerRepositoryTest {
         Customer result = customerRepository.findById(customer.getId()).orElseThrow();
 
         // then
-        assertThat(result).isNotNull().isEqualTo(customer);
+        assertThat(result.getName().getFirstName()).isEqualTo("heebin");
+        assertThat(result.getName().getLastName()).isEqualTo("kim");
     }
 
     @Test
