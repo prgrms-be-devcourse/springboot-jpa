@@ -44,6 +44,7 @@ public class MemberService {
                 .toList();
     }
 
+    @Transactional
     public Long updateMember(Long memberId, MemberPutRequest putRequest) {
         final Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorResult.NOT_FOUND_MEMBER));
@@ -52,6 +53,7 @@ public class MemberService {
         return memberId;
     }
 
+    @Transactional
     public Long deleteMember(Long memberId) {
         final Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorResult.NOT_FOUND_MEMBER));
