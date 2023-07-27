@@ -17,9 +17,13 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id", referencedColumnName = "id")
     private Item item;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    private Order order;
 
     public OrderItem(Item item) {
         this.item = item;
@@ -31,6 +35,10 @@ public class OrderItem {
 
     public Item getItem() {
         return item;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     OrderItem() {}

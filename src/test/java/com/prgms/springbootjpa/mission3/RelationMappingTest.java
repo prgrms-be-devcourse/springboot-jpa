@@ -7,6 +7,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.PersistenceUnitUtil;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,15 @@ public class RelationMappingTest {
     @Autowired
     private EntityManagerFactory emf;
 
+    @BeforeEach
+    void setUp() {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+        Item item = new Item(10L, 10L, "test");
+        em.persist(item);
+        transaction.commit();
+    }
     @Test
     @DisplayName("관계 매핑 테스트")
     void 주문() {
@@ -33,9 +43,9 @@ public class RelationMappingTest {
 
         //when
         transaction.begin();
-        Item item = new Item(10L, 10L, "test");
+        Item item = em.find(Item.class, 1L);
         OrderItem orderItem = new OrderItem(item);
-        Order order = new Order(List.of(orderItem), ZonedDateTime.now(ZoneId.of("Asia/Seoul")));
+        Order order = Order.createOrder(List.of(orderItem), ZonedDateTime.now(ZoneId.of("Asia/Seoul")));
         em.persist(order);
         transaction.commit();
 
@@ -57,9 +67,9 @@ public class RelationMappingTest {
 
         //when
         transaction.begin();
-        Item item = new Item(10L, 10L, "test");
+        Item item = em.find(Item.class, 1L);
         OrderItem orderItem = new OrderItem(item);
-        Order order = new Order(List.of(orderItem), ZonedDateTime.now(ZoneId.of("Asia/Seoul")));
+        Order order = Order.createOrder(List.of(orderItem), ZonedDateTime.now(ZoneId.of("Asia/Seoul")));
         em.persist(order);
         transaction.commit();
         em.clear();
