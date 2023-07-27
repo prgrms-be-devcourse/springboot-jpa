@@ -1,8 +1,6 @@
 package com.example.kdtjpa.domain;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.InputMismatchException;
 import java.util.List;
@@ -119,12 +117,8 @@ class CustomerRepositoryTest {
 
 	@Test
 	void inValidate_customerName_test() {
-		// Given & When
-		Exception exception = assertThrows(InputMismatchException.class,
-			() -> new Customer(1L, "가!!", "나!!"));
-
-		// then
-		String exceptionMessage = exception.getMessage();
-		assertEquals("Not validatedName", exceptionMessage);
+		// Given & When & Then
+		assertThatThrownBy(() -> new Customer(1L, "12!!", "34!!")).isInstanceOf(InputMismatchException.class)
+			.hasMessageContaining("Not validatedName");
 	}
 }
