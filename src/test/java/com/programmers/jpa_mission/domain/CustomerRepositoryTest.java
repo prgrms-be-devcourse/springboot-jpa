@@ -72,18 +72,33 @@ class CustomerRepositoryTest {
     }
 
     @Test
-    void 삭제_성공_테스트() {
+    void 단일_삭제_성공_테스트() {
         //given
         Customer customer = new Customer("BeomChul", "Shin");
-        repository.save(customer);
+        Customer saved = repository.save(customer);
         List<Customer> savedList = repository.findAll();
+
+        //when
+        repository.delete(saved);
+
+        //then
+        List<Customer> deletedList = repository.findAll();
+        assertThat(deletedList.size()).isEqualTo(savedList.size() - 1);
+    }
+
+    @Test
+    void 전체_삭제_성공_테스트() {
+        //given
+        Customer customer = new Customer("BeomChul", "Shin");
+        Customer customer2 = new Customer("BeomChulz", "Shinz");
+        repository.saveAll(List.of(customer, customer2));
 
         //when
         repository.deleteAll();
 
         //then
         List<Customer> deletedList = repository.findAll();
-        assertThat(deletedList.size()).isNotEqualTo(savedList.size());
+        assertThat(deletedList.size()).isEqualTo(0);
     }
 
     @Test
