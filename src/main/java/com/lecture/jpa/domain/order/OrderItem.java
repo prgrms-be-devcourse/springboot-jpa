@@ -11,15 +11,11 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.List;
 import java.util.Objects;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "order_item")
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 public class OrderItem {

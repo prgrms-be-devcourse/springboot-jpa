@@ -14,15 +14,11 @@ import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "orders")
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 public class Order {
