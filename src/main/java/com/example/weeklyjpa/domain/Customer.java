@@ -4,17 +4,15 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Getter
+@Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Customer {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    @Column
     private String firstName;
 
-    @Column
     private String lastName;
 
     public Customer(String firstName, String lastName) {
