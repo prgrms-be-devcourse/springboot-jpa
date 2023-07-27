@@ -21,27 +21,30 @@ public class PersistenceContextTest {
     @Autowired
     EntityManagerFactory emf;
 
+    private EntityManager em;
+
     @BeforeEach
     void setUp() {
+        em = emf.createEntityManager();
         repository.deleteAll();
     }
 
     @Test
     void 저장() {
-        EntityManager em = emf.createEntityManager(); // 1) 엔티티 매니저 생성
-        EntityTransaction transaction = em.getTransaction(); // 2) 트랜잭션 획득
-        transaction.begin(); // 3) 트랙잰셕 begin
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
 
         Customer customer = new Customer(1L, "beomu", "kim"); // 4-1) 비영속
-        em.persist(customer); // 4-2)영속화
-        transaction.commit(); // 5) 트랜잭션 commit
+        em.persist(customer);
+        transaction.commit();
 
+        System.out.println(customer);
+        System.out.println(em.find(Customer.class, customer.getId()));
         assertThat(customer, is(em.find(Customer.class, customer.getId())));
     }
 
     @Test
     void 조회() {
-        EntityManager em = emf.createEntityManager();
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
         Customer customer = new Customer(1L, "beomu", "kim");
@@ -58,7 +61,6 @@ public class PersistenceContextTest {
 
     @Test
     void 조회_1차캐시_이용() {
-        EntityManager em = emf.createEntityManager();
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
 
@@ -75,7 +77,6 @@ public class PersistenceContextTest {
 
     @Test
     void 수정() {
-        EntityManager em = emf.createEntityManager();
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
 
@@ -96,7 +97,6 @@ public class PersistenceContextTest {
 
     @Test
     void 삭제() {
-        EntityManager em = emf.createEntityManager();
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
 
