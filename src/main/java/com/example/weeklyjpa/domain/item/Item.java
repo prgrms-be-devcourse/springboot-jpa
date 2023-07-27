@@ -1,4 +1,4 @@
-package com.example.weeklyjpa.domain;
+package com.example.weeklyjpa.domain.item;
 
 import jakarta.persistence.*;
 import lombok.Getter;

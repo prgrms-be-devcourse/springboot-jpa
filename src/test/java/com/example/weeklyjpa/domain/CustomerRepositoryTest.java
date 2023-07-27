@@ -1,5 +1,6 @@
 package com.example.weeklyjpa.domain;
 
+import com.example.weeklyjpa.repository.CustomerRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

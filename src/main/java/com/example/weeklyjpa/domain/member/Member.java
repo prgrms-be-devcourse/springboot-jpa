@@ -1,5 +1,6 @@
-package com.example.weeklyjpa.domain;
+package com.example.weeklyjpa.domain.member;
 
+import com.example.weeklyjpa.domain.order.Order;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -22,5 +23,9 @@ public class Member {
 
     @OneToMany(mappedBy = "member")
     private List<Order> orderList = new ArrayList<>();
+
+    public void setOrder(Order order){
+        order.setMember(this);
+    }
 
 }
