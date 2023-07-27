@@ -19,15 +19,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
 @SpringBootTest
-@Transactional
+//@Transactional
 class CustomerRepositoryTest {
     @Autowired
     CustomerRepository customerRepository;
-
-    @AfterEach
-    void tearDown() {
-        customerRepository.deleteAll();
-    }
 
     @Nested
     class 엔티티_저장_테스트 {
