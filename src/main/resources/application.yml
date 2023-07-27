@@ -1,0 +1,17 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    include: db
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+#      hbm2ddl.auto: update
+    show-sql: true
+    open-in-view: false
+
+  h2:
+    console:
+      enabled: true
