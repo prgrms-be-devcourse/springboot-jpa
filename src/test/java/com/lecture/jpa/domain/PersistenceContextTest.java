@@ -3,6 +3,7 @@ package com.lecture.jpa.domain;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.samePropertyValuesAs;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -111,5 +112,12 @@ public class PersistenceContextTest {
         em.remove(entity);
 
         transaction.commit();
+
+        // 삭제 후 해당 객체가 더 이상 데이터베이스에 존재하지 않는지 확인
+        transaction.begin();
+        Customer deletedCustomer = em.find(Customer.class, 1L);
+        transaction.commit();
+
+        assertNull(deletedCustomer);
     }
 }
