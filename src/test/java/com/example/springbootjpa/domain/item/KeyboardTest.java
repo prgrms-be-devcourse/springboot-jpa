@@ -24,6 +24,7 @@ class KeyboardTest {
         //when
         Keyboard keyboard = assertDoesNotThrow(() -> new Keyboard(price, quantity, color));
 
+        //then
         assertThat(keyboard.getColor()).isEqualTo(color);
         assertThat(keyboard.getPrice()).isEqualTo(price);
         assertThat(keyboard.getStockQuantity()).isEqualTo(quantity);

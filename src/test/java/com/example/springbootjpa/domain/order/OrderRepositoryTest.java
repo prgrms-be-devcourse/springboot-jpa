@@ -3,11 +3,14 @@ package com.example.springbootjpa.domain.order;
 import com.example.springbootjpa.domain.customer.Customer;
 import com.example.springbootjpa.domain.customer.CustomerRepository;
 import com.example.springbootjpa.domain.item.Item;
+import com.example.springbootjpa.domain.item.Keyboard;
 import com.example.springbootjpa.domain.item.Mouse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -30,19 +33,24 @@ public class OrderRepositoryTest {
                 .address("부산시")
                 .build());
 
-        Item item = new Mouse(1000, 10, "red");
+        int initialStockQuantity = 10;
+        Item item1 = new Mouse(1000, 10, "red");
+        Item item2 = new Keyboard(1000, 10, "blue");
         int requestQuantity = 1;
 
-        OrderItem orderItem = OrderItem.create(item, item.getPrice(), requestQuantity);
-        Order order = Order.createOrder(savedCustomer, orderItem);
+        OrderItem orderItem1 = OrderItem.create(item1, item1.getPrice(), requestQuantity);
+        OrderItem orderItem2 = OrderItem.create(item2, item2.getPrice(), requestQuantity);
+        List<OrderItem> orderItems = List.of(orderItem1, orderItem2);
+
+        Order order = Order.createOrder(savedCustomer, orderItems);
 
         //when
         Order savedOrder = orderRepository.save(order);
 
         //then
         assertThat(savedOrder.getCustomer().getUsername()).isEqualTo(savedCustomer.getUsername());
-        assertThat(savedOrder.getOrderItems().get(0).getItem().getPrice()).isEqualTo(item.getPrice());
+        assertThat(savedOrder.getOrderItems().get(0).getItem().getPrice()).isEqualTo(item1.getPrice());
         assertThat(savedOrder.getOrderStatus()).isEqualTo(OrderStatus.ORDER);
-        assertThat(item.getStockQuantity()).isEqualTo(9);
+        assertThat(item1.getStockQuantity()).isEqualTo(initialStockQuantity - requestQuantity);
     }
 }

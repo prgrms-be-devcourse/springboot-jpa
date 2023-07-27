@@ -44,6 +44,7 @@ class OrderItemTest {
     void createOrderItemTest() throws Exception {
 
         //given
+        int initialStockQuantity = 10;
         int orderPrice = 1000;
         int quantity = 3;
         Item item = new Mouse(100, 10, "red");
@@ -55,6 +56,6 @@ class OrderItemTest {
         assertThat(orderItem.getOrderPrice()).isEqualTo(orderPrice);
         assertThat(orderItem.getQuantity()).isEqualTo(quantity);
         assertThat(orderItem.getItem()).isEqualTo(item);
-        assertThat(item.getStockQuantity()).isEqualTo(7);
+        assertThat(item.getStockQuantity()).isEqualTo(initialStockQuantity - quantity);
     }
 }
