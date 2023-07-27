@@ -10,6 +10,8 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "customers")
 public class Customer {
+	private static final String NAME_PATTERN = "^[a-zA-Z가-힣]+";
+
 	@Id
 	private long id;
 	private String firstName;
@@ -25,9 +27,10 @@ public class Customer {
 	}
 
 	private String validateName(String name) {
-		boolean validator = Pattern.matches("^[a-zA-Z\\d]+", name);
 
-		if(validator) {
+		boolean validator = Pattern.matches(NAME_PATTERN, name);
+
+		if (validator) {
 			return name;
 		}
 
