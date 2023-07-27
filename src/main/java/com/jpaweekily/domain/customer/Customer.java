@@ -1,6 +1,5 @@
 package com.jpaweekily.domain.customer;
 
-import com.jpaweekily.domain.customer.dto.CustomerResponse;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;

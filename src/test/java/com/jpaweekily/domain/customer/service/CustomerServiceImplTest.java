@@ -3,7 +3,6 @@ package com.jpaweekily.domain.customer.service;
 import com.jpaweekily.domain.customer.dto.CustomerRequest;
 import com.jpaweekily.domain.customer.dto.CustomerResponse;
 import com.jpaweekily.domain.customer.dto.CustomerUpdate;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,7 +18,6 @@ class CustomerServiceImplTest {
 
     @Autowired
     private CustomerService customerService;
-
 
     @Test
     void createTest() {
@@ -87,4 +85,5 @@ class CustomerServiceImplTest {
         assertThatThrownBy(() -> customerService.findCustomerById(id))
                 .isInstanceOf(IllegalArgumentException.class);
     }
+
 }
