@@ -29,7 +29,6 @@ public class JPATest {
                 .lastName("Hwang")
                 .firstName("Junho")
                 .build();
-        System.out.println(customer.getId());
     }
 
     @AfterEach

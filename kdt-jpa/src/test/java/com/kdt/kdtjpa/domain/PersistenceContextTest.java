@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @SpringBootTest
 class PersistenceContextTest {
 
-    private static final long ID = 1L;
+    private static final Long ID = 1L;
 
     @Autowired
     private CustomerRepository repository;
