@@ -62,10 +62,10 @@ class CustomerRepositoryTest {
 		repository.saveAll(Lists.newArrayList(customer1, customer2));
 
 		// When
-		List<Customer> selectedCustomers = repository.findAll();
+		List<Customer> customerList = repository.findAll();
 
 		// Then
-		assertThat(selectedCustomers.size()).isEqualTo(2);
+		assertThat(customerList.size()).isEqualTo(2);
 	}
 
 	@Test
@@ -92,9 +92,9 @@ class CustomerRepositoryTest {
 	void delete_customer_test() {
 		// Given
 		Customer customer = new Customer(1L, "suyeon", "jang");
-		Customer customer2 = new Customer(2L, "firstt1", "last1");
+		Customer customer2 = new Customer(2L, "first1", "last1");
 		Customer customer3 = new Customer(3L, "first2", "last2");
-		repository.saveAll(Lists.newArrayList(customer, customer2, customer3));
+		repository.saveAll(List.of(customer, customer2, customer3));
 
 		// when
 		repository.deleteById(1L);
