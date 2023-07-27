@@ -1,6 +1,7 @@
 package com.kdt.kdtjpa.domain;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,17 @@ public class JPATest {
     @Autowired
     CustomerRepository repository;
 
+    private Customer customer;
+
+    @BeforeEach
+    void setUp() {
+        this.customer = Customer.createCustomer()
+                .id(1L)
+                .lastName("Hwang")
+                .firstName("Junho")
+                .build();
+    }
+
     @AfterEach
     void tearDown() {
         repository.deleteAll();
@@ -27,13 +39,6 @@ public class JPATest {
     @DisplayName("Customer 객체를 저장하고 조회하면 같은 값을 보장한다.")
     @Test
     void insert_test() {
-        // Given
-        Customer customer = Customer.createCustomer()
-                .id(1L)
-                .lastName("Hwang")
-                .firstName("Junho")
-                .build();
-
         // When
         repository.save(customer);
 
@@ -54,11 +59,6 @@ public class JPATest {
     @Test
     void update_test() {
         // Given
-        Customer customer = Customer.createCustomer()
-                .id(1L)
-                .lastName("Hwang")
-                .firstName("Junho")
-                .build();
         repository.save(customer);
 
         // When
@@ -75,11 +75,6 @@ public class JPATest {
     @Test
     void delete_test() {
         // Given
-        Customer customer = Customer.createCustomer()
-                .id(1L)
-                .lastName("Hwang")
-                .firstName("Junho")
-                .build();
         repository.save(customer);
 
         // When
