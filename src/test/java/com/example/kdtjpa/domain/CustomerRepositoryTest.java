@@ -90,9 +90,9 @@ class CustomerRepositoryTest {
 	void delete_customer_test() {
 		// Given
 		Customer customer = new Customer(1L, "suyeon", "jang");
-		Customer customer2 = new Customer(2L, "first1", "last1");
-		Customer customer3 = new Customer(3L, "first2", "last2");
-		repository.saveAll(List.of(customer, customer2, customer3));
+		Customer customer2 = new Customer(2L, "first", "last");
+		Customer customer3 = new Customer(3L, "first", "last");
+		repository.saveAll(Lists.newArrayList(customer, customer2, customer3));
 
 		// when
 		repository.deleteById(1L);
@@ -105,7 +105,7 @@ class CustomerRepositoryTest {
 	@Test
 	void validate_customerName_test() {
 		// Given
-		Customer customer = new Customer(1L, "testCustomer1", "testCustomer1");
+		Customer customer = new Customer(1L, "testCustomer", "testCustomer");
 
 		// when
 		repository.save(customer);
