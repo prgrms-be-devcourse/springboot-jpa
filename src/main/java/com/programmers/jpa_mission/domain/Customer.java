@@ -30,8 +30,8 @@ public class Customer {
     }
 
     public Customer(String firstName, String lastName) {
-        validateName(firstName, NAME_PATTERN);
-        validateName(lastName, NAME_PATTERN);
+        validateName(firstName);
+        validateName(lastName);
         this.firstName = firstName;
         this.lastName = lastName;
     }
@@ -52,11 +52,8 @@ public class Customer {
         this.firstName = firstName;
     }
 
-    private void validateName(String name, String regex) {
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(name);
-
-        if (!matcher.matches()) {
+    private void validateName(String name) {
+        if (!Pattern.matches(NAME_PATTERN, name)) {
             throw new IllegalArgumentException(INVALID_NAME);
         }
     }
