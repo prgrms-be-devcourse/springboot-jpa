@@ -161,20 +161,11 @@ class CustomerRepositoryTest {
         @Test
         void 특정_엔티티_삭제() {
             // Given
-            Customer customer1 = new Customer();
-            customer1.setId(1L);
-            customer1.setFirstName("honggu");
-            customer1.setLastName("kang");
-
-            Customer customer2 = new Customer();
-            customer2.setId(2L);
-            customer2.setFirstName("honggu");
-            customer2.setLastName("kang");
-
             customerRepository.saveAll(customerList);
+            Customer customer = customerRepository.findById(1L).get();
 
             // When
-            customerRepository.delete(customer1);
+            customerRepository.delete(customer);
 
             // Then
             List<Customer> allEntity = customerRepository.findAll();
