@@ -30,7 +30,7 @@ public abstract class Item {
     @Column(nullable = false)
     private int price;
 
-    @Column(nullable = false)
+    @Column(name = "stock_quantity", nullable = false)
     private int stockQuantity;
 
     protected Item(int price, int stockQuantity) {
