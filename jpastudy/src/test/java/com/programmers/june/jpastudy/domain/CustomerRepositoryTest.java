@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -83,7 +85,7 @@ class CustomerRepositoryTest {
         customerRepository.deleteById(customerId);
 
         // then
-        assertThrows(RuntimeException.class,
-                () -> customerRepository.findById(customerId).orElseThrow(() -> new RuntimeException("회원이 존재하지 않습니다.")));
+        Optional<Customer> retrievedCustomer = customerRepository.findById(customerId);
+        assertThat(retrievedCustomer.isPresent(), is(false));
     }
 }
