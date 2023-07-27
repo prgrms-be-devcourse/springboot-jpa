@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
@@ -73,14 +74,14 @@ class CustomerTest {
         // given
         Customer customer = new Customer("재윤", "신");
         repository.save(customer);
-        Name name2 = new Name();
         Name name = Name.of("길동", "홍");
 
         // when
         customer.updateCustomerName(name);
 
         // then
-        assertThat(customer.getName()).isEqualTo(name);
+        List<Customer> result = repository.findAll();
+        assertThat(result.get(0).getName()).isEqualTo(name);
     }
 
     @DisplayName("고객 삭제 - 성공")
