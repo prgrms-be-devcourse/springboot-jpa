@@ -73,7 +73,8 @@ class CustomerTest {
         // given
         Customer customer = new Customer("재윤", "신");
         repository.save(customer);
-        Name name = new Name("길동", "홍");
+        Name name2 = new Name();
+        Name name = Name.of("길동", "홍");
 
         // when
         customer.updateCustomerName(name);

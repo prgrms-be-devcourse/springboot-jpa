@@ -20,7 +20,9 @@ public class Item {
     @Column(name = "item_id")
     private Long itemId;
 
+    @Column(name = "price", nullable = false)
     private int price;
 
+    @Column(name = "stock_quantity", nullable = false)
     private int stockQuantity;
 }

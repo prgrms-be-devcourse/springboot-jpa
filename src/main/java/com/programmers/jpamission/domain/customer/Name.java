@@ -4,12 +4,13 @@ import com.programmers.jpamission.global.exception.ErrorMessage;
 import com.programmers.jpamission.global.exception.InvalidNameRequest;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Embeddable
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Name {
 
     private static final int LOWER_BOUND = 1;
@@ -22,7 +23,7 @@ public class Name {
     @Column(name = "last_name", length = 10, nullable = false)
     private String lastName;
 
-    public Name(String firstName, String lastName) {
+    private Name(String firstName, String lastName) {
         checkNameLength(firstName, lastName);
         this.firstName = firstName;
         this.lastName = lastName;
