@@ -18,9 +18,16 @@ public class PersistenceContextTest {
     @Autowired
     EntityManagerFactory emf;
 
+    static private Customer customer;
+
     @BeforeEach
     void setUp(){
         repository.deleteAll();
+
+        customer = new Customer();
+        customer.setId(1L);
+        customer.setFirstName("oh");
+        customer.setLastName("sehan");
     }
 
     @Test
@@ -29,11 +36,6 @@ public class PersistenceContextTest {
         EntityTransaction transaction = entityManager.getTransaction();
 
         transaction.begin();
-
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setFirstName("oh");
-        customer.setLastName("sehan");
 
         entityManager.persist(customer);
         transaction.commit();
@@ -46,11 +48,6 @@ public class PersistenceContextTest {
         EntityManager em = emf.createEntityManager();
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
-
-        Customer customer = new Customer();
-        customer.setId(2L);
-        customer.setFirstName("oh");
-        customer.setLastName("sehan");
 
         em.persist(customer);
         transaction.commit();
@@ -67,11 +64,6 @@ public class PersistenceContextTest {
         EntityTransaction transaction = entityManager.getTransaction();
 
         transaction.begin();
-
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setFirstName("oh");
-        customer.setLastName("sehan");
 
         entityManager.persist(customer);
         transaction.commit();
@@ -92,11 +84,6 @@ public class PersistenceContextTest {
         EntityTransaction transaction = entityManager.getTransaction();
 
         transaction.begin();
-
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setFirstName("oh");
-        customer.setLastName("sehan");
 
         entityManager.persist(customer);
         transaction.commit();
