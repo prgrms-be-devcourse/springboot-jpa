@@ -41,6 +41,7 @@ class CustomerRepositoryTest {
 
         customerList = List.of(customer1, customer2);
     }
+
     @Nested
     class 엔티티_저장_테스트 {
         @Test
@@ -83,12 +84,11 @@ class CustomerRepositoryTest {
 
             assertThat(customerList.size()).isEqualTo(1);
             assertThat(entity.getId()).isEqualTo(1L);
-
         }
     }
 
     @Nested
-    class 엔티티_조회_테스트{
+    class 엔티티_조회_테스트 {
         @Test
         void 단건조회_확인() {
             // Given
@@ -107,7 +107,7 @@ class CustomerRepositoryTest {
 
         @Test
         void 단건조회를_데이터가_없는_경우() {
-            Assertions.assertThrows(NoSuchElementException.class,() -> customerRepository.findById(1L).get());
+            Assertions.assertThrows(NoSuchElementException.class, () -> customerRepository.findById(1L).get());
         }
 
         @Test
