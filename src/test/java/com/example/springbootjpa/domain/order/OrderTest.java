@@ -7,6 +7,8 @@ import com.example.springbootjpa.domain.item.Mouse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -30,9 +32,10 @@ class OrderTest {
 
         OrderItem orderItem1 = OrderItem.create(item1, item1.getPrice(), quantity1);
         OrderItem orderItem2 = OrderItem.create(item2, item2.getPrice(), quantity2);
+        List<OrderItem> orderItems = List.of(orderItem1, orderItem2);
 
         //when
-        Order order = Order.createOrder(customer, orderItem1, orderItem2);
+        Order order = Order.createOrder(customer, orderItems);
 
         //then
         assertThat(order.getCustomer()).isEqualTo(customer);

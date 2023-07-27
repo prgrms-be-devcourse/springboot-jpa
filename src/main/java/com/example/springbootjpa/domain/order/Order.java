@@ -20,7 +20,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -47,10 +46,10 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
-    public static Order createOrder(Customer customer, OrderItem... orderItems) {
+    public static Order createOrder(Customer customer, List<OrderItem> orderItems) {
         Order order = new Order();
         order.updateMember(customer);
-        Arrays.stream(orderItems).forEach(order::addOrderItem);
+        orderItems.forEach(order::addOrderItem);
         order.updateOrderStatus(OrderStatus.ORDER);
         order.updateOrderDate(LocalDateTime.now());
 
