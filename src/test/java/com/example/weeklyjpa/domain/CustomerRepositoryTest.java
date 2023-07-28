@@ -20,9 +20,12 @@ class CustomerRepositoryTest {
 
     private Customer customer;
 
+    private Customer savedCustomer;
+
     @BeforeEach
     void setUp() {
         customer = new Customer("yejin","shin");
+        savedCustomer = customerRepository.save(customer);
     }
 
     @AfterEach
@@ -33,8 +36,6 @@ class CustomerRepositoryTest {
     @Test
     @DisplayName("고객을 저장한다.")
     void saveTest(){
-        // when
-        Customer savedCustomer = customerRepository.save(customer);
         // then
         assertThat(savedCustomer.getFirstName()).isEqualTo(customer.getFirstName());
     }
@@ -43,7 +44,6 @@ class CustomerRepositoryTest {
     @DisplayName("전체 고객을 조회한다.")
     void findAllTest() {
         // when
-        customerRepository.save(customer);
         List<Customer> result = customerRepository.findAll();
 
         // then
@@ -54,7 +54,6 @@ class CustomerRepositoryTest {
     @DisplayName("id로 고객을 조회한다.")
     void findByIdTest() {
         // given
-        Customer savedCustomer = customerRepository.save(customer);
         long customerId = savedCustomer.getId();
         // when
         Customer findCustomerById = customerRepository.findById(customerId).get();
@@ -66,9 +65,6 @@ class CustomerRepositoryTest {
     @Test
     @DisplayName("고객의 정보를 업데이트한다.")
     void updateTest() {
-        // given
-        Customer savedCustomer = customerRepository.save(customer);
-
         // when
         String updateName = "zara";
         savedCustomer.updateFirstName(updateName);
@@ -81,7 +77,6 @@ class CustomerRepositoryTest {
     @DisplayName("고객 id로 고객을 삭제한다.")
     void deleteByIdTest() {
         // given
-        Customer savedCustomer = customerRepository.save(customer);
         long customerId = savedCustomer.getId();
 
         // when

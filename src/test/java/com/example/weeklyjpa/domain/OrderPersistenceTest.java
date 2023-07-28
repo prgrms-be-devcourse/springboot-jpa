@@ -24,19 +24,16 @@ public class OrderPersistenceTest {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
-        // 주문 엔티티
         Order order = new Order();
 
         entityManager.persist(order);
 
-        // 회원 엔티티
         Member member = new Member();
         member.setEmail("kanghonggu");
         member.setPassword("guppy.kang");
 
         // order.setMember(member); <- 연관관계 주인
         member.getOrderList().add(order); // 연관관계의 주인이 아닌곳에만 SETTING
-
 
         entityManager.persist(member);
 
@@ -49,17 +46,15 @@ public class OrderPersistenceTest {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
-        // 주문 엔티티
         Order order = new Order();
 
         entityManager.persist(order);
 
-        // 회원 엔티티
         Member member = new Member();
         member.setEmail("kanghonggu");
         member.setPassword("guppy.kang");
 
-        member.setOrder(order); // 연관관계 편의 메소드 사용
+        member.setOrder(order);
 
         entityManager.persist(member);
 
