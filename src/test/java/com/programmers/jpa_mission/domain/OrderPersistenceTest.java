@@ -1,7 +1,9 @@
 package com.programmers.jpa_mission.domain;
 
+import com.programmers.jpa_mission.domain.order.Item;
 import com.programmers.jpa_mission.domain.order.Member;
 import com.programmers.jpa_mission.domain.order.Order;
+import com.programmers.jpa_mission.domain.order.OrderItem;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import static com.programmers.jpa_mission.domain.order.OrderStatus.OPENED;
@@ -46,6 +49,38 @@ public class OrderPersistenceTest {
         member.getOrders().add(order);
 
         entityManager.persist(member);
+
+        transaction.commit();
+    }
+
+    @Test
+    void 양방향관계_저장2() {
+        EntityManager entityManager = emf.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        Order order = new Order();
+        order.setUuid(UUID.randomUUID().toString());
+        order.setMemo("부재시 전화주세요.");
+        order.setOrderDatetime(LocalDateTime.now());
+        order.setOrderStatus(OPENED);
+        order.setOrderItems(new ArrayList<>());
+
+        entityManager.persist(order);
+
+        OrderItem orderItem = new OrderItem();
+        orderItem.setId(1L);
+        orderItem.setPrice(1000);
+
+        order.addOrderItem(orderItem);
+        entityManager.persist(orderItem);
+
+        Item item = new Item();
+        item.setPrice(1000);
+        item.setStockQuantity(5);
+
+        orderItem.addItem(item);
+        entityManager.persist(item);
 
         transaction.commit();
     }

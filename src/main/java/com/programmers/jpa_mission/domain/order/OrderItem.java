@@ -2,6 +2,7 @@ package com.programmers.jpa_mission.domain.order;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
