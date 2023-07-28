@@ -6,11 +6,12 @@ import com.example.jpaweekly.domain.customer.dto.CustomerRequest;
 import com.example.jpaweekly.domain.customer.dto.CustomerResponse;
 import com.example.jpaweekly.domain.customer.dto.CustomerUpdate;
 import com.example.jpaweekly.domain.customer.repository.CustomerRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Transactional(readOnly = true)
 @Service
@@ -43,6 +44,11 @@ public class CustomerServiceImpl implements CustomerService {
                 .map(v -> CustomerMapper.convertEntityToResponse(v))
                 .toList();
 //               .map(CustomerMapper::convertEntityToResponse);
+    }
+
+    public Page<CustomerResponse> findCustomersWithPaging(Pageable pageable) {
+        return customerRepository.findAll(pageable)
+                .map(CustomerMapper::convertEntityToResponse);
     }
 
     @Transactional
