@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
+@Getter @Setter
 @Table(name = "Orders")
 @NoArgsConstructor
 public class Order {
@@ -38,6 +38,11 @@ public class Order {
     public void setMember(Member member) {
         this.member = member;
         member.getOrderList().add(this);
+    }
+
+    public void addOrderItem(OrderItem orderItem) {
+        orderItemList.add(orderItem);
+        orderItem.setOrder(this);
     }
 
     public void changeOrderStatus(OrderStatus orderStatus) {

@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@Getter @Setter
+@Getter
 @DiscriminatorColumn
 public abstract class Item {
 
@@ -23,4 +23,6 @@ public abstract class Item {
 
     @OneToMany(mappedBy = "item")
     private List<OrderItem> orderItemList = new ArrayList<>();
+
+
 }

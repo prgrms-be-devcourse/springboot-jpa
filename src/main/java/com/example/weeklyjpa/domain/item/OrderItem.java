@@ -24,4 +24,8 @@ public class OrderItem {
     @JoinColumn(name = "item_id")
     private Item item;
 
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
 }
