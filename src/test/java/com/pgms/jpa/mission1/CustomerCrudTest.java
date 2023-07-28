@@ -1,4 +1,4 @@
-package com.pgms.jpa.domain;
+package com.pgms.jpa.mission1;
 
 import com.pgms.jpa.domain.customer.Customer;
 import com.pgms.jpa.domain.customer.repository.DefaultCustomerRepository;

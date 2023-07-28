@@ -35,6 +35,7 @@ public class Item extends BaseEntity {
         this.quantity += orderItemQuantity;
     }
 
+
     public void removeQuantity(int stock) {
         if (stock > this.quantity) {
             throw new IllegalArgumentException("재고가 부족합니다.");

@@ -8,7 +8,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "orders")
-public class Order extends BaseEntity {
+public class
+Order extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -44,7 +45,7 @@ public class Order extends BaseEntity {
         orderItem.setOrder(this);
     }
 
-    private void cancelOrder() {
+    public void cancelOrder() {
         this.orderStatus = OrderStatus.CANCEL;
 
         for (OrderItem orderItem : orderItems) {
