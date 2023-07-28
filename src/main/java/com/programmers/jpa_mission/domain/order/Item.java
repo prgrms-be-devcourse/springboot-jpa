@@ -12,7 +12,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "item")
-public class Item {
+public class Item extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
