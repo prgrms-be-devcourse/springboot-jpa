@@ -1,12 +1,14 @@
 package com.pgms.jpa.domain.order;
 
+import com.pgms.jpa.global.BaseEntity;
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
-public class Order {
+public class Order extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -17,20 +19,41 @@ public class Order {
     @Column(name = "order_status", nullable = false)
     private OrderStatus orderStatus;
 
-    @Column(name = "order_create_time", nullable = false)
-    private LocalDateTime orderCreateTime;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderItem> orderItems = new ArrayList<>();
 
-    @Column(name = "order_update_time", nullable = false)
-    private LocalDateTime orderUpdateTime;
+    private int totalPrice;
 
     protected Order() {
 
     }
 
-    public Order(OrderStatus orderStatus, LocalDateTime orderCreateTime, LocalDateTime orderUpdateTime) {
+    public static Order createOrder(List<OrderItem> orderItems) {
+        Order order = new Order(OrderStatus.CREATE);
+
+        for(OrderItem orderItem : orderItems) {
+            order.addOrderItem(orderItem);
+            order.totalPrice += orderItem.getOrderItemPrice();
+        }
+
+        return order;
+    }
+
+    private void addOrderItem(OrderItem orderItem) {
+        this.orderItems.add(orderItem);
+        orderItem.setOrder(this);
+    }
+
+    private void cancelOrder() {
+        this.orderStatus = OrderStatus.CANCEL;
+
+        for (OrderItem orderItem : orderItems) {
+            orderItem.cancel();
+        }
+    }
+
+    public Order(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
-        this.orderCreateTime = orderCreateTime;
-        this.orderUpdateTime = orderUpdateTime;
     }
 
     public Long getId() {
@@ -41,11 +64,11 @@ public class Order {
         return orderStatus;
     }
 
-    public LocalDateTime getOrderCreateTime() {
-        return orderCreateTime;
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
     }
 
-    public LocalDateTime getOrderUpdateTime() {
-        return orderUpdateTime;
+    public int getTotalPrice() {
+        return totalPrice;
     }
 }

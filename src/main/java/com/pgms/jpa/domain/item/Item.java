@@ -1,10 +1,11 @@
 package com.pgms.jpa.domain.item;
 
+import com.pgms.jpa.global.BaseEntity;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "items")
-public class Item {
+public class Item extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -18,7 +19,7 @@ public class Item {
     private int price;
 
     @Column(name = "quantity", nullable = false)
-    private int quantity;
+    private int quantity; // 총 재고
 
     protected Item() {
 
@@ -28,6 +29,17 @@ public class Item {
         this.itemName = itemName;
         this.price = price;
         this.quantity = quantity;
+    }
+
+    public void addStock(int orderItemQuantity) {
+        this.quantity += orderItemQuantity;
+    }
+
+    public void removeQuantity(int stock) {
+        if (stock > this.quantity) {
+            throw new IllegalArgumentException("재고가 부족합니다.");
+        }
+        this.quantity -= stock;
     }
 
     public Long getId() {
