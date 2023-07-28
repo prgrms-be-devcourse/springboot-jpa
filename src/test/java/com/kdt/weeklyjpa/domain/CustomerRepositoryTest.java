@@ -49,12 +49,11 @@ class CustomerRepositoryTest {
         Customer customer1 = new Customer("Youngmyung", "Kim", "010-1234-5678");
         Customer customer2 = new Customer("Test1", "Hong", "010-1111-2222");
         Customer customer3 = new Customer("Test2", "Kwon", "010-3333-4444");
-
-
-        // when
         customerRepository.save(customer1);
         customerRepository.save(customer2);
         customerRepository.save(customer3);
+
+        // when
         List<Customer> customers = customerRepository.findAll();
 
         // then
@@ -66,10 +65,10 @@ class CustomerRepositoryTest {
     void updateCustomerTest() {
         // given
         Customer customer = new Customer("Youngmyung", "Kim", "010-1234-5678");
-
-        // when
         customerRepository.save(customer);
         Customer savedCustomer = customerRepository.findById(customer.getCustomerId()).get();
+
+        // when
         savedCustomer.updateFirstName("NewFirstName");
 
         // then
