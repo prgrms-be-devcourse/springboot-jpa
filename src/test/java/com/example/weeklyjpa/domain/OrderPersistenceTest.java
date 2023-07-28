@@ -7,6 +7,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,7 +28,8 @@ public class OrderPersistenceTest {
         transaction = entityManager.getTransaction();
     }
     @Test
-    void 양방향관계_저장() {
+    @DisplayName("양방향관계를 저장한다.")
+    void save_mapping_test() {
         transaction.begin();
 
         Order order = new Order();
@@ -47,7 +49,8 @@ public class OrderPersistenceTest {
     }
 
     @Test
-    void 양방향관계_저장_편의메소드() {
+    @DisplayName("양방향관계 저장 편의메소드를 테스트한다.")
+    void set_method_test() {
         transaction.begin();
 
         Order order = new Order();
@@ -66,7 +69,8 @@ public class OrderPersistenceTest {
     }
 
     @Test
-    void 객체그래프탐색을_이용한_조회() {
+    @DisplayName("객체그래프탐색을 이용하여 조회한다.")
+    void find_object_graph_test() {
         transaction.begin();
 
         Order order = new Order();
@@ -87,10 +91,10 @@ public class OrderPersistenceTest {
 
         // 회원 조회 -> 회원의 주문 까지 조회
         Member findMember = entityManager.find(Member.class, member.getId());
-//        log.info("order-memo: {}", findMember.getOrderList().get(0).getId());
+        log.info("order-id: {}", findMember.getOrderList().get(0).getId());
 
         // 주문조회 -> 주문한 회원 조회
         Order findOrder = entityManager.find(Order.class, findMember.getOrderList().get(0).getId());
-//        log.info("member-nickName: {}", findOrder.getMember().getEmail());
+        log.info("member-email: {}", findOrder.getMember().getEmail());
     }
 }

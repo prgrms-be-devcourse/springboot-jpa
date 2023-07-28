@@ -2,7 +2,6 @@ package com.example.weeklyjpa.domain.member;
 
 import com.example.weeklyjpa.domain.order.Order;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
