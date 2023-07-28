@@ -2,18 +2,20 @@ package com.example.weeklyjpa.domain.item;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@Getter
+@Getter @Setter
+@DiscriminatorColumn
 public abstract class Item {
 
     @Id
-    @Column(name = "order_item_id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "item_id")
+    @GeneratedValue
     private Long id;
 
     private Long price;
