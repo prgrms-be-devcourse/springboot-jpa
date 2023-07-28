@@ -1,16 +1,11 @@
 package com.example.weeklyjpa.domain;
 
 import com.example.weeklyjpa.repository.CustomerRepository;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 class CustomerRepositoryTest {
@@ -37,7 +32,7 @@ class CustomerRepositoryTest {
     @DisplayName("고객을 저장한다.")
     void saveTest(){
         // then
-        assertThat(savedCustomer.getFirstName()).isEqualTo(customer.getFirstName());
+        Assertions.assertEquals(savedCustomer.getFirstName(),customer.getFirstName());
     }
 
     @Test
@@ -47,7 +42,7 @@ class CustomerRepositoryTest {
         List<Customer> result = customerRepository.findAll();
 
         // then
-        assertThat(result.size()).isEqualTo(1);
+        Assertions.assertEquals(result.size(),1);
     }
 
     @Test
@@ -59,7 +54,7 @@ class CustomerRepositoryTest {
         Customer findCustomerById = customerRepository.findById(customerId).get();
 
         // then
-        assertThat(findCustomerById).isEqualTo(savedCustomer);
+        Assertions.assertEquals(findCustomerById,savedCustomer);
     }
 
     @Test
@@ -70,7 +65,7 @@ class CustomerRepositoryTest {
         savedCustomer.updateFirstName(updateName);
 
         // then
-        assertThat(savedCustomer.getFirstName()).isEqualTo(updateName);
+        Assertions.assertEquals(savedCustomer.getFirstName(),updateName);
     }
 
     @Test
@@ -83,6 +78,6 @@ class CustomerRepositoryTest {
         customerRepository.deleteById(customerId);
 
         // then
-        assertThat(customerRepository.findAll().size()).isEqualTo(0);
+        Assertions.assertEquals(customerRepository.findAll().size(),0);
     }
 }
