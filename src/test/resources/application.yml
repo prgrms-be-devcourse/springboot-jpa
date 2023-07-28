@@ -4,10 +4,10 @@ spring:
       enabled: true
   jpa:
     generate-ddl: true
-    hibernate:
-      ddl-auto: create-drop
     show-sql: true
     open-in-view: false
     properties:
       hibernate:
         format_sql: true
+        hbm2ddl:
+          auto: create-drop
