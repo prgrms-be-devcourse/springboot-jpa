@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.time.LocalDateTime;
+import java.util.logging.Logger;
 
 @Slf4j
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -18,7 +18,6 @@ public class OrderPersistenceTest {
 
     @Autowired
     EntityManagerFactory emf;
-
     @Test
     void 양방향관계_저장() {
         EntityManager entityManager = emf.createEntityManager();
@@ -26,8 +25,7 @@ public class OrderPersistenceTest {
         transaction.begin();
 
         // 주문 엔티티
-        Order order = new Order(created_at);
-        order.setCreated_at(LocalDateTime.now());
+        Order order = new Order();
 
         entityManager.persist(order);
 
@@ -52,8 +50,7 @@ public class OrderPersistenceTest {
         transaction.begin();
 
         // 주문 엔티티
-        Order order = new Order(created_at);
-        order.setCreated_at(LocalDateTime.now());
+        Order order = new Order();
 
         entityManager.persist(order);
 
@@ -76,7 +73,7 @@ public class OrderPersistenceTest {
         transaction.begin();
 
         // 주문 엔티티
-        Order order = new Order(created_at);
+        Order order = new Order();
 
         entityManager.persist(order);
 
