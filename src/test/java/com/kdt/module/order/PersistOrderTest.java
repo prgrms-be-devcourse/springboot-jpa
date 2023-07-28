@@ -1,8 +1,7 @@
-package com.kdt.module.order.domain;
+package com.kdt.module.order;
 
 import com.kdt.module.customer.domain.Customer;
-import com.kdt.module.order.Order;
-import com.kdt.module.order.OrderItem;
+import com.kdt.module.item.Item;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -28,6 +27,7 @@ class PersistOrderTest {
             .build();
 
     private final OrderItem orderItem = new OrderItem(1500, 2);
+    private final Item item = new Item(1500, 2);
 
     @Autowired
     private EntityManagerFactory factory;
@@ -56,7 +56,9 @@ class PersistOrderTest {
 
             // then
             assertThat(entityManager.contains(customer)).isTrue();
+            assertThat(customer.getId()).isNotNull();
             assertThat(entityManager.contains(order)).isTrue();
+            assertThat(order.getId()).isNotNull();
         }
 
         @Test
@@ -125,6 +127,7 @@ class PersistOrderTest {
             transaction.commit();
 
             // then
+            assertThat(orderItem.getId()).isNotNull();
             assertThat(entityManager.contains(orderItem)).isTrue();
         }
 
@@ -173,6 +176,49 @@ class PersistOrderTest {
             // then
             assertThat(entityManager.contains(orderItem)).isFalse();
             assertThat(entityManager.contains(findOrderItem)).isFalse();
+        }
+    }
+
+    @Nested
+    @DisplayName("주문 상품과 상품 영속화 테스트")
+    class orderItemAndItemPersistenceTest {
+        @Test
+        @DisplayName("상품을 지정하면 상품이 저장되고 업데이트 쿼리가 발생해야 한다.")
+        void saveItem_Success_BySetItem() {
+            // given
+            EntityTransaction transaction = entityManager.getTransaction();
+            transaction.begin();
+
+            entityManager.persist(orderItem);
+
+            // when
+            orderItem.setItem(item);
+            transaction.commit();
+
+            // then
+            assertThat(item.getId()).isNotNull();
+            assertThat(entityManager.contains(item)).isTrue();
+        }
+
+        @Test
+        @DisplayName("null을 매핑하면 상품이 제거되어야 한다.")
+        void removeItem_Success_BySetNULL() {
+            // given
+            EntityTransaction transaction = entityManager.getTransaction();
+            transaction.begin();
+
+            entityManager.persist(orderItem);
+            orderItem.setItem(item);
+
+            transaction.commit();
+            transaction.begin();
+
+            // when
+            orderItem.setItem(null);
+            transaction.commit();
+
+            // then
+            assertThat(entityManager.contains(item)).isFalse();
         }
     }
 }

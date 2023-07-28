@@ -1,11 +1,14 @@
 package com.kdt.module.order;
 
+import com.kdt.module.item.Item;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -27,6 +30,9 @@ public class OrderItem {
     @ManyToOne(fetch = FetchType.LAZY)
     private Order order;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private Item item;
+
     public OrderItem(int price, int quantity) {
         this.price = price;
         this.quantity = quantity;
@@ -39,5 +45,9 @@ public class OrderItem {
 
         this.order = order;
         order.getOrderItems().add(this);
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
     }
 }
