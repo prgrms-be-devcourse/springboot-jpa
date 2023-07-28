@@ -7,6 +7,8 @@ import org.prgms.springbootjpa.mission3.domain.BaseEntity;
 import org.prgms.springbootjpa.mission3.domain.member.Member;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -26,9 +28,16 @@ public class Order extends BaseEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems = new ArrayList<>();
+
     public Order(OrderStatus orderStatus, String memo, Member member) {
         this.orderStatus = orderStatus;
         this.memo = memo;
         this.member = member;
+    }
+
+    public void addOrderItem(OrderItem orderItem) {
+        this.orderItems.add(orderItem);
     }
 }
