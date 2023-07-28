@@ -1,4 +1,4 @@
-package com.kdt.customer.domain.repository;
+package com.kdt.module.customer.domain.repository;
 
 import jakarta.persistence.EntityManager;
 

@@ -1,6 +1,6 @@
-package com.kdt.customer.application;
+package com.kdt.module.customer.application;
 
-import com.kdt.customer.domain.repository.CustomerRepository;
+import com.kdt.module.customer.domain.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

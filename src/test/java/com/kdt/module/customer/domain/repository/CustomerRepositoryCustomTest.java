@@ -1,6 +1,6 @@
-package com.kdt.customer.domain.repository;
+package com.kdt.module.customer.domain.repository;
 
-import com.kdt.customer.domain.Customer;
+import com.kdt.module.customer.domain.Customer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

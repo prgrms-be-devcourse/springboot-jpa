@@ -1,6 +1,6 @@
-package com.kdt.customer.domain.repository;
+package com.kdt.module.customer.domain.repository;
 
-import com.kdt.customer.domain.Customer;
+import com.kdt.module.customer.domain.Customer;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 @SpringBootTest
-class persistCustomerTest {
+class PersistCustomerTest {
     @Autowired
     private EntityManagerFactory factory;
 

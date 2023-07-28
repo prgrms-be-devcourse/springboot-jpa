@@ -1,6 +1,6 @@
-package com.kdt.customer.api;
+package com.kdt.module.customer.api;
 
-import com.kdt.customer.application.CustomerService;
+import com.kdt.module.customer.application.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

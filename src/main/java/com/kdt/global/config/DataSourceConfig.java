@@ -1,4 +1,4 @@
-package com.kdt.config;
+package com.kdt.global.config;
 
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.context.annotation.Bean;
