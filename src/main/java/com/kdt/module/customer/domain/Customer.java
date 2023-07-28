@@ -1,6 +1,6 @@
 package com.kdt.module.customer.domain;
 
-import com.kdt.module.order.domain.Order;
+import com.kdt.module.order.Order;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

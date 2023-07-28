@@ -1,4 +1,4 @@
-package com.kdt.module.order.domain;
+package com.kdt.module.order;
 
 import com.kdt.module.customer.domain.Customer;
 import jakarta.persistence.CascadeType;

@@ -1,4 +1,4 @@
-package com.kdt.module.order.domain;
+package com.kdt.module.order;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

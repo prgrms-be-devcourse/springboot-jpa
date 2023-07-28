@@ -1,4 +1,4 @@
-package com.kdt.module.order.domain;
+package com.kdt.module.order;
 
 public enum OrderStatus {
     ORDERED,

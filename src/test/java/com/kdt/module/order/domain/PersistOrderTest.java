@@ -1,6 +1,8 @@
 package com.kdt.module.order.domain;
 
 import com.kdt.module.customer.domain.Customer;
+import com.kdt.module.order.Order;
+import com.kdt.module.order.OrderItem;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -13,7 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
 
-import static com.kdt.module.order.domain.OrderStatus.ORDERED;
+import static com.kdt.module.order.OrderStatus.ORDERED;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -147,6 +149,7 @@ class PersistOrderTest {
             assertThat(entityManager.contains(orderItem)).isFalse();
         }
 
+        @Test
         @DisplayName("clear를 한 뒤에도 주문 상품을 삭제할 수 있어야 한다.")
         void removeOrderItem_Success_AfterClearPersistenceContext() {
             // given
