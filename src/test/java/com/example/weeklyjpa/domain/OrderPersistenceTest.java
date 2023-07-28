@@ -95,10 +95,10 @@ public class OrderPersistenceTest {
 
         // 회원 조회 -> 회원의 주문 까지 조회
         Member findMember = entityManager.find(Member.class, member.getId());
-        log.info("order-memo: {}", findMember.getOrderList().get(0).getId());
+//        log.info("order-memo: {}", findMember.getOrderList().get(0).getId());
 
         // 주문조회 -> 주문한 회원 조회
         Order findOrder = entityManager.find(Order.class, findMember.getOrderList().get(0).getId());
-        log.info("member-nickName: {}", findOrder.getMember().getEmail());
+//        log.info("member-nickName: {}", findOrder.getMember().getEmail());
     }
 }

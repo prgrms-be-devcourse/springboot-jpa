@@ -31,14 +31,11 @@ public class Order {
     @JoinColumn(name ="member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItemList = new ArrayList<>();
 
     public void setMember(Member member) {
-        if (Objects.nonNull(this.member)) {
-            this.member.getOrderList().remove(this);
-        }
         this.member = member;
-        member.setOrder(this);
+        member.getOrderList().add(this);
     }
 }
