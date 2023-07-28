@@ -2,7 +2,7 @@ package org.programmers.jpaweeklymission.customer.application;
 
 import org.programmers.jpaweeklymission.customer.presentation.dto.CustomerCreationRequest;
 import org.programmers.jpaweeklymission.customer.application.dto.CustomerResponse;
-import org.programmers.jpaweeklymission.customer.data.Customer;
+import org.programmers.jpaweeklymission.customer.Customer;
 
 public final class CustomerMapper {
     private CustomerMapper() {

@@ -1,4 +1,4 @@
-package org.programmers.jpaweeklymission.customer.data;
+package org.programmers.jpaweeklymission.customer;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
