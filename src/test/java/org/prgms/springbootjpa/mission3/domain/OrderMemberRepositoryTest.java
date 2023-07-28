@@ -49,7 +49,7 @@ class OrderMemberRepositoryTest {
 
     @Test
     void 주문_생성() {
-        memberRepository.save(member);
+        Member saveMember = memberRepository.save(member);
         Order saveOrder = orderRepository.save(order);
 
         member.addOrder(saveOrder);
@@ -61,6 +61,7 @@ class OrderMemberRepositoryTest {
         Order findOrder = optionalFindOrder.get();
 
         assertThat(findOrder.getId(), is(saveOrder.getId()));
-        assertThat(member.getOrders().size(), is(1));
+        assertThat(saveOrder.getMember().getId(), is(saveMember.getId()));
+        assertThat(saveMember.getOrders().size(), is(1));
     }
 }
