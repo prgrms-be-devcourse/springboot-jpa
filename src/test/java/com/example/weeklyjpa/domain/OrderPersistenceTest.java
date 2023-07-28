@@ -26,7 +26,7 @@ public class OrderPersistenceTest {
         transaction.begin();
 
         // 주문 엔티티
-        Order order = new Order();
+        Order order = new Order(created_at);
         order.setCreated_at(LocalDateTime.now());
 
         entityManager.persist(order);
@@ -52,7 +52,7 @@ public class OrderPersistenceTest {
         transaction.begin();
 
         // 주문 엔티티
-        Order order = new Order();
+        Order order = new Order(created_at);
         order.setCreated_at(LocalDateTime.now());
 
         entityManager.persist(order);
@@ -76,7 +76,7 @@ public class OrderPersistenceTest {
         transaction.begin();
 
         // 주문 엔티티
-        Order order = new Order();
+        Order order = new Order(created_at);
 
         entityManager.persist(order);
 
