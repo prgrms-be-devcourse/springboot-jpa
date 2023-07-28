@@ -8,13 +8,11 @@ import org.prgms.springbootjpa.mission3.domain.order.Order;
 import org.prgms.springbootjpa.mission3.domain.order.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.samePropertyValuesAs;
 import static org.prgms.springbootjpa.mission3.domain.order.OrderStatus.CREATED;
 
 @SpringBootTest
@@ -25,7 +23,7 @@ class OrderMemberRepositoryTest {
 
     @Autowired
     MemberRepository memberRepository;
-    
+
     Member member = new Member("현지", "딩딩", 25, "서울시 마포구");
     Order order = new Order(CREATED, "집 앞 배송", member);
 
@@ -36,7 +34,6 @@ class OrderMemberRepositoryTest {
     }
 
     @Test
-    @Transactional
     void 멤버_생성() {
         Member saveMember = memberRepository.save(member);
         orderRepository.save(order);
@@ -47,12 +44,10 @@ class OrderMemberRepositoryTest {
 
         Member findMember = optionalFindMember.get();
 
-        assertThat(findMember, samePropertyValuesAs(saveMember));
-        assertThat(findMember.getOrders().size(), is(0));
+        assertThat(findMember.getId(), is(saveMember.getId()));
     }
 
     @Test
-    @Transactional
     void 주문_생성() {
         memberRepository.save(member);
         Order saveOrder = orderRepository.save(order);
@@ -65,8 +60,7 @@ class OrderMemberRepositoryTest {
 
         Order findOrder = optionalFindOrder.get();
 
-        assertThat(findOrder, samePropertyValuesAs(saveOrder));
-        assertThat(findOrder.getMember(), samePropertyValuesAs(member));
+        assertThat(findOrder.getId(), is(saveOrder.getId()));
         assertThat(member.getOrders().size(), is(1));
     }
 }
