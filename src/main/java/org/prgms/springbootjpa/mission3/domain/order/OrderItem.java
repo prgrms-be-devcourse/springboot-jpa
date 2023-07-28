@@ -1,6 +1,5 @@
 package org.prgms.springbootjpa.mission3.domain.order;
 
-import com.sun.istack.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,9 +23,20 @@ public class OrderItem {
     @JoinColumn(name = "order_id")
     private Order order;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "item_id")
+    private Item item;
+
     public OrderItem(int price, int quantity, Order order) {
         this.price = price;
         this.quantity = quantity;
         this.order = order;
+    }
+
+    public OrderItem(int price, int quantity, Order order, Item item) {
+        this.price = price;
+        this.quantity = quantity;
+        this.order = order;
+        this.item = item;
     }
 }
