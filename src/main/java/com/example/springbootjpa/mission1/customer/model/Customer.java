@@ -8,12 +8,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
+
+@Entity
+@Table(name = "customer")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "customer")
 public class Customer {
 
     @Id // Id PK
