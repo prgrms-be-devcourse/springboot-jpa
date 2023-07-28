@@ -2,15 +2,15 @@ package com.programmers.week.item.domain;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 @Entity
 @DiscriminatorValue("CAR")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Car extends Item {
 
   private long power;
-
-  protected Car() {
-  }
 
   private Car(int price, int stockQuantity, long power) {
     super(price, stockQuantity);

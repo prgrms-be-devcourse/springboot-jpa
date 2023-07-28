@@ -1,12 +1,15 @@
 package com.programmers.week.customer.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Customer {
 
   @Id
@@ -18,9 +21,6 @@ public class Customer {
 
   @Column(length = 2, nullable = false)
   private String lastName;
-
-  protected Customer() {
-  }
 
   public Customer(String firstName, String lastName) {
     validateFirstName(firstName);

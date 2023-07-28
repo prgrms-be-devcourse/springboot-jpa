@@ -2,10 +2,13 @@ package com.programmers.week.item.domain;
 
 import com.programmers.week.base.BaseEntity;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class Item extends BaseEntity {
 
   @Id
@@ -14,9 +17,6 @@ public abstract class Item extends BaseEntity {
 
   private int price;
   private int stockQuantity;
-
-  protected Item() {
-  }
 
   protected Item(int price, int stockQuantity) {
     validatePrice(price);

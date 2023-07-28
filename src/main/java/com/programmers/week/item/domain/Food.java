@@ -3,21 +3,20 @@ package com.programmers.week.item.domain;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 
 @Entity
 @DiscriminatorValue("FOOD")
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Food extends Item {
 
   @Column(length = 5)
   private String chef;
-
-  protected Food() {
-
-  }
 
   private Food(int price, int stockQuantity, String chef) {
     super(price, stockQuantity);

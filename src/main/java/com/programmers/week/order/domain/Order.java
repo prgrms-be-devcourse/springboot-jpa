@@ -2,11 +2,14 @@ package com.programmers.week.order.domain;
 
 import com.programmers.week.base.BaseEntity;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 
 @Entity
 @Table(name = "orders")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order extends BaseEntity {
   @Id
   @GeneratedValue
@@ -17,10 +20,6 @@ public class Order extends BaseEntity {
 
   @Lob
   private String memo;
-
-  protected Order() {
-
-  }
 
   public Order(OrderStatus orderStatus, String memo) {
     validateOrderStatus(orderStatus);

@@ -4,8 +4,11 @@ import com.programmers.week.base.BaseEntity;
 import com.programmers.week.item.domain.Item;
 import com.programmers.week.order.domain.Order;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderItem extends BaseEntity {
 
   @Id
@@ -19,10 +22,6 @@ public class OrderItem extends BaseEntity {
   @ManyToOne
   @JoinColumn(name = "item_id")
   private Item item;
-
-  protected OrderItem() {
-
-  }
 
   public OrderItem(Order order, Item item) {
     this.order = order;
