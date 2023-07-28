@@ -1,5 +1,6 @@
 package com.programmers.week.item.domain;
 
+import com.programmers.week.Message;
 import com.programmers.week.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -27,13 +28,13 @@ public abstract class Item extends BaseEntity {
 
   private static void validatePrice(int price) {
     if (price < 0) {
-      throw new IllegalArgumentException(String.format("가격이 음수입니다. ===> %s", price));
+      throw new IllegalArgumentException(String.format(Message.TOTAL_PRICE_IS_MINUS + "%s", price));
     }
   }
 
   private static void validateStockQuantity(int stockQuantity) {
     if (stockQuantity < 0) {
-      throw new IllegalArgumentException(String.format("재고가 음수입니다. ===> %s", stockQuantity));
+      throw new IllegalArgumentException(String.format(Message.TOTAL_QUANTITY_IS_MINUS + "%s", stockQuantity));
     }
   }
 

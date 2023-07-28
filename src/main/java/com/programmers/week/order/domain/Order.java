@@ -1,5 +1,6 @@
 package com.programmers.week.order.domain;
 
+import com.programmers.week.Message;
 import com.programmers.week.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -35,7 +36,7 @@ public class Order extends BaseEntity {
 
   private static void validateOrderStatus(OrderStatus orderStatus) {
     if (Objects.isNull(orderStatus)) {
-      throw new IllegalStateException(String.format("수정할 주문 상태가 올바르지 않습니다.   ==> %s ", orderStatus));
+      throw new IllegalStateException(Message.INCORRECT_ORDER_STATUS);
     }
   }
 
@@ -46,7 +47,7 @@ public class Order extends BaseEntity {
 
   private static void validateMemo(String memo) {
     if (Objects.isNull(memo)) {
-      throw new IllegalStateException("메모가 없습니다.");
+      throw new IllegalStateException(Message.MEMO_IS_NULL);
     }
   }
 

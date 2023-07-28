@@ -1,5 +1,6 @@
 package com.programmers.week.customer.domain;
 
+import com.programmers.week.Message;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -36,7 +37,7 @@ public class Customer {
 
   private static void validateFirstName(String firstName) {
     if (Objects.isNull(firstName) || firstName.isBlank()) {
-      throw new IllegalStateException("이름이 비어있습니다.");
+      throw new IllegalStateException(Message.FIRSTNAME_IS_NULL);
     }
   }
 
@@ -47,7 +48,7 @@ public class Customer {
 
   private static void validateLastName(String lastName) {
     if (Objects.isNull(lastName) || lastName.isBlank()) {
-      throw new IllegalStateException("성이 비어있습니다.");
+      throw new IllegalStateException(Message.LASTNAME_IS_NULL);
     }
   }
 

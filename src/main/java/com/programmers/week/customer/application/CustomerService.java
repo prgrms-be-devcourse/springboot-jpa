@@ -1,18 +1,16 @@
 package com.programmers.week.customer.application;
 
+import com.programmers.week.Message;
 import com.programmers.week.customer.ui.CustomerCreateRequest;
 import com.programmers.week.customer.domain.Customer;
 import com.programmers.week.customer.infra.CustomerRepository;
 import com.programmers.week.customer.ui.CustomerResponse;
 import com.programmers.week.customer.ui.CustomerUpdateRequest;
-import com.programmers.week.customer.ui.PageRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -34,7 +32,7 @@ public class CustomerService {
   public CustomerResponse findById(Long id) {
     return customerRepository.findById(id)
             .map(CustomerResponse::from)
-            .orElseThrow(() -> new IllegalArgumentException("고객이 존재하지 않습니다."));
+            .orElseThrow(() -> new IllegalArgumentException(Message.CUSTOMER_IS_NO_EXIST));
   }
 
   public Page<CustomerResponse> findAll(PageRequest pageRequest) {
@@ -45,7 +43,7 @@ public class CustomerService {
   @Transactional
   public Long update(CustomerUpdateRequest customerUpdateRequest) {
     Customer customer = customerRepository.findById(customerUpdateRequest.id())
-            .orElseThrow(() -> new IllegalArgumentException("고객이 존재하지 않습니다."));
+            .orElseThrow(() -> new IllegalArgumentException(Message.CUSTOMER_IS_NO_EXIST));
     customer.changeFirstName(customerUpdateRequest.firstName());
     customer.changeLastName(customerUpdateRequest.lastName());
     return customer.getId();

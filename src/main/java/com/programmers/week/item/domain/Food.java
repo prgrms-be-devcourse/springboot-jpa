@@ -1,5 +1,6 @@
 package com.programmers.week.item.domain;
 
+import com.programmers.week.Message;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -30,7 +31,7 @@ public class Food extends Item {
 
   private static void validateFood(String chef) {
     if (Objects.isNull(chef) || chef.isBlank()) {
-      throw new IllegalStateException("요리사가 비어있습니다.");
+      throw new IllegalStateException(Message.CHEF_IS_NULL);
     }
   }
 
