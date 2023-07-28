@@ -19,19 +19,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 class PersistOrderTest {
-    private final Customer customer = new Customer("hejow", "moon");
-    private final Order order = Order.builder()
+    @Autowired
+    private EntityManagerFactory factory;
+    private EntityManager entityManager;
+
+    private Customer customer = new Customer("hejow", "moon");
+    private Order order = Order.builder()
             .status(ORDERED)
             .orderTime(LocalDateTime.now())
             .memo("")
             .build();
-
-    private final OrderItem orderItem = new OrderItem(1500, 2);
-    private final Item item = new Item(1500, 2);
-
-    @Autowired
-    private EntityManagerFactory factory;
-    private EntityManager entityManager;
+    private OrderItem orderItem = new OrderItem(1500, 2);
+    private Item item = new Item(1500, 2);
 
     @BeforeEach
     void initManager() {
