@@ -44,4 +44,12 @@ public class Customer {
             throw new IllegalArgumentException("한글과 영어만 사용가능합니다");
         }
     }
+
+    public void updateFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public Long getId() {
+        return id;
+    }
 }
