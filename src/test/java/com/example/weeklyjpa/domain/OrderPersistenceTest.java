@@ -6,11 +6,10 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.logging.Logger;
 
 @Slf4j
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -18,10 +17,17 @@ public class OrderPersistenceTest {
 
     @Autowired
     EntityManagerFactory emf;
+
+    private EntityManager entityManager;
+
+    private EntityTransaction transaction;
+    @BeforeEach
+    void setUp() {
+        entityManager = emf.createEntityManager();
+        transaction = entityManager.getTransaction();
+    }
     @Test
     void 양방향관계_저장() {
-        EntityManager entityManager = emf.createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
         Order order = new Order();
@@ -29,8 +35,8 @@ public class OrderPersistenceTest {
         entityManager.persist(order);
 
         Member member = new Member();
-        member.setEmail("kanghonggu");
-        member.setPassword("guppy.kang");
+        member.setEmail("bona@gmail.com");
+        member.setPassword("bbonaa");
 
         // order.setMember(member); <- 연관관계 주인
         member.getOrderList().add(order); // 연관관계의 주인이 아닌곳에만 SETTING
@@ -42,8 +48,6 @@ public class OrderPersistenceTest {
 
     @Test
     void 양방향관계_저장_편의메소드() {
-        EntityManager entityManager = emf.createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
         Order order = new Order();
@@ -51,8 +55,8 @@ public class OrderPersistenceTest {
         entityManager.persist(order);
 
         Member member = new Member();
-        member.setEmail("kanghonggu");
-        member.setPassword("guppy.kang");
+        member.setEmail("bona@gmail.com");
+        member.setPassword("bbona");
 
         member.setOrder(order);
 
@@ -63,21 +67,17 @@ public class OrderPersistenceTest {
 
     @Test
     void 객체그래프탐색을_이용한_조회() {
-        EntityManager entityManager = emf.createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
-        // 주문 엔티티
         Order order = new Order();
 
         entityManager.persist(order);
 
-        // 회원 엔티티
         Member member = new Member();
-        member.setEmail("kanghonggu");
-        member.setPassword("guppy.kang");
+        member.setEmail("kbona@gmail.com");
+        member.setPassword("bbona");
 
-        member.setOrder(order); // 연관관계 편의 메소드 사용
+        member.setOrder(order);
 
         entityManager.persist(member);
 
