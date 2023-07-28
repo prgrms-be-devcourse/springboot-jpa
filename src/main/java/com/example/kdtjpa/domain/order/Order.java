@@ -18,11 +18,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
-@Entity
-@Table(name = "orders")
 @Getter
 @Setter
-public class Order {
+@Entity
+@Table(name = "orders")
+public class Order extends BaseEntity {
 	@Id
 	@Column(name = "id")
 	private String uuid;
@@ -54,5 +54,12 @@ public class Order {
 
 	public void addOrderItem(OrderItem orderItem) {
 		orderItem.setOrder(this);
+	}
+
+	@Override
+	public String toString() {
+		return "Order{" +
+			"uuid='" + uuid + '\'' +
+			'}';
 	}
 }
