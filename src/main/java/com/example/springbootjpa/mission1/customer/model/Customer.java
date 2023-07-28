@@ -1,4 +1,4 @@
-package com.example.springbootjpa.customer.model;
+package com.example.springbootjpa.mission1.customer.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

@@ -1,7 +1,7 @@
-package com.example.springbootjpa.customer.repository;
+package com.example.springbootjpa.mission1.customer.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.example.springbootjpa.customer.model.Customer;
+import com.example.springbootjpa.mission1.customer.model.Customer;
 
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 }
