@@ -1,4 +1,4 @@
-package prgms.mission3.config.domain;
+package prgms.mission3.order.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -39,7 +39,7 @@ public class Member extends BaseEntity {
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
 
-    public void addOrder(prgms.mission3.config.domain.Order order) {
+    public void addOrder(prgms.mission3.order.domain.Order order) {
         order.setMember(this);
     }
 }

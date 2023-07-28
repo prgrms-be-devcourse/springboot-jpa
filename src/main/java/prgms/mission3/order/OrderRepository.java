@@ -1,7 +1,9 @@
-package prgms.mission3.config;
+package prgms.mission3.order;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import prgms.mission3.config.domain.Order;
+import org.springframework.stereotype.Component;
+import prgms.mission3.order.domain.Order;
+
 
 public interface OrderRepository extends JpaRepository<Order,String> {
 }

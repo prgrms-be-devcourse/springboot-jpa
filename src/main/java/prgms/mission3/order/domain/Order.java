@@ -1,4 +1,4 @@
-package prgms.mission3.config.domain;
+package prgms.mission3.order.domain;
 
 
 import jakarta.persistence.CascadeType;

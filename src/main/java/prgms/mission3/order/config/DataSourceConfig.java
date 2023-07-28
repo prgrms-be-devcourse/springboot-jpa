@@ -1,4 +1,4 @@
-package prgms.mission3.config;
+package prgms.mission3.order.config;
 
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.context.annotation.Bean;
@@ -43,7 +43,7 @@ public class DataSourceConfig {
         LocalContainerEntityManagerFactoryBean em
                 = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
-        em.setPackagesToScan("prgms.mission3.config.domain");
+        em.setPackagesToScan("prgms.mission3");
         em.setJpaVendorAdapter(jpaVendorAdapter);
 
         Properties properties = new Properties();
