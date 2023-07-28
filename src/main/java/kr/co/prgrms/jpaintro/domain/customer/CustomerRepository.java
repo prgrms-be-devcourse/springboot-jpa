@@ -1,4 +1,4 @@
-package kr.co.prgrms.jpaintro.domain;
+package kr.co.prgrms.jpaintro.domain.customer;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

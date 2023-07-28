@@ -3,7 +3,7 @@ package kr.co.prgrms.jpaintro;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
-import kr.co.prgrms.jpaintro.domain.Customer;
+import kr.co.prgrms.jpaintro.domain.customer.Customer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

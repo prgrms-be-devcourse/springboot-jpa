@@ -1,5 +1,7 @@
 package kr.co.prgrms.jpaintro.domain;
 
+import kr.co.prgrms.jpaintro.domain.customer.Customer;
+import kr.co.prgrms.jpaintro.domain.customer.CustomerRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

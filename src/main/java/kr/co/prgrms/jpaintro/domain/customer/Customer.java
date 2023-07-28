@@ -1,4 +1,4 @@
-package kr.co.prgrms.jpaintro.domain;
+package kr.co.prgrms.jpaintro.domain.customer;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,6 +21,7 @@ import java.util.regex.Pattern;
 @Table(name = "customer")
 public class Customer {
     @Id
+    @Column(name = "customer_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @Column(name = "first_name", nullable = false, length = 50)
