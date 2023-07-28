@@ -17,7 +17,7 @@ class CustomerRepositoryTest {
     private CustomerRepository customerRepository;
 
     @Test
-    @DisplayName("저장 기능 테스트")
+    @DisplayName("고객 저장 기능 테스트")
     void saveTest() {
         // given
         Customer customer = new Customer(1L, "firstName", "lastName");
@@ -30,7 +30,7 @@ class CustomerRepositoryTest {
     }
 
     @Test
-    @DisplayName("단일 조회기능 테스트")
+    @DisplayName("고객 단일 조회기능 테스트")
     void findByIdTest() {
         // given
         Customer customer = new Customer(1L, "firstName", "lastName");
@@ -44,7 +44,7 @@ class CustomerRepositoryTest {
     }
 
     @Test
-    @DisplayName("다건 조회기능 테스트")
+    @DisplayName("고객 다건 조회기능 테스트")
     void findAllTest() {
         // given
         Customer customer1 = new Customer(1L, "firstFirstName", "firstLastName");
@@ -61,7 +61,7 @@ class CustomerRepositoryTest {
     }
 
     @Test
-    @DisplayName("수정기능 테스트")
+    @DisplayName("고객 수정기능 테스트")
     void JpaCustomerRepositoryTest() {
         // given
         Customer customer = new Customer(1L, "firstName", "lastName");
@@ -80,10 +80,10 @@ class CustomerRepositoryTest {
     }
 
     @Test
-    @DisplayName("삭제 테스트")
+    @DisplayName("고객 삭제 테스트")
     void deleteTest() {
         // given
-        Customer customer = new Customer(1L, "firstName","lastName");
+        Customer customer = new Customer(1L, "firstName", "lastName");
         assertTrue(customerRepository.findById(1L).isPresent());
 
         // when
@@ -93,7 +93,4 @@ class CustomerRepositoryTest {
         assertFalse(customerRepository.findById(1L).isPresent());
     }
 
-
-    
-    
 }
