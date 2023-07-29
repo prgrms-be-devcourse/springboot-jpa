@@ -6,9 +6,11 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static com.example.weeklyjpa.domain.order.OrderStatus.ACCEPTED;
 import static jakarta.persistence.FetchType.LAZY;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -34,15 +36,29 @@ public class Order extends BaseTimeEntity {
     private Member member;
 
     @OneToMany(mappedBy = "order")
-    private List<OrderItem> orderItems;
+    private List<OrderItem> orderItems = new ArrayList<>();
 
-    public Order(String memo, OrderStatus orderStatus, Member member, List<OrderItem> orderItems) {
-        this.memo = memo;
-        this.orderStatus = orderStatus;
-        this.member = member;
-        this.orderItems = orderItems;
+    public static Order createOrder(String memo,Member member, OrderItem... orderItems){
+        Order order = new Order();
+        order.setMemo(memo);
+        order.changeMember(member);
+        for(OrderItem orderItem : orderItems){
+            order.addOrderItem(orderItem);
+        }
+        order.setStatus(ACCEPTED);
+
+        return order;
     }
 
+    private void setStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
+
+    // 연관관계 편의 메서드
     public void changeMember(Member member){
         if(Objects.nonNull(this.member)){
             member.getOrders().remove(this);
@@ -51,9 +67,8 @@ public class Order extends BaseTimeEntity {
         member.getOrders().add(this);
     }
 
-//
-//    @OneToMany(mappedBy = "order") // orderitems가 가지고 있는 order의 이름
-//    private List<OrderItem> orderItems;
-
-
+    public void addOrderItem(OrderItem orderItem){
+        orderItems.add(orderItem);
+        orderItem.changeOrder(this);
+    }
 }

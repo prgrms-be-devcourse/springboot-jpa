@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.weeklyjpa.Service.OrderServiceTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-07-29T16:49:29" hostname="jojaehyeon-ui-MacBookPro.local" time="0.412">
+  <properties/>
+  <testcase name="[1] stockQuantity=11" classname="com.example.weeklyjpa.Service.OrderServiceTest" time="0.407"/>
+  <testcase name="[2] stockQuantity=100" classname="com.example.weeklyjpa.Service.OrderServiceTest" time="0.004"/>
+  <system-out><![CDATA[01:49:27.213 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.weeklyjpa.Service.OrderServiceTest]: OrderServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+01:49:27.266 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.weeklyjpa.WeeklyJpaApplication for test class com.example.weeklyjpa.Service.OrderServiceTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.1.2)
+
+2023-07-30T01:49:27.480+09:00  INFO 2465 --- [    Test worker] c.e.weeklyjpa.Service.OrderServiceTest   : Starting OrderServiceTest using Java 17.0.5 with PID 2465 (started by continue in /Users/continue/Desktop/spring/devcourse/springjpa/springboot-jpa)
+2023-07-30T01:49:27.481+09:00  INFO 2465 --- [    Test worker] c.e.weeklyjpa.Service.OrderServiceTest   : No active profile set, falling back to 1 default profile: "default"
+2023-07-30T01:49:27.769+09:00  INFO 2465 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-07-30T01:49:27.800+09:00  INFO 2465 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 26 ms. Found 4 JPA repository interfaces.
+2023-07-30T01:49:28.009+09:00  INFO 2465 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-07-30T01:49:28.041+09:00  INFO 2465 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.6.Final
+2023-07-30T01:49:28.043+09:00  INFO 2465 --- [    Test worker] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
+2023-07-30T01:49:28.115+09:00  INFO 2465 --- [    Test worker] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-07-30T01:49:28.183+09:00  INFO 2465 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-07-30T01:49:28.192+09:00  INFO 2465 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-07-30T01:49:28.301+09:00  INFO 2465 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:0d17712c-d428-4dfe-986a-f1a5f2afc220 user=SA
+2023-07-30T01:49:28.302+09:00  INFO 2465 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-07-30T01:49:28.469+09:00  INFO 2465 --- [    Test worker] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-07-30T01:49:28.863+09:00  INFO 2465 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+Hibernate: 
+    drop table if exists customer cascade 
+Hibernate: 
+    drop table if exists items cascade 
+Hibernate: 
+    drop table if exists members cascade 
+Hibernate: 
+    drop table if exists order_item cascade 
+Hibernate: 
+    drop table if exists orders cascade 
+Hibernate: 
+    drop sequence if exists items_seq
+Hibernate: 
+    drop sequence if exists members_seq
+Hibernate: 
+    drop sequence if exists order_item_seq
+Hibernate: 
+    drop sequence if exists orders_seq
+Hibernate: 
+    create sequence items_seq start with 1 increment by 50
+Hibernate: 
+    create sequence members_seq start with 1 increment by 50
+Hibernate: 
+    create sequence order_item_seq start with 1 increment by 50
+Hibernate: 
+    create sequence orders_seq start with 1 increment by 50
+Hibernate: 
+    create table customer (
+        id bigint not null,
+        first_name varchar(255) not null,
+        last_name varchar(255) not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table items (
+        price integer not null,
+        stock_quantity integer not null,
+        id bigint not null,
+        dtype varchar(31) not null,
+        author varchar(255),
+        brand varchar(255),
+        maker varchar(255),
+        name varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table members (
+        age integer not null,
+        id bigint not null,
+        address varchar(255) not null,
+        description varchar(255) not null,
+        name varchar(255) not null,
+        nick_name varchar(255) not null unique,
+        primary key (id)
+    )
+Hibernate: 
+    create table order_item (
+        order_item_price integer not null,
+        order_item_quantity integer not null,
+        id bigint not null,
+        item_id bigint,
+        order_id bigint,
+        primary key (id)
+    )
+Hibernate: 
+    create table orders (
+        created_at TIMESTAMP,
+        id bigint not null,
+        member_id bigint,
+        updated_at TIMESTAMP,
+        created_by varchar(255),
+        order_status varchar(255) check (order_status in ('ACCEPTED','CANCELLED')),
+        memo clob,
+        primary key (id)
+    )
+Hibernate: 
+    alter table if exists order_item 
+       add constraint FKo5d8io03ue2y89j3wbnju0let 
+       foreign key (item_id) 
+       references items
+Hibernate: 
+    alter table if exists order_item 
+       add constraint FKt4dc2r9nbvbujrljv3e23iibt 
+       foreign key (order_id) 
+       references orders
+Hibernate: 
+    alter table if exists orders 
+       add constraint FK2vq7lo4gkknrmghj3rqpqqg6s 
+       foreign key (member_id) 
+       references members
+2023-07-30T01:49:28.892+09:00  INFO 2465 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-07-30T01:49:29.100+09:00  INFO 2465 --- [    Test worker] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-07-30T01:49:29.610+09:00  INFO 2465 --- [    Test worker] c.e.weeklyjpa.Service.OrderServiceTest   : Started OrderServiceTest in 2.264 seconds (process running for 2.815)
+Hibernate: 
+    select
+        next value for members_seq
+Hibernate: 
+    select
+        next value for items_seq
+Hibernate: 
+    select
+        next value for members_seq
+Hibernate: 
+    select
+        next value for items_seq
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

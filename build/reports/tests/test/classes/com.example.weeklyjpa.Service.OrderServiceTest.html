@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - OrderServiceTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>OrderServiceTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.example.weeklyjpa.Service.html">com.example.weeklyjpa.Service</a> &gt; OrderServiceTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">2</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.411s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Method name</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">[1] stockQuantity=11</td>
+<td class="success">CREATE_ORDER_FAIL_BY_OUT_OF_STOCK(int)[1]</td>
+<td class="success">0.407s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">[2] stockQuantity=100</td>
+<td class="success">CREATE_ORDER_FAIL_BY_OUT_OF_STOCK(int)[2]</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>01:49:27.213 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.weeklyjpa.Service.OrderServiceTest]: OrderServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+01:49:27.266 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.weeklyjpa.WeeklyJpaApplication for test class com.example.weeklyjpa.Service.OrderServiceTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.1.2)
+
+2023-07-30T01:49:27.480+09:00  INFO 2465 --- [    Test worker] c.e.weeklyjpa.Service.OrderServiceTest   : Starting OrderServiceTest using Java 17.0.5 with PID 2465 (started by continue in /Users/continue/Desktop/spring/devcourse/springjpa/springboot-jpa)
+2023-07-30T01:49:27.481+09:00  INFO 2465 --- [    Test worker] c.e.weeklyjpa.Service.OrderServiceTest   : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2023-07-30T01:49:27.769+09:00  INFO 2465 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-07-30T01:49:27.800+09:00  INFO 2465 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 26 ms. Found 4 JPA repository interfaces.
+2023-07-30T01:49:28.009+09:00  INFO 2465 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-07-30T01:49:28.041+09:00  INFO 2465 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.6.Final
+2023-07-30T01:49:28.043+09:00  INFO 2465 --- [    Test worker] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
+2023-07-30T01:49:28.115+09:00  INFO 2465 --- [    Test worker] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-07-30T01:49:28.183+09:00  INFO 2465 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-07-30T01:49:28.192+09:00  INFO 2465 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-07-30T01:49:28.301+09:00  INFO 2465 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:0d17712c-d428-4dfe-986a-f1a5f2afc220 user=SA
+2023-07-30T01:49:28.302+09:00  INFO 2465 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-07-30T01:49:28.469+09:00  INFO 2465 --- [    Test worker] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-07-30T01:49:28.863+09:00  INFO 2465 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+Hibernate: 
+    drop table if exists customer cascade 
+Hibernate: 
+    drop table if exists items cascade 
+Hibernate: 
+    drop table if exists members cascade 
+Hibernate: 
+    drop table if exists order_item cascade 
+Hibernate: 
+    drop table if exists orders cascade 
+Hibernate: 
+    drop sequence if exists items_seq
+Hibernate: 
+    drop sequence if exists members_seq
+Hibernate: 
+    drop sequence if exists order_item_seq
+Hibernate: 
+    drop sequence if exists orders_seq
+Hibernate: 
+    create sequence items_seq start with 1 increment by 50
+Hibernate: 
+    create sequence members_seq start with 1 increment by 50
+Hibernate: 
+    create sequence order_item_seq start with 1 increment by 50
+Hibernate: 
+    create sequence orders_seq start with 1 increment by 50
+Hibernate: 
+    create table customer (
+        id bigint not null,
+        first_name varchar(255) not null,
+        last_name varchar(255) not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table items (
+        price integer not null,
+        stock_quantity integer not null,
+        id bigint not null,
+        dtype varchar(31) not null,
+        author varchar(255),
+        brand varchar(255),
+        maker varchar(255),
+        name varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table members (
+        age integer not null,
+        id bigint not null,
+        address varchar(255) not null,
+        description varchar(255) not null,
+        name varchar(255) not null,
+        nick_name varchar(255) not null unique,
+        primary key (id)
+    )
+Hibernate: 
+    create table order_item (
+        order_item_price integer not null,
+        order_item_quantity integer not null,
+        id bigint not null,
+        item_id bigint,
+        order_id bigint,
+        primary key (id)
+    )
+Hibernate: 
+    create table orders (
+        created_at TIMESTAMP,
+        id bigint not null,
+        member_id bigint,
+        updated_at TIMESTAMP,
+        created_by varchar(255),
+        order_status varchar(255) check (order_status in ('ACCEPTED','CANCELLED')),
+        memo clob,
+        primary key (id)
+    )
+Hibernate: 
+    alter table if exists order_item 
+       add constraint FKo5d8io03ue2y89j3wbnju0let 
+       foreign key (item_id) 
+       references items
+Hibernate: 
+    alter table if exists order_item 
+       add constraint FKt4dc2r9nbvbujrljv3e23iibt 
+       foreign key (order_id) 
+       references orders
+Hibernate: 
+    alter table if exists orders 
+       add constraint FK2vq7lo4gkknrmghj3rqpqqg6s 
+       foreign key (member_id) 
+       references members
+2023-07-30T01:49:28.892+09:00  INFO 2465 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-07-30T01:49:29.100+09:00  INFO 2465 --- [    Test worker] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-07-30T01:49:29.610+09:00  INFO 2465 --- [    Test worker] c.e.weeklyjpa.Service.OrderServiceTest   : Started OrderServiceTest in 2.264 seconds (process running for 2.815)
+Hibernate: 
+    select
+        next value for members_seq
+Hibernate: 
+    select
+        next value for items_seq
+Hibernate: 
+    select
+        next value for members_seq
+Hibernate: 
+    select
+        next value for items_seq
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 8.2.1</a> at 2023. 7. 30. 오전 1:49:30</p>
+</div>
+</div>
+</body>
+</html>

@@ -19,12 +19,10 @@ public class BaseTimeEntity {
     @CreatedBy
     private String createdBy;
 
-    @Builder.Default
     @CreatedDate
     @Column(name = "created_at", columnDefinition = "TIMESTAMP")
     private LocalDateTime createdAt;
 
-    @Builder.Default
     @LastModifiedDate
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP")
     private LocalDateTime updatedAt;
