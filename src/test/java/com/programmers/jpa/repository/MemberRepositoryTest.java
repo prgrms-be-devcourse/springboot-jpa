@@ -1,7 +1,6 @@
 package com.programmers.jpa.repository;
 
 import com.programmers.jpa.domain.Member;
-import com.programmers.jpa.repository.MemberRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

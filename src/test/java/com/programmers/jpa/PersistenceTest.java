@@ -1,10 +1,8 @@
 package com.programmers.jpa;
 
 import com.programmers.jpa.domain.Member;
-import com.programmers.jpa.repository.MemberRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

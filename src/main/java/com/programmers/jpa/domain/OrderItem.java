@@ -29,8 +29,13 @@ public class OrderItem {
 
     public OrderItem(int price, Order order, Item item) {
         this.price = price;
-        this.order = order;
+        setOrder(order);
         this.item = item;
         this.orderStatus = OrderStatus.OPENED;
+    }
+
+    private void setOrder(Order order) {
+        this.order = order;
+        order.addOrderItem(this);
     }
 }
