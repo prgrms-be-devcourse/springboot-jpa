@@ -34,10 +34,7 @@ public class PersistenceContextTest {
         //given
         transaction.begin();
 
-        Customer customer = Customer.builder()
-                .firstName("hyemin")
-                .lastName("Kim")
-                .build();
+        Customer customer = new Customer("hyemin", "Kim");
 
         //when
         entityManager.persist(customer);
@@ -54,10 +51,7 @@ public class PersistenceContextTest {
         //given
         transaction.begin();
 
-        Customer customer = Customer.builder()
-                .firstName("hyemin")
-                .lastName("Kim")
-                .build();
+        Customer customer = new Customer("hyemin", "Kim");
 
         entityManager.persist(customer);
         transaction.commit();
@@ -77,10 +71,7 @@ public class PersistenceContextTest {
         //given
         transaction.begin();
 
-        Customer customer = Customer.builder()
-                .firstName("hyemin")
-                .lastName("Kim")
-                .build();
+        Customer customer = new Customer("hyemin", "Kim");
 
         entityManager.persist(customer);
         transaction.commit();
@@ -102,10 +93,7 @@ public class PersistenceContextTest {
         //given
         transaction.begin();
 
-        Customer customer = Customer.builder()
-                .firstName("hyemin")
-                .lastName("Kim")
-                .build();
+        Customer customer = new Customer("hyemin", "Kim");
 
         entityManager.persist(customer);
         transaction.commit();
@@ -134,10 +122,7 @@ public class PersistenceContextTest {
         //given
         transaction.begin();
 
-        Customer customer = Customer.builder()
-                .firstName("hyemin")
-                .lastName("Kim")
-                .build();
+        Customer customer = new Customer("hyemin", "Kim");
 
         entityManager.persist(customer);
         transaction.commit();
