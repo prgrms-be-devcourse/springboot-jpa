@@ -1,9 +1,13 @@
-package com.programmers.jpa.repository;
+package com.programmers.jpa;
 
 import com.programmers.jpa.domain.Item;
 import com.programmers.jpa.domain.Member;
 import com.programmers.jpa.domain.Order;
 import com.programmers.jpa.domain.OrderItem;
+import com.programmers.jpa.repository.ItemRepository;
+import com.programmers.jpa.repository.MemberRepository;
+import com.programmers.jpa.repository.OrderItemRepository;
+import com.programmers.jpa.repository.OrderRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +21,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
-class OrderRepositoryTest {
+class OrderAssociationTest {
     @Autowired
     OrderRepository orderRepository;
     @Autowired
