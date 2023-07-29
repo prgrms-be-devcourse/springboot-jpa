@@ -21,8 +21,15 @@ public class Item {
     }
 
     public Item(String name, int price, int stockQuantity) {
+        validateName(name);
         this.name = name;
         this.price = price;
         this.stockQuantity = stockQuantity;
+    }
+
+    private void validateName(String name) {
+        if(name.length() > 200) {
+            throw new IllegalArgumentException("Invalid item name");
+        }
     }
 }
