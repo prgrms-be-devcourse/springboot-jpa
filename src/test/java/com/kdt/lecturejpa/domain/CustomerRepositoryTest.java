@@ -21,8 +21,8 @@ class CustomerRepositoryTest {
 	@BeforeEach
 	void setUp() {
 		newCustomer = new Customer();
-		newCustomer.setFirstName("byeonggon");
-		newCustomer.setLastName("kang");
+		newCustomer.changeFirstName("byeonggon");
+		newCustomer.changeLastName("kang");
 	}
 
 	@Test
@@ -55,8 +55,8 @@ class CustomerRepositoryTest {
 		Customer savedCustomer = repository.save(newCustomer);
 
 		// When
-		newCustomer.setFirstName("byeong");
-		newCustomer.setLastName("gorani");
+		newCustomer.changeFirstName("byeong");
+		newCustomer.changeLastName("gorani");
 		Customer updatedCustomer = repository.save(savedCustomer);
 
 		// Then
