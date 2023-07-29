@@ -10,7 +10,7 @@ import java.util.Objects;
 @DiscriminatorValue("FOOD")
 public class Food extends Item{
 
-    @Column(length = 5, nullable = false)
+    @Column(length = 5)
     private String chef;
 
     protected Food() {
@@ -30,5 +30,10 @@ public class Food extends Item{
         if (Objects.isNull(chef) || chef.isBlank()) {
             throw new IllegalArgumentException("요리사가 비어있습니다.");
         }
+    }
+
+    @Override
+    public String getChef() {
+        return  chef;
     }
 }

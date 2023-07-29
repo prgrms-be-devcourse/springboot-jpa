@@ -26,4 +26,9 @@ public class Car extends Item{
             throw new IllegalArgumentException(String.format("파워가 0보다 작습니다. input: %s", power));
         }
     }
+
+    @Override
+    public Long getPower() {
+        return power;
+    }
 }
