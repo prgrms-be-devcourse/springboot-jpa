@@ -24,7 +24,7 @@ public class Item {
 
     private int stockQuantity;
 
-    @OneToMany(mappedBy = "item")
+    @OneToMany(mappedBy = "item", orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
 
     public Item(int price, int stockQuantity) {

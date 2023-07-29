@@ -30,7 +30,7 @@ public class Member extends BaseEntity {
     @Column(length = 50, nullable = false)
     private String address;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();
 
     public Member(String name, String nickname, int age, String address) {
