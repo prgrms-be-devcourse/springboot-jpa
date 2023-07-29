@@ -1,4 +1,4 @@
-package com.programmers.springbootjpa.domain;
+package com.programmers.springbootjpa.domain.order;
 
 public enum OrderStatus {
     OPENED,

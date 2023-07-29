@@ -1,4 +1,4 @@
-package com.programmers.springbootjpa.domain;
+package com.programmers.springbootjpa.domain.item;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

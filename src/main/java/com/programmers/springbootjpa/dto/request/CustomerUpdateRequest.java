@@ -1,6 +1,6 @@
 package com.programmers.springbootjpa.dto.request;
 
-import com.programmers.springbootjpa.domain.Address;
+import com.programmers.springbootjpa.domain.customer.Address;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;

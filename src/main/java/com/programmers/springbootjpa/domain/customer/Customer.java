@@ -1,5 +1,6 @@
-package com.programmers.springbootjpa.domain;
+package com.programmers.springbootjpa.domain.customer;
 
+import com.programmers.springbootjpa.domain.order.Order;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;

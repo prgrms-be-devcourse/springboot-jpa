@@ -1,5 +1,6 @@
-package com.programmers.springbootjpa.domain;
+package com.programmers.springbootjpa.domain.order;
 
+import com.programmers.springbootjpa.domain.item.Item;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;

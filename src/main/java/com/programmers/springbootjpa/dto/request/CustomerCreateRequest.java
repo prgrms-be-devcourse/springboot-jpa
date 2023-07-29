@@ -1,7 +1,7 @@
 package com.programmers.springbootjpa.dto.request;
 
-import com.programmers.springbootjpa.domain.Address;
-import com.programmers.springbootjpa.domain.Customer;
+import com.programmers.springbootjpa.domain.customer.Address;
+import com.programmers.springbootjpa.domain.customer.Customer;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;

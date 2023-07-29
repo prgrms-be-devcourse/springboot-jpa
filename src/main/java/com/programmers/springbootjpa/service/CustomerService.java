@@ -1,6 +1,6 @@
 package com.programmers.springbootjpa.service;
 
-import com.programmers.springbootjpa.domain.Customer;
+import com.programmers.springbootjpa.domain.customer.Customer;
 import com.programmers.springbootjpa.dto.request.CustomerCreateRequest;
 import com.programmers.springbootjpa.dto.request.CustomerUpdateRequest;
 import com.programmers.springbootjpa.dto.response.CustomerResponse;
