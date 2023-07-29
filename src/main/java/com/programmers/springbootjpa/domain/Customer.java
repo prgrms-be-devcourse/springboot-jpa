@@ -6,6 +6,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,6 +34,9 @@ public class Customer {
 
     @Embedded
     private Address address;
+
+    @OneToMany(mappedBy = "customer")
+    private List<Order> orders = new ArrayList<>();
 
     @Builder
     public Customer(String name, Integer age, String nickName, Address address) {
