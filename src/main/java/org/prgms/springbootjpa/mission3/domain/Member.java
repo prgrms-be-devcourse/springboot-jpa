@@ -1,4 +1,4 @@
-package org.prgms.springbootjpa.mission3.domain.member;
+package org.prgms.springbootjpa.mission3.domain;
 
 import lombok.AccessLevel;
 import lombok.Getter;

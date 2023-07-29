@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.prgms.springbootjpa.mission3.domain.BaseEntity;
-import org.prgms.springbootjpa.mission3.domain.member.Member;
+import org.prgms.springbootjpa.mission3.domain.Member;
 
 import javax.persistence.*;
 import java.util.ArrayList;

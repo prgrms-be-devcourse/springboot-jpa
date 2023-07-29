@@ -2,8 +2,6 @@ package org.prgms.springbootjpa.mission3.domain;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.prgms.springbootjpa.mission3.domain.member.Member;
-import org.prgms.springbootjpa.mission3.domain.member.MemberRepository;
 import org.prgms.springbootjpa.mission3.domain.order.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
