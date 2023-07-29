@@ -1,10 +1,10 @@
 package com.programmers.jpa.customer.application;
 
 import com.programmers.jpa.customer.domain.Customer;
+import com.programmers.jpa.customer.dto.CreateRequest;
+import com.programmers.jpa.customer.dto.FindResponse;
+import com.programmers.jpa.customer.dto.UpdateRequest;
 import com.programmers.jpa.customer.infra.CustomerRepository;
-import com.programmers.jpa.customer.ui.CreateRequest;
-import com.programmers.jpa.customer.ui.FindResponse;
-import com.programmers.jpa.customer.ui.UpdateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
