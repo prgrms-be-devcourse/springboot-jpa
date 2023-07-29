@@ -5,14 +5,16 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.internal.bytebuddy.matcher.ElementMatchers.is;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
 @DataJpaTest
 class CustomerRepositoryTest {
 
-    static Customer customer;
+    Customer customer;
 
     @Autowired
     private CustomerRepository repository;
@@ -35,18 +37,22 @@ class CustomerRepositoryTest {
     void testCreateCustomer() {
         repository.save(customer);
 
-        assertNotNull(customer.getId());
-        assertEquals(customer.getFirstName(), "SeonHeui");
-        assertEquals(customer.getLastName(), "Jeon");
+        Customer saved = repository.findById(customer.getId())
+                        .orElse(null);
+
+        assertThat(saved).isNotNull();
+        assertThat(saved).isEqualTo("SeonHeui");
+        assertThat(saved).isEqualTo("Jeon");
     }
 
     @DisplayName("Customer Read Test")
     @Test
     void testReadCustomer() {
         repository.save(customer);
-        Customer readCustomer = repository.findById(customer.getId()).get();
+        Customer readCustomer = repository.findById(customer.getId())
+                .orElse(null);
 
-        assertEquals(customer, readCustomer);
+        assertThat(readCustomer).isEqualTo(customer);
     }
 
     @DisplayName("Customer Update Test")
