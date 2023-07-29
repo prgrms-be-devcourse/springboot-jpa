@@ -5,7 +5,6 @@ import kr.co.prgrms.jpaintro.domain.customer.CustomerRepository;
 import kr.co.prgrms.jpaintro.domain.item.Food;
 import kr.co.prgrms.jpaintro.domain.item.Item;
 import kr.co.prgrms.jpaintro.domain.item.ItemRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +15,15 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
-class OrderTest {
-    @Autowired
-    private OrderRepository orderRepository;
-
+class OrderRepositoryTest {
     @Autowired
     private CustomerRepository customerRepository;
 
     @Autowired
-    private ItemRepository itemRepository;
+    private OrderRepository orderRepository;
 
     @Autowired
-    private OrderItemRepository orderItemRepository;
+    private ItemRepository itemRepository;
 
     private Order order;
 
@@ -35,18 +31,13 @@ class OrderTest {
     void setUp() {
         Customer customer = new Customer("예성", "고");
         customerRepository.save(customer);
+        order = new Order(customer);
 
-        order = new Order();
-        order.updateOrderStatus(OrderStatus.OPENED);
-        order.updateMemo("맛있는거 시켜먹자~~");
-        orderRepository.save(order);
-
-        OrderItem orderItem = new OrderItem(20_000, 1);
-        orderItemRepository.save(orderItem);
-
-        Item item = new Food(20_000, 50, "황금올리브치킨");
+        Item item = new Food("BBQ황금올리브", 20_000, 50, "치킨");
         itemRepository.save(item);
 
+        OrderItem orderItem = new OrderItem(order, item);
+        orderItem.changeOrderItemQuantity(2);
         order.addOrderItem(orderItem);
     }
 
@@ -55,27 +46,48 @@ class OrderTest {
         // given
         Order savedOrder = orderRepository.save(order);
         Long id = savedOrder.getId();
+
         // when
         Optional<Order> response = orderRepository.findById(id);
-        Order foundOrder = response.orElseThrow();
+        Order result = response.orElseThrow();
 
         // then
-        assertThat(foundOrder.getId())
-                .isEqualTo(savedOrder.getId());
+        assertThat(result.getId())
+                .isEqualTo(id);
     }
 
     @Test
     void 주문상품추가_테스트() {
         // given
         Order savedOrder = orderRepository.save(order);
-        Item item = new Food(15_000, 50, "배달삼겹살");
-        itemRepository.save(item);
-
-        OrderItem orderItem = new OrderItem(15_000, 2);
-
+        Long savedOrderId = savedOrder.getId();
+        Item newItem = new Food("허니콤보", 23_000, 50, "치킨");
+        itemRepository.save(newItem);
+        OrderItem orderItem = new OrderItem(order, newItem);
 
         // when
+        orderItem.changeOrderItemQuantity(3);
+        order.addOrderItem(orderItem);
+        Optional<Order> response = orderRepository.findById(savedOrderId);
+        Order result = response.orElseThrow();
 
         // then
+        assertThat(result.getOrderItems())
+                .hasSize(2);
+    }
+
+    @Test
+    void 주문삭제_테스트() {
+        // given
+        Order savedOrder = orderRepository.save(order);
+        Long savedOrderId = savedOrder.getId();
+
+        // when
+        orderRepository.deleteById(savedOrderId);
+
+        // then
+        Optional<Order> response = orderRepository.findById(savedOrderId);
+        assertThat(response)
+                .isEmpty();
     }
 }

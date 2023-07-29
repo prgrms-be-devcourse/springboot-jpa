@@ -10,6 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import kr.co.prgrms.jpaintro.domain.item.Item;
+import kr.co.prgrms.jpaintro.exception.IllegalValueException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,16 +33,30 @@ public class OrderItem {
     @JoinColumn(name = "item_id")
     private Item item;
 
+    @Column(name = "order_item_quantity")
+    private Integer quantity;
+
     public OrderItem(Order order, Item item) {
         this.order = order;
         this.item = item;
     }
 
-    public void changeOrder(Order order) {
+    public void orderItem(Order order) {
         this.order = order;
     }
 
     public void changeItem(Item item) {
         this.item = item;
+    }
+
+    public void changeOrderItemQuantity(int quantity) {
+        checkQuantity(quantity);
+        this.quantity = quantity;
+    }
+
+    private void checkQuantity(int quantity) {
+        if (quantity <= 0) {
+            throw new IllegalValueException("[ERROR] 변경하려는 수량이 올바르지 않습니다.");
+        }
     }
 }
