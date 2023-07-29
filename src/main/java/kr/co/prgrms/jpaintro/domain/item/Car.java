@@ -16,8 +16,8 @@ public class Car extends Item {
     @Column(name = "power", nullable = false)
     private Integer power;
 
-    public Car(int price, int quantity, Integer power) {
-        super(price, quantity);
+    public Car(String name, int price, int quantity, Integer power) {
+        super(name, price, quantity);
 
         checkPower(power);
         this.power = power;

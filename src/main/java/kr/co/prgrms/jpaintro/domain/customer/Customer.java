@@ -16,16 +16,18 @@ import java.util.regex.Pattern;
 
 
 @Entity
+@Table(name = "customer")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "customer")
 public class Customer {
     @Id
     @Column(name = "customer_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+
     @Column(name = "first_name", nullable = false, length = 50)
     private String firstName;
+
     @Column(name = "last_name", nullable = false, length = 50)
     private String lastName;
 

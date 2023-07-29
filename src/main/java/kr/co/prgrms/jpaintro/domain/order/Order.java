@@ -34,13 +34,14 @@ public class Order {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
 
     @Lob
+    @Column(name = "memo")
     private String memo;
 
     @Column(name = "order_datetime", columnDefinition = "TIMESTAMP")
@@ -49,14 +50,13 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
-    public Order(Customer customer, List<OrderItem> orderItems) {
+    public Order(Customer customer) {
         this.customer = customer;
-        this.orderItems = orderItems;
     }
 
     public void addOrderItem(OrderItem orderItem) {
         orderItems.add(orderItem);
-        orderItem.addOrder(this);
+        orderItem.changeOrder(this);
     }
 
     public void updateMemo(String memo) {

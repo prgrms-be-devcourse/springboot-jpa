@@ -18,8 +18,8 @@ public class Furniture extends Item {
     @Column(name = "height", nullable = false)
     private Integer height;
 
-    public Furniture(int price, int quantity, Integer width, Integer height) {
-        super(price, quantity);
+    public Furniture(String name, int price, int quantity, Integer width, Integer height) {
+        super(name, price, quantity);
 
         checkLength(width);
         checkLength(height);

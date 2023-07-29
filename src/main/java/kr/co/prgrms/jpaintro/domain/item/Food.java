@@ -16,20 +16,20 @@ import java.util.regex.Pattern;
 @DiscriminatorValue("FOOD")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Food extends Item {
-    @Column(name = "food_name", nullable = false)
-    private String foodName;
+    @Column(name = "food_type", nullable = false)
+    private String type;
 
-    public Food(int price, int quantity, String foodName) {
-        super(price, quantity);
+    public Food(String name, int price, int quantity, String type) {
+        super(name, price, quantity);
 
-        checkFoodName(foodName);
-        this.foodName = foodName;
+        checkFoodType(type);
+        this.type = type;
     }
 
-    private void checkFoodName(String foodName) {
+    private void checkFoodType(String foodName) {
         String pattern = "^[a-zA-Zㄱ-ㅎ가-힣]*$";
         if (!StringUtils.hasText(foodName) || !Pattern.matches(pattern, foodName)) {
-            throw new IllegalValueException("[ERROR] 음식 이름이 잘못 됐습니다!");
+            throw new IllegalValueException("[ERROR] 음식 종류가 잘못 됐습니다!");
         }
     }
 }

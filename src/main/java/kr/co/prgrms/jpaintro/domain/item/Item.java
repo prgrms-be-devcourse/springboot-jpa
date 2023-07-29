@@ -8,10 +8,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import kr.co.prgrms.jpaintro.exception.IllegalNameException;
 import kr.co.prgrms.jpaintro.exception.IllegalValueException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.util.StringUtils;
+
+import java.util.regex.Pattern;
 
 @Entity
 @Getter
@@ -24,16 +28,21 @@ public abstract class Item {
     @Column(name = "item_id")
     private Long id;
 
-    @Column(name = "price", nullable = false)
+    @Column(name = "item_name", nullable = false)
+    private String name;
+
+    @Column(name = "item_price", nullable = false)
     private int price;
 
-    @Column(name = "quantity", nullable = false)
+    @Column(name = "item_quantity", nullable = false)
     private int quantity;
 
-    public Item(int price, int quantity) {
+    public Item(String name, int price, int quantity) {
+        checkName(name);
         checkPrice(price);
         checkQuantity(quantity);
 
+        this.name = name;
         this.price = price;
         this.quantity = quantity;
     }
@@ -44,6 +53,24 @@ public abstract class Item {
             throw new IllegalValueException("[ERROR] 물건의 수량이 부족합니다!");
         }
         this.quantity = reducedQuantity;
+    }
+
+    private void checkName(String name) {
+        checkEmptyName(name);
+        checkIllegalCharacter(name);
+    }
+
+    private void checkEmptyName(String name) {
+        if (!StringUtils.hasText(name)) {
+            throw new IllegalNameException("[ERROR] 이름 값은 비어있을 수 없습니다!");
+        }
+    }
+
+    private void checkIllegalCharacter(String name) {
+        String pattern = "^[a-zA-Zㄱ-ㅎ가-힣]*$";
+        if (!Pattern.matches(pattern, name)) {
+            throw new IllegalNameException("[ERROR] 이름 값은 한글과 영문만 가능합니다!");
+        }
     }
 
     private void checkQuantity(int quantity) {
