@@ -5,6 +5,8 @@ import lombok.Getter;
 
 import java.util.regex.Pattern;
 
+import static java.util.Objects.nonNull;
+
 @Getter
 @Entity
 public class Member {
@@ -30,11 +32,11 @@ public class Member {
     }
 
     public void update(String firstName, String lastName) {
-        if(firstName != null) {
+        if(nonNull(firstName)) {
             validateFirstName(firstName);
             this.firstName = firstName;
         }
-        if(lastName != null) {
+        if(nonNull(lastName)) {
             validateLastName(lastName);
             this.lastName = lastName;
         }
