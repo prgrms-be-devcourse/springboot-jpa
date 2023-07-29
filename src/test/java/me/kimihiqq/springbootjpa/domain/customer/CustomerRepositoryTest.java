@@ -1,5 +1,6 @@
 package me.kimihiqq.springbootjpa.domain.customer;
 
+import me.kimihiqq.springbootjpa.domain.repository.CustomerRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
