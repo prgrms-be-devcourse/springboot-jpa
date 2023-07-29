@@ -31,13 +31,17 @@ public class Order extends BaseEntity {
     @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    public Order(OrderStatus orderStatus, String memo, Member member) {
+    public Order(OrderStatus orderStatus, String memo) {
         this.orderStatus = orderStatus;
         this.memo = memo;
-        this.member = member;
     }
 
     public void addOrderItem(OrderItem orderItem) {
-        this.orderItems.add(orderItem);
+        orderItem.setOrder(this);
+        orderItems.add(orderItem);
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
     }
 }

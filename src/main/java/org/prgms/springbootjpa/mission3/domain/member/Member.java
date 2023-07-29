@@ -41,6 +41,7 @@ public class Member extends BaseEntity {
     }
 
     public void addOrder(Order order) {
-        this.orders.add(order);
+        order.setMember(this);
+        orders.add(order);
     }
 }

@@ -27,16 +27,16 @@ public class OrderItem {
     @JoinColumn(name = "item_id")
     private Item item;
 
-    public OrderItem(int price, int quantity, Order order) {
+    public OrderItem(int price, int quantity) {
         this.price = price;
         this.quantity = quantity;
+    }
+
+    public void setOrder(Order order) {
         this.order = order;
     }
 
-    public OrderItem(int price, int quantity, Order order, Item item) {
-        this.price = price;
-        this.quantity = quantity;
-        this.order = order;
+    public void setItem(Item item) {
         this.item = item;
     }
 }
