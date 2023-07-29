@@ -1,4 +1,4 @@
-package com.programmers.springbootjpa.repository;
+package com.programmers.springbootjpa;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -8,6 +8,10 @@ import com.programmers.springbootjpa.domain.item.Item;
 import com.programmers.springbootjpa.domain.order.Order;
 import com.programmers.springbootjpa.domain.order.OrderItem;
 import com.programmers.springbootjpa.domain.order.OrderStatus;
+import com.programmers.springbootjpa.repository.CustomerRepository;
+import com.programmers.springbootjpa.repository.ItemRepository;
+import com.programmers.springbootjpa.repository.OrderItemRepository;
+import com.programmers.springbootjpa.repository.OrderRepository;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;
