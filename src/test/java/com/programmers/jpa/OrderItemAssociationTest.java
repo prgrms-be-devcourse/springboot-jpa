@@ -8,13 +8,13 @@ import com.programmers.jpa.repository.ItemRepository;
 import com.programmers.jpa.repository.MemberRepository;
 import com.programmers.jpa.repository.OrderItemRepository;
 import com.programmers.jpa.repository.OrderRepository;
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -31,7 +31,7 @@ class OrderItemAssociationTest {
     @Autowired
     EntityManagerFactory emf;
     @Autowired
-    EntityManager em;
+    TestEntityManager em;
 
     Member givenMember;
     Order givenOrder;
