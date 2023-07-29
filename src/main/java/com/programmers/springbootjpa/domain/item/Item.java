@@ -20,11 +20,13 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    private String name;
     private Integer price;
     private Integer stockQuantity;
 
     @Builder
-    public Item(Integer price, Integer stockQuantity) {
+    public Item(String name, Integer price, Integer stockQuantity) {
+        this.name = name;
         this.price = price;
         this.stockQuantity = stockQuantity;
     }

@@ -11,13 +11,16 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "orders")
+@Getter
 public class Order {
 
     @Id
@@ -39,11 +42,19 @@ public class Order {
     private Customer customer;
 
     @Builder
-    public Order(String uuid, LocalDateTime orderDatetime, OrderStatus orderStatus, String memo, Customer customer) {
+    public Order(String uuid, LocalDateTime orderDatetime, OrderStatus orderStatus, String memo) {
         this.uuid = uuid;
         this.orderDatetime = orderDatetime;
         this.orderStatus = orderStatus;
         this.memo = memo;
+    }
+
+    public void setCustomer(Customer customer) {
+        if (Objects.nonNull(this.customer)) {
+            this.customer.getOrders().remove(this);
+        }
+
         this.customer = customer;
+        customer.getOrders().add(this);
     }
 }
