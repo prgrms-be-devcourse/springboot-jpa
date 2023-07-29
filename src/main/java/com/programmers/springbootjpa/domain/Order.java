@@ -36,7 +36,7 @@ public class Order {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private Customer customer;
-    
+
     @Builder
     public Order(String uuid, LocalDateTime orderDatetime, OrderStatus orderStatus, String memo, Customer customer) {
         this.uuid = uuid;
