@@ -3,13 +3,11 @@ package com.programmers.jpa.customer.ui;
 
 import com.programmers.jpa.customer.application.CustomerService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-@Controller
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
@@ -29,8 +27,8 @@ public class CustomerController {
     }
 
     @GetMapping("/customers")
-    public List<FindResponse> findCustomers() {
-        return customerService.findAll();
+    public Page<FindResponse> findCustomers(Pageable pageable) {
+        return customerService.findAll(pageable);
     }
 
     @PatchMapping("/customers")

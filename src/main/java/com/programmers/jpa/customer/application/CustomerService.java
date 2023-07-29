@@ -6,10 +6,10 @@ import com.programmers.jpa.customer.ui.CreateRequest;
 import com.programmers.jpa.customer.ui.FindResponse;
 import com.programmers.jpa.customer.ui.UpdateRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -31,12 +31,10 @@ public class CustomerService {
                 .orElseThrow(() -> new IllegalArgumentException("고객이 존재하지 않습니다."));
     }
 
-    public List<FindResponse> findAll() {
+    public Page<FindResponse> findAll(Pageable pageable) {
         return customerRepository
-                .findAll()
-                .stream()
-                .map(FindResponse::from)
-                .toList();
+                .findAll(pageable)
+                .map(FindResponse::from);
     }
 
     @Transactional
