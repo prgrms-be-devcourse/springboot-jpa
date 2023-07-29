@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
+@Table(name = "orders")
 public class Order extends BaseEntity {
 
     @Id
