@@ -1,4 +1,4 @@
-package com.programmers.jpa.customer.ui;
+package com.programmers.jpa.customer.dto;
 
 import com.programmers.jpa.customer.domain.Customer;
 
