@@ -25,8 +25,8 @@ public class OrderRepositoryTest {
     @Autowired
     OrderRepository orderRepository;
 
-    Order order1;
-    Order order2;
+    private static Order order1;
+    private static Order order2;
 
     @BeforeEach
     void setUp () {
