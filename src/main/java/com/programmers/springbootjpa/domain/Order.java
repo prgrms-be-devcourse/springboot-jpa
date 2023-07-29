@@ -17,19 +17,20 @@ import lombok.NoArgsConstructor;
 public class Order {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private String uuid;
 
-    @Column(name = "order_datetime", columnDefinition = "TIMESTAMP")
+    @Column(name = "order_datetime", columnDefinition = "TIMESTAMP", nullable = false)
     private LocalDateTime orderDatetime;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "order_status", nullable = false)
     private OrderStatus orderStatus;
 
     @Column(name = "memo", columnDefinition = "TEXT")
     private String memo;
 
-    @Column(name = "member_id")
+    @Column(name = "member_id", nullable = false)
     private Long memberId;
 
     @Builder
