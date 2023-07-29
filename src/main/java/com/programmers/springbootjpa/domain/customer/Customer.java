@@ -2,7 +2,6 @@ package com.programmers.springbootjpa.domain.customer;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import java.util.regex.Pattern;
@@ -22,7 +21,6 @@ public class Customer {
     @Column(nullable = false, length = 20)
     private String lastName;
 
-    @Builder
     public Customer(String firstName, String lastName) {
         checkName(firstName);
         checkName(lastName);
@@ -43,7 +41,7 @@ public class Customer {
     }
 
     private void checkPattern(String name) {
-        if (!Pattern.matches("^[가-힣a-zA-Z]*$", name)) {
+        if (!Pattern.matches("^[가-힣a-zA-Z]+$", name)) {
             throw new IllegalArgumentException("이름은 한글 또는 영어로 입력해주세요.");
         }
     }

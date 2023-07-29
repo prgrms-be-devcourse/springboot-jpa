@@ -1,7 +1,5 @@
 package com.programmers.springbootjpa.domain.customer;
 
-import com.programmers.springbootjpa.domain.customer.Customer;
-import com.programmers.springbootjpa.domain.customer.CustomerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,10 +20,7 @@ class CustomerRepositoryTest {
 
     @BeforeEach
     public void setUp() {
-        customer = Customer.builder()
-                .firstName("hyemin")
-                .lastName("Kim")
-                .build();
+        customer = new Customer("hyemin", "Kim");
     }
 
     @DisplayName("customer를 저장한다")
@@ -75,10 +70,7 @@ class CustomerRepositoryTest {
         //given
         customerRepository.save(customer);
 
-        Customer customer2 = Customer.builder()
-                .firstName("min")
-                .lastName("Lee")
-                .build();
+        Customer customer2 = new Customer("min", "Lee");
 
         customerRepository.save(customer2);
 
@@ -109,10 +101,7 @@ class CustomerRepositoryTest {
         //given
         customerRepository.save(customer);
 
-        Customer customer2 = Customer.builder()
-                .firstName("min")
-                .lastName("Lee")
-                .build();
+        Customer customer2 = new Customer("min", "Lee");
 
         customerRepository.save(customer2);
 
