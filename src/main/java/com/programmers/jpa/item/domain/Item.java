@@ -2,11 +2,13 @@ package com.programmers.jpa.item.domain;
 
 import com.programmers.jpa.base.domain.BaseEntity;
 import jakarta.persistence.*;
+import lombok.Getter;
 import org.hibernate.annotations.Formula;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "item_type")
+@Getter
 public abstract class Item extends BaseEntity {
 
     private static final String FOOD = "FOOD";
