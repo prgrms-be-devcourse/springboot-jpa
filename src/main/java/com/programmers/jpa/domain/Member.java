@@ -19,7 +19,7 @@ public class Member {
     @Column(name = "last_name", nullable = false, length = 20)
     private String lastName;
 
-    public Member() {
+    protected Member() {
     }
 
     public Member(String firstName, String lastName) {

@@ -28,7 +28,7 @@ public class Order {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    public Order() {
+    protected Order() {
     }
 
     public Order(String memo, Member member) {
