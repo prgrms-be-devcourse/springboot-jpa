@@ -19,6 +19,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
+@DisplayName("OrderItem 다대일 연관관계 테스트")
 class OrderItemAssociationTest {
     @Autowired
     MemberRepository memberRepository;

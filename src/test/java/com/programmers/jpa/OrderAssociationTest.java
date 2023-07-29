@@ -21,6 +21,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
+@DisplayName("Order 일대다, 다대일 연관관계 테스트")
 class OrderAssociationTest {
     @Autowired
     OrderRepository orderRepository;
