@@ -26,7 +26,7 @@ public class Customer {
     @Column(name = "age", nullable = false)
     private Integer age;
 
-    @Column(name = "nick_name", nullable = false)
+    @Column(name = "nick_name", nullable = false, unique = true, length = 20)
     private String nickName;
 
     @Embedded
