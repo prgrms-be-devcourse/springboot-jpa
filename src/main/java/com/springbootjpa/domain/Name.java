@@ -1,6 +1,6 @@
 package com.springbootjpa.domain;
 
-import com.springbootjpa.exception.NoValidCustomerException;
+import com.springbootjpa.exception.InValidCustomerException;
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
@@ -27,7 +27,7 @@ public class Name {
 
     private void validateLastName(String last) {
         if (last.length() > MAX_LAST_LENGTH) {
-            throw new NoValidCustomerException("성을 제외하고 이름은 5자를 초과할 수 없습니다.");
+            throw new InValidCustomerException("성을 제외하고 이름은 5자를 초과할 수 없습니다.");
         }
     }
 }

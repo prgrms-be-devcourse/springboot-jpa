@@ -1,6 +1,6 @@
 package com.springbootjpa.domain;
 
-import com.springbootjpa.exception.NoValidCustomerException;
+import com.springbootjpa.exception.InValidCustomerException;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -16,7 +16,7 @@ class CustomerTest {
 
         // when & then
         assertThatThrownBy(() -> customer.changeName(firstName, lastName))
-                .isInstanceOf(NoValidCustomerException.class)
+                .isInstanceOf(InValidCustomerException.class)
                 .hasMessage("성을 제외하고 이름은 5자를 초과할 수 없습니다.");
     }
 }
