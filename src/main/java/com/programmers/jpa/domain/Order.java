@@ -16,7 +16,6 @@ public class Order {
     @Column(name = "order_id")
     private Long id;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "order_datetime")
     private LocalDateTime orderDatetime;
 
