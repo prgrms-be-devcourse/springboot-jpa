@@ -3,7 +3,6 @@ package com.example.jpaweekly.domain.customer.repository;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.example.jpaweekly.domain.customer.Customer;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,11 +22,6 @@ class CustomerRepositoryTest {
         .firstName("준일")
         .lastName("배")
         .build();
-  }
-
-  @AfterEach
-  void tearDown() {
-    customerRepository.deleteAll();
   }
 
   @Test
