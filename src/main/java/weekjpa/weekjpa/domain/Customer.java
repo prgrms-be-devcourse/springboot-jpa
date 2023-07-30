@@ -14,7 +14,8 @@ import static lombok.AccessLevel.PROTECTED;
 @Entity
 @Getter
 @NoArgsConstructor(access = PROTECTED)
-public class Customer {
+public class Customer extends BaseEntity {
+
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
