@@ -2,10 +2,12 @@ package com.programmers.springbootjpa.domain.order;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "DTYPE")
@@ -65,17 +67,5 @@ public abstract class Item extends BaseEntity {
         int result = stockQuantity - quantity;
         checkStockQuantity(result);
         this.stockQuantity = result;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public int getStockQuantity() {
-        return stockQuantity;
     }
 }

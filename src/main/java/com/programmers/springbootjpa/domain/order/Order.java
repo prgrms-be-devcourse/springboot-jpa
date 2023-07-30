@@ -2,6 +2,7 @@ package com.programmers.springbootjpa.domain.order;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "orders")
 @Entity
@@ -64,29 +66,5 @@ public class Order {
 
     public void updateMemo(String memo) {
         this.memo = memo;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public LocalDateTime getOrderDatetime() {
-        return orderDatetime;
-    }
-
-    public OrderStatus getOrderStatus() {
-        return orderStatus;
-    }
-
-    public String getMemo() {
-        return memo;
-    }
-
-    public Member getMember() {
-        return member;
-    }
-
-    public List<OrderItem> getOrderItems() {
-        return orderItems;
     }
 }

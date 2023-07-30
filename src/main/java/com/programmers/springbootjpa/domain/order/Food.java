@@ -3,10 +3,12 @@ package com.programmers.springbootjpa.domain.order;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.regex.Pattern;
 
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @DiscriminatorValue("FOOD")
@@ -41,9 +43,5 @@ public class Food extends Item {
     public void updateChef(String chef) {
         checkChef(chef);
         this.chef = chef;
-    }
-
-    public String getChef() {
-        return chef;
     }
 }

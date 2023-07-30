@@ -2,12 +2,14 @@ package com.programmers.springbootjpa.domain.order;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table
 @Entity
@@ -78,25 +80,5 @@ public class OrderItem extends BaseEntity {
     public void updateQuantity(int quantity) {
         checkQuantity(quantity, item);
         this.quantity = quantity;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public Item getItem() {
-        return item;
     }
 }

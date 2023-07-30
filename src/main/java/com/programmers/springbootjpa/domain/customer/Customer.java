@@ -2,10 +2,12 @@ package com.programmers.springbootjpa.domain.customer;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.regex.Pattern;
 
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "customers")
 @Entity
@@ -54,17 +56,5 @@ public class Customer {
     public void updateLastName(String lastName) {
         checkName(lastName);
         this.lastName = lastName;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
     }
 }

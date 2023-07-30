@@ -3,8 +3,10 @@ package com.programmers.springbootjpa.domain.order;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @DiscriminatorValue("FURNITURE")
@@ -37,13 +39,5 @@ public class Furniture extends Item {
     public void updateHeight(int height) {
         checkFurnitureSize(height);
         this.height = height;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
     }
 }

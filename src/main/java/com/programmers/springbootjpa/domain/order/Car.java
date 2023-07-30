@@ -3,8 +3,10 @@ package com.programmers.springbootjpa.domain.order;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @DiscriminatorValue("CAR")
@@ -28,9 +30,5 @@ public class Car extends Item {
     public void updatePower(int power) {
         checkPower(power);
         this.power = power;
-    }
-
-    public int getPower() {
-        return power;
     }
 }
