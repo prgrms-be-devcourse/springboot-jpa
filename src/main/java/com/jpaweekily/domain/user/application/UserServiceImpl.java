@@ -26,9 +26,7 @@ public class UserServiceImpl implements UserService {
                 .nickName(request.nickName())
                 .createdAt(LocalDateTime.now())
                 .build();
-
         userRepository.save(user);
-
         return user.getId();
     }
 }
