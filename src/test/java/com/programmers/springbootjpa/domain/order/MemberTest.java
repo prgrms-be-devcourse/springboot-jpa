@@ -4,7 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.EmptySource;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -47,7 +47,7 @@ class MemberTest {
 
     @DisplayName("회원 생성 시 이름이 조건에 맞지 않으면 예외처리한다")
     @ValueSource(strings = {"aaaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbbbbbbb", "혜민1", "@@", "hy3min", "/bbb"})
-    @EmptySource
+    @NullAndEmptySource
     @ParameterizedTest
     void testName(String name) {
         //given
@@ -59,7 +59,7 @@ class MemberTest {
 
     @DisplayName("회원 생성 시 닉네임이 조건에 맞지 않으면 예외처리한다")
     @ValueSource(strings = {"aaaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbbbbbbb", "혜민&", "@@", "hy**min", "/bbb"})
-    @EmptySource
+    @NullAndEmptySource
     @ParameterizedTest
     void testNickname(String nickname) {
         //given
@@ -82,7 +82,7 @@ class MemberTest {
 
     @DisplayName("회원 수정 시 이름이 조건에 맞지 않으면 예외처리한다")
     @ValueSource(strings = {"aaaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbbbbbbb", "혜민1", "@@", "hy3min", "/bbb"})
-    @EmptySource
+    @NullAndEmptySource
     @ParameterizedTest
     void testNameUpdate(String name) {
         //given
@@ -96,7 +96,7 @@ class MemberTest {
 
     @DisplayName("회원 수정 시 닉네임이 조건에 맞지 않으면 예외처리한다")
     @ValueSource(strings = {"aaaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbbbbbbb", "혜민&", "@@", "hy**min", "/bbb"})
-    @EmptySource
+    @NullAndEmptySource
     @ParameterizedTest
     void testNicknameUpdate(String nickname) {
         //given

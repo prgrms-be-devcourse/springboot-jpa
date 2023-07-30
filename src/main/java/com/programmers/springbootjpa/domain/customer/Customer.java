@@ -35,7 +35,7 @@ public class Customer {
     }
 
     private void checkLength(String name) {
-        if (name.isEmpty() || name.length() > 20) {
+        if (name == null || name.isEmpty() || name.length() > 20) {
             throw new IllegalArgumentException("이름은 1자 이상 20자 이하로 입력해주세요.");
         }
     }

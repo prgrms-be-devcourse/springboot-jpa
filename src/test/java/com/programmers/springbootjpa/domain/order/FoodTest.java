@@ -4,7 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.EmptySource;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -71,7 +71,7 @@ class FoodTest {
 
     @DisplayName("음식 생성 시 chef가 조건에 맞지 않으면 예외처리한다")
     @ValueSource(strings = {"aaaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbbbbbbb", "혜민1", "@@", "hy3min", "/bbb"})
-    @EmptySource
+    @NullAndEmptySource
     @ParameterizedTest
     void testChef(String chef) {
         //given
@@ -95,7 +95,7 @@ class FoodTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
-    @DisplayName("음식 생성 시 재고 수량이 0개보다 적으면 예외처리한다")
+    @DisplayName("음식 수정 시 재고 수량이 0개보다 적으면 예외처리한다")
     @ValueSource(strings = {"-1", "-4", "-9"})
     @ParameterizedTest
     void testStockQuantityUpdate(int stockQuantity) {
@@ -108,9 +108,9 @@ class FoodTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
-    @DisplayName("음식 생성 시 chef가 조건에 맞지 않으면 예외처리한다")
+    @DisplayName("음식 수정 시 chef가 조건에 맞지 않으면 예외처리한다")
     @ValueSource(strings = {"aaaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbbbbbbb", "혜민1", "@@", "hy3min", "/bbb"})
-    @EmptySource
+    @NullAndEmptySource
     @ParameterizedTest
     void testChefUpdate(String chef) {
         //given

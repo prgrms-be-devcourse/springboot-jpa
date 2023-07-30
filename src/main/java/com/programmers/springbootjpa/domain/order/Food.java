@@ -27,7 +27,7 @@ public class Food extends Item {
     }
 
     private void checkLength(String request) {
-        if (request.isEmpty() || request.length() > 20) {
+        if (request == null || request.isEmpty() || request.length() > 20) {
             throw new IllegalArgumentException("1자 이상 20자 이하로 입력해주세요.");
         }
     }

@@ -4,7 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.EmptySource;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.*;
@@ -43,7 +43,7 @@ class CustomerTest {
     }
 
     @DisplayName("고객 생성 시 이름이 비어있는 경우 예외처리한다")
-    @EmptySource
+    @NullAndEmptySource
     @ParameterizedTest
     void testNameEmpty(String name) {
         //given
@@ -86,7 +86,7 @@ class CustomerTest {
     }
 
     @DisplayName("고객 수정 시 이름이 비어있는 경우 예외처리한다")
-    @EmptySource
+    @NullAndEmptySource
     @ParameterizedTest
     void testNameEmptyUpdate(String name) {
         //given
