@@ -4,8 +4,10 @@ import com.programmers.jpa.base.domain.BaseEntity;
 import com.programmers.jpa.item.domain.Item;
 import com.programmers.jpa.order.domain.Order;
 import jakarta.persistence.*;
+import lombok.Getter;
 
 @Entity
+@Getter
 public class OrderItem extends BaseEntity {
     @Id
     @GeneratedValue
