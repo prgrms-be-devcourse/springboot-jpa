@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 import java.util.Objects;
 
 @Entity
-@DiscriminatorValue("FOOD")
 @Getter
+@DiscriminatorValue("FOOD")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Food extends Item {
 

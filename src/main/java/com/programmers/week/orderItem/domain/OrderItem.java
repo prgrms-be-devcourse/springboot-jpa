@@ -5,9 +5,11 @@ import com.programmers.week.item.domain.Item;
 import com.programmers.week.order.domain.Order;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderItem extends BaseEntity {
 

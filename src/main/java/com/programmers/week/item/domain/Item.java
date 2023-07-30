@@ -4,9 +4,11 @@ import com.programmers.week.Message;
 import com.programmers.week.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Getter
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -37,6 +39,5 @@ public abstract class Item extends BaseEntity {
       throw new IllegalArgumentException(String.format(Message.TOTAL_QUANTITY_IS_MINUS + "%s", stockQuantity));
     }
   }
-
 
 }
