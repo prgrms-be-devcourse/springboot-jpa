@@ -20,10 +20,10 @@ public class CustomerService {
   private final CustomerRepository customerRepository;
 
   @Transactional
-  public Long create(CustomerCreateRequest createRequest) {
+  public Long create(CustomerCreateRequest request) {
     Customer customer = new Customer(
-            createRequest.firstName(),
-            createRequest.lastName()
+            request.firstName(),
+            request.lastName()
     );
     Customer saved = customerRepository.save(customer);
     return saved.getId();
@@ -41,11 +41,11 @@ public class CustomerService {
   }
 
   @Transactional
-  public Long update(CustomerUpdateRequest customerUpdateRequest) {
-    Customer customer = customerRepository.findById(customerUpdateRequest.id())
+  public Long update(CustomerUpdateRequest request) {
+    Customer customer = customerRepository.findById(request.id())
             .orElseThrow(() -> new IllegalArgumentException(Message.CUSTOMER_IS_NO_EXIST));
-    customer.changeFirstName(customerUpdateRequest.firstName());
-    customer.changeLastName(customerUpdateRequest.lastName());
+    customer.changeFirstName(request.firstName());
+    customer.changeLastName(request.lastName());
     return customer.getId();
   }
 

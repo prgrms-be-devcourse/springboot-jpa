@@ -16,8 +16,8 @@ public class CustomerController {
 
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/customers")
-  public Long create(@RequestBody CustomerCreateRequest createRequest) {
-    return customerService.create(createRequest);
+  public Long create(@RequestBody CustomerCreateRequest request) {
+    return customerService.create(request);
   }
 
   @ResponseStatus
@@ -29,15 +29,15 @@ public class CustomerController {
 
   @ResponseStatus
   @GetMapping
-  public Page<CustomerResponse> findAll(@ModelAttribute PageRequestDto pageRequestDto) {
-    PageRequest pageRequest = PageRequest.of(pageRequestDto.page(), pageRequestDto.size());
+  public Page<CustomerResponse> findAll(@ModelAttribute PageRequestDto request) {
+    PageRequest pageRequest = PageRequest.of(request.page(), request.size());
     return customerService.findAll(pageRequest);
   }
 
   @ResponseStatus
   @PatchMapping("/customers/update")
-  public Long update(@RequestBody CustomerUpdateRequest customerUpdateRequest) {
-    return customerService.update(customerUpdateRequest);
+  public Long update(@RequestBody CustomerUpdateRequest request) {
+    return customerService.update(request);
   }
 
   @ResponseStatus
