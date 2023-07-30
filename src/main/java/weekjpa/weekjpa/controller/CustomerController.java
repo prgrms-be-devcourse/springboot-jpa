@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import weekjpa.weekjpa.dto.CustomerCreateRequest;
-import weekjpa.weekjpa.dto.CustomerGetResponse;
+import weekjpa.weekjpa.dto.CustomerResponse;
 import weekjpa.weekjpa.dto.CustomerUpdateRequest;
 import weekjpa.weekjpa.dto.CustomerUpdateResponse;
 import weekjpa.weekjpa.service.CustomerService;
@@ -27,7 +27,7 @@ public class CustomerController {
 
     @GetMapping("/customers/{id}")
     @ResponseStatus(OK)
-    public CustomerGetResponse findCustomer(@PathVariable Long id) {
+    public CustomerResponse findCustomer(@PathVariable Long id) {
         return customerService.find(id);
     }
 
