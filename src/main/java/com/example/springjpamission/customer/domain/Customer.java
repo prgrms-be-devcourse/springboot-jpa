@@ -1,11 +1,15 @@
 package com.example.springjpamission.customer.domain;
 
 import com.example.springjpamission.gobal.BaseEntity;
+import com.example.springjpamission.order.domain.Order;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,5 +30,6 @@ public class Customer extends BaseEntity {
     @Column(nullable = false, length = 30)
     private String lastName;
 
-
+    @OneToMany(mappedBy = "customer")
+    private List<Order> orders = new ArrayList<>();
 }
