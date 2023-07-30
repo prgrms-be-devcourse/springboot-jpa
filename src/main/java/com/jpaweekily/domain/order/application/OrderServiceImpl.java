@@ -4,6 +4,7 @@ import com.jpaweekily.domain.order.Order;
 import com.jpaweekily.domain.order.OrderProduct;
 import com.jpaweekily.domain.order.OrderStatus;
 import com.jpaweekily.domain.order.dto.OrderCreateRequest;
+import com.jpaweekily.domain.order.dto.OrderResponse;
 import com.jpaweekily.domain.order.infrastructrue.OrderProductRepository;
 import com.jpaweekily.domain.order.infrastructrue.OrderRepository;
 import com.jpaweekily.domain.product.Product;
@@ -32,7 +33,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     public Long createOrder(OrderCreateRequest request) {
-        User user = userRepository.findByNickName(request.nickName()).orElseThrow(IllegalArgumentException::new);
+        User user = userRepository.findByNickname(request.nickName()).orElseThrow(IllegalArgumentException::new);
 
         Order order = Order.builder()
                 .address(request.address())
@@ -52,5 +53,10 @@ public class OrderServiceImpl implements OrderService {
             orderProductRepository.save(orderProduct);
         });
         return order.getId();
+    }
+
+    public OrderResponse findOrderById(Long id) {
+        Order order = orderRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        return OrderResponse.from(order);
     }
 }
