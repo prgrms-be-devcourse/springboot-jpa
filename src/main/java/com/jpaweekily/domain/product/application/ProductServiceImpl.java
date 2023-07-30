@@ -17,12 +17,12 @@ public class ProductServiceImpl implements ProductService {
         this.productRepository = productRepository;
     }
 
-    public void createProduct(ProductCreateRequest request) {
+    public Long createProduct(ProductCreateRequest request) {
         Product product = Product.builder()
                 .productName(request.productName())
                 .price(request.price())
                 .build();
-
         productRepository.save(product);
+        return product.getId();
     }
 }
