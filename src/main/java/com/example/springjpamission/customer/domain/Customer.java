@@ -15,6 +15,7 @@ import lombok.Setter;
 @Setter
 public class Customer extends BaseEntity {
 
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
