@@ -56,7 +56,7 @@ public class Order {
 
     public void addOrderItem(OrderItem orderItem) {
         orderItems.add(orderItem);
-        orderItem.orderItem(this);
+        orderItem.changeOrder(this);
     }
 
     public void updateMemo(String memo) {

@@ -15,6 +15,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Objects;
+
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -41,8 +43,13 @@ public class OrderItem {
         this.item = item;
     }
 
-    public void orderItem(Order order) {
+    public void changeOrder(Order order) {
+        if (Objects.nonNull(this.order)) {
+            this.order.getOrderItems().remove(this);
+        }
+
         this.order = order;
+        order.addOrderItem(this);
     }
 
     public void changeItem(Item item) {
