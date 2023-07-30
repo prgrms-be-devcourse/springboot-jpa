@@ -40,6 +40,20 @@ class OrderItemTest {
     }
 
     @Test
+    @DisplayName("OrderItem 생성 실패 - 요청 수량이 재고 보다 많다")
+    void createOrderItemFailTest_invalidQuantity() throws Exception {
+
+        //given
+        int orderPrice = 1000;
+        int quantity = 11;
+        Item item = new Mouse(100, 10, "red");
+
+        //when
+        assertThrows(InvalidDomainConditionException.class,
+                () -> OrderItem.create(item, orderPrice, quantity));
+    }
+
+    @Test
     @DisplayName("OrderItem 생성 성공")
     void createOrderItemTest() throws Exception {
 
@@ -56,6 +70,6 @@ class OrderItemTest {
         assertThat(orderItem.getOrderPrice()).isEqualTo(orderPrice);
         assertThat(orderItem.getQuantity()).isEqualTo(quantity);
         assertThat(orderItem.getItem()).isEqualTo(item);
-        assertThat(item.getStockQuantity()).isEqualTo(initialStockQuantity - quantity);
+        assertThat(item.getStockQuantity()).isEqualTo(initialStockQuantity);
     }
 }
