@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-
 @SpringBootTest
 class OrderServiceTest {
 
@@ -55,7 +54,7 @@ class OrderServiceTest {
     void CREATE_ORDER_FAIL_BY_OUT_OF_STOCK(int stockQuantity){
         //given
         Member member = new Member("joje", "chemi", 22, "paju", "hihitean");
-        Keyboard keyboard = Keyboard.createKeyboard("keykron", 100000, 10, "joje");
+        Keyboard keyboard = Keyboard.createKeyboard("keykron", 100000, 10, "joje"); // 질문
         Long memberId = memberRepository.save(member).getId();
         Long itemId = itemRepository.save(keyboard).getId();
 

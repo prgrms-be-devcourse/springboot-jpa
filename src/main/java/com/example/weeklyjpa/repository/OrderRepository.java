@@ -12,8 +12,4 @@ import java.util.Optional;
 @Repository
 public interface OrderRepository extends JpaRepository<Order,Long> {
 
-    List<Order> findAllByOrderStatus(OrderStatus orderStatus);
-
-    @Query("SELECT o FROM Order AS o WHERE o.memo LIKE  %?1%")
-    Optional<Order> findByMemo(String memo);
 }

@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Slf4j
 @DataJpaTest
 public class CustomerJPATest {
 
@@ -47,12 +46,12 @@ public class CustomerJPATest {
     @Transactional // 영속성 컨텍스트 내에서 관리를 하겠다
     void UPDATE_TEST(){
         // when
-        Customer foundCustomer = repository.findById(1L).orElseThrow(NullPointerException::new);
+        Customer foundCustomer = repository.findById(savedCustomer.getId())).orElseThrow(NullPointerException::new);
         foundCustomer.changeFirstName("hihi");
         foundCustomer.changeLastName("ju");
 
         // then
-        Customer updatedCustomer = repository.findById(1L).orElseThrow(NullPointerException::new);
+        Customer updatedCustomer = repository.findById(savedCustomer.getId()).orElseThrow(NullPointerException::new);
         assertThat(updatedCustomer.getLastName()).isEqualTo("ju");
         assertThat(updatedCustomer.getFirstName()).isEqualTo("hihi");
     }
@@ -61,9 +60,9 @@ public class CustomerJPATest {
     @DisplayName("고객 정보 삭제에 성공한다.")
     void DELETE_TEST(){
         // when
-        repository.deleteById(1L);
+        repository.deleteById(savedCustomer.getId()));
 
         // then
-        assertThat(repository.existsById(1L)).isFalse();
+        assertThat(repository.existsById(savedCustomer.getId())).isFalse();
     }
 }
