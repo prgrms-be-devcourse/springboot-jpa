@@ -13,13 +13,11 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
-
 @Entity
 @Getter
 @Setter
 public class Customer extends BaseEntity {
 
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -32,4 +30,5 @@ public class Customer extends BaseEntity {
 
     @OneToMany(mappedBy = "customer")
     private List<Order> orders = new ArrayList<>();
+
 }

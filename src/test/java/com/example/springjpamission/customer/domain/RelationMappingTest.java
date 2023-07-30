@@ -3,13 +3,11 @@ package com.example.springjpamission.customer.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.example.springjpamission.order.domain.Car;
-import com.example.springjpamission.order.domain.Item;
 import com.example.springjpamission.order.domain.Order;
 import com.example.springjpamission.order.domain.OrderItem;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
-import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +20,6 @@ public class RelationMappingTest {
 
     @Autowired
     EntityManagerFactory entityManagerFactory;
-
 
     @Test
     void order_customer_mappingTest(){
@@ -110,4 +107,5 @@ public class RelationMappingTest {
         // then
         assertThat(item1.getPower()).isEqualTo(200);
     }
+
 }

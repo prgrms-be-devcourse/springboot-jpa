@@ -3,20 +3,15 @@ package com.example.springjpamission;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import com.example.springjpamission.customer.domain.Customer;
-import com.example.springjpamission.customer.domain.CustomerRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
-import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ActiveProfiles;
 
 @ActiveProfiles("test")
-//@SpringBootTest
 @DataJpaTest
 public class PersistenceContextTest {
 
