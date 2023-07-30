@@ -4,5 +4,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.devcourse.springbootjpa.domain.order.Order;
 
-public interface OrderRepository extends JpaRepository<Order, String> {
+public interface OrderRepository extends JpaRepository<Order, Long> {
 }

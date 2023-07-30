@@ -1,65 +1,63 @@
 package com.devcourse.springbootjpa.domain.order;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "orders")
 @Getter
-@AllArgsConstructor
-@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
 	@Id
-	@Column(name = "id")
-	private String uuid;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private Long id;
 
-	@Column(name = "memo")
 	private String memo;
 
 	@Enumerated(value = EnumType.STRING)
 	private OrderStatus orderStatus;
 
-	@Column(name = "order_datetime", columnDefinition = "TIMESTAMP")
+	@Column(columnDefinition = "TIMESTAMP")
 	private LocalDateTime orderDateTime;
 
-	@Column(name = "member_id", insertable = false, updatable = false)
-	private long memberID;
-
 	@ManyToOne
-	@JoinColumn(name = "member_id", referencedColumnName = "id")
+	@JoinColumn(referencedColumnName = "id")
 	private Member member;
 
-	@OneToMany(mappedBy = "order")
-	private List<OrderItem> orderItems;
+	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<OrderItem> orderItems = new ArrayList<>();
 
-	protected Order() {
-	}
-
-	public void setMember(Member member) {
-		if (Objects.nonNull(this.member)) {
-			this.member.getOrders().remove(this);
-		}
-
+	@Builder
+	public Order(String memo, OrderStatus orderStatus, LocalDateTime orderDateTime, Member member,
+			List<OrderItem> orderItems) {
+		this.memo = memo;
+		this.orderStatus = orderStatus;
+		this.orderDateTime = orderDateTime;
 		this.member = member;
-		member.getOrders().add(this);
+		this.orderItems = orderItems;
 	}
 
 	public void addOrderItem(OrderItem orderItem) {
 		orderItems.add(orderItem);
+		orderItem.setOrder(this);
 	}
 
 	public void changeOrderStatus(OrderStatus orderStatus) {

@@ -4,7 +4,6 @@ import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -63,7 +62,6 @@ class OrderTest {
 				.build();
 		orderItemRepository.save(orderItem);
 		order = Order.builder()
-				.uuid(UUID.randomUUID().toString())
 				.memo("부재시 문앞에 놔주세요")
 				.orderStatus(OrderStatus.OPENED)
 				.member(member)
@@ -87,7 +85,7 @@ class OrderTest {
 	void SearchTest() {
 		// given
 		Order saved = orderRepository.save(order);
-		String id = saved.getUuid();
+		Long id = saved.getId();
 		// when
 		Order found = orderRepository.findById(id).get();
 		// then
@@ -99,7 +97,7 @@ class OrderTest {
 	void deleteTest() {
 		// given
 		Order saved = orderRepository.save(order);
-		String id = saved.getUuid();
+		Long id = saved.getId();
 		// when
 		Order found = orderRepository.findById(id).get();
 		found.changeOrderStatus(OrderStatus.CANCELED);

@@ -3,7 +3,6 @@ package com.devcourse.springbootjpa;
 import static com.devcourse.springbootjpa.domain.order.OrderStatus.*;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,21 +60,18 @@ class OrderPersistenceTest {
 		entityManager.persist(member);
 
 		Order order = Order.builder()
-				.uuid(UUID.randomUUID().toString())
 				.orderStatus(OPENED)
 				.orderDateTime(LocalDateTime.now())
 				.memo("부재시 연락주세요")
 				.member(member)
 				.build();
-
 		entityManager.persist(order);
 
 		transaction.commit();
 
 		entityManager.clear();
-		Order entity = entityManager.find(Order.class, order.getUuid());
+		Order entity = entityManager.find(Order.class, order.getId());
 
 		log.info("{}", entity.getMember().getNickname());
-		log.info("{}", entity.getMember().getOrders().size());
 	}
 }

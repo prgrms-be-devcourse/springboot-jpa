@@ -10,19 +10,19 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "item")
-@Builder
 @Getter
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Item {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private long id;
+	private Long id;
 
 	private int price;
 
@@ -31,12 +31,16 @@ public class Item {
 	@OneToMany(mappedBy = "item")
 	private List<OrderItem> orderItems;
 
-	protected Item() {
-	}
-
 	public Item(int price, int stockQuantity) {
 		this.price = price;
 		this.stockQuantity = stockQuantity;
+	}
+
+	@Builder
+	public Item(int price, int stockQuantity, List<OrderItem> orderItems) {
+		this.price = price;
+		this.stockQuantity = stockQuantity;
+		this.orderItems = orderItems;
 	}
 
 	public void addOrderItem(OrderItem orderItem) {
