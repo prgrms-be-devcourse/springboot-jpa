@@ -3,6 +3,7 @@ package com.example.jpaweekly.domain.customer.repository;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.example.jpaweekly.domain.customer.Customer;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,6 +16,7 @@ class CustomerRepositoryTest {
   @Autowired
   private CustomerRepository customerRepository;
   private Customer customer;
+  private Customer savedCustomer;
 
   @BeforeEach
   void setUp() {
@@ -22,6 +24,13 @@ class CustomerRepositoryTest {
         .firstName("준일")
         .lastName("배")
         .build();
+
+    savedCustomer = customerRepository.save(customer);
+  }
+
+  @AfterEach
+  void tearDown() {
+    customerRepository.deleteAll();
   }
 
   @Test
@@ -30,7 +39,6 @@ class CustomerRepositoryTest {
     //given
 
     // when
-    Customer savedCustomer = customerRepository.save(customer);
 
     // then
     assertThat(savedCustomer.getFirstName()).isEqualTo(customer.getFirstName());
@@ -41,7 +49,6 @@ class CustomerRepositoryTest {
   @DisplayName("성공 : 고객 성 수정")
   void updateCustomerLastName() {
     //given
-    Customer savedCustomer = customerRepository.save(customer);
     Customer foundCustomer = customerRepository.findById(savedCustomer.getId()).get();
     final String updatedLastName = "김";
 
@@ -56,7 +63,6 @@ class CustomerRepositoryTest {
   @DisplayName("성공 : 고객 이름 수정")
   void updateCustomerFirstName() {
     //given
-    Customer savedCustomer = customerRepository.save(customer);
     Customer foundCustomer = customerRepository.findById(savedCustomer.getId()).get();
     final String updatedLastName = "준영";
 
@@ -71,7 +77,6 @@ class CustomerRepositoryTest {
   @DisplayName("성공 : 고객 조회")
   void getCustomer() {
     //given
-    Customer savedCustomer = customerRepository.save(customer);
 
     // when
     Customer foundCustomer = customerRepository.findById(savedCustomer.getId()).get();
@@ -84,7 +89,6 @@ class CustomerRepositoryTest {
   @DisplayName("성공 : 고객 삭제")
   void deleteCustomer() {
     //given
-    Customer savedCustomer = customerRepository.save(customer);
 
     // when
     customerRepository.deleteById(savedCustomer.getId());
