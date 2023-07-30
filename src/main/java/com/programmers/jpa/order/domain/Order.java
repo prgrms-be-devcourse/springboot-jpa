@@ -2,11 +2,13 @@ package com.programmers.jpa.order.domain;
 
 import com.programmers.jpa.base.domain.BaseEntity;
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.util.Objects;
 
 @Entity
 @Table(name = "orders")
+@Getter
 public class Order extends BaseEntity {
 
     @Id
