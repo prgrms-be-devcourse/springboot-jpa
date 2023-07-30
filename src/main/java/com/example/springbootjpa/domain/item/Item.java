@@ -52,4 +52,10 @@ public abstract class Item {
         }
         this.stockQuantity = restStock;
     }
+
+    public void validateRequestQuantity(int quantity) {
+        if (stockQuantity < quantity) {
+            throw new InvalidDomainConditionException(ErrorCode.INVALID_ORDER_ITEM_QUANTITY);
+        }
+    }
 }

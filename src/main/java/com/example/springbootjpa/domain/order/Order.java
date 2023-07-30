@@ -1,6 +1,8 @@
 package com.example.springbootjpa.domain.order;
 
 import com.example.springbootjpa.domain.customer.Customer;
+import com.example.springbootjpa.golbal.ErrorCode;
+import com.example.springbootjpa.golbal.exception.InvalidDomainConditionException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,13 +37,24 @@ public class Order {
     private OrderStatus orderStatus;
 
     public static Order createOrder(Customer customer, List<OrderItem> orderItems) {
+        validateOrderItem(orderItems);
+
         Order order = new Order();
         order.updateMember(customer);
         orderItems.forEach(order::addOrderItem);
         order.updateOrderStatus(OrderStatus.ORDER);
         order.updateOrderDate(LocalDateTime.now());
 
+        orderItems.forEach(orderItem
+                -> orderItem.getItem().removeStock(orderItem.getQuantity()));
+
         return order;
+    }
+
+    private static void validateOrderItem(List<OrderItem> orderItems) {
+        if (orderItems == null || orderItems.isEmpty()) {
+            throw new InvalidDomainConditionException(ErrorCode.INVALID_ORDER_ITEMS);
+        }
     }
 
     public void updateOrderDate(LocalDateTime orderDate) {
@@ -60,5 +73,13 @@ public class Order {
     public void addOrderItem(OrderItem orderItem) {
         orderItems.add(orderItem);
         orderItem.addToOrder(this);
+    }
+
+    public int getTotalPrice() {
+        int totalPrice = orderItems.stream()
+                .mapToInt(OrderItem::getTotalPrice)
+                .sum();
+
+        return totalPrice;
     }
 }

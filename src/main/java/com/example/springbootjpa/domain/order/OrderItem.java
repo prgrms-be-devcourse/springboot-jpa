@@ -42,12 +42,11 @@ public class OrderItem {
     }
 
     public static OrderItem create(Item item, int orderPrice, int quantity) {
-        OrderItem orderItem = new OrderItem();
-        orderItem.updateItem(item);
-        orderItem.updateOrderPrice(orderPrice);
-        orderItem.updateQuantity(quantity);
+        item.validateRequestQuantity(quantity);
 
-        item.removeStock(quantity);
+        OrderItem orderItem = new OrderItem(orderPrice, quantity);
+        orderItem.updateItem(item);
+
         return orderItem;
     }
 
@@ -55,16 +54,12 @@ public class OrderItem {
         this.item = item;
     }
 
-    public void updateOrderPrice(int orderPrice) {
-        this.orderPrice = orderPrice;
-    }
-
-    public void updateQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
     public void addToOrder(Order order) {
         this.order = order;
+    }
+
+    public int getTotalPrice() {
+        return getOrderPrice() * getQuantity();
     }
 
     private void validateOrderPrice(int orderPrice) {
