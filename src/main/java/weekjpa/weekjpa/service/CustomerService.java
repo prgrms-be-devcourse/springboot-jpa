@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import weekjpa.weekjpa.domain.Customer;
 import weekjpa.weekjpa.dto.CustomerCreateRequest;
-import weekjpa.weekjpa.dto.CustomerGetResponse;
+import weekjpa.weekjpa.dto.CustomerResponse;
 import weekjpa.weekjpa.dto.CustomerUpdateRequest;
 import weekjpa.weekjpa.dto.CustomerUpdateResponse;
 import weekjpa.weekjpa.exception.CustomerNotFoundException;
@@ -30,10 +30,10 @@ public class CustomerService {
         return savedCustomer.getId();
     }
 
-    public CustomerGetResponse find(Long id) {
+    public CustomerResponse find(Long id) {
         Customer customer = getCustomerObject(id);
 
-        return CustomerGetResponse.from(customer);
+        return CustomerResponse.from(customer);
     }
 
     @Transactional
