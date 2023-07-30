@@ -26,7 +26,7 @@ public class Order {
 
     private LocalDateTime createAt;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -37,4 +37,5 @@ public class Order {
         this.createAt = createAt;
         this.user = user;
     }
+
 }
