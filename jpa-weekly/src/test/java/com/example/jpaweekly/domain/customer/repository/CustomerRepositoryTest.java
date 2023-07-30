@@ -14,7 +14,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 class CustomerRepositoryTest {
 
   @Autowired
-  CustomerRepository customerRepository;
+  private CustomerRepository customerRepository;
   private Customer customer;
 
   @BeforeEach
