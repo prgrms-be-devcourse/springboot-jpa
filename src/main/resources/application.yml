@@ -10,9 +10,9 @@ spring:
     hibernate:
       ddl-auto: create
     properties:
-        format_sql: true
-        hibernate:
-          dialect: org.hibernate.dialect.H2Dialect
+      format_sql: true
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
     show-sql: true
 
   h2:
