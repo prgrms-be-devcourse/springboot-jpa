@@ -1,8 +1,8 @@
-package com.jpaweekily.domain.user.service;
+package com.jpaweekily.domain.user.application;
 
 import com.jpaweekily.domain.user.User;
 import com.jpaweekily.domain.user.dto.UserCreateRequest;
-import com.jpaweekily.domain.user.repository.UserRepository;
+import com.jpaweekily.domain.user.infrastructrue.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

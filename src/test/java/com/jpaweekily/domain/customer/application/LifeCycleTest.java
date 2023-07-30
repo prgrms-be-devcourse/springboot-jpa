@@ -1,6 +1,5 @@
-package com.jpaweekily.domain.customer.service;
+package com.jpaweekily.domain.customer.application;
 
-import com.jpaweekily.domain.customer.Customer;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.Test;

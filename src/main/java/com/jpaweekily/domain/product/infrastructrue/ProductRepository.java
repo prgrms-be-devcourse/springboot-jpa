@@ -1,4 +1,4 @@
-package com.jpaweekily.domain.product.repository;
+package com.jpaweekily.domain.product.infrastructrue;
 
 import com.jpaweekily.domain.product.Product;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,9 +1,9 @@
-package com.jpaweekily.domain.customer.controller;
+package com.jpaweekily.domain.customer.presentation;
 
 import com.jpaweekily.domain.customer.dto.CustomerRequest;
 import com.jpaweekily.domain.customer.dto.CustomerResponse;
 import com.jpaweekily.domain.customer.dto.CustomerUpdate;
-import com.jpaweekily.domain.customer.service.CustomerService;
+import com.jpaweekily.domain.customer.application.CustomerService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -46,7 +46,5 @@ public class CustomerApiController {
         CustomerResponse updated = customerService.update(request);
         return ResponseEntity.ok(updated);
     }
-
-
 
 }

@@ -1,4 +1,4 @@
-package com.jpaweekily.domain.user.repository;
+package com.jpaweekily.domain.user.infrastructrue;
 
 import com.jpaweekily.domain.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;

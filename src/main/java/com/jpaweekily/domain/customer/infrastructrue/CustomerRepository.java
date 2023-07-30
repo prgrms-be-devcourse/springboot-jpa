@@ -1,4 +1,4 @@
-package com.jpaweekily.domain.customer.repository;
+package com.jpaweekily.domain.customer.infrastructrue;
 
 import com.jpaweekily.domain.customer.Customer;
 import org.springframework.data.domain.Page;

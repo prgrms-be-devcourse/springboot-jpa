@@ -1,11 +1,11 @@
-package com.jpaweekily.domain.order.service;
+package com.jpaweekily.domain.order.application;
 
 import com.jpaweekily.domain.order.Order;
 import com.jpaweekily.domain.order.OrderStatus;
 import com.jpaweekily.domain.order.dto.OrderCreateRequest;
-import com.jpaweekily.domain.order.repository.OrderRepository;
+import com.jpaweekily.domain.order.infrastructrue.OrderRepository;
 import com.jpaweekily.domain.user.User;
-import com.jpaweekily.domain.user.repository.UserRepository;
+import com.jpaweekily.domain.user.infrastructrue.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

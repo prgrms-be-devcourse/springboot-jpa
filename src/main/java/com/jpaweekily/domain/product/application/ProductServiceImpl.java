@@ -1,9 +1,9 @@
-package com.jpaweekily.domain.product.service;
+package com.jpaweekily.domain.product.application;
 
 
 import com.jpaweekily.domain.product.Product;
 import com.jpaweekily.domain.product.dto.ProductCreateRequest;
-import com.jpaweekily.domain.product.repository.ProductRepository;
+import com.jpaweekily.domain.product.infrastructrue.ProductRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

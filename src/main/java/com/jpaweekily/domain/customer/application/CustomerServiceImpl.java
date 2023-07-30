@@ -1,11 +1,11 @@
-package com.jpaweekily.domain.customer.service;
+package com.jpaweekily.domain.customer.application;
 
 import com.jpaweekily.domain.customer.Customer;
 import com.jpaweekily.domain.customer.CustomerMapper;
 import com.jpaweekily.domain.customer.dto.CustomerRequest;
 import com.jpaweekily.domain.customer.dto.CustomerResponse;
 import com.jpaweekily.domain.customer.dto.CustomerUpdate;
-import com.jpaweekily.domain.customer.repository.CustomerRepository;
+import com.jpaweekily.domain.customer.infrastructrue.CustomerRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

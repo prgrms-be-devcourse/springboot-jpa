@@ -1,4 +1,4 @@
-package com.jpaweekily.domain.customer.service;
+package com.jpaweekily.domain.customer.application;
 
 import com.jpaweekily.domain.customer.dto.CustomerRequest;
 import com.jpaweekily.domain.customer.dto.CustomerResponse;
