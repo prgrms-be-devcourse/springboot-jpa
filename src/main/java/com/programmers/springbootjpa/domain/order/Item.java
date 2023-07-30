@@ -5,8 +5,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -26,8 +24,6 @@ public abstract class Item extends BaseEntity {
     private int stockQuantity;
 
     public Item(int price, int stockQuantity) {
-        super(LocalDateTime.now());
-
         checkPrice(price);
         checkPrice(stockQuantity);
 

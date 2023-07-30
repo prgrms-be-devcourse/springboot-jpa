@@ -5,7 +5,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -34,8 +33,6 @@ public class OrderItem extends BaseEntity {
     private Item item;
 
     public OrderItem(int quantity, Item item) {
-        super(LocalDateTime.now());
-
         checkQuantity(quantity, item);
 
         this.price = item.getPrice();

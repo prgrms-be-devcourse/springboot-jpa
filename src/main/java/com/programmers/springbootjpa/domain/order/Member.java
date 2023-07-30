@@ -5,7 +5,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -36,8 +35,6 @@ public class Member extends BaseEntity {
     private List<Order> orders = new ArrayList<>();
 
     public Member(String name, String nickname, int age, String address) {
-        super(LocalDateTime.now());
-
         checkName(name);
         checkNickname(nickname);
         checkAge(age);
