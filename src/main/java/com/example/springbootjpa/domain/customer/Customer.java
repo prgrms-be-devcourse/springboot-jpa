@@ -1,7 +1,6 @@
 package com.example.springbootjpa.domain.customer;
 
 import com.example.springbootjpa.domain.order.Order;
-import com.example.springbootjpa.golbal.ErrorCode;
 import com.example.springbootjpa.golbal.exception.InvalidDomainConditionException;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import static com.example.springbootjpa.golbal.ErrorCode.INVALID_USERNAME;
+import static com.example.springbootjpa.golbal.ErrorCode.INVALID_USERNAME_OR_ADDRESS;
 
 @Getter
 @Entity
@@ -40,33 +39,25 @@ public class Customer {
     @Builder
     public Customer(Long id, String username, String address) {
         this.id = id;
-        validateUsername(username);
-        this.username = username;
-        validateAddress(address);
-        this.address = address;
+        this.username = validateString(username);
+        this.address = validateString(address);
     }
 
     public void updateUsername(String username) {
-        validateUsername(username);
+        validateString(username);
         this.username = username;
     }
 
     public void updateAddress(String address) {
-        validateAddress(address);
+        validateString(address);
         this.address = address;
     }
 
-    private void validateUsername(String username) {
-        if (!StringUtils.hasText(username)
-                || !STRING_REGEX_PATTERN.matcher(username).matches()) {
-            throw new InvalidDomainConditionException(INVALID_USERNAME);
+    private String validateString(String value) {
+        if (!StringUtils.hasText(value)
+                || !STRING_REGEX_PATTERN.matcher(value).matches()) {
+            throw new InvalidDomainConditionException(INVALID_USERNAME_OR_ADDRESS);
         }
-    }
-
-    private void validateAddress(String address) {
-        if (!StringUtils.hasText(address)
-                || !STRING_REGEX_PATTERN.matcher(address).matches()) {
-            throw new InvalidDomainConditionException(ErrorCode.INVALID_ADDRESS);
-        }
+        return value;
     }
 }

@@ -7,8 +7,7 @@ import org.springframework.http.HttpStatus;
 public enum ErrorCode {
 
     //고객
-    INVALID_USERNAME(HttpStatus.BAD_REQUEST, "잘못된 이름입니다."),
-    INVALID_ADDRESS(HttpStatus.BAD_REQUEST, "잘못된 주소입니다."),
+    INVALID_USERNAME_OR_ADDRESS(HttpStatus.BAD_REQUEST, "특수문자를 제외한 문자를 입력해주세요."),
 
     //주문아이템
     INVALID_ORDER_PRICE(HttpStatus.BAD_REQUEST, "주문 금액은 0보다 작을 수 없습니다"),
