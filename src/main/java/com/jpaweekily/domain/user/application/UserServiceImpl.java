@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
-    public void createUser(UserCreateRequest request) {
+    public Long createUser(UserCreateRequest request) {
         User user = User.builder()
                 .loginId(request.loginId())
                 .password(request.password())
@@ -28,5 +28,7 @@ public class UserServiceImpl implements UserService {
                 .build();
 
         userRepository.save(user);
+
+        return user.getId();
     }
 }
