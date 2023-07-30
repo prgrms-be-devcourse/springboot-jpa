@@ -1,5 +1,6 @@
 package com.programmers.springbootjpa.domain.order;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.AccessLevel;
@@ -12,7 +13,12 @@ import lombok.NoArgsConstructor;
 @DiscriminatorValue("FURNITURE")
 public class Furniture extends Item {
 
+    private static final int MINIMUM_SIZE_LIMIT = 1;
+
+    @Column
     private int width;
+
+    @Column
     private int height;
 
     public Furniture(int price, int stockQuantity, int width, int height) {
@@ -26,7 +32,7 @@ public class Furniture extends Item {
     }
 
     private void checkFurnitureSize(int request) {
-        if (request < 1) {
+        if (request < MINIMUM_SIZE_LIMIT) {
             throw new IllegalArgumentException("사이즈는 1보다 작을 수 없습니다.");
         }
     }

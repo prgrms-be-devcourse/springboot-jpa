@@ -14,6 +14,8 @@ import java.util.Objects;
 @Entity
 public class OrderItem extends BaseEntity {
 
+    private static final int MINIMUM_QUANTITY_LIMIT = 1;
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
@@ -49,7 +51,7 @@ public class OrderItem extends BaseEntity {
     }
 
     private void checkQuantity(int quantity, Item item) {
-        if (quantity < 1 || quantity > item.getStockQuantity()) {
+        if (quantity < MINIMUM_QUANTITY_LIMIT || quantity > item.getStockQuantity()) {
             throw new IllegalArgumentException("수량은 1개보다 적거나 재고 수량보다 많을 수 없습니다.");
         }
     }

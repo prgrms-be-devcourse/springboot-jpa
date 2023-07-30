@@ -1,5 +1,6 @@
 package com.programmers.springbootjpa.domain.order;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.AccessLevel;
@@ -14,6 +15,9 @@ import java.util.regex.Pattern;
 @DiscriminatorValue("FOOD")
 public class Food extends Item {
 
+    private static final int MAXIMUM_LENGTH_LIMIT = 20;
+
+    @Column
     private String chef;
 
     public Food(int price, int stockQuantity, String chef) {
@@ -29,7 +33,7 @@ public class Food extends Item {
     }
 
     private void checkLength(String request) {
-        if (request == null || request.isEmpty() || request.length() > 20) {
+        if (request == null || request.isEmpty() || request.length() > MAXIMUM_LENGTH_LIMIT) {
             throw new IllegalArgumentException("1자 이상 20자 이하로 입력해주세요.");
         }
     }

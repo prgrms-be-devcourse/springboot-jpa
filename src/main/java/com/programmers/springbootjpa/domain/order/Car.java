@@ -1,5 +1,6 @@
 package com.programmers.springbootjpa.domain.order;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.AccessLevel;
@@ -12,6 +13,9 @@ import lombok.NoArgsConstructor;
 @DiscriminatorValue("CAR")
 public class Car extends Item {
 
+    private static final int MINIMUM_POWER_LIMIT = 1;
+
+    @Column
     private int power;
 
     public Car(int price, int stockQuantity, int power) {
@@ -22,7 +26,7 @@ public class Car extends Item {
     }
 
     private void checkPower(int power) {
-        if (power < 1) {
+        if (power < MINIMUM_POWER_LIMIT) {
             throw new IllegalArgumentException("동력은 1보다 작을 수 없습니다.");
         }
     }

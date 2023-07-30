@@ -15,6 +15,9 @@ import java.util.regex.Pattern;
 @Entity
 public class Member extends BaseEntity {
 
+    private static final int MAXIMUM_LENGTH_LIMIT = 20;
+    private static final int MINIMUM_AGE_LIMIT = 0;
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
@@ -56,7 +59,7 @@ public class Member extends BaseEntity {
     }
 
     private void checkLength(String request) {
-        if (request == null || request.isEmpty() || request.length() > 20) {
+        if (request == null || request.isEmpty() || request.length() > MAXIMUM_LENGTH_LIMIT) {
             throw new IllegalArgumentException("1자 이상 20자 이하로 입력해주세요.");
         }
     }
@@ -74,7 +77,7 @@ public class Member extends BaseEntity {
     }
 
     private void checkAge(int age) {
-        if (age < 0) {
+        if (age < MINIMUM_AGE_LIMIT) {
             throw new IllegalArgumentException("나이는 0세보다 적을 수 없습니다.");
         }
     }

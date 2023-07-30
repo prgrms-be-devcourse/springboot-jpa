@@ -13,6 +13,9 @@ import lombok.NoArgsConstructor;
 @Entity
 public abstract class Item extends BaseEntity {
 
+    private static final int MINIMUM_PRICE_LIMIT = 0;
+    private static final int MINIMUM_STOCK_QUANTITY_LIMIT = 0;
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
@@ -32,13 +35,13 @@ public abstract class Item extends BaseEntity {
     }
 
     private void checkPrice(int price) {
-        if (price < 0) {
+        if (price < MINIMUM_PRICE_LIMIT) {
             throw new IllegalArgumentException("금액은 0원보다 적을 수 없습니다.");
         }
     }
 
     private void checkStockQuantity(int stockQuantity) {
-        if (stockQuantity < 0) {
+        if (stockQuantity < MINIMUM_STOCK_QUANTITY_LIMIT) {
             throw new IllegalArgumentException("재고 수량은 0개보다 적을 수 없습니다.");
         }
     }
