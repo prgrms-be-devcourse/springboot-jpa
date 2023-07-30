@@ -25,14 +25,14 @@ public class User {
     private String password;
 
     @Column(unique = true, nullable = false)
-    private String nickName;
+    private String nickname;
 
     private LocalDateTime createdAt;
 
     @Builder
-    public User(String loginId, String nickName, String password, LocalDateTime createdAt) {
+    public User(String loginId, String nickname, String password, LocalDateTime createdAt) {
         this.loginId = loginId;
-        this.nickName = nickName;
+        this.nickname = nickname;
         this.password = password;
         this.createdAt = createdAt;
     }
