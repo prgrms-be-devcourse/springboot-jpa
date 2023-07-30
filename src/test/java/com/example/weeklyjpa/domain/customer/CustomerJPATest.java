@@ -46,7 +46,7 @@ public class CustomerJPATest {
     @Transactional // 영속성 컨텍스트 내에서 관리를 하겠다
     void UPDATE_TEST(){
         // when
-        Customer foundCustomer = repository.findById(savedCustomer.getId())).orElseThrow(NullPointerException::new);
+        Customer foundCustomer = repository.findById(savedCustomer.getId()).orElseThrow(NullPointerException::new);
         foundCustomer.changeFirstName("hihi");
         foundCustomer.changeLastName("ju");
 
