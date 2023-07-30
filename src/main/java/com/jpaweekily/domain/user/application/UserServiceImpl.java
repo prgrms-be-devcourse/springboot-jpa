@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
         User user = User.builder()
                 .loginId(request.loginId())
                 .password(request.password())
-                .nickName(request.nickName())
+                .nickname(request.nickname())
                 .createdAt(LocalDateTime.now())
                 .build();
         userRepository.save(user);
