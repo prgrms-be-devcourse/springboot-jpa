@@ -22,8 +22,6 @@ public class Product {
 
     private int price;
 
-
-
     @Builder
     public Product(String productName, int price) {
         this.productName = productName;
