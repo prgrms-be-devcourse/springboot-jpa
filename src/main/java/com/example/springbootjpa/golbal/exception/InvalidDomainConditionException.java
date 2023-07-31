@@ -2,11 +2,11 @@ package com.example.springbootjpa.golbal.exception;
 
 import com.example.springbootjpa.golbal.ErrorCode;
 
-public class DomainException extends RuntimeException{
+public class InvalidDomainConditionException extends RuntimeException{
 
     private final ErrorCode errorCode;
 
-    public DomainException(ErrorCode errorCode) {
+    public InvalidDomainConditionException(ErrorCode errorCode) {
         this.errorCode = errorCode;
     }
 }
