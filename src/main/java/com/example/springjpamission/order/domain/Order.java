@@ -13,18 +13,23 @@ import jakarta.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
+
 
 @Entity
 @Table(name = "orders")
 @Getter
-@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order extends BaseEntity {
+
     @Id
     private String id;
-
     private String memo;
+    private int price;
+    private int quantity;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
@@ -33,8 +38,17 @@ public class Order extends BaseEntity {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    public void setCustomer(Customer customer){
-        if (Objects.nonNull(this.customer)){
+    @Builder
+    public Order(String id, String memo, int price, int quantity, Customer customer) {
+        this.id = id;
+        this.memo = memo;
+        this.price = price;
+        this.quantity = quantity;
+        this.customer = customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        if (Objects.nonNull(this.customer)) {
             this.customer.getOrders().remove(this);
         }
 
@@ -42,7 +56,8 @@ public class Order extends BaseEntity {
         customer.getOrders().add(this);
     }
 
-    public void addOrderItem(OrderItem orderItem){
+    public void addOrderItem(OrderItem orderItem) {
         orderItem.setOrder(this);
     }
+
 }

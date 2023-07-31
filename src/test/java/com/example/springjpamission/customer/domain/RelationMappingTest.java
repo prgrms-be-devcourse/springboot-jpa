@@ -8,6 +8,8 @@ import com.example.springjpamission.order.domain.OrderItem;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,7 +25,7 @@ public class RelationMappingTest {
     EntityManagerFactory entityManagerFactory;
 
     @Test
-    @DisplayName("order에 setCustomer 이후 매핑이 잘 되어있는지 확인한다.")
+    @DisplayName("Order와 Cosuntemr가 매핑이 잘 되어있는지 확인한다.")
     void order_customer_mappingTest(){
         //given
         EntityManager em = entityManagerFactory.createEntityManager();
@@ -33,13 +35,12 @@ public class RelationMappingTest {
         transaction.begin();
 
         String uuid = UUID.randomUUID().toString();
-        Order order = new Order();
-        order.setMemo("---");
-        order.setId(uuid);
+        Order order = Order.builder()
+                        .id(uuid).memo("---").build();
 
-        Customer customer = new Customer();
         Name name = new Name("영운", "윤");
-        customer.setName(name);
+        Customer customer = Customer.builder().
+                name(name).build();
 
         order.setCustomer(customer);
         em.persist(order);
@@ -52,7 +53,7 @@ public class RelationMappingTest {
     }
 
     @Test
-    @DisplayName("order에 setOrderItem 이후 매핑이 잘 되어있는지 확인한다.")
+    @DisplayName("Order와 OrderItem 매핑이 잘 되어있는지 확인한다.")
     void order_orderItem_mappingTest() {
         //given
         EntityManager em = entityManagerFactory.createEntityManager();
@@ -61,13 +62,10 @@ public class RelationMappingTest {
         //when
         transaction.begin();
         String uuid = UUID.randomUUID().toString();
-        Order order = new Order();
-        order.setMemo("---");
-        order.setId(uuid);
+        Order order = Order.builder()
+                .id(uuid).memo("---").build();
 
-        OrderItem orderItem = new OrderItem();
-        orderItem.setPrice(1000);
-        orderItem.setQuantity(10);
+        OrderItem orderItem = OrderItem.builder().price(1000).quantity(10).build();
         order.addOrderItem(orderItem);
 
         em.persist(order);
@@ -81,7 +79,7 @@ public class RelationMappingTest {
     }
 
     @Test
-    @DisplayName("orderItem에 setItem 이후 매핑이 잘 되어있는지 확인한다.")
+    @DisplayName("orderItemr과 Item매핑이 잘 되어있는지 확인한다.")
     void orderItem_item_mappingTest(){
         //given
         EntityManager em = entityManagerFactory.createEntityManager();
@@ -90,22 +88,17 @@ public class RelationMappingTest {
         //when
         transaction.begin();
 
-        OrderItem orderItem = new OrderItem();
-        orderItem.setPrice(1000);
-        orderItem.setQuantity(10);
+        OrderItem orderItem = OrderItem.builder().price(1000).quantity(10).build();
 
-        Car item = new Car();
-        item.setPrice(1000);
-        item.setPower(200);
-        item.setStockQuantity(100);
+        Car item = new Car(2000,100,100);
 
-        orderItem.addItem(item);
+        orderItem.setItem(item);
 
         em.persist(orderItem);
         transaction.commit();
 
         OrderItem updatedOrderItem = em.find(OrderItem.class, orderItem.getId());
-        Car item1 = (Car)updatedOrderItem.getItems().get(0);
+        Car item1 = (Car)updatedOrderItem.getItem();
 
         // then
         assertThat(item1.getPower()).isEqualTo(200);

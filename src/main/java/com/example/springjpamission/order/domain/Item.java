@@ -8,13 +8,15 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 @Getter
-@Setter
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "DTYPE")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public abstract class Item extends BaseEntity {
 
@@ -23,5 +25,10 @@ public abstract class Item extends BaseEntity {
     private Long id;
     private int price;
     private int stockQuantity;
+
+    public Item(int price, int stockQuantity) {
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+    }
 
 }

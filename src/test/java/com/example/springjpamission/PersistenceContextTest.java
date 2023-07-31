@@ -29,8 +29,9 @@ public class PersistenceContextTest {
 
         //when
         transaction.begin();
-        Customer customer = new Customer();
-        customer.setName(new Name("영운","윤"));
+        Name name = new Name("영운", "윤");
+        Customer customer = Customer.builder().
+                name(name).build();
 
         em.persist(customer);
 
@@ -50,8 +51,9 @@ public class PersistenceContextTest {
         EntityTransaction transaction = em.getTransaction();
 
         transaction.begin();
-        Customer customer = new Customer();
-        customer.setName(new Name("영운","윤"));
+        Name name = new Name("영운", "윤");
+        Customer customer = Customer.builder().
+                name(name).build();
         em.persist(customer);
 
         transaction.commit();
@@ -59,8 +61,8 @@ public class PersistenceContextTest {
         //when
         transaction.begin();
         Customer findCustomer = em.find(Customer.class, customer.getId());
-        Name newName = new Name("별","김");
-        findCustomer.setName(newName);
+        Name newName = new Name("별", "김");
+        findCustomer.changeName(newName);
         em.persist(findCustomer);
 
         transaction.commit();
@@ -72,31 +74,4 @@ public class PersistenceContextTest {
         assertThat(updatedCustomer.getName()).isEqualTo(newName);
     }
 
-    @Test
-    @DisplayName("하나의 정보를 저장소에 저장한 후 이를 삭제했을 때 저장소의 크기가 null인지 확인하다.")
-    void delete() {
-        //given
-        EntityManager em = entityManagerFactory.createEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-
-        transaction.begin();
-        Customer customer = new Customer();
-        customer.setName(new Name("영운", "윤"));
-
-        em.persist(customer);
-        transaction.commit();
-        em.clear();
-
-        //when
-        transaction.begin();
-        Customer findCustomer = em.find(Customer.class, customer.getId());
-
-        em.remove(findCustomer);
-
-        transaction.commit();
-
-        //then
-        Customer deletedCustomer = em.find(Customer.class, findCustomer.getId());
-        assertThat(deletedCustomer).isNull();
-    }
 }

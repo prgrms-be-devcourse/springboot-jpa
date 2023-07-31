@@ -9,21 +9,20 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderItem extends BaseEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private int price;
     private int quantity;
 
@@ -33,10 +32,18 @@ public class OrderItem extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id", referencedColumnName = "id")
-    private Item items ;
+    private Item item;
 
-    public void setOrder(Order order){ // 방금 아까 봤던 오더
-        if (Objects.nonNull(this.order)){
+    @Builder
+    public OrderItem( int price, int quantity, Order order, Item items) {
+        this.price = price;
+        this.quantity = quantity;
+        this.order = order;
+        this.item = items;
+    }
+
+    public void setOrder(Order order) { // 방금 아까 봤던 오더
+        if (Objects.nonNull(this.order)) {
             this.order.getOrderItems().remove(this);
         }
 
@@ -44,5 +51,8 @@ public class OrderItem extends BaseEntity {
         order.getOrderItems().add(this);
     }
 
-}
+    public void setItem(Item item) { // 방금 아까 봤던 오더
+        this.item = item;
+    }
 
+}
