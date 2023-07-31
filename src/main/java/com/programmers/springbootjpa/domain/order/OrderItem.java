@@ -5,9 +5,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-import java.util.Objects;
-
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table
@@ -40,8 +37,6 @@ public class OrderItem extends BaseEntity {
         this.price = item.getPrice();
         this.quantity = quantity;
         this.item = item;
-
-        item.subtractStockQuantity(quantity);
     }
 
     private void checkPrice(int price, Item item) {
@@ -57,14 +52,7 @@ public class OrderItem extends BaseEntity {
     }
 
     public void updateOrder(Order order) {
-        if (Objects.nonNull(this.order)) {
-            List<OrderItem> orderItems = this.order.getOrderItems();
-            orderItems.remove(this);
-        }
-
         this.order = order;
-        List<OrderItem> orderItems = order.getOrderItems();
-        orderItems.add(this);
     }
 
     public void updateItem(Item item) {

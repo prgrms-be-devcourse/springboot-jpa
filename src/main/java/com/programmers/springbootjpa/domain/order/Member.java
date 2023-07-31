@@ -5,8 +5,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Pattern;
 
 @Getter
@@ -33,9 +31,6 @@ public class Member extends BaseEntity {
 
     @Column(nullable = false)
     private String address;
-
-    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
-    private List<Order> orders = new ArrayList<>();
 
     public Member(String name, String nickname, int age, String address) {
         checkName(name);
@@ -80,10 +75,6 @@ public class Member extends BaseEntity {
         if (age < MINIMUM_AGE_LIMIT) {
             throw new IllegalArgumentException("나이는 0세보다 적을 수 없습니다.");
         }
-    }
-
-    public void addOrder(Order order) {
-        order.updateMember(this);
     }
 
     public void updateName(String name) {
