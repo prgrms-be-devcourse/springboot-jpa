@@ -24,7 +24,7 @@ public class OrderItem {
     private int quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    @JoinColumn(name = "order_id")
     private Order order;
 
     @OneToMany(mappedBy = "orderItem")

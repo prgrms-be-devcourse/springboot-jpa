@@ -21,7 +21,7 @@ public class Item {
     private int stockQuantity;
 
     @ManyToOne
-    @JoinColumn(name = "order_item_id", referencedColumnName = "id")
+    @JoinColumn(name = "order_item_id")
     private OrderItem orderItem;
 
     @Builder
