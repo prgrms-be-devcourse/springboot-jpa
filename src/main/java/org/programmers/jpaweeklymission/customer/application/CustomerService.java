@@ -1,7 +1,6 @@
 package org.programmers.jpaweeklymission.customer.application;
 
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.programmers.jpaweeklymission.customer.presentation.dto.CustomerCreationRequest;
 import org.programmers.jpaweeklymission.customer.Customer;
@@ -9,8 +8,9 @@ import org.programmers.jpaweeklymission.customer.Infra.CustomerJpaRepository;
 import org.programmers.jpaweeklymission.customer.application.dto.CustomerResponse;
 import org.programmers.jpaweeklymission.customer.presentation.dto.CustomerUpdateRequest;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class CustomerService {
     private static final String CUSTOMER_NOT_FOUND = "Customer not found for that id: %s";
@@ -25,11 +25,10 @@ public class CustomerService {
 
     @Transactional
     public CustomerResponse updateCustomer(Long id, CustomerUpdateRequest request) {
-        Customer customer = customerJpaRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException(String.format(CUSTOMER_NOT_FOUND, id))
-        );
-        customer.changeFirstName(request.firstName());
-        customer.changeLastName(request.lastName());
+        Customer customer = customerJpaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(String.format(CUSTOMER_NOT_FOUND, id)));
+        Customer forUpdate = CustomerMapper.toCustomer(request);
+        customer.changeEntity(forUpdate);
         return CustomerMapper.toResponse(customer);
     }
 
