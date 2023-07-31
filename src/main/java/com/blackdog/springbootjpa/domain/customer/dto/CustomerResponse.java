@@ -9,8 +9,8 @@ public record CustomerResponse(
         String name,
         int age,
         String email
-){
-    public static CustomerResponse toDto(Customer customer){
+) {
+    public static CustomerResponse toDto(Customer customer) {
         return CustomerResponse.builder()
                 .id(customer.getId())
                 .name(customer.getName().getNameValue())

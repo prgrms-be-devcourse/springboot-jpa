@@ -38,7 +38,7 @@ class CustomerServiceTest {
     private Customer customer;
 
     @BeforeEach
-    void setCustomer(){
+    void setCustomer() {
         customer = Customer.builder()
                 .name(new Name("Kim"))
                 .age(new Age(34))
@@ -50,7 +50,7 @@ class CustomerServiceTest {
     @DisplayName("고객(Customer)를 생성한다.")
     void createCustomer_Dto_ReturnCustomerResponse() {
         //given
-        CustomerCreateRequest request = new CustomerCreateRequest("Park",23,"park@gmail.com");
+        CustomerCreateRequest request = new CustomerCreateRequest("Park", 23, "park@gmail.com");
 
         //when
         CustomerResponse response = customerService.createCustomer(request);
@@ -65,10 +65,10 @@ class CustomerServiceTest {
     void updateCustomer_IdAndDto_ReturnCustomerResponse() {
         //given
         Customer savedCustomer = customerRepository.save(customer);
-        CustomerUpdateRequest request = new CustomerUpdateRequest("Lee",49,"Lee@naver.com");
+        CustomerUpdateRequest request = new CustomerUpdateRequest("Lee", 49, "Lee@naver.com");
 
         //when
-        customerService.updateCustomer(savedCustomer.getId(),request);
+        customerService.updateCustomer(savedCustomer.getId(), request);
 
         //then
         Customer updatedCustomer = customerRepository.findById(savedCustomer.getId()).get();
@@ -79,7 +79,7 @@ class CustomerServiceTest {
 
     @Test
     @DisplayName("고객(Customer)를 삭제한다.")
-    void deleteCustomer_Id_DeleteSuccess(){
+    void deleteCustomer_Id_DeleteSuccess() {
         //given
         Customer savedCustomer = customerRepository.save(customer);
 
@@ -123,7 +123,7 @@ class CustomerServiceTest {
         assertThat(responses).usingRecursiveComparison().isEqualTo(responseExpect);
     }
 
-    private static Stream<List<Customer>> customerData(){
+    private static Stream<List<Customer>> customerData() {
         Customer customer1 = Customer.builder()
                 .name(new Name("Kim"))
                 .age(new Age(34))
@@ -134,6 +134,6 @@ class CustomerServiceTest {
                 .age(new Age(35))
                 .email(new Email("park@naver.com"))
                 .build();
-        return Stream.of(List.of(customer1,customer2));
+        return Stream.of(List.of(customer1, customer2));
     }
 }
