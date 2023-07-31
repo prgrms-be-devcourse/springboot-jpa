@@ -2,7 +2,7 @@ package com.programmers.week;
 
 public class Message {
 
-  public static final String CUSTOMER_IS_NO_EXIST ="고객이 존재하지 않습니다.";
+  public static final String CUSTOMER_IS_NO_EXIST = "고객이 존재하지 않습니다.";
 
   public static final String FIRSTNAME_IS_NULL = "이름이 비어있습니다.";
   public static final String LASTNAME_IS_NULL = "성이 비어있습니다.";

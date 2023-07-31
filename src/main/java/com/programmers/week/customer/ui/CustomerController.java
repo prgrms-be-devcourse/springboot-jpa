@@ -23,13 +23,12 @@ public class CustomerController {
   @ResponseStatus
   @GetMapping("/customers/{id}")
   public CustomerResponse findById(@PathVariable Long id) {
-    CustomerResponse customer = customerService.findById(id);
-    return customer;
+    return customerService.findById(id);
   }
 
   @ResponseStatus
   @GetMapping
-  public Page<CustomerResponse> findAll(@ModelAttribute PageRequestDto request) {
+  public Page<CustomerResponse> findAll(PageRequestDto request) {
     PageRequest pageRequest = PageRequest.of(request.page(), request.size());
     return customerService.findAll(pageRequest);
   }
