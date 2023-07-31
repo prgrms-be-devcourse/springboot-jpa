@@ -13,27 +13,27 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "member")
+@Table
 @Getter
 @Setter
 public class Member {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "name", nullable = false, length = 30)
+    @Column(nullable = false, length = 30)
     private String name;
 
     @Column(nullable = false, length = 30, unique = true)
     private String nickName;
 
-    @Column(name = "age")
+    @Column
     private int age;
 
-    @Column(name = "address", nullable = false)
+    @Column(nullable = false)
     private String address;
 
-    @Column(name = "description")
+    @Column
     private String description;
 
     @OneToMany(mappedBy = "member")

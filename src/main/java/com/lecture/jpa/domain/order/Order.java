@@ -18,7 +18,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "orders")
+@Table
 @Getter
 @Setter
 public class Order {
@@ -26,7 +26,7 @@ public class Order {
     @Column(name = "id")
     private String uuid;
 
-    @Column(name = "order_datetime", columnDefinition = "TIMESTAMP")
+    @Column(columnDefinition = "TIMESTAMP")
     private LocalDateTime orderDatetime;
 
     @Enumerated(EnumType.STRING)
