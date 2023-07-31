@@ -9,81 +9,152 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 @Slf4j
 @SpringBootTest
 public class PersistenceContextTest {
     @Autowired
-    CustomerRepository repository;
-
-    @Autowired
     EntityManagerFactory emf;
+    EntityManager entityManager;
 
     @BeforeEach
     void setUp() {
-        repository.deleteAll();
+        entityManager = emf.createEntityManager();
     }
 
+
+    //    Hibernate: select next value for customers_SEQ
+    //    Hibernate: insert into customers (first_name,last_name,id) values (?,?,?)
     @Test
-    void 저장() {
-        EntityManager entityManager = emf.createEntityManager();
+    void save() {
         EntityTransaction transaction = entityManager.getTransaction();
 
         transaction.begin();
 
-        Customer customer = new Customer("BeomBhul", "Shin");
+        Customer customer = new Customer("BeomChul", "Shin");
 
-        entityManager.persist(customer);
+        entityManager.persist(customer);//영속화
+
         transaction.commit();
     }
 
+    //    Hibernate: select next value for customers_SEQ
+    //    Hibernate: insert into customers (first_name,last_name,id) values (?,?,?)
     @Test
-   	void 조회_1차캐시_이용() {
-   		EntityManager entityManager = emf.createEntityManager();
-   		EntityTransaction transaction = entityManager.getTransaction();
+    void saveAndFlush() {
+        EntityTransaction transaction = entityManager.getTransaction();
 
-   		transaction.begin();
+        transaction.begin();
 
-   		Customer customer = new Customer("BeomBhul", "Shin");
+        Customer customer = new Customer("BeomChul", "Shin");
 
-   		entityManager.persist(customer);
-   		transaction.commit();
+        entityManager.persist(customer);//영속화
+        entityManager.flush();
 
-   		Customer selected = entityManager.find(Customer.class, 1L);
-        log.info("{} {}", selected.getFirstName(), selected.getLastName());
-   	}
+        transaction.commit();
+    }
 
+    //    Hibernate: select next value for customers_SEQ
+    //    Hibernate: select next value for customers_SEQ
+    //    Hibernate: insert into customers (first_name,last_name,id) values (?,?,?)
+    //    Hibernate: insert into customers (first_name,last_name,id) values (?,?,?)
     @Test
-   	void 조회_DB_이용() {
-   		EntityManager entityManager = emf.createEntityManager();
-   		EntityTransaction transaction = entityManager.getTransaction();
+    void saveAll() {
+        EntityTransaction transaction = entityManager.getTransaction();
 
-   		transaction.begin();
+        transaction.begin();
 
-   		Customer customer = new Customer("BeomBhul", "Shin");
+        Customer customer = new Customer("BeomChul", "Shin");
+        Customer customer2 = new Customer("Beom", "Kim");
+        List<Customer> list = List.of(customer2, customer);
 
-   		entityManager.persist(customer);
-   		transaction.commit();
+        for (Customer c : list) {
+            entityManager.persist(c);//영속화
+        }
 
-        entityManager.detach(customer);
+        transaction.commit();
+    }
+
+
+    //    Hibernate: select next value for customers_SEQ
+    //    Hibernate: insert into customers (first_name,last_name,id) values (?,?,?)
+    @Test
+    void 조회_1차캐시_이용() {
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        transaction.begin();
+
+        Customer customer = new Customer("BeomChul", "Shin");
+        entityManager.persist(customer);
+
+        transaction.commit();
+
         Customer selected = entityManager.find(Customer.class, 1L);
         log.info("{} {}", selected.getFirstName(), selected.getLastName());
-   	}
+    }
 
+    //    Hibernate: select next value for customers_SEQ
+    //    Hibernate: insert into customers (first_name,last_name,id) values (?,?,?)
+    //    Hibernate: select c1_0.id,c1_0.first_name,c1_0.last_name from customers c1_0 where c1_0.id=?
     @Test
-    void 수정() {
-        EntityManager entityManager = emf.createEntityManager();
+    void 조회_DB_이용() {
         EntityTransaction transaction = entityManager.getTransaction();
 
         transaction.begin();
 
-        Customer customer = new Customer("BeomBhul", "Shin");
-
+        Customer customer = new Customer("BeomChul", "Shin");
         entityManager.persist(customer);
+
+        transaction.commit();
+
+        entityManager.detach(customer);
+
+        Customer selected = entityManager.find(Customer.class, 1L);
+        log.info("{} {}", selected.getFirstName(), selected.getLastName());
+    }
+
+    //    Hibernate: select next value for customers_SEQ
+    //    Hibernate: insert into customers (first_name,last_name,id) values (?,?,?)
+    //    Hibernate: update customers set first_name=?,last_name=? where id=?
+    @Test
+    void update1() {
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        transaction.begin();
+
+        Customer customer = new Customer("BeomChul", "Shin");
+        entityManager.persist(customer);
+
         transaction.commit();
 
         transaction.begin();
 
-        customer.update("Beombu");
+        if (!entityManager.contains(customer)) {
+            entityManager.persist(customer);
+        } else {
+            entityManager.merge(customer);
+        }
+
+        customer.update("ChulBeom");
+
+        transaction.commit();
+    }
+
+    //    Hibernate: select next value for customers_SEQ
+    //    Hibernate: insert into customers (first_name,last_name,id) values (?,?,?)
+    //    Hibernate: update customers set first_name=?,last_name=? where id=?
+    @Test
+    void update2() {
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        transaction.begin();
+
+        Customer customer = new Customer("BeomChul", "Shin");
+        entityManager.persist(customer);
+
+        customer.update("ChulBeom");
+
         transaction.commit();
     }
 
@@ -94,7 +165,7 @@ public class PersistenceContextTest {
 
         transaction.begin();
 
-        Customer customer = new Customer("BeomBhul", "Shin");
+        Customer customer = new Customer("BeomChul", "Shin");
 
         entityManager.persist(customer);
         transaction.commit();
