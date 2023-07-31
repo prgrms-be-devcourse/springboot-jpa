@@ -6,6 +6,7 @@ import com.programmers.springbootjpa.dto.CustomerResponse;
 import com.programmers.springbootjpa.dto.CustomerUpdateRequest;
 import com.programmers.springbootjpa.repository.CustomerRepository;
 import java.util.List;
+import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,12 +25,16 @@ public class CustomerService {
     }
 
     public List<CustomerResponse> findAllCustomers() {
-        return customerRepository.findAll().stream().map(CustomerResponse::of).toList();
+        return customerRepository.findAll()
+                .stream()
+                .map(CustomerResponse::of)
+                .toList();
     }
 
     @Transactional
     public CustomerResponse updateCustomerById(Long id, CustomerUpdateRequest request) {
-        Customer customer = customerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 ID에 해당하는 구매자가 없습니다."));
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("해당 ID에 해당하는 구매자가 없습니다."));
 
         customer.updateName(request.getName());
         customer.updateAge(request.getAge());
@@ -41,7 +46,7 @@ public class CustomerService {
     @Transactional
     public void deleteCustomerById(Long id) {
         if (!customerRepository.existsById(id)) {
-            throw new IllegalArgumentException("해당 ID에 해당하는 구매자가 없습니다.");
+            throw new NoSuchElementException("해당 ID에 해당하는 구매자가 없습니다.");
         }
 
         customerRepository.deleteById(id);
