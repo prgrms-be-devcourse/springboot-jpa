@@ -3,6 +3,10 @@ package com.example.jpaweekly.domain.customer.repository;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.example.jpaweekly.domain.customer.Customer;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import java.util.Set;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -17,6 +21,7 @@ class CustomerRepositoryTest {
   private CustomerRepository customerRepository;
   private Customer customer;
   private Customer savedCustomer;
+  private Validator validator;
 
   @BeforeEach
   void setUp() {
@@ -26,6 +31,8 @@ class CustomerRepositoryTest {
         .build();
 
     savedCustomer = customerRepository.save(customer);
+
+    validator = Validation.buildDefaultValidatorFactory().getValidator();
   }
 
   @AfterEach
@@ -36,13 +43,45 @@ class CustomerRepositoryTest {
   @Test
   @DisplayName("성공 : 고객 저장")
   void saveCustomer() {
-    //given
+    // given
 
     // when
 
     // then
     assertThat(savedCustomer.getFirstName()).isEqualTo(customer.getFirstName());
     assertThat(savedCustomer.getLastName()).isEqualTo(customer.getLastName());
+  }
+
+  @Test
+  @DisplayName("예외: firstName에 한글이나 영어가 아닌 문자 입력")
+  void firstName_InvalidCharacters_ThrowsConstraintViolationException() {
+    // given
+    Customer invalidCustomer = Customer.builder()
+        .firstName("준1")
+        .lastName("배")
+        .build();
+
+    // when
+    Set<ConstraintViolation<Customer>> violations = validator.validate(invalidCustomer);
+
+    //then
+    assertThat(violations).hasSize(1);
+  }
+
+  @Test
+  @DisplayName("예외: lastName에 한글이나 영어가 아닌 문자 입력")
+  void lastName_InvalidCharacters_ThrowsConstraintViolationException() {
+    // given
+    Customer invalidCustomer = Customer.builder()
+        .firstName("준일")
+        .lastName("ㅂㅏ1")
+        .build();
+
+    // when
+    Set<ConstraintViolation<Customer>> violations = validator.validate(invalidCustomer);
+
+    //then
+    assertThat(violations).hasSize(1);
   }
 
   @Test
