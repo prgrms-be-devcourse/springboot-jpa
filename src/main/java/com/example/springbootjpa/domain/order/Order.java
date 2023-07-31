@@ -46,7 +46,7 @@ public class Order {
         order.updateOrderDate(LocalDateTime.now());
 
         orderItems.forEach(orderItem
-                -> orderItem.getItem().removeStock(orderItem.getQuantity()));
+                -> orderItem.getItem().decreaseStock(orderItem.getQuantity()));
 
         return order;
     }
@@ -67,7 +67,6 @@ public class Order {
 
     public void updateMember(Customer customer) {
         this.customer = customer;
-        customer.getOrders().add(this);
     }
 
     public void addOrderItem(OrderItem orderItem) {

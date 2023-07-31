@@ -1,5 +1,6 @@
 package com.example.springbootjpa.domain.item;
 
+import com.example.springbootjpa.golbal.RegexPattern;
 import com.example.springbootjpa.golbal.exception.InvalidDomainConditionException;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -9,7 +10,6 @@ import org.springframework.util.StringUtils;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import java.util.regex.Pattern;
 
 import static com.example.springbootjpa.golbal.ErrorCode.INVALID_KEYBOARD_COLOR;
 
@@ -18,8 +18,6 @@ import static com.example.springbootjpa.golbal.ErrorCode.INVALID_KEYBOARD_COLOR;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Keyboard extends Item {
-
-    private static final Pattern STRING_REGEX_PATTERN = Pattern.compile("^[가-힣a-zA-Z0-9]+$");
 
     @Column(nullable = false, length = 50)
     private String color;
@@ -33,7 +31,7 @@ public class Keyboard extends Item {
 
     private void validateColor(String color) {
         if (!StringUtils.hasText(color)
-                || !STRING_REGEX_PATTERN.matcher(color).matches()) {
+                || !RegexPattern.STRING_REGEX_PATTERN.matcher(color).matches()) {
             throw new InvalidDomainConditionException(INVALID_KEYBOARD_COLOR);
         }
     }
