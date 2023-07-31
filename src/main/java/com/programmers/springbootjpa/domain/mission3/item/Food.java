@@ -1,5 +1,6 @@
 package com.programmers.springbootjpa.domain.mission3.item;
 
+import com.programmers.springbootjpa.global.exception.InvalidRequestValueException;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -34,13 +35,13 @@ public class Food extends Item {
 
     private void checkLength(String request) {
         if (request == null || request.isEmpty() || request.length() > MAXIMUM_LENGTH_LIMIT) {
-            throw new IllegalArgumentException("1자 이상 20자 이하로 입력해주세요.");
+            throw new InvalidRequestValueException("1자 이상 20자 이하로 입력해주세요.");
         }
     }
 
     private void checkCharacterPattern(String request) {
         if (!Pattern.matches("^[가-힣a-zA-Z]+$", request)) {
-            throw new IllegalArgumentException("한글 또는 영어로 입력해주세요.");
+            throw new InvalidRequestValueException("한글 또는 영어로 입력해주세요.");
         }
     }
 

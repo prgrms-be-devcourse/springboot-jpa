@@ -1,6 +1,7 @@
 package com.programmers.springbootjpa.domain.mission3.member;
 
 import com.programmers.springbootjpa.domain.mission3.BaseEntity;
+import com.programmers.springbootjpa.global.exception.InvalidRequestValueException;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -56,25 +57,25 @@ public class Member extends BaseEntity {
 
     private void checkLength(String request) {
         if (request == null || request.isEmpty() || request.length() > MAXIMUM_LENGTH_LIMIT) {
-            throw new IllegalArgumentException("1자 이상 20자 이하로 입력해주세요.");
+            throw new InvalidRequestValueException("1자 이상 20자 이하로 입력해주세요.");
         }
     }
 
     private void checkCharacterPattern(String request) {
         if (!Pattern.matches("^[가-힣a-zA-Z]+$", request)) {
-            throw new IllegalArgumentException("한글 또는 영어로 입력해주세요.");
+            throw new InvalidRequestValueException("한글 또는 영어로 입력해주세요.");
         }
     }
 
     private void checkCharacterAndNumberPattern(String request) {
         if (!Pattern.matches("^[가-힣a-zA-Z0-9]+$", request)) {
-            throw new IllegalArgumentException("한글 또는 영어 또는 숫자로 입력해주세요.");
+            throw new InvalidRequestValueException("한글 또는 영어 또는 숫자로 입력해주세요.");
         }
     }
 
     private void checkAge(int age) {
         if (age < MINIMUM_AGE_LIMIT) {
-            throw new IllegalArgumentException("나이는 0세보다 적을 수 없습니다.");
+            throw new InvalidRequestValueException("나이는 0세보다 적을 수 없습니다.");
         }
     }
 

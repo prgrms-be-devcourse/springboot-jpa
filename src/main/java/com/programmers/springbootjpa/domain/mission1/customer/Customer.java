@@ -1,5 +1,6 @@
 package com.programmers.springbootjpa.domain.mission1.customer;
 
+import com.programmers.springbootjpa.global.exception.InvalidRequestValueException;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -40,13 +41,13 @@ public class Customer {
 
     private void checkLength(String name) {
         if (name == null || name.isEmpty() || name.length() > MAXIMUM_LENGTH_LIMIT) {
-            throw new IllegalArgumentException("이름은 1자 이상 20자 이하로 입력해주세요.");
+            throw new InvalidRequestValueException("이름은 1자 이상 20자 이하로 입력해주세요.");
         }
     }
 
     private void checkPattern(String name) {
         if (!Pattern.matches("^[가-힣a-zA-Z]+$", name)) {
-            throw new IllegalArgumentException("이름은 한글 또는 영어로 입력해주세요.");
+            throw new InvalidRequestValueException("이름은 한글 또는 영어로 입력해주세요.");
         }
     }
 

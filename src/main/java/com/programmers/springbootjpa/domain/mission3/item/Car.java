@@ -1,5 +1,6 @@
 package com.programmers.springbootjpa.domain.mission3.item;
 
+import com.programmers.springbootjpa.global.exception.InvalidRequestValueException;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -27,7 +28,7 @@ public class Car extends Item {
 
     private void checkPower(int power) {
         if (power < MINIMUM_POWER_LIMIT) {
-            throw new IllegalArgumentException("동력은 1보다 작을 수 없습니다.");
+            throw new InvalidRequestValueException("동력은 1보다 작을 수 없습니다.");
         }
     }
 

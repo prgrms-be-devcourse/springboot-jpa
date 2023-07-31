@@ -1,6 +1,7 @@
 package com.programmers.springbootjpa.domain.mission3.item;
 
 import com.programmers.springbootjpa.domain.mission3.BaseEntity;
+import com.programmers.springbootjpa.global.exception.InvalidRequestValueException;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -37,13 +38,13 @@ public abstract class Item extends BaseEntity {
 
     private void checkPrice(int price) {
         if (price < MINIMUM_PRICE_LIMIT) {
-            throw new IllegalArgumentException("금액은 0원보다 적을 수 없습니다.");
+            throw new InvalidRequestValueException("금액은 0원보다 적을 수 없습니다.");
         }
     }
 
     private void checkStockQuantity(int stockQuantity) {
         if (stockQuantity < MINIMUM_STOCK_QUANTITY_LIMIT) {
-            throw new IllegalArgumentException("재고 수량은 0개보다 적을 수 없습니다.");
+            throw new InvalidRequestValueException("재고 수량은 0개보다 적을 수 없습니다.");
         }
     }
 

@@ -1,5 +1,6 @@
 package com.programmers.springbootjpa.domain.mission3.item;
 
+import com.programmers.springbootjpa.global.exception.InvalidRequestValueException;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -33,7 +34,7 @@ public class Furniture extends Item {
 
     private void checkFurnitureSize(int request) {
         if (request < MINIMUM_SIZE_LIMIT) {
-            throw new IllegalArgumentException("사이즈는 1보다 작을 수 없습니다.");
+            throw new InvalidRequestValueException("사이즈는 1보다 작을 수 없습니다.");
         }
     }
 
