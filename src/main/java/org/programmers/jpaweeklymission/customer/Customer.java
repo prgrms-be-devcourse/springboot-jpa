@@ -8,7 +8,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.programmers.jpaweeklymission.global.BaseEntity;
-
+@Table(name = "customers")
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -28,16 +28,21 @@ public class Customer extends BaseEntity {
     private String lastName;
 
     @Builder
-    public Customer(String firstName, String lastName) {
+    private Customer(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
-    public void changeFirstName(String firstName) {
+    public void changeEntity(Customer customer) {
+        changeFirstName(customer.firstName);
+        changeLastName(customer.lastName);
+    }
+
+    private void changeFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    public void changeLastName(String lastName) {
+    private void changeLastName(String lastName) {
         this.lastName = lastName;
     }
 }
