@@ -18,7 +18,7 @@ class CustomerTest {
                 "서울시 마포구"
         );
 
-        Customer customer = Customer.of(request);
+        Customer customer = request.toEntity();
 
         assertThat(customer.getName()).isEqualTo("Kim Jae Won");
         assertThat(customer.getAge()).isEqualTo(28);

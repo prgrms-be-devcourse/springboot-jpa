@@ -18,7 +18,7 @@ public class CustomerService {
 
     @Transactional
     public CustomerResponse createCustomer(CustomerCreateRequest request) {
-        Customer savedCustomer = customerRepository.save(Customer.of(request));
+        Customer savedCustomer = customerRepository.save(request.toEntity());
 
         return CustomerResponse.of(savedCustomer);
     }

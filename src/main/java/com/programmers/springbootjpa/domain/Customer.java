@@ -1,12 +1,12 @@
 package com.programmers.springbootjpa.domain;
 
-import com.programmers.springbootjpa.dto.CustomerCreateRequest;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,21 +34,12 @@ public class Customer {
     @Column(name = "address", nullable = false, length = 100)
     private String address;
 
-
-    private Customer(String name, Integer age, String nickName, String address) {
+    @Builder
+    public Customer(String name, Integer age, String nickName, String address) {
         this.name = name;
         this.age = age;
         this.nickName = nickName;
         this.address = address;
-    }
-
-    public static Customer of(CustomerCreateRequest request) {
-        return new Customer(
-                request.getName(),
-                request.getAge(),
-                request.getNickName(),
-                request.getAddress()
-        );
     }
 
     public void updateName(String name) {
