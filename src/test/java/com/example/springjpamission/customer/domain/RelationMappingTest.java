@@ -9,6 +9,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import java.util.UUID;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -22,6 +23,7 @@ public class RelationMappingTest {
     EntityManagerFactory entityManagerFactory;
 
     @Test
+    @DisplayName("order에 setCustomer 이후 매핑이 잘 되어있는지 확인한다.")
     void order_customer_mappingTest(){
         //given
         EntityManager em = entityManagerFactory.createEntityManager();
@@ -36,8 +38,8 @@ public class RelationMappingTest {
         order.setId(uuid);
 
         Customer customer = new Customer();
-        customer.setFirstName("영운");
-        customer.setLastName("윤");
+        Name name = new Name("영운", "윤");
+        customer.setName(name);
 
         order.setCustomer(customer);
         em.persist(order);
@@ -46,11 +48,11 @@ public class RelationMappingTest {
         Order findOrder = em.find(Order.class, order.getId());
 
         //then
-        assertThat(findOrder.getCustomer().getFirstName()).isEqualTo("영운");
-        assertThat(findOrder.getCustomer().getLastName()).isEqualTo("윤");
+        assertThat(findOrder.getCustomer().getName()).isEqualTo(name);
     }
 
     @Test
+    @DisplayName("order에 setOrderItem 이후 매핑이 잘 되어있는지 확인한다.")
     void order_orderItem_mappingTest() {
         //given
         EntityManager em = entityManagerFactory.createEntityManager();
@@ -79,6 +81,7 @@ public class RelationMappingTest {
     }
 
     @Test
+    @DisplayName("orderItem에 setItem 이후 매핑이 잘 되어있는지 확인한다.")
     void orderItem_item_mappingTest(){
         //given
         EntityManager em = entityManagerFactory.createEntityManager();

@@ -31,9 +31,9 @@ public class OrderItem extends BaseEntity {
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order order;
 
-    @OneToMany(mappedBy = "orderItem", cascade = CascadeType.ALL)
-    private List<Item> items = new ArrayList<>();
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "item_id", referencedColumnName = "id")
+    private Item items ;
 
     public void setOrder(Order order){ // 방금 아까 봤던 오더
         if (Objects.nonNull(this.order)){
@@ -44,8 +44,5 @@ public class OrderItem extends BaseEntity {
         order.getOrderItems().add(this);
     }
 
-    public void addItem(Item item){
-        this.items.add(item);
-        item.setOrderItem(this);
-    }
 }
+

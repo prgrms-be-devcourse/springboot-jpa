@@ -1,27 +1,35 @@
 package com.example.springjpamission.gobal;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Getter
 @Setter
 @MappedSuperclass
-@EntityListeners(value = {AuditingEntityListener.class})
 public class BaseEntity {
 
-    @CreatedDate
-    @DateTimeFormat(pattern = "yyyy-MM-dd/HH:mm:ss")
-    private LocalDateTime createdAt;
+    @Column(name = "CREATED_AT", updatable = false, nullable = false)
+    private LocalDateTime createAt;
 
-    @LastModifiedDate
-    @DateTimeFormat(pattern = "yyyy-MM-dd/HH:mm:ss")
-    private LocalDateTime updatedAt;
+    @Column(name = "LAST_UPDATED_AT", nullable = false)
+    private LocalDateTime lastUpdatedAt;
+
+    @PrePersist
+    public void prePersist(){
+        LocalDateTime now = LocalDateTime.now();
+        createAt = now;
+        lastUpdatedAt = now;
+    }
+    @PreUpdate
+    public void preUpdate() {
+        lastUpdatedAt = LocalDateTime.now();
+    }
 
 }
