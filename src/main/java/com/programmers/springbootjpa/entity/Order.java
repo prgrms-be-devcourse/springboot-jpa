@@ -1,18 +1,12 @@
 package com.programmers.springbootjpa.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import java.util.Objects;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "orders")
@@ -31,6 +25,9 @@ public class Order extends BaseTimeEntity {
     @JoinColumn(name = "member_id", referencedColumnName = "id")
     private Member member;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order", orphanRemoval = true)
+    private List<OrderItem> orderItems = new ArrayList<>();
+
     public void updateMember(Member member) {
         if (Objects.nonNull(this.member)) {
             this.member.getOrders().remove(this);
@@ -38,5 +35,13 @@ public class Order extends BaseTimeEntity {
 
         this.member = member;
         member.getOrders().add(this);
+    }
+
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+    }
+
+    public void removeOrderItem(OrderItem orderItem) {
+        orderItems.remove(orderItem);
     }
 }
