@@ -30,11 +30,10 @@ public class Order extends BaseTimeEntity {
 
     public void updateMember(Member member) {
         if (Objects.nonNull(this.member)) {
-            this.member.getOrders().remove(this);
+            this.member.removeOrder(this);
         }
-
         this.member = member;
-        member.getOrders().add(this);
+        member.addOrder(this);
     }
 
     public void addOrderItem(OrderItem orderItem) {
