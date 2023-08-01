@@ -3,6 +3,7 @@ package com.example.springbootjpaweekly3.domain.entity;
 
 import com.example.springbootjpaweekly3.domain.contant.OrderStatus;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
@@ -31,4 +32,13 @@ public class Order {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    @Builder
+    public Order(Long id, LocalDateTime orderDateTime, OrderStatus status, String memo, Member member) {
+        this.id = id;
+        this.orderDateTime = orderDateTime;
+        this.status = status;
+        this.memo = memo;
+        this.member = member;
+    }
 }
