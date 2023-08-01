@@ -33,12 +33,12 @@ public class OrderPersistenceTest {
 
         // 주문 엔티티
         Order order = new Order();
-        order.setUuid(UUID.randomUUID().toString());
+        order.setId(1L);
         order.setMemo("부재시 전화주세요.");
         order.setOrderDatetime(LocalDateTime.now());
         order.setOrderStatus(OPENED);
 
-        entityManager.persist(order);
+        entityManager.merge(order);
 
         // 회원 엔티티
         Member member = new Member();
@@ -62,12 +62,12 @@ public class OrderPersistenceTest {
 
         // 주문 엔티티
         Order order = new Order();
-        order.setUuid(UUID.randomUUID().toString());
+        order.setId(1L);
         order.setMemo("부재시 전화주세요.");
         order.setOrderDatetime(LocalDateTime.now());
         order.setOrderStatus(OPENED);
 
-        entityManager.persist(order);
+        entityManager.merge(order);
 
         Member member = new Member();
         member.setName("beomu kim");
@@ -89,12 +89,12 @@ public class OrderPersistenceTest {
 
         // 주문 엔티티
         Order order = new Order();
-        order.setUuid(UUID.randomUUID().toString());
+        order.setId(1L);
         order.setMemo("부재시 전화주세요.");
         order.setOrderDatetime(LocalDateTime.now());
         order.setOrderStatus(OPENED);
 
-        entityManager.persist(order);
+        entityManager.merge(order);
 
         Member member = new Member();
         member.setName("beomu kim");
@@ -106,7 +106,6 @@ public class OrderPersistenceTest {
         member.addOrder(order); // 연관관계 편의 메소드 사용
 
         entityManager.persist(member);
-
         transaction.commit();
 
         entityManager.clear();
@@ -115,8 +114,9 @@ public class OrderPersistenceTest {
         Member findMember = entityManager.find(Member.class, member.getId());
         assertThat(findMember).isNotNull();
 
+        System.out.println(findMember.getOrders());
         // 주문조회 -> 주문한 회원 조회
-        Order findOrder = entityManager.find(Order.class, findMember.getOrders().get(0).getUuid());
+        Order findOrder = entityManager.find(Order.class, findMember.getOrders().get(0).getId());
         assertThat(findOrder).isNotNull();
     }
 }

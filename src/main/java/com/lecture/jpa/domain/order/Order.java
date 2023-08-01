@@ -1,16 +1,7 @@
 package com.lecture.jpa.domain.order;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -18,13 +9,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table
+@Table(name = "orders")
 @Getter
 @Setter
 public class Order {
     @Id
-    @Column(name = "id")
-    private String uuid;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @Column(columnDefinition = "TIMESTAMP")
     private LocalDateTime orderDatetime;
