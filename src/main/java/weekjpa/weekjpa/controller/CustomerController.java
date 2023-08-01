@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import weekjpa.weekjpa.dto.CustomerCreateRequest;
 import weekjpa.weekjpa.dto.CustomerResponse;
 import weekjpa.weekjpa.dto.CustomerUpdateRequest;
-import weekjpa.weekjpa.dto.CustomerUpdateResponse;
 import weekjpa.weekjpa.service.CustomerService;
 
 import static org.springframework.http.HttpStatus.CREATED;
@@ -33,8 +32,9 @@ public class CustomerController {
 
     @PatchMapping("/customers/{id}")
     @ResponseStatus(OK)
-    public CustomerUpdateResponse updateCustomer(@PathVariable Long id, @RequestBody CustomerUpdateRequest request) {
-        return customerService.update(id, request);
+    public ResponseEntity<Void> updateCustomer(@PathVariable Long id, @RequestBody CustomerUpdateRequest request) {
+        customerService.update(id, request);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/customers/{id}")

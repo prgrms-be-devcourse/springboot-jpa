@@ -7,7 +7,6 @@ import weekjpa.weekjpa.domain.Customer;
 import weekjpa.weekjpa.dto.CustomerCreateRequest;
 import weekjpa.weekjpa.dto.CustomerResponse;
 import weekjpa.weekjpa.dto.CustomerUpdateRequest;
-import weekjpa.weekjpa.dto.CustomerUpdateResponse;
 import weekjpa.weekjpa.exception.CustomerNotFoundException;
 import weekjpa.weekjpa.repository.CustomerRepository;
 
@@ -37,10 +36,9 @@ public class CustomerService {
     }
 
     @Transactional
-    public CustomerUpdateResponse update(Long id, CustomerUpdateRequest request) {
+    public void update(Long id, CustomerUpdateRequest request) {
         Customer customer = getCustomerObject(id);
         customer.update(request.firstName(), request.lastName());
-        return CustomerUpdateResponse.from(customer);
     }
 
     @Transactional
@@ -50,7 +48,7 @@ public class CustomerService {
 
     private Customer getCustomerObject(Long id) {
         Customer customer = customerRepository.findById(id)
-                .orElseThrow(() -> new CustomerNotFoundException());
+                .orElseThrow(CustomerNotFoundException::new);
         return customer;
     }
 }
