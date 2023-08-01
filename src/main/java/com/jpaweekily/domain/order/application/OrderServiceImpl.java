@@ -5,35 +5,34 @@ import com.jpaweekily.domain.order.OrderProduct;
 import com.jpaweekily.domain.order.OrderStatus;
 import com.jpaweekily.domain.order.dto.OrderCreateRequest;
 import com.jpaweekily.domain.order.dto.OrderResponse;
+import com.jpaweekily.domain.order.infrastructrue.OrderProductBulkRepository;
 import com.jpaweekily.domain.order.infrastructrue.OrderProductRepository;
 import com.jpaweekily.domain.order.infrastructrue.OrderRepository;
 import com.jpaweekily.domain.product.Product;
 import com.jpaweekily.domain.product.infrastructrue.ProductRepository;
 import com.jpaweekily.domain.user.User;
 import com.jpaweekily.domain.user.infrastructrue.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Transactional(readOnly = true)
 @Service
+@RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
-    private final OrderProductRepository orderProductRepository;
+    private final OrderProductBulkRepository orderProductBulkRepository;
 
-    public OrderServiceImpl(OrderRepository orderRepository, UserRepository userRepository, ProductRepository productRepository, OrderProductRepository orderProductRepository) {
-        this.orderRepository = orderRepository;
-        this.userRepository = userRepository;
-        this.productRepository = productRepository;
-        this.orderProductRepository = orderProductRepository;
-    }
-
-    public Long createOrder(OrderCreateRequest request) {
-        User user = userRepository.findByNickname(request.nickName()).orElseThrow(IllegalArgumentException::new);
+    @Transactional
+    public Long createOrder(Long id, OrderCreateRequest request) {
+        User user = userRepository.findById(id).orElseThrow(IllegalArgumentException::new);
 
         Order order = Order.builder()
                 .address(request.address())
@@ -43,6 +42,7 @@ public class OrderServiceImpl implements OrderService {
                 .build();
         orderRepository.save(order);
 
+        List<OrderProduct> orderProducts = new ArrayList<>();
         request.orderProductCreateList().forEach(item -> {
             Product product = productRepository.findById(item.productId()).orElseThrow(IllegalArgumentException::new);
             OrderProduct orderProduct = OrderProduct.builder()
@@ -50,8 +50,9 @@ public class OrderServiceImpl implements OrderService {
                     .product(product)
                     .quantity(item.quantity())
                     .build();
-            orderProductRepository.save(orderProduct);
+            orderProducts.add(orderProduct);
         });
+        orderProductBulkRepository.saveAll(orderProducts);
         return order.getId();
     }
 
