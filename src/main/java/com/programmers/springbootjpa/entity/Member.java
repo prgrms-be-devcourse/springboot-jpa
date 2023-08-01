@@ -1,8 +1,7 @@
 package com.programmers.springbootjpa.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +10,7 @@ import java.util.List;
 @Table(name = "member")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Member extends BaseTimeEntity {
 
     @Id
@@ -30,6 +30,14 @@ public class Member extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();
+
+    @Builder
+    public Member(String name, String nickName, Integer age, String address) {
+        this.name = name;
+        this.nickName = nickName;
+        this.age = age;
+        this.address = address;
+    }
 
     public void addOrder(Order order) {
         orders.add(order);
