@@ -3,7 +3,6 @@ package prgrms.lecture.jpa.domain;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
