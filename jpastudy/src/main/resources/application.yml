@@ -1,15 +1,23 @@
 spring:
-  h2:
-    console:
-      enabled: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/sample
+    username: sample
+    password: sample!
+
   jpa:
-    generate-ddl: true
-    database: H2
+    database: mysql
     show-sql: true
     open-in-view: false
+    hibernate:
+      ddl-auto: update
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.H2Dialect
-        query.in_clause_parameter_padding: true
-        hbm2ddl:
-          auto: create-drop
+        format_sql: true
+
+server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
