@@ -14,11 +14,9 @@ public interface CustomerService {
 
     CustomerResponse findCustomerById(Long id);
 
-    List<CustomerResponse> findCustomers();
-
     Page<CustomerResponse> findCustomersWithPaging(Pageable pageable);
 
-    CustomerResponse update(CustomerUpdate request);
+    void update(Long id, CustomerUpdate request);
 
     void delete(Long id);
 

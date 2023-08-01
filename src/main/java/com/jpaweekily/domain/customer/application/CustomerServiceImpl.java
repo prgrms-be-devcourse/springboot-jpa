@@ -11,8 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Transactional(readOnly = true)
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -26,19 +24,12 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional
     public Long create(CustomerRequest request) {
         Customer customer = CustomerMapper.convertRequestToEntity(request);
-        customerRepository.save(customer);
-        return customer.getId();
+        return customerRepository.save(customer).getId();
     }
 
     public CustomerResponse findCustomerById(Long id) {
         Customer customer = customerRepository.findById(id).orElseThrow(IllegalArgumentException::new);
         return CustomerMapper.convertEntityToResponse(customer);
-    }
-
-    public List<CustomerResponse> findCustomers() {
-        return customerRepository.findAll().stream()
-                .map(CustomerMapper::convertEntityToResponse)
-                .toList();
     }
 
     public Page<CustomerResponse> findCustomersWithPaging(Pageable pageable) {
@@ -47,11 +38,9 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Transactional
-    public CustomerResponse update(CustomerUpdate request) {
-        Customer customer = customerRepository.findById(request.id()).orElseThrow(IllegalArgumentException::new);
-        customer.changeFirstName(request.firstName());
-        customer.changeLastName(request.lastName());
-        return CustomerMapper.convertEntityToResponse(customer);
+    public void update(Long id, CustomerUpdate request) {
+        Customer customer = customerRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        customer.update(request.firstName(), request.lastName());
     }
 
     @Transactional
