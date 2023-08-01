@@ -18,6 +18,4 @@ public class Member {
     private String address;
     @Column(name = "description", nullable = false)
     private String description;
-
-
 }
