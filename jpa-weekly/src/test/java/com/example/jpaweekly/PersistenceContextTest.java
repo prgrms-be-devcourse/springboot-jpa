@@ -1,7 +1,8 @@
-package com.example.jpaweekly.domain;
+package com.example.jpaweekly;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.example.jpaweekly.domain.Customer;
 import com.example.jpaweekly.repository.CustomerRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;

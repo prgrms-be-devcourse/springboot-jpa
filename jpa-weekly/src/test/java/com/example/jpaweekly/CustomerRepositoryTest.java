@@ -1,4 +1,4 @@
-package com.example.jpaweekly.domain.customer.repository;
+package com.example.jpaweekly;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -8,7 +8,6 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import java.util.Set;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,11 +33,6 @@ class CustomerRepositoryTest {
     savedCustomer = customerRepository.save(customer);
 
     validator = Validation.buildDefaultValidatorFactory().getValidator();
-  }
-
-  @AfterEach
-  void tearDown() {
-    customerRepository.deleteAll();
   }
 
   @Test
