@@ -12,21 +12,24 @@ import com.blackdog.springbootjpa.domain.item.vo.Price;
 import com.blackdog.springbootjpa.domain.order.model.Order;
 import com.blackdog.springbootjpa.domain.order.model.OrderItem;
 import com.blackdog.springbootjpa.domain.order.model.OrderStatus;
-import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
-@SpringBootTest
-@Transactional
+@ActiveProfiles("test")
+@DataJpaTest
+@TestPropertySource(locations = "classpath:application-test.yaml")
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class OrderRepositoryTest {
 
     @Autowired
@@ -66,11 +69,13 @@ class OrderRepositoryTest {
     void delete_Order() {
         //given
         Order savedOrder = repository.save(order);
+        assertThat(repository.findAll().size()).isEqualTo(1);
 
         //when
         repository.deleteById(savedOrder.getId());
 
         //then
+        assertThat(repository.findAll().size()).isEqualTo(0);
         Optional<Order> result = repository.findById(savedOrder.getId());
         assertThat(result).isEmpty();
     }

@@ -5,7 +5,7 @@ classDiagram
 %%    Order - OrderItem - Item
 
     class Customer {
-        int id
+        long id
         Name name
         Age age
         Email email
@@ -13,7 +13,7 @@ classDiagram
     Customer --> Order
 
     class Order {
-        int id
+        long id
         OrderStatus orderStatus
         Customer customer
         List< OrderItem > orderItems
@@ -27,7 +27,7 @@ classDiagram
     Order --> OrderStatus
 
     class OrderItem {
-        int id
+        long id
         Order order
         Item item
         int count
@@ -35,7 +35,7 @@ classDiagram
     Order <--> OrderItem
 
     class Item {
-        int id
+        long id
         Price price
         OriginNation nation
     }

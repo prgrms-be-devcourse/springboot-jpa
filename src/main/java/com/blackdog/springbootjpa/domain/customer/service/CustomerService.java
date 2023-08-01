@@ -42,7 +42,7 @@ public class CustomerService {
      * @return CustomerResponse
      */
     @Transactional
-    public CustomerResponse updateCustomer(int id, @Valid CustomerUpdateRequest customerUpdateRequest) {
+    public CustomerResponse updateCustomer(long id, @Valid CustomerUpdateRequest customerUpdateRequest) {
         Customer customer = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("해당 고객이 없습니다"));
 
@@ -57,7 +57,7 @@ public class CustomerService {
      * @param id
      */
     @Transactional
-    public void deleteCustomer(int id) {
+    public void deleteCustomer(long id) {
         Customer customer = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("해당 고객이 없습니다"));
 
@@ -71,7 +71,7 @@ public class CustomerService {
      * @return CustomerResponse
      */
     @Transactional
-    public CustomerResponse findCustomerById(int id) { //todo : 네이밍 고민!
+    public CustomerResponse findCustomerById(long id) {
         Customer customer = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("해당 고객이 없습니다"));
 
