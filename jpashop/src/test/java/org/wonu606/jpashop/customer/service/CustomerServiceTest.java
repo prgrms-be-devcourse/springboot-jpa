@@ -96,6 +96,7 @@ class CustomerServiceTest {
         Long deletingId = createdResult.id();
         service.deleteById(deletingId);
 
+        // findByName 테스트해보기, exists
         // Then
         assertThatThrownBy(() -> service.findById(deletingId))
                 .isInstanceOf(CustomerNotFoundException.class);
