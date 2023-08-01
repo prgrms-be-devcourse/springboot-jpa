@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Size;
 import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -24,8 +25,11 @@ public class Item {
   private Long id;
 
   @Column
+  @Size(max = 100000000)
   private int price;
+
   @Column
+  @Size(max = 1000)
   private int stockQuantity;
 
   @ManyToOne

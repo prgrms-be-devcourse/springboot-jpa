@@ -10,6 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Size;
 import java.util.List;
 import java.util.Objects;
 import lombok.AccessLevel;
@@ -27,9 +28,11 @@ public class OrderItem {
   private Long id;
 
   @Column
+  @Size(max = 100000000)
   private int price;
 
   @Column
+  @Size(max = 1000)
   private int quantity;
 
   @ManyToOne(fetch = FetchType.LAZY)

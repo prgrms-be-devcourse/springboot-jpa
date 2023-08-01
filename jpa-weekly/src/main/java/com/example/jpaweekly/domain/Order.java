@@ -16,7 +16,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -46,7 +48,10 @@ public class Order {
   @OneToMany(mappedBy = "order", cascade = CascadeType.REMOVE, orphanRemoval = true)
   private List<OrderItem> orderItems = new ArrayList<>();
 
+  @Builder
   public Order(String memo, Member member) {
+    this.uuid = String.valueOf(UUID.randomUUID());
+    this.orderDatetime = LocalDateTime.now();
     this.orderStatus = OrderStatus.OPENED;
     this.memo = memo;
     this.member = member;
