@@ -32,7 +32,7 @@ public class Member extends BaseTimeEntity {
     private List<Order> orders = new ArrayList<>();
 
     @Builder
-    public Member(String name, String nickName, Integer age, String address) {
+    private Member(String name, String nickName, Integer age, String address) {
         this.name = name;
         this.nickName = nickName;
         this.age = age;

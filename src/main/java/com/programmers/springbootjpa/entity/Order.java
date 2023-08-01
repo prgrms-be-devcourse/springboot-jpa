@@ -1,5 +1,6 @@
 package com.programmers.springbootjpa.entity;
 
+import com.programmers.springbootjpa.dto.response.ResponseDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
