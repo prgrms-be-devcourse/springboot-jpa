@@ -6,9 +6,10 @@ import com.jpaweekily.domain.customer.dto.CustomerUpdate;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -53,10 +54,11 @@ class CustomerServiceImplTest {
         customerService.create(customerRequest2);
 
         //when
-        List<CustomerResponse> customers = customerService.findCustomers();
+        Pageable pageable = PageRequest.of(0, 10);
+        Page<CustomerResponse> customers = customerService.findCustomersWithPaging(pageable);
 
         //then
-        assertThat(customers.size()).isEqualTo(2);
+        assertThat(customers.getTotalElements()).isEqualTo(2);
     }
 
     @Test
@@ -64,10 +66,11 @@ class CustomerServiceImplTest {
         //given
         CustomerRequest customerRequest = new CustomerRequest("weon", "geonhee");
         Long id = customerService.create(customerRequest);
-        CustomerUpdate customerUpdate = new CustomerUpdate(id, "god", "sin");
+        CustomerUpdate customerUpdate = new CustomerUpdate("god", "sin");
 
         //when
-        CustomerResponse updated = customerService.update(customerUpdate);
+        customerService.update(id, customerUpdate);
+        CustomerResponse updated = customerService.findCustomerById(id);
 
         //then
         assertThat(customerUpdate.firstName()).isEqualTo(updated.firstName());
