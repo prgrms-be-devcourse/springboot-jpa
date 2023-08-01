@@ -2,7 +2,8 @@ package com.example.jpaweekly.domain.customer.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.example.jpaweekly.domain.customer.Customer;
+import com.example.jpaweekly.domain.Customer;
+import com.example.jpaweekly.repository.CustomerRepository;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;

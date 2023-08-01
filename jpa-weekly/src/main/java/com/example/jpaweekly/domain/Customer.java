@@ -1,4 +1,4 @@
-package com.example.jpaweekly.domain.customer;
+package com.example.jpaweekly.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
