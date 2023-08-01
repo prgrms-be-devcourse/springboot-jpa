@@ -41,7 +41,7 @@ class OrderServiceImplTest {
     }
 
     @Test
-    void order_create_test() {
+    void orderCreateTest() {
         Long userId = userService.createUser(new UserCreateRequest("test", "123", "tester"));
         OrderCreateRequest orderCreateRequest = new OrderCreateRequest("tester", "수원시", orderProducts);
 
