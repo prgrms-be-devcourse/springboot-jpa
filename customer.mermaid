@@ -1,0 +1,15 @@
+classDiagram
+    
+    class Customer {
+        long id
+        Name name
+        Age age
+        Email email
+    }
+
+    class BaseEntity {
+        String createdAt
+        String updatedAt
+    }
+
+    Customer --> BaseEntity
