@@ -5,16 +5,16 @@ import com.jpaweekily.domain.customer.dto.CustomerResponse;
 import com.jpaweekily.domain.customer.dto.CustomerUpdate;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.*;
 
-@Transactional
-@SpringBootTest
+@DataJpaTest
+@Import(CustomerServiceImpl.class)
 class CustomerServiceImplTest {
 
     @Autowired
@@ -35,14 +35,15 @@ class CustomerServiceImplTest {
     @Test
     void findByIdTest() {
         //given
-        CustomerRequest customerRequest = new CustomerRequest("weon2", "geonhee");
+        String firstName = "weon";
+        CustomerRequest customerRequest = new CustomerRequest(firstName, "geonhee");
         Long id = customerService.create(customerRequest);
 
         //when
         CustomerResponse customerById = customerService.findCustomerById(id);
 
         //then
-        assertThat(customerById.firstName()).isEqualTo("weon2");
+        assertThat(customerById.firstName()).isEqualTo(firstName);
     }
 
     @Test
