@@ -8,7 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -67,19 +67,22 @@ public class CustomerCrudTest {
         Assertions.assertThat(findCustomer.getId()).isEqualTo(savedId);
     }
 
+    @Transactional
     @Test
-    @Rollback(false)
     @DisplayName("고객 이름을 수정할 수 있다.")
     void updateCustomerTest() {
         // given
         Customer customer = new Customer("앨런", 30);
         Long savedId = defaultCustomerRepository.save(customer);
 
+
         // when
         Customer findCustomer = defaultCustomerRepository.findById(savedId).get();
         findCustomer.changeName("태현");
+        Customer findCustomerB = defaultCustomerRepository.findById(savedId).get();
 
         // then
+        Assertions.assertThat(findCustomerB.getName()).isEqualTo("태현");
     }
 
 
