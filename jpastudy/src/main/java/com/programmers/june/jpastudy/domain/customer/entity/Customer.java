@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -22,6 +24,9 @@ public class Customer extends BaseEntity {
 
     @Column(nullable = false)
     private String lastName;
+
+    @OneToMany(mappedBy = "customer")
+    private List<Order> orders = new ArrayList<>();
 
     @Builder
     public Customer(String firstName, String lastName) {
@@ -40,5 +45,9 @@ public class Customer extends BaseEntity {
     public void changeFullName(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public void addOrder(Order order) {
+        order.setCustomer(this);    // 주믄에 고객을 추가
     }
 }
