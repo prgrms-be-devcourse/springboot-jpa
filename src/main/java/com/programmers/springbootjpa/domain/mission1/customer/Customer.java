@@ -51,12 +51,10 @@ public class Customer {
         }
     }
 
-    public void updateFirstName(String firstName) {
+    public void update(String firstName, String lastName) {
         checkName(firstName);
         this.firstName = firstName;
-    }
 
-    public void updateLastName(String lastName) {
         checkName(lastName);
         this.lastName = lastName;
     }

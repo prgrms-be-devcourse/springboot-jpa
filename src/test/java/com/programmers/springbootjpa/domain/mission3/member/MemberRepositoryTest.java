@@ -44,10 +44,7 @@ class MemberRepositoryTest {
         Member savedMember = memberRepository.save(member);
 
         //when
-        savedMember.updateName("min");
-        savedMember.updateNickname("nikkk");
-        savedMember.updateAge(22);
-        savedMember.updateAddress("경기도");
+        savedMember.update("min", "nikkk", 22, "경기도");
 
         //then
         assertThat(savedMember.getName()).isEqualTo("min");

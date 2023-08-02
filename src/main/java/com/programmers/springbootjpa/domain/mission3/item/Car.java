@@ -32,7 +32,9 @@ public class Car extends Item {
         }
     }
 
-    public void updatePower(int power) {
+    public void update(int price, int stockQuantity, int power) {
+        update(price, stockQuantity);
+
         checkPower(power);
         this.power = power;
     }

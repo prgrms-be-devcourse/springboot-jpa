@@ -39,15 +39,9 @@ public class Order extends BaseEntity {
         this.member = member;
     }
 
-    public void updateMember(Member member) {
-        this.member = member;
-    }
-
-    public void updateOrderStatus(OrderStatus orderStatus) {
+    public void update(OrderStatus orderStatus, String memo, Member member) {
         this.orderStatus = orderStatus;
-    }
-
-    public void updateMemo(String memo) {
         this.memo = memo;
+        this.member = member;
     }
 }

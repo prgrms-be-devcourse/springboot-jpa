@@ -55,21 +55,11 @@ public class OrderItem extends BaseEntity {
         }
     }
 
-    public void updateOrder(Order order) {
-        this.order = order;
-    }
-
-    public void updateItem(Item item) {
-        this.item = item;
-    }
-
-    public void updatePrice(int price) {
-        checkPrice(price, item);
-        this.price = price;
-    }
-
-    public void updateQuantity(int quantity) {
+    public void update(int quantity, Item item) {
         checkQuantity(quantity, item);
+
+        this.price = item.getPrice();
         this.quantity = quantity;
+        this.item = item;
     }
 }

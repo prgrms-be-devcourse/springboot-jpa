@@ -41,9 +41,7 @@ class OrderTest {
         Member member2 = new Member("Jae", "jh", 26, "서울특별시 성북구");
 
         //when
-        order.updateOrderStatus(OrderStatus.CANCELLED);
-        order.updateMemo("newMemo");
-        order.updateMember(member2);
+        order.update(OrderStatus.CANCELLED, "newMemo", member2);
 
         //then
         assertThat(order.getOrderStatus()).isEqualTo(OrderStatus.CANCELLED);

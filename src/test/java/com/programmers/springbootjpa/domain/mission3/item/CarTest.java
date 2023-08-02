@@ -35,9 +35,7 @@ class CarTest {
         Car car = new Car(10, 20, 300);
 
         //when
-        car.updatePrice(2);
-        car.updateStockQuantity(3);
-        car.updatePower(5);
+        car.update(2, 3, 5);
 
         //then
         assertThat(car.getPrice()).isEqualTo(2);
@@ -87,7 +85,7 @@ class CarTest {
 
         //when
         //then
-        assertThatThrownBy(() -> car.updatePrice(price))
+        assertThatThrownBy(() -> car.update(price, 20, 300))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -100,7 +98,7 @@ class CarTest {
 
         //when
         //then
-        assertThatThrownBy(() -> car.updateStockQuantity(stockQuantity))
+        assertThatThrownBy(() -> car.update(10, stockQuantity, 300))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -113,7 +111,7 @@ class CarTest {
 
         //when
         //then
-        assertThatThrownBy(() -> car.updatePower(power))
+        assertThatThrownBy(() -> car.update(10, 20, power))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }

@@ -37,9 +37,7 @@ class FoodTest {
         Food food = new Food(10, 20, "hyemin");
 
         //when
-        food.updatePrice(2);
-        food.updateStockQuantity(3);
-        food.updateChef("min");
+        food.update(2, 3, "min");
 
         //then
         assertThat(food.getPrice()).isEqualTo(2);
@@ -91,7 +89,7 @@ class FoodTest {
 
         //when
         //then
-        assertThatThrownBy(() -> food.updatePrice(price))
+        assertThatThrownBy(() -> food.update(price, 20, "hyemin"))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -104,7 +102,7 @@ class FoodTest {
 
         //when
         //then
-        assertThatThrownBy(() -> food.updateStockQuantity(stockQuantity))
+        assertThatThrownBy(() -> food.update(10, stockQuantity, "hyemin"))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -118,8 +116,7 @@ class FoodTest {
 
         //when
         //then
-        assertThatThrownBy(() -> food.updateChef(chef))
+        assertThatThrownBy(() -> food.update(10, 20, chef))
                 .isInstanceOf(IllegalArgumentException.class);
-
     }
 }

@@ -37,8 +37,7 @@ class MemberTest {
         Member member = new Member("hyemin", "hymn", 26, "서울특별시 성북구");
 
         //when
-        member.updateName("min");
-        member.updateNickname("nick");
+        member.update("min", "nick", 26, "서울특별시 성북구");
 
         //then
         assertThat(member.getName()).isEqualTo("min");
@@ -90,7 +89,7 @@ class MemberTest {
 
         //when
         //then
-        assertThatThrownBy(() -> member.updateName(name))
+        assertThatThrownBy(() -> member.update(name, "hymn", 26, "서울특별시 성북구"))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -104,7 +103,7 @@ class MemberTest {
 
         //when
         //then
-        assertThatThrownBy(() -> member.updateNickname(nickname))
+        assertThatThrownBy(() -> member.update("hyemin", nickname, 26, "서울특별시 성북구"))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -117,7 +116,7 @@ class MemberTest {
 
         //when
         //then
-        assertThatThrownBy(() -> member.updateAge(age))
+        assertThatThrownBy(() -> member.update("hyemin", "hymn", age, "서울특별시 성북구"))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }

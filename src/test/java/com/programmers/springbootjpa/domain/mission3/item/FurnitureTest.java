@@ -37,10 +37,7 @@ class FurnitureTest {
         Furniture furniture = new Furniture(10, 20, 30, 40);
 
         //when
-        furniture.updatePrice(20);
-        furniture.updateStockQuantity(10);
-        furniture.updateWidth(40);
-        furniture.updateHeight(30);
+        furniture.update(20, 10, 40, 30);
 
         //then
         assertThat(furniture.getPrice()).isEqualTo(20);
@@ -98,7 +95,7 @@ class FurnitureTest {
 
         //when
         //then
-        assertThatThrownBy(() -> furniture.updatePrice(price))
+        assertThatThrownBy(() -> furniture.update(price, 20, 30, 40))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -111,7 +108,7 @@ class FurnitureTest {
 
         //when
         //then
-        assertThatThrownBy(() -> furniture.updateStockQuantity(stockQuantity))
+        assertThatThrownBy(() -> furniture.update(10, stockQuantity, 30, 40))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -124,7 +121,7 @@ class FurnitureTest {
 
         //when
         //then
-        assertThatThrownBy(() -> furniture.updateWidth(width))
+        assertThatThrownBy(() -> furniture.update(10, 20, width, 40))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -137,7 +134,7 @@ class FurnitureTest {
 
         //when
         //then
-        assertThatThrownBy(() -> furniture.updateHeight(height))
+        assertThatThrownBy(() -> furniture.update(10, 20, 30, height))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }

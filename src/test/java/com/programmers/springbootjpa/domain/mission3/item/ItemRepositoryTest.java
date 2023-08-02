@@ -1,6 +1,5 @@
 package com.programmers.springbootjpa.domain.mission3.item;
 
-import com.programmers.springbootjpa.domain.mission3.item.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -47,9 +46,7 @@ class ItemRepositoryTest {
         Car savedCar = itemRepository.save(car);
 
         //when
-        savedCar.updatePrice(222);
-        savedCar.updateStockQuantity(22);
-        savedCar.updatePower(2);
+        savedCar.update(222, 22, 2);
 
         //then
         assertThat(savedCar.getPrice()).isEqualTo(222);

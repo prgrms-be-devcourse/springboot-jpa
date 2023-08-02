@@ -48,25 +48,11 @@ public abstract class Item extends BaseEntity {
         }
     }
 
-    public void updatePrice(int price) {
+    public void update(int price, int stockQuantity) {
         checkPrice(price);
         this.price = price;
-    }
 
-    public void updateStockQuantity(int stockQuantity) {
         checkStockQuantity(stockQuantity);
         this.stockQuantity = stockQuantity;
-    }
-
-    public void addStockQuantity(int quantity) {
-        int result = stockQuantity + quantity;
-        checkStockQuantity(result);
-        this.stockQuantity = result;
-    }
-
-    public void subtractStockQuantity(int quantity) {
-        int result = stockQuantity - quantity;
-        checkStockQuantity(result);
-        this.stockQuantity = result;
     }
 }

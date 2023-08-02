@@ -38,12 +38,12 @@ public class Furniture extends Item {
         }
     }
 
-    public void updateWidth(int width) {
+    public void update(int price, int stockQuantity, int width, int height) {
+        update(price, stockQuantity);
+
         checkFurnitureSize(width);
         this.width = width;
-    }
 
-    public void updateHeight(int height) {
         checkFurnitureSize(height);
         this.height = height;
     }

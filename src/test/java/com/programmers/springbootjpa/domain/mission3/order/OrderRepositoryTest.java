@@ -48,9 +48,7 @@ class OrderRepositoryTest {
         Member member = new Member("min", "nicky", 20, "경기도");
 
         //when
-        savedOrder.updateOrderStatus(OrderStatus.CANCELLED);
-        savedOrder.updateMemo("updateMemo");
-        savedOrder.updateMember(member);
+        savedOrder.update(OrderStatus.CANCELLED, "updateMemo", member);
 
         //then
         assertThat(savedOrder.getOrderStatus()).isEqualTo(OrderStatus.CANCELLED);

@@ -45,7 +45,9 @@ public class Food extends Item {
         }
     }
 
-    public void updateChef(String chef) {
+    public void update(int price, int stockQuantity, String chef) {
+        update(price, stockQuantity);
+
         checkChef(chef);
         this.chef = chef;
     }

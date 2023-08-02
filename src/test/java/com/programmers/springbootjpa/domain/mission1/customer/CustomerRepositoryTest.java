@@ -42,8 +42,7 @@ class CustomerRepositoryTest {
         Customer savedCustomer = customerRepository.save(customer);
 
         //when
-        savedCustomer.updateFirstName("Lee");
-        savedCustomer.updateLastName("ham");
+        savedCustomer.update("Lee", "ham");
 
         //then
         assertThat(savedCustomer.getFirstName()).isEqualTo("Lee");

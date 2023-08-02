@@ -39,10 +39,8 @@ class OrderItemTest {
 
         //when
         Car car2 = new Car(3, 20, 40);
-        orderItem.updateItem(car2);
-
         int expectedQuantity = 11;
-        orderItem.updateQuantity(expectedQuantity);
+        orderItem.update(expectedQuantity, car2);
 
         //then
         assertThat(orderItem.getQuantity()).isEqualTo(expectedQuantity);
@@ -63,21 +61,6 @@ class OrderItemTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
-    @DisplayName("주문상품 수정 시 금액이 조건에 맞지 않으면 예외처리한다")
-    @ValueSource(strings = {"0", "-1", "-4", "-9", "11", "13", "20"})
-    @ParameterizedTest
-    void testPriceUpdate(int price) {
-        //given
-        int carPrice = 8;
-        Car car = new Car(carPrice, 10, 30);
-        OrderItem orderItem = new OrderItem(5, car);
-
-        //when
-        //then
-        assertThatThrownBy(() -> orderItem.updatePrice(price))
-                .isInstanceOf(IllegalArgumentException.class);
-    }
-
     @DisplayName("주문상품 수정 시 수량이 조건에 맞지 않으면 예외처리한다")
     @ValueSource(strings = {"0", "-1", "-4", "-9", "11", "13", "20"})
     @ParameterizedTest
@@ -89,7 +72,7 @@ class OrderItemTest {
 
         //when
         //then
-        assertThatThrownBy(() -> orderItem.updateQuantity(quantity))
+        assertThatThrownBy(() -> orderItem.update(quantity, car))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }

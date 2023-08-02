@@ -1,12 +1,10 @@
 package com.programmers.springbootjpa.domain.mission1.customer;
 
-import com.programmers.springbootjpa.domain.mission1.customer.Customer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -35,8 +33,7 @@ class CustomerTest {
         Customer customer = new Customer("hyemin", "Kim");
 
         //when
-        customer.updateFirstName("min");
-        customer.updateLastName("Lee");
+        customer.update("min",  "Lee");
 
         //then
         assertThat(customer.getFirstName()).isEqualTo("min");
@@ -95,33 +92,42 @@ class CustomerTest {
 
         //when
         //then
-        assertThatThrownBy(() -> customer.updateLastName(name))
+        assertThatThrownBy(() -> customer.update(name, name))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     @DisplayName("고객 수정 시 이름이 20자를 초과할 경우 예외처리한다")
-    @ValueSource(strings = {"aaaaaaaaaaaaaaaaaaaaa", "김김김김김김김김김김김김김김김김김김김김김김"})
+    @CsvSource(value = {
+            "혜민 : 김김김김김김김김김김김김김김김김김김김김김김",
+            "aaaaaaaaaaaaaaaaaaaaa : Kim",
+    }, delimiter = ':')
     @ParameterizedTest
-    void testNameLengthOverUpdate(String lastName) {
+    void testNameLengthOverUpdate(String firstName, String lastName) {
         //given
         Customer customer = new Customer("hyemin", "Kim");
 
         //when
         //then
-        assertThatThrownBy(() -> customer.updateLastName(lastName))
+        assertThatThrownBy(() -> customer.update(firstName, lastName))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     @DisplayName("고객 수정 시 이름에 한글과 영어 이외의 문자가 있는 경우 예외처리한다")
-    @ValueSource(strings = {"11", "#", "hh3", "민111", "min!"})
+    @CsvSource(value = {
+            "11 : 김",
+            "# : 김",
+            "hh3 : 김",
+            "이름 : 민111",
+            "이름 : min!",
+    }, delimiter = ':')
     @ParameterizedTest
-    void testNamePatternUpdate(String firstName) {
+    void testNamePatternUpdate(String firstName, String lastName) {
         //given
         Customer customer = new Customer("hyemin", "Kim");
 
         //when
         //then
-        assertThatThrownBy(() -> customer.updateFirstName(firstName))
+        assertThatThrownBy(() -> customer.update(firstName, lastName))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }

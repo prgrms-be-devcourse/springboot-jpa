@@ -79,22 +79,16 @@ public class Member extends BaseEntity {
         }
     }
 
-    public void updateName(String name) {
+    public void update(String name, String nickname, int age, String address) {
         checkName(name);
         this.name = name;
-    }
 
-    public void updateNickname(String nickname) {
         checkNickname(nickname);
         this.nickname = nickname;
-    }
 
-    public void updateAge(int age) {
-        checkAge(age);
         this.age = age;
-    }
+        checkAge(age);
 
-    public void updateAddress(String address) {
         this.address = address;
     }
 }

@@ -103,8 +103,7 @@ public class PersistenceContextTest {
 
         Customer foundCustomer = entityManager.find(Customer.class, customer.getId());
 
-        foundCustomer.updateFirstName("min");
-        foundCustomer.updateLastName("Lee");
+        foundCustomer.update("min", "Lee");
 
         transaction.commit();
 
