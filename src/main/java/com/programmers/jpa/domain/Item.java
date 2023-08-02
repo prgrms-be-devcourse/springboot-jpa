@@ -1,9 +1,12 @@
 package com.programmers.jpa.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Item {
     @Id
@@ -16,9 +19,6 @@ public class Item {
 
     private int price;
     private int stockQuantity;
-
-    protected Item() {
-    }
 
     public Item(String name, int price, int stockQuantity) {
         validateName(name);

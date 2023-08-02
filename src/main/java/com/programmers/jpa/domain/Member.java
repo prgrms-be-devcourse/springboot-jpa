@@ -1,13 +1,16 @@
 package com.programmers.jpa.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.regex.Pattern;
 
 import static java.util.Objects.nonNull;
 
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Member {
     private static final Pattern NAME_PATTERN = Pattern.compile("[A-Za-z]{1,20}$");
@@ -20,9 +23,6 @@ public class Member {
     private String firstName;
     @Column(name = "last_name", nullable = false, length = 20)
     private String lastName;
-
-    protected Member() {
-    }
 
     public Member(String firstName, String lastName) {
         validateFirstName(firstName);

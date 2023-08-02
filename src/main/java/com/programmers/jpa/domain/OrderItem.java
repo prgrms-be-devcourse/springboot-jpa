@@ -1,9 +1,12 @@
 package com.programmers.jpa.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class OrderItem {
     @Id
@@ -23,9 +26,6 @@ public class OrderItem {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
     private Item item;
-
-    protected OrderItem() {
-    }
 
     public OrderItem(int price, Order order, Item item) {
         this.price = price;
