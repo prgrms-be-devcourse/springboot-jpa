@@ -28,7 +28,7 @@ public class Item {
     }
 
     private void validateName(String name) {
-        if(name.length() > 200) {
+        if (name.length() > 200) {
             throw new IllegalArgumentException("Invalid item name");
         }
     }

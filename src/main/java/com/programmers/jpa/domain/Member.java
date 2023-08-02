@@ -32,24 +32,24 @@ public class Member {
     }
 
     public void update(String firstName, String lastName) {
-        if(nonNull(firstName)) {
+        if (nonNull(firstName)) {
             validateFirstName(firstName);
             this.firstName = firstName;
         }
-        if(nonNull(lastName)) {
+        if (nonNull(lastName)) {
             validateLastName(lastName);
             this.lastName = lastName;
         }
     }
 
     private void validateFirstName(String firstName) {
-        if(invalidName(firstName)) {
+        if (invalidName(firstName)) {
             throw new IllegalArgumentException("Invalid first name");
         }
     }
 
     private void validateLastName(String lastName) {
-        if(invalidName(lastName)) {
+        if (invalidName(lastName)) {
             throw new IllegalArgumentException("Invalid last Name");
         }
     }

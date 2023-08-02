@@ -34,7 +34,7 @@ public class Order {
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
-    
+
 
     public Order(String memo, Member member) {
         this.orderDatetime = LocalDateTime.now();
