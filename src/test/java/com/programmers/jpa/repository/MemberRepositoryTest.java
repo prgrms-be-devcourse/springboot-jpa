@@ -77,7 +77,7 @@ class MemberRepositoryTest {
         String updateLastName = "updateLastName";
 
         //when
-        member.update(updateFirstName, updateLastName);
+        member.updateMember(updateFirstName, updateLastName);
 
         //then
         em.flush();

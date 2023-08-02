@@ -50,7 +50,7 @@ public class PersistenceTest {
         em.detach(givenMember);
 
         //then
-        givenMember.update("newName", "newName");
+        givenMember.updateMember("newName", "newName");
         Member findMember = em.find(Member.class, givenMember.getId());
         assertThat(findMember.getFirstName()).isNotEqualTo(givenMember.getFirstName());
         assertThat(findMember.getLastName()).isNotEqualTo(givenMember.getLastName());
@@ -81,7 +81,7 @@ public class PersistenceTest {
         em.clear();
 
         //when
-        givenMember.update("newFirstName", "newLastName");
+        givenMember.updateMember("newFirstName", "newLastName");
         Member mergedMember = em.merge(givenMember);
 
         //then

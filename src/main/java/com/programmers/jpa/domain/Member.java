@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.regex.Pattern;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 @Getter
@@ -25,13 +26,23 @@ public class Member {
     private String lastName;
 
     public Member(String firstName, String lastName) {
+        nullCheck(firstName, lastName);
         validateFirstName(firstName);
         validateLastName(lastName);
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
-    public void update(String firstName, String lastName) {
+    private void nullCheck(String firstName, String lastName) {
+        if (isNull(firstName)) {
+            throw new IllegalArgumentException("First name is mandatory");
+        }
+        if (isNull(lastName)) {
+            throw new IllegalArgumentException("Last name is mandatory");
+        }
+    }
+
+    public void updateMember(String firstName, String lastName) {
         if (nonNull(firstName)) {
             validateFirstName(firstName);
             this.firstName = firstName;
