@@ -1,7 +1,7 @@
 package com.programmers.june.jpastudy.domain;
 
-import com.programmers.june.jpastudy.domain.customer.Customer;
-import com.programmers.june.jpastudy.domain.customer.CustomerRepository;
+import com.programmers.june.jpastudy.domain.customer.entity.Customer;
+import com.programmers.june.jpastudy.domain.customer.repository.CustomerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;

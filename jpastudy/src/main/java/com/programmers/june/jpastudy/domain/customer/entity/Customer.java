@@ -1,4 +1,4 @@
-package com.programmers.june.jpastudy.domain.customer;
+package com.programmers.june.jpastudy.domain.customer.entity;
 
 import lombok.Builder;
 import lombok.Getter;
