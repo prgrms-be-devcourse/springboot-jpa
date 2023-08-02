@@ -67,6 +67,6 @@ public class Order {
   }
 
   public void addOrderItem(OrderItem orderItem) {
-    orderItem.setOrder(this);
+    orderItem.updateOrder(this);
   }
 }

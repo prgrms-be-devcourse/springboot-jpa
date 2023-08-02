@@ -8,10 +8,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
-import java.util.List;
 import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -39,10 +37,10 @@ public class OrderItem {
   @JoinColumn(name = "order_id", referencedColumnName = "id")
   private Order order;
 
-  @OneToMany(mappedBy = "orderItem")
-  private List<Item> items;
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Item item;
 
-  public void setOrder(Order order) {
+  public void updateOrder(Order order) {
     if (Objects.nonNull(this.order)) {
       this.order.getOrderItems().remove(this);
     }
@@ -51,7 +49,12 @@ public class OrderItem {
     order.getOrderItems().add(this);
   }
 
-  public void addItem(Item item) {
-    item.setOrderItem(this);
+  public void updateItem(Item item) {
+    if (Objects.nonNull(this.item)) {
+      this.item.getOrderItem().remove(this);
+    }
+
+    this.item = item;
+    item.getOrderItem().add(this);
   }
 }
