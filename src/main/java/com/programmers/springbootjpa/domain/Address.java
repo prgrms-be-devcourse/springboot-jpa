@@ -2,13 +2,10 @@ package com.programmers.springbootjpa.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Embeddable
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Address {
 
     @Column(name = "street_address", nullable = false)
@@ -18,9 +15,5 @@ public class Address {
     @Column(name = "zip_code", nullable = false)
     private Integer zipCode;
 
-    public Address(String streetAddress, String detailedAddress, Integer zipCode) {
-        this.streetAddress = streetAddress;
-        this.detailedAddress = detailedAddress;
-        this.zipCode = zipCode;
-    }
+
 }
