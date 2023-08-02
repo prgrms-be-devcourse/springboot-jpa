@@ -1,5 +1,7 @@
 package com.programmers.june.jpastudy.domain.customer.entity;
 
+import com.programmers.june.jpastudy.domain.order.entity.Order;
+import com.programmers.june.jpastudy.global.BaseEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +12,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "customers")
 @NoArgsConstructor
-public class Customer {
+public class Customer extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
