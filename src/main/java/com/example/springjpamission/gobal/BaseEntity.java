@@ -1,18 +1,14 @@
 package com.example.springjpamission.gobal;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import lombok.Getter;
-import lombok.Setter;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Getter
-@Setter
 @MappedSuperclass
 public class BaseEntity {
 
@@ -33,7 +29,6 @@ public class BaseEntity {
     public void preUpdate() {
         lastUpdatedAt = LocalDateTime.now()
                 .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-
     }
 
 }

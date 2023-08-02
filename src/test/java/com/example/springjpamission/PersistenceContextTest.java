@@ -30,8 +30,7 @@ public class PersistenceContextTest {
         //when
         transaction.begin();
         Name name = new Name("영운", "윤");
-        Customer customer = Customer.builder().
-                name(name).build();
+        Customer customer = new Customer(name);
 
         em.persist(customer);
 
@@ -52,8 +51,7 @@ public class PersistenceContextTest {
 
         transaction.begin();
         Name name = new Name("영운", "윤");
-        Customer customer = Customer.builder().
-                name(name).build();
+        Customer customer = new Customer(name);
         em.persist(customer);
 
         transaction.commit();

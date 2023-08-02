@@ -14,10 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 
 @Entity
 @Table(name = "orders")
@@ -38,7 +36,11 @@ public class Order extends BaseEntity {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @Builder
+    public Order(String id, String memo) {
+        this.id = id;
+        this.memo = memo;
+    }
+
     public Order(String id, String memo, int price, int quantity, Customer customer) {
         this.id = id;
         this.memo = memo;
