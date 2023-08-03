@@ -6,7 +6,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class CustomerMapper {
+public final class CustomerConverter {
 
     public static CustomerResponse convertEntityToResponse(Customer customer) {
         return new CustomerResponse(customer.getId(), customer.getFirstName(), customer.getLastName());
