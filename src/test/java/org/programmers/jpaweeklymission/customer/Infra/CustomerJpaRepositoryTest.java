@@ -27,6 +27,7 @@ class CustomerJpaRepositoryTest {
                 .lastName("홍")
                 .build();
         saved = repository.save(customer);
+        tem.clear();
     }
 
     @Test
