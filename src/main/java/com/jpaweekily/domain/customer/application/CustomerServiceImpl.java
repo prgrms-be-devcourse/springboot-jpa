@@ -6,6 +6,7 @@ import com.jpaweekily.domain.customer.dto.CustomerRequest;
 import com.jpaweekily.domain.customer.dto.CustomerResponse;
 import com.jpaweekily.domain.customer.dto.CustomerUpdate;
 import com.jpaweekily.domain.customer.infrastructrue.CustomerRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -13,13 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional(readOnly = true)
 @Service
+@RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
-
-    public CustomerServiceImpl(CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
-    }
 
     @Transactional
     public Long create(CustomerRequest request) {
