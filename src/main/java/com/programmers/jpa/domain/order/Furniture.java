@@ -2,14 +2,23 @@ package com.programmers.jpa.domain.order;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
-@Setter
 @Getter
 @Entity
 @DiscriminatorValue("FURNITURE")
-public class Furniture extends Item{
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Furniture extends Item {
     private int width;
     private int height;
+
+    @Builder
+    private Furniture(int price, int stockQuantity, int width, int height) {
+        super(price, stockQuantity);
+        this.width = width;
+        this.height = height;
+    }
 }

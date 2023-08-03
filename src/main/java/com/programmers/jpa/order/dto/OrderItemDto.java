@@ -3,7 +3,6 @@ package com.programmers.jpa.order.dto;
 import lombok.*;
 
 @Getter
-@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
