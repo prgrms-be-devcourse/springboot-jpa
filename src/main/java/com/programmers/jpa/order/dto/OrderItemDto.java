@@ -1,15 +1,11 @@
 package com.programmers.jpa.order.dto;
 
-import lombok.*;
+import lombok.Builder;
 
-@Getter
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class OrderItemDto {
-    private Long id;
-    private Integer price;
-    private Integer quantity;
-
-    private ItemDto itemDto;
+public record OrderItemDto(
+        Long id,
+        Integer price,
+        Integer quantity,
+        ItemDto itemDto) {
 }

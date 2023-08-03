@@ -3,14 +3,12 @@ package com.programmers.jpa.order.dto;
 import lombok.*;
 
 @Builder
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
-public class MemberDto {
-    private Long id;
-    private String name;
-    private String nickName;
-    private int age;
-    private String address;
-    private String description;
+public record MemberDto(
+        Long id,
+        String name,
+        String nickName,
+        int age,
+        String address,
+        String description
+) {
 }

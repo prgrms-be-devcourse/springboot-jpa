@@ -9,14 +9,13 @@ import java.util.stream.Collectors;
 
 @Component
 public class OrderConverter {
-    // dto -> entity
     public Order convertOrder(OrderDto orderDto) {
-        List<OrderItem> orderItems = this.convertOrderItems(orderDto.getOrderItemDtos());
+        List<OrderItem> orderItems = this.convertOrderItems(orderDto.orderItemDtos());
 
         Order order = Order.builder()
-                .orderStatus(orderDto.getOrderStatus())
-                .memo(orderDto.getMemo())
-                .member(this.convertMember(orderDto.getMemberDto()))
+                .orderStatus(orderDto.orderStatus())
+                .memo(orderDto.memo())
+                .member(this.convertMember(orderDto.memberDto()))
                 .orderItems(orderItems)
                 .build();
 
@@ -27,55 +26,53 @@ public class OrderConverter {
 
     private Member convertMember(MemberDto memberDto) {
         return Member.builder()
-                .name(memberDto.getName())
-                .nickName(memberDto.getNickName())
-                .age(memberDto.getAge())
-                .address(memberDto.getAddress())
-                .description(memberDto.getDescription())
+                .name(memberDto.name())
+                .nickName(memberDto.nickName())
+                .age(memberDto.age())
+                .address(memberDto.address())
+                .description(memberDto.description())
                 .build();
     }
 
     private List<OrderItem> convertOrderItems(List<OrderItemDto> orderItemDtos) {
         return orderItemDtos.stream()
                 .map(orderItemDto -> OrderItem.builder()
-                        .price(orderItemDto.getPrice())
-                        .quantity(orderItemDto.getQuantity())
-                        .item(this.convertItem(orderItemDto.getItemDto()))
+                        .price(orderItemDto.price())
+                        .quantity(orderItemDto.quantity())
+                        .item(this.convertItem(orderItemDto.itemDto()))
                         .build())
                 .toList();
     }
 
     private Item convertItem(ItemDto itemDto) {
-        if (ItemType.FOOD.equals(itemDto.getType())) {
+        if (ItemType.FOOD.equals(itemDto.type())) {
             return Food.builder()
-                    .price(itemDto.getPrice())
-                    .stockQuantity(itemDto.getStockQuantity())
-                    .chef(itemDto.getChef())
+                    .price(itemDto.price())
+                    .stockQuantity(itemDto.stockQuantity())
+                    .chef(itemDto.chef())
                     .build();
         }
 
-        if (ItemType.FURNITURE.equals(itemDto.getType())) {
+        if (ItemType.FURNITURE.equals(itemDto.type())) {
             return Furniture.builder()
-                    .price(itemDto.getPrice())
-                    .stockQuantity(itemDto.getStockQuantity())
-                    .width(itemDto.getWidth())
-                    .height(itemDto.getHeight())
+                    .price(itemDto.price())
+                    .stockQuantity(itemDto.stockQuantity())
+                    .width(itemDto.width())
+                    .height(itemDto.height())
                     .build();
         }
 
-        if (ItemType.CAR.equals(itemDto.getType())) {
+        if (ItemType.CAR.equals(itemDto.type())) {
             return Car.builder()
-                    .price(itemDto.getPrice())
-                    .stockQuantity(itemDto.getStockQuantity())
-                    .power(itemDto.getPower())
+                    .price(itemDto.price())
+                    .stockQuantity(itemDto.stockQuantity())
+                    .power(itemDto.power())
                     .build();
         }
 
         throw new IllegalArgumentException("잘못된 아이템 타입 입니다.");
     }
 
-
-    // entity -> dto
     public OrderDto convertOrderDto (Order order) {
         return OrderDto.builder()
                 .uuid(order.getUuid())
@@ -112,34 +109,34 @@ public class OrderConverter {
     }
 
     private ItemDto convertItemDto (Item item) {
-        if (item instanceof Food) {
+        if (item instanceof Food food) {
             return ItemDto.builder()
-                    .id(item.getId())
+                    .id(food.getId())
                     .type(ItemType.FOOD)
-                    .stockQuantity(item.getStockQuantity())
-                    .price(item.getPrice())
-                    .chef(((Food) item).getChef())
+                    .stockQuantity(food.getStockQuantity())
+                    .price(food.getPrice())
+                    .chef(food.getChef())
                     .build();
         }
 
-        if (item instanceof Furniture) {
+        if (item instanceof Furniture furniture) {
             return ItemDto.builder()
-                    .id(item.getId())
+                    .id(furniture.getId())
                     .type(ItemType.FURNITURE)
-                    .stockQuantity(item.getStockQuantity())
-                    .price(item.getPrice())
-                    .width(((Furniture) item).getWidth())
-                    .width(((Furniture) item).getHeight())
+                    .stockQuantity(furniture.getStockQuantity())
+                    .price(furniture.getPrice())
+                    .width(furniture.getWidth())
+                    .height(furniture.getHeight())
                     .build();
         }
 
-        if (item instanceof Car) {
+        if (item instanceof Car car) {
             return ItemDto.builder()
-                    .id(item.getId())
+                    .id(car.getId())
                     .type(ItemType.CAR)
-                    .stockQuantity(item.getStockQuantity())
-                    .price(item.getPrice())
-                    .power(((Car) item).getPower())
+                    .stockQuantity(car.getStockQuantity())
+                    .price(car.getPrice())
+                    .power(car.getPower())
                     .build();
         }
 
