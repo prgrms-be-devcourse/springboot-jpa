@@ -1,16 +1,16 @@
 package com.programmers.springbootjpa.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 import com.programmers.springbootjpa.dto.CustomerCreateRequest;
-import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class CustomerTest {
 
     @Test
-    void of() {
+    @DisplayName("Customer 생성 Dto에서 Customer Entity로 정상적으로 변환되는지 테스트한다.")
+    void customerDtoToEntityTest() {
         CustomerCreateRequest request = new CustomerCreateRequest(
                 "Kim Jae Won",
                 28,
@@ -18,11 +18,15 @@ class CustomerTest {
                 "서울시 마포구"
         );
 
-        Customer customer = request.toEntity();
+        Customer actualEntity = request.toEntity();
 
-        assertThat(customer.getName()).isEqualTo("Kim Jae Won");
-        assertThat(customer.getAge()).isEqualTo(28);
-        assertThat(customer.getNickName()).isEqualTo("hanjo");
-        assertThat(customer.getAddress()).isEqualTo("서울시 마포구");
+        Customer expectedEntity = Customer.builder()
+                .name("Kim Jae Won")
+                .age(28)
+                .nickName("hanjo")
+                .address("서울시 마포구")
+                .build();
+
+        assertThat(actualEntity).usingRecursiveComparison().isEqualTo(expectedEntity);
     }
 }
