@@ -51,13 +51,10 @@ class CustomerRepositoryTest {
   @DisplayName("예외: firstName에 한글이나 영어가 아닌 문자 입력")
   void firstName_InvalidCharacters_ThrowsConstraintViolationException() {
     // given
-    Customer invalidCustomer = Customer.builder()
-        .firstName("준1")
-        .lastName("배")
-        .build();
+    customer.updateFirstName("준1");
 
     // when
-    Set<ConstraintViolation<Customer>> violations = validator.validate(invalidCustomer);
+    Set<ConstraintViolation<Customer>> violations = validator.validate(customer);
 
     //then
     assertThat(violations).hasSize(1);
@@ -67,13 +64,10 @@ class CustomerRepositoryTest {
   @DisplayName("예외: lastName에 한글이나 영어가 아닌 문자 입력")
   void lastName_InvalidCharacters_ThrowsConstraintViolationException() {
     // given
-    Customer invalidCustomer = Customer.builder()
-        .firstName("준일")
-        .lastName("ㅂㅏ1")
-        .build();
+    customer.updateLastName("ㅂㅏ1");
 
     // when
-    Set<ConstraintViolation<Customer>> violations = validator.validate(invalidCustomer);
+    Set<ConstraintViolation<Customer>> violations = validator.validate(customer);
 
     //then
     assertThat(violations).hasSize(1);
