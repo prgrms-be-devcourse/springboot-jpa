@@ -4,8 +4,8 @@ import lombok.Getter;
 
 @Getter
 public class ErrorResponse {
-    private static final String INTERNAL_SERVER_ERROR_MESSAGE = "서버 내부 에러입니다.";
-    private static final String BAD_REQUEST_MESSAGE = "잘못된 요청입니다.";
+    private static final String INTERNAL_SERVER_ERROR_MESSAGE = "Server internal error.";
+    private static final String BAD_REQUEST_MESSAGE = "Invalid Request.";
     private final String message;
 
     private ErrorResponse(String message) {
