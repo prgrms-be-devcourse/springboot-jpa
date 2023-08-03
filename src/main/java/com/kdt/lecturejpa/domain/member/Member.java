@@ -1,11 +1,19 @@
-package com.kdt.lecturejpa.domain.order;
+package com.kdt.lecturejpa.domain.member;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.kdt.lecturejpa.domain.order.Order;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,6 +28,8 @@ public class Member {
 
 	@Column(name = "name", nullable = false, length = 10)
 	private String name;
+
+	@Column(name = "nickname", nullable = false, length = 10)
 	private String nickName;
 
 	@Column(name = "age", nullable = false)
@@ -30,6 +40,21 @@ public class Member {
 
 	@Column(name = "description")
 	private String description;
+
+	@OneToMany(mappedBy = "member")
+	private List<Order> orders = new ArrayList<Order>();
+
+	@Builder
+	public Member(String name, String nickName, int age, String address, String description) {
+		this.name = name;
+		this.nickName = nickName;
+		this.age = age;
+		this.address = address;
+		this.description = description;
+	}
+
+	public Member() {
+	}
 
 	public Long getId() {
 		return id;
@@ -77,5 +102,9 @@ public class Member {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public void addOrder(Order order) {
+		order.setMember(this);
 	}
 }
