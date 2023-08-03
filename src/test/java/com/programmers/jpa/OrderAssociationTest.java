@@ -8,6 +8,7 @@ import com.programmers.jpa.repository.ItemRepository;
 import com.programmers.jpa.repository.MemberRepository;
 import com.programmers.jpa.repository.OrderItemRepository;
 import com.programmers.jpa.repository.OrderRepository;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -32,7 +33,7 @@ class OrderAssociationTest {
     @Autowired
     OrderItemRepository orderItemRepository;
     @Autowired
-    TestEntityManager em;
+    EntityManager em;
     @Autowired
     EntityManagerFactory emf;
 
@@ -44,12 +45,33 @@ class OrderAssociationTest {
         memberRepository.save(givenMember);
     }
 
+    private Order createAndSaveOrder(Member member) {
+        Order order = new Order("memo", member);
+        orderRepository.save(order);
+        return order;
+    }
+
+    private Item createAndSaveItem() {
+        Item item = new Item("name", 1000, 10);
+        itemRepository.save(item);
+        return item;
+    }
+
+    private OrderItem createOrderItem(Order order, Item item) {
+        return new OrderItem(1000, order, item);
+    }
+
+    private OrderItem createAndSaveOrderItem(Order order, Item item) {
+        OrderItem orderItem = new OrderItem(1000, order, item);
+        orderItemRepository.save(orderItem);
+        return orderItem;
+    }
+
     @Test
     @DisplayName("성공: 다대일 단방향 lazy loading 테스트")
     void manyToOne_lazyLoading() {
         //given
-        Order order = new Order("memo", givenMember);
-        orderRepository.save(order);
+        Order order = createAndSaveOrder(givenMember);
         em.flush();
         em.clear();
 
@@ -65,8 +87,7 @@ class OrderAssociationTest {
     @DisplayName("성공: 다대일 단방향 fetch join 테스트")
     void manyToOne_lazyLoading_fetchJoin() {
         //given
-        Order order = new Order("memo", givenMember);
-        orderRepository.save(order);
+        Order order = createAndSaveOrder(givenMember);
         em.flush();
         em.clear();
 
@@ -82,14 +103,10 @@ class OrderAssociationTest {
     @DisplayName("성공: 일대다 collection fetch join 테스트")
     void oneToMany_lazyLoading_collectionFetchJoin() {
         //given
-        Order order = new Order("memo", givenMember);
-        Item item = new Item("name", 1000, 10);
-        OrderItem orderItemA = new OrderItem(1000, order, item);
-        OrderItem orderItemB = new OrderItem(1000, order, item);
-        orderRepository.save(order);
-        itemRepository.save(item);
-        orderItemRepository.save(orderItemA);
-        orderItemRepository.save(orderItemB);
+        Order order = createAndSaveOrder(givenMember);
+        Item item = createAndSaveItem();
+        OrderItem orderItemA = createAndSaveOrderItem(order, item);
+        OrderItem orderItemB = createAndSaveOrderItem(order, item);
         em.flush();
         em.clear();
 
@@ -106,14 +123,12 @@ class OrderAssociationTest {
     @DisplayName("성공: 일대다 영속성 전이 persist")
     void cascade_persist() {
         //given
-        Order order = new Order("memo", givenMember);
-        Item item = new Item("name", 1000, 10);
-        orderRepository.save(order);
-        itemRepository.save(item);
+        Order order = createAndSaveOrder(givenMember);
+        Item item = createAndSaveItem();
 
         //when
-        new OrderItem(1000, order, item);
-        new OrderItem(1000, order, item);
+        createOrderItem(order, item);
+        createOrderItem(order, item);
         em.flush();
         em.clear();
 
@@ -126,12 +141,10 @@ class OrderAssociationTest {
     @DisplayName("성공: 일대다 고아 객체 제거")
     void orphanRemoval() {
         //given
-        Order order = new Order("memo", givenMember);
-        Item item = new Item("name", 1000, 10);
-        OrderItem orderItem = new OrderItem(1000, order, item);
-        orderRepository.save(order);
-        itemRepository.save(item);
-        orderItemRepository.save(orderItem);
+        Order order = createAndSaveOrder(givenMember);
+        Item item = createAndSaveItem();
+        OrderItem orderItem = createAndSaveOrderItem(order, item);
+        em.flush();  //스냅샷 갱신
 
         //when
         order.getOrderItems().remove(0);

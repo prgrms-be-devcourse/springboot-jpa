@@ -48,12 +48,17 @@ class OrderItemAssociationTest {
         itemRepository.save(givenItem);
     }
 
+    private OrderItem createAndSaveOrderItem() {
+        OrderItem orderItem = new OrderItem(1000, givenOrder, givenItem);
+        orderItemRepository.save(orderItem);
+        return orderItem;
+    }
+
     @Test
     @DisplayName("성공: 다대일 단방향 lazy loading 테스트")
     void manyToOne_lazyLoading() {
         //given
-        OrderItem orderItem = new OrderItem(1000, givenOrder, givenItem);
-        orderItemRepository.save(orderItem);
+        OrderItem orderItem = createAndSaveOrderItem();
         em.flush();
         em.clear();
 
@@ -71,8 +76,7 @@ class OrderItemAssociationTest {
     @DisplayName("성공: 다대일 단방향 fetch join 테스트")
     void manyToOne_lazyLoading_fetchJoin() {
         //given
-        OrderItem orderItem = new OrderItem(1000, givenOrder, givenItem);
-        orderItemRepository.save(orderItem);
+        OrderItem orderItem = createAndSaveOrderItem();
         em.flush();
         em.clear();
 

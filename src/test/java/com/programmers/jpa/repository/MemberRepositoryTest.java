@@ -19,6 +19,12 @@ class MemberRepositoryTest {
     @Autowired
     TestEntityManager em;
 
+    private Member createAndSaveMember() {
+        Member member = new Member("firstName", "lastName");
+        memberRepository.save(member);
+        return member;
+    }
+
     @Test
     @DisplayName("성공: member 저장")
     void save() {
@@ -37,8 +43,7 @@ class MemberRepositoryTest {
     @DisplayName("성공: member 조회 - 1차 캐시에서 조회")
     void find() {
         //given
-        Member member = new Member("firstName", "lastName");
-        memberRepository.save(member);
+        Member member = createAndSaveMember();
 
         //when
         Optional<Member> optionalMember = memberRepository.findById(member.getId());
@@ -53,8 +58,7 @@ class MemberRepositoryTest {
     @DisplayName("성공: member 조회 - 데이터 베이스에서 조회")
     void find_ClearPersistenceContext() {
         //given
-        Member member = new Member("firstName", "lastName");
-        memberRepository.save(member);
+        Member member = createAndSaveMember();
         em.flush();
         em.clear();
 
@@ -71,8 +75,7 @@ class MemberRepositoryTest {
     @DisplayName("성공: member 업데이트")
     void update() {
         //given
-        Member member = new Member("firstName", "lastName");
-        memberRepository.save(member);
+        Member member = createAndSaveMember();
         String updateFirstName = "updateFirstName";
         String updateLastName = "updateLastName";
 
@@ -91,8 +94,7 @@ class MemberRepositoryTest {
     @DisplayName("성공: member 삭제")
     void delete() {
         //given
-        Member member = new Member("firstName", "lastName");
-        memberRepository.save(member);
+        Member member = createAndSaveMember();
 
         //when
         memberRepository.delete(member);
