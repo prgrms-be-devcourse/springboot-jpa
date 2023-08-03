@@ -3,7 +3,6 @@ package com.example.springjpamission.customer.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.example.springjpamission.order.domain.Car;
-import com.example.springjpamission.order.domain.Item;
 import com.example.springjpamission.order.domain.Order;
 import com.example.springjpamission.order.domain.OrderItem;
 import jakarta.persistence.EntityManager;

@@ -28,12 +28,7 @@ public class OrderItem extends BaseEntity {
     @JoinColumn(name = "item_id", referencedColumnName = "id")
     private Item item;
 
-//    public OrderItem( int price, int quantity) {
-//        this.price = price;
-//        this.quantity = quantity;
-//    }
-
-    public OrderItem( int price, int quantity, Order order, Item items) {
+    public OrderItem(int price, int quantity, Order order, Item items) {
         this.price = price;
         this.quantity = quantity;
         this.order = order;

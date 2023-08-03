@@ -27,12 +27,6 @@ public class DataSourceConfig {
         return dataSource;
     }
 
-    /**
-     * @param jpaProperties
-     * @return
-     * @JpaVendorAdapter : JPA는 여러 구현체가 존재하기 때문에 구현체별 설정을 지원하기 위한 클래스이다. Hibernate를 사용하기 때문에
-     * HibernateJpaVendorAdapter를 사용한다.
-     */
     @Bean
     public JpaVendorAdapter jpaVendorAdapter(JpaProperties jpaProperties) {
         AbstractJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
@@ -42,13 +36,6 @@ public class DataSourceConfig {
         return adapter;
     }
 
-    /**
-     * @param dataSource
-     * @param jpaVendorAdapter
-     * @param jpaProperties
-     * @return
-     * @LocalContainerEntityManagerFactoryBean : EntityManagerFactoryBean을 Spring에서 사용하기 위한 클래스
-     */
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource,
             JpaVendorAdapter jpaVendorAdapter,
@@ -76,4 +63,3 @@ public class DataSourceConfig {
     }
 
 }
-
