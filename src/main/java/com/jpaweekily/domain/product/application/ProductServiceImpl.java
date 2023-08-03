@@ -15,6 +15,7 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
 
+    @Transactional
     public Long createProduct(ProductCreateRequest request) {
         Product product = Product.builder()
                 .productName(request.productName())

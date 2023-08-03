@@ -26,7 +26,7 @@ public class CustomerApiController {
         return ResponseEntity.ok(customers);
     }
 
-    @PostMapping("/new")
+    @PostMapping
     public ResponseEntity<Long> customerCreate(@RequestBody @Valid CustomerRequest request) {
         Long id = customerService.create(request);
         return new ResponseEntity<>(id, HttpStatus.CREATED);
