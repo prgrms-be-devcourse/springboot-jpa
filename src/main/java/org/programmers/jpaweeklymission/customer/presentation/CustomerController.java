@@ -7,10 +7,18 @@ import org.programmers.jpaweeklymission.customer.application.dto.CustomerRespons
 import org.programmers.jpaweeklymission.customer.presentation.dto.CustomerCreationRequest;
 import org.programmers.jpaweeklymission.customer.presentation.dto.CustomerUpdateRequest;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/customer")  // TODO: 근데 이거 "/api" 쓰는 이유가 있나? 다 api 아닌가?
+@RequestMapping("/api/customer")
 @RequiredArgsConstructor
 public class CustomerController {
     private final CustomerService customerService;
