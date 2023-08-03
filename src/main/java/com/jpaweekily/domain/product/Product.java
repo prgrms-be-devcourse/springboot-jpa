@@ -1,9 +1,6 @@
 package com.jpaweekily.domain.product;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,12 +15,14 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "product_name", nullable = false)
     private String productName;
 
+    @Column(name = "price", nullable = false)
     private int price;
 
     @Builder
-    public Product(String productName, int price) {
+    private Product(String productName, int price) {
         this.productName = productName;
         this.price = price;
     }
