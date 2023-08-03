@@ -9,6 +9,7 @@ import org.programmers.jpaweeklymission.customer.application.dto.CustomerRespons
 import org.programmers.jpaweeklymission.customer.presentation.dto.CustomerUpdateRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
