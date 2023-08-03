@@ -6,9 +6,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 @Table(name = "member")
 @Getter
@@ -32,9 +29,6 @@ public class Member extends BaseEntity {
     @Column(name = "description", nullable = true)
     private String description;
 
-    @OneToMany(mappedBy = "member")
-    private List<Order> orders = new ArrayList<>();
-
     @Builder
     private Member(String name, String nickName, int age, String address, String description) {
         this.name = name;
@@ -42,9 +36,5 @@ public class Member extends BaseEntity {
         this.age = age;
         this.address = address;
         this.description = description;
-    }
-
-    public void addOrder(Order order) {
-        order.setMember(this);
     }
 }

@@ -11,7 +11,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -45,17 +44,8 @@ public class Order extends BaseEntity {
         this.uuid = UUID.randomUUID().toString();
         this.orderStatus = orderStatus;
         this.memo = memo;
-        member.addOrder(this);
-        this.orderItems = orderItems;
-    }
-
-    public void setMember(Member member) {
-        if(Objects.nonNull(this.member)) {
-            this.member.getOrders().remove(this);
-        }
-
         this.member = member;
-        member.getOrders().add(this);
+        this.orderItems = orderItems;
     }
 
     public void addOrderItem(OrderItem orderItem) {
