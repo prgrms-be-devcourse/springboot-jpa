@@ -138,6 +138,28 @@ class OrderAssociationTest {
     }
 
     @Test
+    @DisplayName("성공: 일대다 고아 객체 라이프 사이클")
+    void orphanRemoval_lifeCycle() {
+        //given
+        Order order = createAndSaveOrder(givenMember);
+        Item item = createAndSaveItem();
+        OrderItem orderItemA = createAndSaveOrderItem(order, item);
+        OrderItem orderItemB = createAndSaveOrderItem(order, item);
+        em.flush();
+
+        //when
+        orderRepository.delete(order);
+        em.flush();
+        em.clear();
+
+        //then
+        OrderItem findOrderItemA = em.find(OrderItem.class, orderItemA.getId());
+        OrderItem findOrderItemB = em.find(OrderItem.class, orderItemB.getId());
+        assertThat(findOrderItemA).isNull();
+        assertThat(findOrderItemB).isNull();
+    }
+
+    @Test
     @DisplayName("성공: 일대다 고아 객체 제거")
     void orphanRemoval() {
         //given
