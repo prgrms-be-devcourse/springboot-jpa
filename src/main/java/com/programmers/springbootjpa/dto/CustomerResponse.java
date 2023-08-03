@@ -14,7 +14,7 @@ public class CustomerResponse {
     private String nickName;
     private String address;
 
-    public static CustomerResponse of(Customer customer) {
+    public static CustomerResponse fromEntity(Customer customer) {
         return new CustomerResponse(
                 customer.getId(),
                 customer.getName(),

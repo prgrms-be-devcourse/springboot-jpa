@@ -21,13 +21,13 @@ public class CustomerService {
     public CustomerResponse createCustomer(CustomerCreateRequest request) {
         Customer savedCustomer = customerRepository.save(request.toEntity());
 
-        return CustomerResponse.of(savedCustomer);
+        return CustomerResponse.fromEntity(savedCustomer);
     }
 
     public List<CustomerResponse> findAllCustomers() {
         return customerRepository.findAll()
                 .stream()
-                .map(CustomerResponse::of)
+                .map(CustomerResponse::fromEntity)
                 .toList();
     }
 
@@ -40,7 +40,7 @@ public class CustomerService {
         customer.updateAge(request.getAge());
         customer.updateAddress(request.getAddress());
 
-        return CustomerResponse.of(customer);
+        return CustomerResponse.fromEntity(customer);
     }
 
     @Transactional
