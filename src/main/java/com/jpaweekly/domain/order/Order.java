@@ -31,7 +31,7 @@ public class Order {
     private User user;
 
     @Builder
-    public Order(String address, OrderStatus orderStatus, LocalDateTime createAt, User user) {
+    private Order(String address, OrderStatus orderStatus, LocalDateTime createAt, User user) {
         this.address = address;
         this.orderStatus = orderStatus;
         this.createAt = createAt;

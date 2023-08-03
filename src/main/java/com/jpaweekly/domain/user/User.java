@@ -30,7 +30,7 @@ public class User {
     private LocalDateTime createdAt;
 
     @Builder
-    public User(String loginId, String nickname, String password, LocalDateTime createdAt) {
+    private User(String loginId, String nickname, String password, LocalDateTime createdAt) {
         this.loginId = loginId;
         this.nickname = nickname;
         this.password = password;
