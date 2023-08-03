@@ -42,10 +42,7 @@ public class OrderConverter {
                     OrderItem orderItem = new OrderItem();
                     orderItem.setPrice(orderItemDto.getPrice());
                     orderItem.setQuantity(orderItemDto.getQuantity());
-                    List<Item> items = orderItemDto.getItemDtos().stream()
-                            .map(this::convertItem)
-                            .collect(Collectors.toList());
-                    items.forEach(orderItem::addItem);
+                    orderItem.setItem(orderItem.getItem());
                     return orderItem;
                 })
                 .collect(Collectors.toList());
@@ -113,10 +110,7 @@ public class OrderConverter {
                 .id(orderItem.getId())
                 .price(orderItem.getPrice())
                 .quantity(orderItem.getQuantity())
-                .itemDtos(orderItem.getItems().stream()
-                        .map(this::convertItemDto)
-                        .collect(Collectors.toList())
-                )
+                .itemDto(convertItemDto(orderItem.getItem()))
                 .build();
     }
 

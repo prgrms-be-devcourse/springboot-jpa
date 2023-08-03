@@ -4,15 +4,13 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "order_item")
 @Getter
 @Setter
-public class OrderItem extends BaseEntity{
+public class OrderItem extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,8 +23,9 @@ public class OrderItem extends BaseEntity{
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order order;
 
-    @OneToMany(mappedBy = "orderItem", cascade = CascadeType.ALL)
-    private List<Item> items = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "item_id", referencedColumnName = "id")
+    private Item item;
 
     public void setOrder(Order order) {
         if (Objects.nonNull(this.order)) {
@@ -36,9 +35,4 @@ public class OrderItem extends BaseEntity{
         this.order = order;
         order.getOrderItems().add(this);
     }
-
-    public void addItem(Item item) {
-        item.setOrderItem(this);
-    }
-
 }
