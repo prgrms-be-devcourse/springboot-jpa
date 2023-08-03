@@ -58,5 +58,14 @@ public class OrderServiceImpl implements OrderService {
         return order.getId();
     }
 
+    public OrderResponse findOrderById(Long orderId) {
+        Order order = orderRepository.findById(orderId).orElseThrow(IllegalArgumentException::new);
+        return new OrderResponse(
+                order.getId(),
+                order.getAddress(),
+                order.getOrderStatus(),
+                order.getUser().getNickname()
+        );
 
+    }
 }

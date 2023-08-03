@@ -6,4 +6,5 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface OrderService {
     Long createOrder(OrderCreateRequest request, Long userId);
+    OrderResponse findOrderById(Long orderId);
 }
