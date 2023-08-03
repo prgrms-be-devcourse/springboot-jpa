@@ -14,6 +14,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class Item extends BaseEntity {
 
+  private static final int MIN_PRICE = 0;
+  private static final int MIN_STOCK_QUANTITY = 0;
+  private static final int MAX_STOCK_QUANTITY = 50;
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -29,14 +33,14 @@ public abstract class Item extends BaseEntity {
   }
 
   private static void validatePrice(int price) {
-    if (price < 0) {
-      throw new IllegalArgumentException(String.format(Message.TOTAL_PRICE_IS_MINUS + "%s", price));
+    if (price < MIN_PRICE) {
+      throw new IllegalArgumentException(String.format(Message.TOTAL_PRICE_IS_WRONG + "%s", price));
     }
   }
 
   private static void validateStockQuantity(int stockQuantity) {
-    if (stockQuantity < 0) {
-      throw new IllegalArgumentException(String.format(Message.TOTAL_QUANTITY_IS_MINUS + "%s", stockQuantity));
+    if (stockQuantity < MIN_STOCK_QUANTITY || stockQuantity >= MAX_STOCK_QUANTITY) {
+      throw new IllegalArgumentException(String.format(Message.TOTAL_QUANTITY_IS_WRONG + "%s", stockQuantity));
     }
   }
 

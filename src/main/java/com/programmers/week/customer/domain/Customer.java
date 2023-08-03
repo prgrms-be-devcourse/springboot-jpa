@@ -13,6 +13,9 @@ import java.util.Objects;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Customer {
 
+    private static final int MAX_FIRST_NAME_LENGTH = 5;
+    private static final int MAX_LAST_NAME_LENGTH = 2;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,21 +33,22 @@ public class Customer {
         this.lastName = lastName;
     }
 
-  private static void validateFirstName(String firstName) {
-    if (Objects.isNull(firstName) || firstName.isBlank()) {
-      throw new IllegalStateException(Message.FIRSTNAME_IS_NULL);
+    private static void validateFirstName(String firstName) {
+        if (Objects.isNull(firstName) || firstName.isBlank()) {
+            throw new IllegalArgumentException(Message.FIRSTNAME_IS_NULL);
+        }
+        if (firstName.length() > MAX_FIRST_NAME_LENGTH) {
+            throw new IllegalArgumentException(Message.NAME_LENGTH_IS_WRONG);
+        }
     }
-  }
 
-  public void changeLastName(String lastName) {
-    validateLastName(lastName);
-    this.lastName = lastName;
-  }
-
-  private static void validateLastName(String lastName) {
-    if (Objects.isNull(lastName) || lastName.isBlank()) {
-      throw new IllegalStateException(Message.LASTNAME_IS_NULL);
+    private static void validateLastName(String lastName) {
+        if (Objects.isNull(lastName) || lastName.isBlank()) {
+            throw new IllegalArgumentException(Message.LASTNAME_IS_NULL);
+        }
+        if (lastName.length() > MAX_LAST_NAME_LENGTH) {
+            throw new IllegalArgumentException(Message.NAME_LENGTH_IS_WRONG);
+        }
     }
-  }
 
 }

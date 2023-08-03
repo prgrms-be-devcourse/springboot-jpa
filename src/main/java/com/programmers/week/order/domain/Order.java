@@ -33,13 +33,13 @@ public class Order extends BaseEntity {
 
   private static void validateOrderStatus(OrderStatus orderStatus) {
     if (Objects.isNull(orderStatus)) {
-      throw new IllegalStateException(Message.INCORRECT_ORDER_STATUS);
+      throw new IllegalArgumentException(Message.INCORRECT_ORDER_STATUS);
     }
   }
 
   private static void validateMemo(String memo) {
     if (Objects.isNull(memo)) {
-      throw new IllegalStateException(Message.MEMO_IS_NULL);
+      throw new IllegalArgumentException(Message.MEMO_IS_NULL);
     }
   }
 
