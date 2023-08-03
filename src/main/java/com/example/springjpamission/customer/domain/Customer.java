@@ -26,9 +26,6 @@ public class Customer extends BaseEntity {
     @Embedded
     private Name name;
 
-    @OneToMany(mappedBy = "customer")
-    private List<Order> orders = new ArrayList<>();
-
     public Customer( Name name) {
         this.name = name;
     }

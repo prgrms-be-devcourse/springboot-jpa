@@ -8,7 +8,6 @@ import com.example.springjpamission.customer.service.dto.SaveCustomerRequest;
 import com.example.springjpamission.customer.service.dto.CustomerResponse;
 import com.example.springjpamission.customer.service.dto.UpdateCustomerRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service

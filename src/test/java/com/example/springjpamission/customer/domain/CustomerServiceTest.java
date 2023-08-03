@@ -8,6 +8,7 @@ import com.example.springjpamission.customer.service.dto.UpdateCustomerRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import java.util.List;
@@ -18,6 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@Transactional
 class CustomerServiceTest {
 
     @Autowired
@@ -34,18 +36,19 @@ class CustomerServiceTest {
         setUpCustomerId = customer.getId();
     }
 
-//    @Test
-//    void saveCustomer() {
-//        //given
-//        SaveCustomerRequest saveCustomerRequest = new SaveCustomerRequest("별", "김");
-//
-//        //when
-//        CustomerResponse customerResponse = customerService.saveCustomer(saveCustomerRequest);
-//
-//        //then
-//        assertThat(customerResponse.firstName()).isEqualTo("별");
-//        assertThat(customerResponse.lastName()).isEqualTo("김");
-//    }
+    @Test
+    void saveCustomer() {
+        //given
+        SaveCustomerRequest saveCustomerRequest = new SaveCustomerRequest("별", "김");
+
+        //when
+        CustomerResponse customerResponse = customerService.saveCustomer(saveCustomerRequest);
+
+        //then
+        Customer findCustomer = customerRepository.findById(customerResponse.id()).get();
+        assertThat(findCustomer.getName().getFirstName()).isEqualTo("별");
+        assertThat(findCustomer.getName().getLastName()).isEqualTo("김");
+    }
 
     @Test
     void updateCustomer() {
@@ -53,21 +56,22 @@ class CustomerServiceTest {
         UpdateCustomerRequest updateCustomerRequest = new UpdateCustomerRequest(setUpCustomerId, "별", "김");
 
         //when
-        CustomerResponse customerResponse = customerService.updateCustomer(updateCustomerRequest);
+        customerService.updateCustomer(updateCustomerRequest);
 
         //then
-        assertThat(customerResponse.firstName()).isEqualTo("별");
-        assertThat(customerResponse.lastName()).isEqualTo("김");
+        Customer findCustomer = customerRepository.findById(setUpCustomerId).get();
+        assertThat(findCustomer.getName().getFirstName()).isEqualTo("별");
+        assertThat(findCustomer.getName().getLastName()).isEqualTo("김");
     }
 
-//    @Test
-//    void findAll() {
-//        //when
-//        CustomerResponses findCustomers = customerService.findAll();
-//
-//        //then
-//        assertThat(findCustomers.customerResponses().size()).isEqualTo(1);
-//    }
+    @Test
+    void findAll() {
+        //when
+        CustomerResponses findCustomers = customerService.findAll();
+
+        //then
+        assertThat(findCustomers.customerResponses().size()).isEqualTo(1);
+    }
 
     @Test
     void deleteById() {

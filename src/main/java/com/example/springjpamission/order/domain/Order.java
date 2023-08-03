@@ -12,7 +12,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -49,13 +49,8 @@ public class Order extends BaseEntity {
         this.customer = customer;
     }
 
-    public void setCustomer(Customer customer) {
-        if (Objects.nonNull(this.customer)) {
-            this.customer.getOrders().remove(this);
-        }
-
+    public void changeCustomer(Customer customer) {
         this.customer = customer;
-        customer.getOrders().add(this);
     }
 
     public void addOrderItem(OrderItem orderItem) {

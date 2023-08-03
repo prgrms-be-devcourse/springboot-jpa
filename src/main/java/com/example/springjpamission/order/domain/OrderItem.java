@@ -1,14 +1,8 @@
 package com.example.springjpamission.order.domain;
 
 import com.example.springjpamission.gobal.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -26,18 +20,18 @@ public class OrderItem extends BaseEntity {
     private int price;
     private int quantity;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order order;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "item_id", referencedColumnName = "id")
     private Item item;
 
-    public OrderItem( int price, int quantity) {
-        this.price = price;
-        this.quantity = quantity;
-    }
+//    public OrderItem( int price, int quantity) {
+//        this.price = price;
+//        this.quantity = quantity;
+//    }
 
     public OrderItem( int price, int quantity, Order order, Item items) {
         this.price = price;

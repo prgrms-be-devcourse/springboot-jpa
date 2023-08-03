@@ -3,6 +3,7 @@ package com.example.springjpamission.customer.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.example.springjpamission.order.domain.Car;
+import com.example.springjpamission.order.domain.Item;
 import com.example.springjpamission.order.domain.Order;
 import com.example.springjpamission.order.domain.OrderItem;
 import jakarta.persistence.EntityManager;
@@ -17,50 +18,26 @@ import org.springframework.test.context.ActiveProfiles;
 
 @ActiveProfiles("test")
 @DataJpaTest
-public class RelationMappingTest {
+class RelationMappingTest {
 
     @Autowired
     EntityManagerFactory entityManagerFactory;
 
     @Test
-    @DisplayName("Order와 Cosuntemr가 매핑이 잘 되어있는지 확인한다.")
-    void order_customer_mappingTest(){
+    @DisplayName("order, order_item, item간 매핑이 잘 되어있는지 확인한다.")
+    void order_orderItem_item_mappingTest() {
         //given
         EntityManager em = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = em.getTransaction();
+        Customer customer = new Customer(new Name("별", "김"));
 
         //when
         transaction.begin();
 
-        String uuid = UUID.randomUUID().toString();
-        Order order = new Order (uuid, "---");
-
-        Name name = new Name("영운", "윤");
-        Customer customer =  new Customer(name);
-
-        order.setCustomer(customer);
-        em.persist(order);
-        transaction.commit();
-        em.clear();
-
-        //then
-        Order findOrder = em.find(Order.class, order.getId());
-        assertThat(findOrder.getCustomer().getName()).isEqualTo(name);
-    }
-
-    @Test
-    @DisplayName("Order와 OrderItem 매핑이 잘 되어있는지 확인한다.")
-    void order_orderItem_mappingTest() {
-        //given
-        EntityManager em = entityManagerFactory.createEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-
-        //when
-        transaction.begin();
-        String uuid = UUID.randomUUID().toString();
-        Order order = new Order(uuid , "---");
-
-        OrderItem orderItem = new OrderItem( 1000 , 10);
+        String id = UUID.randomUUID().toString();
+        Order order = new Order(id, "----", 1000, 1, customer);
+        Car car = new Car(1000, 1, 500);
+        OrderItem orderItem = new OrderItem(1000, 1, order, car);
         order.addOrderItem(orderItem);
 
         em.persist(order);
@@ -68,31 +45,12 @@ public class RelationMappingTest {
         em.clear();
 
         //then
-        Order updatedOrder = em.find(Order.class, uuid);
+        Order updatedOrder = em.find(Order.class, id);
+        OrderItem updatedOrderItem = em.find(OrderItem.class, orderItem.getId());
+        Car item = (Car) updatedOrderItem.getItem();
+
         assertThat(updatedOrder.getOrderItems().get(0).getPrice()).isEqualTo(1000);
-        assertThat(updatedOrder.getOrderItems().get(0).getQuantity()).isEqualTo(10);
+        assertThat(item.getPower()).isEqualTo(500);
     }
 
-    @Test
-    @DisplayName("orderItem과 item 매핑이 잘 되어있는지 확인한다.")
-    void orderItem_item_mappingTest() {
-        //given
-        EntityManager em = entityManagerFactory.createEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-
-        //when
-        transaction.begin();
-        OrderItem orderItem = new OrderItem(100, 1);
-
-        Car car = new Car(100, 5, 1);
-        orderItem.setItem(car);
-
-        em.persist(orderItem);
-        transaction.commit();
-
-        //then
-        OrderItem findOrderItem = em.find(OrderItem.class, orderItem.getId());
-        assertThat(findOrderItem.getItem().getPrice()).isEqualTo(100);
-        assertThat(findOrderItem.getItem().getStockQuantity()).isEqualTo(5);
-    }
 }

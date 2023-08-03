@@ -15,7 +15,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 @ActiveProfiles("test")
 @DataJpaTest
-public class PersistenceContextTest {
+class PersistenceContextTest {
 
     @Autowired
     EntityManagerFactory entityManagerFactory;
