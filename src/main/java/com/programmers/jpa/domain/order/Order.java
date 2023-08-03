@@ -13,23 +13,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@Entity
-@Table(name = "orders")
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Entity
+@Table(name = "order")
 @EntityListeners(AuditingEntityListener.class)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order extends BaseEntity {
     @Id
     @Column(name = "id")
     private String uuid;
 
     @CreatedDate
+    @Column(name = "order_datetime")
     private LocalDateTime orderDatetime;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "order_status", nullable = false)
     private OrderStatus orderStatus;
 
-    @Lob
+    @Column(name = "memo", columnDefinition = "text")
     private String memo;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

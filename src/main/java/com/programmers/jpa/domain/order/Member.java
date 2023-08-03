@@ -6,9 +6,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Getter
 @Entity
 @Table(name = "member")
-@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends BaseEntity {
     @Id
@@ -18,15 +18,16 @@ public class Member extends BaseEntity {
     @Column(name = "name", nullable = false, length = 30)
     private String name;
 
-    @Column(nullable = false, length = 30, unique = true)
+    @Column(name = "nick_name", nullable = false, length = 30, unique = true)
     private String nickName;
 
+    @Column(name = "age", nullable = false)
     private int age;
 
     @Column(name = "address", nullable = false)
     private String address;
 
-    @Column(name = "description", nullable = true)
+    @Column(name = "description")
     private String description;
 
     @Builder
