@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @Slf4j
 @RestControllerAdvice
-public class GlobalExceptionHandler {
+public class GlobalExceptionHandler {  // TODO: 혹시 멘토님들은 여기서 어떤 어떤 에러를 잡으시나요?
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse handleEntityNotFoundException(EntityNotFoundException e) {
@@ -19,9 +19,16 @@ public class GlobalExceptionHandler {
         return ErrorResponse.newErrorResponse(e.getMessage());
     }
 
-    @ExceptionHandler({HttpMessageNotReadableException.class, MethodArgumentNotValidException.class})
+    @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleHttpMessageNotReadableException(Exception e) {
+    public ErrorResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        log.warn(e.getMessage(), e);
+        return ErrorResponse.newErrorResponse(e.getMessage());
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
         log.warn(e.getMessage(), e);
         return ErrorResponse.badRequest();
     }
