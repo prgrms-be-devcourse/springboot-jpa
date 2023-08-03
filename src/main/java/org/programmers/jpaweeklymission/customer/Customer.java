@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.programmers.jpaweeklymission.global.BaseEntity;
+
 @Table(name = "customers")
 @Entity
 @Getter
@@ -18,12 +19,12 @@ public class Customer extends BaseEntity {
     private Long id;
 
     @NotBlank
-    @Size(max = 20)
+    @Size(min = 1, max = 20)
     @Column(name = "first_name", length = 20, nullable = false)
     private String firstName;
 
     @NotBlank
-    @Size(max = 20)
+    @Size(min = 1, max = 20)
     @Column(name = "last_name", length = 20, nullable = false)
     private String lastName;
 
