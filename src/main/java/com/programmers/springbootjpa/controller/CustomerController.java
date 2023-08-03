@@ -41,7 +41,7 @@ public class CustomerController {
         return customerService.updateCustomerById(id, request);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCustomerById(@PathVariable Long id) {
         customerService.deleteCustomerById(id);
