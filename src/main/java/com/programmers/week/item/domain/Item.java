@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public abstract class Item extends BaseEntity {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   private int price;

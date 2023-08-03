@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class OrderItem extends BaseEntity {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @ManyToOne

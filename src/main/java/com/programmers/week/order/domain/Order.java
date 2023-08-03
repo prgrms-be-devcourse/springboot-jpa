@@ -15,7 +15,7 @@ import java.util.Objects;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order extends BaseEntity {
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Enumerated(EnumType.STRING)
@@ -31,20 +31,10 @@ public class Order extends BaseEntity {
     this.memo = memo;
   }
 
-  void changeOrderStatus(OrderStatus orderStatus, String memo) {
-    validateOrderStatus(orderStatus);
-    this.orderStatus = orderStatus;
-  }
-
   private static void validateOrderStatus(OrderStatus orderStatus) {
     if (Objects.isNull(orderStatus)) {
       throw new IllegalStateException(Message.INCORRECT_ORDER_STATUS);
     }
-  }
-
-  void changeMemo(String memo) {
-    validateMemo(memo);
-    this.memo = memo;
   }
 
   private static void validateMemo(String memo) {
