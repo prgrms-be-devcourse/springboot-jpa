@@ -61,5 +61,21 @@ class OrderServiceImplTest {
         assertThat(orderId).isNotNull();
     }
 
+    @Test
+    void findByIdTest() {
+        // Given
+        UserCreateRequest userCreateRequest = new UserCreateRequest("login", "password", "닉네임");
+        Long userId = userService.createUser(userCreateRequest);
+
+        OrderCreateRequest orderCreateRequest = new OrderCreateRequest("서울시 동작구", orderProducts);
+        Long orderId = orderService.createOrder(orderCreateRequest, userId);
+
+        // When
+        OrderResponse orderResponse = orderService.findOrderById(orderId);
+
+        // Then
+        assertThat(orderResponse.id()).isEqualTo(orderId);
+
+    }
 
 }
