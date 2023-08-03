@@ -1,10 +1,16 @@
 package com.jpaweekily.domain.order.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import java.util.List;
 
-public record OrderCreateRequest (
-    String nickName,
-    String address,
-    List<OrderProductCreate> orderProductCreateList
-){
+public record OrderCreateRequest(
+        @NotBlank
+        String nickName,
+        @NotBlank
+        String address,
+        @NotNull
+        List<OrderProductCreate> orderProductCreateList
+) {
 }

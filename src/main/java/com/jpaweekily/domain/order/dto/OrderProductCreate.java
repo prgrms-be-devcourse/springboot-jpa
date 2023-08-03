@@ -1,7 +1,12 @@
 package com.jpaweekily.domain.order.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public record OrderProductCreate(
-    Long productId,
-    int quantity
+        @NotNull
+        Long productId,
+        @NotBlank
+        int quantity
 ) {
 }

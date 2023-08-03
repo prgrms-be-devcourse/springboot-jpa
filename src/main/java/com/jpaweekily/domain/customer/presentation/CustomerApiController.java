@@ -4,6 +4,7 @@ import com.jpaweekily.domain.customer.dto.CustomerRequest;
 import com.jpaweekily.domain.customer.dto.CustomerResponse;
 import com.jpaweekily.domain.customer.dto.CustomerUpdate;
 import com.jpaweekily.domain.customer.application.CustomerService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,7 +27,7 @@ public class CustomerApiController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<Long> customerCreate(@RequestBody CustomerRequest request) {
+    public ResponseEntity<Long> customerCreate(@RequestBody @Valid CustomerRequest request) {
         Long id = customerService.create(request);
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
