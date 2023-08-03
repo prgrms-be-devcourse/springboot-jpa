@@ -19,7 +19,7 @@ public class CustomerApiController {
 
     private final CustomerService customerService;
 
-    @GetMapping("/page")
+    @GetMapping
     public ResponseEntity<Page<CustomerResponse>> customerPage(@PageableDefault() Pageable pageable) {
         Page<CustomerResponse> customers = customerService.findCustomersWithPaging(pageable);
         return ResponseEntity.ok(customers);
