@@ -1,22 +1,28 @@
-package com.jpaweekily.domain.order.application;
+package com.jpaweekly.domain.order.application;
 
-import com.jpaweekily.domain.order.dto.OrderCreateRequest;
-import com.jpaweekily.domain.order.dto.OrderProductCreate;
-import com.jpaweekily.domain.product.application.ProductService;
-import com.jpaweekily.domain.product.dto.ProductCreateRequest;
-import com.jpaweekily.domain.user.application.UserService;
-import com.jpaweekily.domain.user.dto.UserCreateRequest;
+import com.jpaweekly.domain.order.dto.OrderCreateRequest;
+import com.jpaweekly.domain.order.dto.OrderProductCreate;
+import com.jpaweekly.domain.product.application.ProductService;
+import com.jpaweekly.domain.product.dto.ProductCreateRequest;
+import com.jpaweekly.domain.user.application.UserService;
+import com.jpaweekly.domain.user.dto.UserCreateRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.ComponentScan;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
+@DataJpaTest
 class OrderServiceImplTest {
+
+    @TestConfiguration
+    @ComponentScan(basePackages = {"com.jpaweekly.domain", "com.jpaweekly.config"})
+    static class Config{}
 
     @Autowired
     private OrderService orderService;
