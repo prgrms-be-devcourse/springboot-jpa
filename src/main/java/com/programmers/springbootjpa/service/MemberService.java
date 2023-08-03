@@ -36,6 +36,7 @@ public class MemberService {
         return ResponseDto.fromEntity(member);
     }
 
+    @Transactional
     public void deleteById(Long id) {
         if (!memberRepository.existsById(id)) {
             throw new NoSuchElementException("삭제하려는 고객을 찾지 못했습니다.");
