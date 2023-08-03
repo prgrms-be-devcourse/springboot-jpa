@@ -13,12 +13,16 @@ public class OrderConverter {
     public Order convertOrder(OrderDto orderDto) {
         List<OrderItem> orderItems = this.convertOrderItems(orderDto.getOrderItemDtos());
 
-        return Order.builder()
+        Order order = Order.builder()
                 .orderStatus(orderDto.getOrderStatus())
                 .memo(orderDto.getMemo())
                 .member(this.convertMember(orderDto.getMemberDto()))
                 .orderItems(orderItems)
                 .build();
+
+        orderItems.forEach(orderItem -> orderItem.setOrder(order));
+
+        return order;
     }
 
     private Member convertMember(MemberDto memberDto) {
@@ -36,6 +40,7 @@ public class OrderConverter {
                 .map(orderItemDto -> OrderItem.builder()
                         .price(orderItemDto.getPrice())
                         .quantity(orderItemDto.getQuantity())
+                        .item(this.convertItem(orderItemDto.getItemDto()))
                         .build())
                 .toList();
     }
