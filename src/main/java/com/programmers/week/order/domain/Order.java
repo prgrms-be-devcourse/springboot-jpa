@@ -43,4 +43,11 @@ public class Order extends BaseEntity {
     }
   }
 
+  private void changeOrder(OrderStatus orderStatus, String memo) {
+    validateOrderStatus(orderStatus);
+    validateMemo(memo);
+    this.orderStatus = orderStatus;
+    this.memo = memo;
+  }
+
 }

@@ -51,4 +51,11 @@ public class Customer {
         }
     }
 
+    public void changeName(String firstName, String lastName) {
+        validateFirstName(firstName);
+        validateLastName(lastName);
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
 }

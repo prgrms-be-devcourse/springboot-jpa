@@ -40,14 +40,13 @@ public class CustomerService {
         return customerPage.map(CustomerResponse::from);
     }
 
-  @Transactional
-  public Long update(CustomerUpdateRequest request) {
-    Customer customer = customerRepository.findById(request.id())
-            .orElseThrow(() -> new IllegalArgumentException(Message.CUSTOMER_IS_NO_EXIST));
-    customer.changeFirstName(request.firstName());
-    customer.changeLastName(request.lastName());
-    return customer.getId();
-  }
+    @Transactional
+    public Long update(Long id, CustomerUpdateRequest request) {
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException(Message.CUSTOMER_IS_NO_EXIST));
+        customer.changeName(request.firstName(), request.lastName());
+        return customer.getId();
+    }
 
     @Transactional
     public void deleteById(Long id) {
