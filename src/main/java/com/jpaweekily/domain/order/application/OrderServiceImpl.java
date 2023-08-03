@@ -5,7 +5,6 @@ import com.jpaweekily.domain.order.OrderProduct;
 import com.jpaweekily.domain.order.OrderStatus;
 import com.jpaweekily.domain.order.dto.OrderCreateRequest;
 import com.jpaweekily.domain.order.dto.OrderResponse;
-import com.jpaweekily.domain.order.infrastructrue.OrderProductBulkRepository;
 import com.jpaweekily.domain.order.infrastructrue.OrderProductRepository;
 import com.jpaweekily.domain.order.infrastructrue.OrderRepository;
 import com.jpaweekily.domain.product.Product;
@@ -28,7 +27,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
-    private final OrderProductBulkRepository orderProductBulkRepository;
+    private final OrderProductRepository orderProductRepository;
 
     @Transactional
     public Long createOrder(Long id, OrderCreateRequest request) {
@@ -52,7 +51,7 @@ public class OrderServiceImpl implements OrderService {
                     .build();
             orderProducts.add(orderProduct);
         });
-        orderProductBulkRepository.saveAll(orderProducts);
+        orderProductRepository.saveAll(orderProducts);
         return order.getId();
     }
 

@@ -12,7 +12,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class OrderProductBulkRepository {
+public class CustomOrderProductRepositoryImpl implements CustomOrderProductRepository{
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
