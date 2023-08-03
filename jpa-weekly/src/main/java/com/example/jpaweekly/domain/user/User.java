@@ -2,7 +2,6 @@ package com.example.jpaweekly.domain.user;
 
 import com.example.jpaweekly.domain.BaseEntity;
 import jakarta.persistence.*;
-import jakarta.persistence.Entity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

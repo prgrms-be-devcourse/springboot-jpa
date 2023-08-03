@@ -1,12 +1,10 @@
 package com.example.jpaweekly.domain.order.service;
 
-import com.example.jpaweekly.domain.order.Order;
 import com.example.jpaweekly.domain.order.dto.OrderCreateRequest;
 import com.example.jpaweekly.domain.order.dto.OrderProductCreateRequest;
 import com.example.jpaweekly.domain.order.dto.OrderResponse;
 import com.example.jpaweekly.domain.product.dto.ProductCreateRequest;
 import com.example.jpaweekly.domain.product.service.ProductService;
-import com.example.jpaweekly.domain.user.User;
 import com.example.jpaweekly.domain.user.dto.UserCreateRequest;
 import com.example.jpaweekly.domain.user.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
