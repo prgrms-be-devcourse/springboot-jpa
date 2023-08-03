@@ -51,13 +51,13 @@ public class Item {
     }
 
     private void validatePrice(int price) {
-        if(price < ZERO) {
+        if (price < ZERO) {
             throw new IllegalArgumentException("Price must be positive or zero");
         }
     }
 
     private void validateStockQuantity(int stockQuantity) {
-        if(stockQuantity < ZERO) {
+        if (stockQuantity < ZERO) {
             throw new IllegalArgumentException("Stock quantity must be positive or zero");
         }
     }
