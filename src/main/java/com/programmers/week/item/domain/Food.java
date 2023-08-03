@@ -14,23 +14,23 @@ import java.util.Objects;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Food extends Item {
 
-  @Column(length = 5)
-  private String chef;
+    @Column(length = 5)
+    private String chef;
 
-  private Food(int price, int stockQuantity, String chef) {
-    super(price, stockQuantity);
-    this.chef = chef;
-  }
-
-  public static Item of(int price, int stockQuantity, String chef) {
-    validateFood(chef);
-    return new Food(price, stockQuantity, chef);
-  }
-
-  private static void validateFood(String chef) {
-    if (Objects.isNull(chef) || chef.isBlank()) {
-      throw new IllegalStateException(Message.CHEF_IS_NULL);
+    private Food(int price, int stockQuantity, String chef) {
+        super(price, stockQuantity);
+        this.chef = chef;
     }
-  }
+
+    public static Item of(int price, int stockQuantity, String chef) {
+        validateFood(chef);
+        return new Food(price, stockQuantity, chef);
+    }
+
+    private static void validateFood(String chef) {
+        if (Objects.isNull(chef) || chef.isBlank()) {
+            throw new IllegalStateException(Message.CHEF_IS_NULL);
+        }
+    }
 
 }

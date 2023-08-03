@@ -12,24 +12,24 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Car extends Item {
 
-  private static final int MIN_POWER = 0;
-  private static final long MAX_POWER = 1000000;
-  private long power;
+    private static final int MIN_POWER = 0;
+    private static final long MAX_POWER = 1000000;
+    private long power;
 
-  private Car(int price, int stockQuantity, long power) {
-    super(price, stockQuantity);
-    this.power = power;
-  }
-
-  public static Item of(int price, int stockQuantity, long power) {
-    validatePower(power);
-    return new Car(price, stockQuantity, power);
-  }
-
-  private static void validatePower(long power) {
-    if (power < MIN_POWER || power > MAX_POWER) {
-      throw new IllegalStateException(String.format(Message.POWER_PRICE_IS_WRONG + "%s", power));
+    private Car(int price, int stockQuantity, long power) {
+        super(price, stockQuantity);
+        this.power = power;
     }
-  }
+
+    public static Item of(int price, int stockQuantity, long power) {
+        validatePower(power);
+        return new Car(price, stockQuantity, power);
+    }
+
+    private static void validatePower(long power) {
+        if (power < MIN_POWER || power > MAX_POWER) {
+            throw new IllegalStateException(String.format(Message.POWER_PRICE_IS_WRONG + "%s", power));
+        }
+    }
 
 }

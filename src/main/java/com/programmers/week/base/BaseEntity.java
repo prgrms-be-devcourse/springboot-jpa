@@ -11,11 +11,11 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 public class BaseEntity {
 
-  @Column(columnDefinition = "TIMESTAMP")
-  @CreatedDate
-  private LocalDateTime createdAt;
+    @Column(columnDefinition = "TIMESTAMP")
+    @CreatedDate
+    private LocalDateTime createdAt;
 
-  @Column(columnDefinition = "TIMESTAMP")
-  @LastModifiedDate
-  private LocalDateTime lastModifiedAt;
+    @Column(columnDefinition = "TIMESTAMP")
+    @LastModifiedDate
+    private LocalDateTime lastModifiedAt;
 }

@@ -14,34 +14,34 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class Item extends BaseEntity {
 
-  private static final int MIN_PRICE = 0;
-  private static final int MIN_STOCK_QUANTITY = 0;
-  private static final int MAX_STOCK_QUANTITY = 50;
+    private static final int MIN_PRICE = 0;
+    private static final int MIN_STOCK_QUANTITY = 0;
+    private static final int MAX_STOCK_QUANTITY = 50;
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-  private int price;
-  private int stockQuantity;
+    private int price;
+    private int stockQuantity;
 
-  protected Item(int price, int stockQuantity) {
-    validatePrice(price);
-    validateStockQuantity(stockQuantity);
-    this.price = price;
-    this.stockQuantity = stockQuantity;
-  }
-
-  private static void validatePrice(int price) {
-    if (price < MIN_PRICE) {
-      throw new IllegalArgumentException(String.format(Message.TOTAL_PRICE_IS_WRONG + "%s", price));
+    protected Item(int price, int stockQuantity) {
+        validatePrice(price);
+        validateStockQuantity(stockQuantity);
+        this.price = price;
+        this.stockQuantity = stockQuantity;
     }
-  }
 
-  private static void validateStockQuantity(int stockQuantity) {
-    if (stockQuantity < MIN_STOCK_QUANTITY || stockQuantity >= MAX_STOCK_QUANTITY) {
-      throw new IllegalArgumentException(String.format(Message.TOTAL_QUANTITY_IS_WRONG + "%s", stockQuantity));
+    private static void validatePrice(int price) {
+        if (price < MIN_PRICE) {
+            throw new IllegalArgumentException(String.format(Message.TOTAL_PRICE_IS_WRONG + "%s", price));
+        }
     }
-  }
+
+    private static void validateStockQuantity(int stockQuantity) {
+        if (stockQuantity < MIN_STOCK_QUANTITY || stockQuantity >= MAX_STOCK_QUANTITY) {
+            throw new IllegalArgumentException(String.format(Message.TOTAL_QUANTITY_IS_WRONG + "%s", stockQuantity));
+        }
+    }
 
 }

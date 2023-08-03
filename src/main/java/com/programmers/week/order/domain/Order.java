@@ -14,40 +14,40 @@ import java.util.Objects;
 @Table(name = "orders")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order extends BaseEntity {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-  @Enumerated(EnumType.STRING)
-  private OrderStatus orderStatus;
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus;
 
-  @Lob
-  private String memo;
+    @Lob
+    private String memo;
 
-  public Order(OrderStatus orderStatus, String memo) {
-    validateOrderStatus(orderStatus);
-    validateMemo(memo);
-    this.orderStatus = orderStatus;
-    this.memo = memo;
-  }
-
-  private static void validateOrderStatus(OrderStatus orderStatus) {
-    if (Objects.isNull(orderStatus)) {
-      throw new IllegalArgumentException(Message.INCORRECT_ORDER_STATUS);
+    public Order(OrderStatus orderStatus, String memo) {
+        validateOrderStatus(orderStatus);
+        validateMemo(memo);
+        this.orderStatus = orderStatus;
+        this.memo = memo;
     }
-  }
 
-  private static void validateMemo(String memo) {
-    if (Objects.isNull(memo)) {
-      throw new IllegalArgumentException(Message.MEMO_IS_NULL);
+    private static void validateOrderStatus(OrderStatus orderStatus) {
+        if (Objects.isNull(orderStatus)) {
+            throw new IllegalArgumentException(Message.INCORRECT_ORDER_STATUS);
+        }
     }
-  }
 
-  private void changeOrder(OrderStatus orderStatus, String memo) {
-    validateOrderStatus(orderStatus);
-    validateMemo(memo);
-    this.orderStatus = orderStatus;
-    this.memo = memo;
-  }
+    private static void validateMemo(String memo) {
+        if (Objects.isNull(memo)) {
+            throw new IllegalArgumentException(Message.MEMO_IS_NULL);
+        }
+    }
+
+    private void changeOrder(OrderStatus orderStatus, String memo) {
+        validateOrderStatus(orderStatus);
+        validateMemo(memo);
+        this.orderStatus = orderStatus;
+        this.memo = memo;
+    }
 
 }
