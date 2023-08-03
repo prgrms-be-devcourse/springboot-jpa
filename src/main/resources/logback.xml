@@ -24,7 +24,7 @@
         <appender-ref ref="STDOUT"/>
     </root>
 
-    <logger name="org.programmers.jpaweeklymission.global.GlobalExceptionHandler"
+    <logger name="org.programmers.jpaweeklymission.global.exception.GlobalExceptionHandler"
             level="warn"
             additivity="false">
         <appender-ref ref="WARN_LOG"/>
