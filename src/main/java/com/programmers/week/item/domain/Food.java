@@ -1,7 +1,9 @@
 package com.programmers.week.item.domain;
 
 import com.programmers.week.exception.Message;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
