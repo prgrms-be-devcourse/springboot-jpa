@@ -1,5 +1,6 @@
 package org.programmers.jpaweeklymission.customer;
 
+import org.assertj.core.api.RecursiveComparisonAssert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,6 @@ class CustomerTest {
         // when
         customer.changeEntity(forUpdate);
         // then
-        assertThat(customer.getFirstName()).isEqualTo("상민");
-        assertThat(customer.getLastName()).isEqualTo("박");
+        assertThat(customer).usingRecursiveComparison().isEqualTo(forUpdate);
     }
 }
