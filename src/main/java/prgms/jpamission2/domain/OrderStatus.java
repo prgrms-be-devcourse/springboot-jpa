@@ -1,4 +1,4 @@
-package prgms.jpamission2.config.domain;
+package prgms.jpamission2.domain;
 
 public enum OrderStatus {
     OPENED, CANCELLED

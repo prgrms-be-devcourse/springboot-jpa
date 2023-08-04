@@ -7,8 +7,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import prgms.jpamission2.config.domain.Customer;
-import prgms.jpamission2.config.domain.CustomerRepository;
+import prgms.jpamission2.domain.Customer;
+import prgms.jpamission2.domain.CustomerRepository;
 
 @SpringBootTest
 public class PersistenceContextTest {
