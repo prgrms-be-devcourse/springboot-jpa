@@ -1,4 +1,4 @@
-package prgms.jpamission2.domain;
+package prgms.jpamission2.config.domain;
 
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
