@@ -44,10 +44,10 @@ public class CustomerController {
         return customerService.readAllCustomer();
     }
 
-    @PatchMapping
+    @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void updateCustomerById(@Valid @RequestBody CustomerUpdateRequest customerUpdateRequest) {
-        customerService.updateCustomer(customerUpdateRequest);
+    public void updateCustomerById(@PathVariable Long id, @Valid @RequestBody CustomerUpdateRequest customerUpdateRequest) {
+        customerService.updateCustomer(id, customerUpdateRequest);
     }
 
     @DeleteMapping("/{id}")

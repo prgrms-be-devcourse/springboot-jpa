@@ -46,8 +46,8 @@ public class CustomerService {
     }
 
     @Transactional
-    public void updateCustomer(CustomerUpdateRequest customerUpdateRequest) {
-        Customer customer = customerRepository.findById(customerUpdateRequest.getId())
+    public void updateCustomer(Long id, CustomerUpdateRequest customerUpdateRequest) {
+        Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("업데이트 할 사용자가 없습니다."));
 
         customer.changeNickName(customerUpdateRequest.getNickName());
