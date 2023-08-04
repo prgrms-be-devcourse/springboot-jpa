@@ -1,4 +1,4 @@
-package prgms.jpa_w1.config;
+package prgms.jpamission2.config;
 
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +19,6 @@ public class DataSourceConfig {
     @Bean
     public DataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-
         dataSource.setDriverClassName("org.h2.Driver");
         dataSource.setUrl("jdbc:h2:~/test");
         dataSource.setUsername("sa");
@@ -31,7 +30,6 @@ public class DataSourceConfig {
     @Bean
     public JpaVendorAdapter jpaVendorAdapter(JpaProperties jpaProperties){
         AbstractJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
-
         jpaVendorAdapter.setShowSql(jpaProperties.isShowSql());
         jpaVendorAdapter.setDatabasePlatform(jpaProperties.getDatabasePlatform());
         jpaVendorAdapter.setGenerateDdl(jpaProperties.isGenerateDdl());
@@ -42,10 +40,10 @@ public class DataSourceConfig {
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, JpaVendorAdapter jpaVendorAdapter,
                                                                        JpaProperties jpaProperties) {
-        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-
+        LocalContainerEntityManagerFactoryBean em
+                = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
-        em.setPackagesToScan("prgms.jpa_w1.config.domain");
+        em.setPackagesToScan("prgms.jpamission2.config.domain");
         em.setJpaVendorAdapter(jpaVendorAdapter);
 
         Properties properties = new Properties();

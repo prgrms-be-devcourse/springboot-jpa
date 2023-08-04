@@ -1,13 +1,13 @@
-package prgms.jpa_w1;
+package prgms.jpamission2;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class JpaW1Application {
+public class JpaMission2Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(JpaW1Application.class, args);
+        SpringApplication.run(JpaMission2Application.class, args);
     }
 
 }

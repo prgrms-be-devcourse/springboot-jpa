@@ -1,10 +1,10 @@
-package prgms.jpa_w1;
+package prgms.jpamission2;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class JpaW1ApplicationTests {
+class JpaMission2ApplicationTests {
 
     @Test
     void contextLoads() {
