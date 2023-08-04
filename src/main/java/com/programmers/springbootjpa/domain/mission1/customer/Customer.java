@@ -20,10 +20,10 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false, length = MAXIMUM_LENGTH_LIMIT)
     private String firstName;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false, length = MAXIMUM_LENGTH_LIMIT)
     private String lastName;
 
     public Customer(String firstName, String lastName) {

@@ -22,10 +22,10 @@ public class Member extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false, length = MAXIMUM_LENGTH_LIMIT)
     private String name;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false, length = MAXIMUM_LENGTH_LIMIT)
     private String nickname;
 
     @Column(nullable = false)
