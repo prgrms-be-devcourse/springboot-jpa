@@ -29,7 +29,7 @@ public class Item {
 	@JoinColumn(name = "order_item_id", referencedColumnName = "id")
 	private OrderItem orderItem;
 
-	public void setOrderItem(OrderItem orderItem) {
+	public void addOrderItem(OrderItem orderItem) {
 		if (Objects.nonNull(this.orderItem)) {
 			this.orderItem.getItems().remove(this);
 		}

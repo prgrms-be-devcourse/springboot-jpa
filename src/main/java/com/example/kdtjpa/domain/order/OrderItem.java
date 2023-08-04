@@ -39,7 +39,7 @@ public class OrderItem {
 	@OneToMany(mappedBy = "orderItem")
 	private List<Item> items;
 
-	public void setOrder(Order order) {
+	public void addItem(Order order) {
 		if (Objects.nonNull(this.order)) {
 			this.order.getOrderItems().remove(this);
 		}
@@ -49,7 +49,7 @@ public class OrderItem {
 	}
 
 	public void addItem(Item item) {
-		item.setOrderItem(this);
+		item.addOrderItem(this);
 	}
 
 }
