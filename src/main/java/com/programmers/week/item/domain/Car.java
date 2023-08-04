@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Car extends Item {
 
-    private static final int MIN_POWER = 0;
+    private static final long MIN_POWER = 0;
     private static final long MAX_POWER = 1000000;
     private long power;
 

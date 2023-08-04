@@ -16,6 +16,8 @@ import java.util.Objects;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Food extends Item {
 
+    private static final int MAX_CHEF_LENGTH = 5;
+
     @Column(length = 5)
     private String chef;
 
@@ -32,6 +34,9 @@ public class Food extends Item {
     private static void validateFood(String chef) {
         if (Objects.isNull(chef) || chef.isBlank()) {
             throw new IllegalStateException(Message.CHEF_IS_NULL);
+        }
+        if (chef.length() > MAX_CHEF_LENGTH) {
+            throw new IllegalArgumentException(String.format(Message.CHEF_LENGTH_IS_WRONG + "%s", chef));
         }
     }
 

@@ -44,7 +44,7 @@ public abstract class Item extends BaseEntity {
     }
 
     private static void validateStockQuantity(int stockQuantity) {
-        if (stockQuantity < MIN_STOCK_QUANTITY || stockQuantity >= MAX_STOCK_QUANTITY) {
+        if (stockQuantity < MIN_STOCK_QUANTITY || stockQuantity > MAX_STOCK_QUANTITY) {
             throw new IllegalArgumentException(String.format(Message.TOTAL_QUANTITY_IS_WRONG + "%s", stockQuantity));
         }
     }
