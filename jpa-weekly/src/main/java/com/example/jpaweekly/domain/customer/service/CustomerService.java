@@ -18,5 +18,6 @@ public interface CustomerService {
     CustomerResponse update(CustomerUpdate request);
 
     Page<CustomerResponse> findCustomersWithPaging(Pageable pageable);
+
     void delete(Long id);
 }
