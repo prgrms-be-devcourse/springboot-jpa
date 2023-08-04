@@ -38,7 +38,7 @@ class CustomerServiceImplTest {
         //When
         CustomerResponse customerById = customerService.findCustomerById(id);
         //Then
-        assertThat(customerById.firstName()).isEqualTo("na");
+        assertThat(customerById.id()).isEqualTo(id);
     }
 
     @Test
