@@ -22,8 +22,8 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final UserRepository userRepository;
-    private ProductRepository productRepository;
-    private OrderProductRepository orderProductRepository;
+    private final ProductRepository productRepository;
+    private final OrderProductRepository orderProductRepository;
 
     public OrderServiceImpl(OrderRepository orderRepository, UserRepository userRepository, ProductRepository productRepository, OrderProductRepository orderProductRepository) {
         this.orderRepository = orderRepository;

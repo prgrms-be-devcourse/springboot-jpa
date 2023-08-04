@@ -10,12 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 @Service
 public class UserServiceImpl implements UserService {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
+    @Transactional
     public Long createUser(UserCreateRequest request){
         User user = User.builder()
                 .loginId(request.loginId())
