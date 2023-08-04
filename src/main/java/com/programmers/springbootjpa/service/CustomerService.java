@@ -38,7 +38,7 @@ public class CustomerService {
                 .toList();
     }
 
-    public CustomerResponse readCustomer(Long id) {
+    public CustomerResponse readCustomerById(Long id) {
         Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("찾는 사용자가 없습니다."));
 
@@ -46,7 +46,7 @@ public class CustomerService {
     }
 
     @Transactional
-    public void updateCustomer(Long id, CustomerUpdateRequest customerUpdateRequest) {
+    public void updateCustomerById(Long id, CustomerUpdateRequest customerUpdateRequest) {
         Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("업데이트 할 사용자가 없습니다."));
 
@@ -55,7 +55,7 @@ public class CustomerService {
     }
 
     @Transactional
-    public void deleteCustomer(Long id) {
+    public void deleteCustomerById(Long id) {
         customerRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("삭제할 사용자가 없습니다."));
 
