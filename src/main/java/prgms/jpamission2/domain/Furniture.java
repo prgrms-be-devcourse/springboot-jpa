@@ -5,7 +5,7 @@ import jakarta.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("FURNITURE")
-public class Furniture extends Item{
+public class Furniture extends Item {
     private int width;
     private int height;
 

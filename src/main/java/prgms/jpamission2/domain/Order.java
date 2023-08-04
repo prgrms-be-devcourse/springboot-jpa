@@ -66,7 +66,7 @@ public class Order extends BaseEntity {
     }
 
     public void setMember(Member member) {
-        if(Objects.nonNull(this.member)) {
+        if (Objects.nonNull(this.member)) {
             this.member.getOrders().remove(this);
         }
 
