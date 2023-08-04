@@ -29,12 +29,13 @@ class MemberRepositoryTest {
         //given
         //when
         Member savedMember = memberRepository.save(member);
+        Member result = memberRepository.findById(savedMember.getId()).get();
 
         //then
-        assertThat(savedMember.getName()).isEqualTo(member.getName());
-        assertThat(savedMember.getNickname()).isEqualTo(member.getNickname());
-        assertThat(savedMember.getAge()).isEqualTo(member.getAge());
-        assertThat(savedMember.getAddress()).isEqualTo(member.getAddress());
+        assertThat(result.getName()).isEqualTo(member.getName());
+        assertThat(result.getNickname()).isEqualTo(member.getNickname());
+        assertThat(result.getAge()).isEqualTo(member.getAge());
+        assertThat(result.getAddress()).isEqualTo(member.getAddress());
     }
 
     @DisplayName("회원을 수정한다")

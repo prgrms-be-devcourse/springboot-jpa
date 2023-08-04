@@ -32,11 +32,12 @@ class OrderRepositoryTest {
         //given
         //when
         Order savedOrder = orderRepository.save(order);
+        Order result = orderRepository.findById(savedOrder.getId()).get();
 
         //then
-        assertThat(savedOrder.getOrderStatus()).isEqualTo(order.getOrderStatus());
-        assertThat(savedOrder.getMemo()).isEqualTo(order.getMemo());
-        assertThat(savedOrder.getMember()).isEqualTo(order.getMember());
+        assertThat(result.getOrderStatus()).isEqualTo(order.getOrderStatus());
+        assertThat(result.getMemo()).isEqualTo(order.getMemo());
+        assertThat(result.getMember()).isEqualTo(order.getMember());
     }
 
     @DisplayName("주문을 수정한다")

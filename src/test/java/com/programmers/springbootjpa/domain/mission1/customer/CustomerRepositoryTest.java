@@ -29,10 +29,11 @@ class CustomerRepositoryTest {
         //given
         //when
         Customer savedCustomer = customerRepository.save(customer);
+        Customer result = customerRepository.findById(savedCustomer.getId()).get();
 
         //then
-        assertThat(savedCustomer.getFirstName()).isEqualTo("hyemin");
-        assertThat(savedCustomer.getLastName()).isEqualTo("Kim");
+        assertThat(result.getFirstName()).isEqualTo("hyemin");
+        assertThat(result.getLastName()).isEqualTo("Kim");
     }
 
     @DisplayName("customer를 수정한다")

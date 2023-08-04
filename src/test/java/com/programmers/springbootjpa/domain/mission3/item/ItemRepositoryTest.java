@@ -33,10 +33,11 @@ class ItemRepositoryTest {
         //given
         //when
         Car savedCar = itemRepository.save(car);
+        Car result = (Car) itemRepository.findById(savedCar.getId()).get();
 
         //then
-        assertThat(savedCar.getPrice()).isEqualTo(car.getPrice());
-        assertThat(savedCar.getStockQuantity()).isEqualTo(car.getStockQuantity());
+        assertThat(result.getPrice()).isEqualTo(car.getPrice());
+        assertThat(result.getStockQuantity()).isEqualTo(car.getStockQuantity());
     }
 
     @DisplayName("상품을 수정한다")
