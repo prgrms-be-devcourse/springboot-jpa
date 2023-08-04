@@ -6,12 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import prgms.mission3.order.domain.Furniture;
-import prgms.mission3.order.domain.Item;
-import prgms.mission3.order.domain.Member;
-import prgms.mission3.order.domain.Order;
-import prgms.mission3.order.domain.OrderItem;
-import prgms.mission3.order.domain.OrderStatus;
+import prgms.jpamission2.domain.Member;
+import prgms.jpamission2.domain.Order;
+import prgms.jpamission2.domain.OrderRepository;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
