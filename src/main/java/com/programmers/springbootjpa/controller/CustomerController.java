@@ -28,31 +28,31 @@ public class CustomerController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createCustomer(@Valid @RequestBody CustomerCreateRequest customerCreateRequest) {
-        customerService.createCustomer(customerCreateRequest);
+    public void create(@Valid @RequestBody CustomerCreateRequest customerCreateRequest) {
+        customerService.create(customerCreateRequest);
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public CustomerResponse readCustomerById(@PathVariable Long id) {
-        return customerService.readCustomerById(id);
+    public CustomerResponse readById(@PathVariable Long id) {
+        return customerService.readById(id);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<CustomerResponse> readAllCustomer() {
-        return customerService.readAllCustomer();
+    public List<CustomerResponse> readAll() {
+        return customerService.readAll();
     }
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void updateCustomerById(@PathVariable Long id, @Valid @RequestBody CustomerUpdateRequest customerUpdateRequest) {
-        customerService.updateCustomerById(id, customerUpdateRequest);
+    public void updateById(@PathVariable Long id, @Valid @RequestBody CustomerUpdateRequest customerUpdateRequest) {
+        customerService.updateById(id, customerUpdateRequest);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCustomerById(@PathVariable Long id) {
-        customerService.deleteCustomerById(id);
+    public void deleteById(@PathVariable Long id) {
+        customerService.deleteById(id);
     }
 }
