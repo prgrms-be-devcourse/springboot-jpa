@@ -1,4 +1,4 @@
-package prgms.jpamission2.config.domain;
+package prgms.jpa_w1.config.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
