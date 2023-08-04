@@ -23,7 +23,8 @@ import lombok.extern.slf4j.Slf4j;
 class OrderPersistenceTest {
 
 	@Autowired
-	EntityManagerFactory emf;
+	private EntityManagerFactory emf;
+
 	private EntityManager entityManager;
 	private EntityTransaction transaction;
 
@@ -57,6 +58,7 @@ class OrderPersistenceTest {
 		entityManager.persist(member);
 
 		List<Order> orders = member.getOrders();
+
 		for (Order o : orders) {
 			log.info("{}", o.toString());
 		}
@@ -100,6 +102,7 @@ class OrderPersistenceTest {
 
 		// 저장 확인
 		List<Order> orders = member.getOrders();
+
 		for (Order o : orders) {
 			log.info("{}", o.toString()); // 위에서 저장된 order 2개나옴
 		}
