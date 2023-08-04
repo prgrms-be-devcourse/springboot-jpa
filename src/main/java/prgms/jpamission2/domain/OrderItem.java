@@ -9,8 +9,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +16,6 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "order_item")
-@Getter
-@Setter
 public class OrderItem extends BaseEntity{
 
     @Id
@@ -49,4 +45,23 @@ public class OrderItem extends BaseEntity{
         item.setOrderItem(this);
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
 }

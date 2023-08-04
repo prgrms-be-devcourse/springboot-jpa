@@ -13,8 +13,6 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,8 +20,6 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "orders")
-@Getter
-@Setter
 public class Order extends BaseEntity {
     @Id
     @Column(name = "id")
@@ -45,6 +41,30 @@ public class Order extends BaseEntity {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems;
 
+    public String getUuid() {
+        return uuid;
+    }
+
+    public LocalDateTime getOrderDatetime() {
+        return orderDatetime;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public Member getMember() {
+        return member;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
     public void setMember(Member member) {
         if(Objects.nonNull(this.member)) {
             this.member.getOrders().remove(this);
@@ -52,6 +72,26 @@ public class Order extends BaseEntity {
 
         this.member = member;
         member.getOrders().add(this);
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public void setOrderDatetime(LocalDateTime orderDatetime) {
+        this.orderDatetime = orderDatetime;
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 
     public void addOrderItem(OrderItem orderItem) {
