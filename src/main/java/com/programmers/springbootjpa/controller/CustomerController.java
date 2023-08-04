@@ -34,7 +34,7 @@ public class CustomerController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public CustomerResponse readCustomer(@PathVariable Long id) {
+    public CustomerResponse readCustomerById(@PathVariable Long id) {
         return customerService.readCustomer(id);
     }
 
@@ -46,13 +46,13 @@ public class CustomerController {
 
     @PatchMapping
     @ResponseStatus(HttpStatus.OK)
-    public void updateCustomer(@Valid @RequestBody CustomerUpdateRequest customerUpdateRequest) {
+    public void updateCustomerById(@Valid @RequestBody CustomerUpdateRequest customerUpdateRequest) {
         customerService.updateCustomer(customerUpdateRequest);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCustomer(@PathVariable Long id) {
+    public void deleteCustomerById(@PathVariable Long id) {
         customerService.deleteCustomer(id);
     }
 }
