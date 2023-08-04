@@ -14,14 +14,18 @@ import com.programmers.springbootjpa.repository.OrderItemRepository;
 import com.programmers.springbootjpa.repository.OrderRepository;
 import java.time.LocalDateTime;
 import java.util.UUID;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 @Transactional
+@TestInstance(Lifecycle.PER_CLASS)
 class AssociationTest {
 
     @Autowired
@@ -36,16 +40,31 @@ class AssociationTest {
     @Autowired
     OrderRepository orderRepository;
 
-    @Test
-    @DisplayName("고객을 통해 주문 리스트를 조회할 수 있다.")
-    void getOrdersByCustomer() {
-        Customer customer = Customer.builder()
+    private Customer customer;
+    private Order order;
+
+    @BeforeEach
+    void beforeEach() {
+        customer = Customer.builder()
                 .name("hyunHo")
                 .nickName("changHyun")
                 .age(28)
                 .address(new Address("스터릿 어드레스", "디테일 어드레스", 10000))
                 .build();
 
+        order = Order.builder()
+                .uuid(UUID.randomUUID().toString())
+                .orderStatus(OrderStatus.OPENED)
+                .orderDatetime(LocalDateTime.now())
+                .memo("메모1")
+                .build();
+
+        order.setCustomer(customer);
+    }
+
+    @Test
+    @DisplayName("고객을 통해 주문 리스트를 조회할 수 있다.")
+    void getOrdersByCustomer() {
         Order order1 = Order.builder()
                 .uuid(UUID.randomUUID().toString())
                 .orderStatus(OrderStatus.OPENED)
@@ -68,29 +87,13 @@ class AssociationTest {
         Order savedOrder1 = orderRepository.save(order1);
         Order savedOrder2 = orderRepository.save(order2);
 
-        assertThat(savedOrder1.getMemo()).isEqualTo(savedCustomer.getOrders().get(0).getMemo());
-        assertThat(savedOrder2.getMemo()).isEqualTo(savedCustomer.getOrders().get(1).getMemo());
+        assertThat(savedOrder1.getMemo()).isEqualTo(savedCustomer.getOrders().get(1).getMemo());
+        assertThat(savedOrder2.getMemo()).isEqualTo(savedCustomer.getOrders().get(2).getMemo());
     }
 
     @Test
     @DisplayName("주문에서 고객을 조회할 수 있다.")
     void getCustomerByOrder() {
-        Customer customer = Customer.builder()
-                .name("hyunHo")
-                .nickName("changHyun")
-                .age(28)
-                .address(new Address("스터릿 어드레스", "디테일 어드레스", 10000))
-                .build();
-
-        Order order = Order.builder()
-                .uuid(UUID.randomUUID().toString())
-                .orderStatus(OrderStatus.OPENED)
-                .orderDatetime(LocalDateTime.now())
-                .memo("메모1")
-                .build();
-
-        order.setCustomer(customer);
-
         Customer savedCustomer = customerRepository.save(customer);
         Order savedOrder = orderRepository.save(order);
 
@@ -100,22 +103,6 @@ class AssociationTest {
     @Test
     @DisplayName("주문 아이템에서 주문을 조회할 수 있다.")
     void getOrderByOrderItem() {
-        Customer customer = Customer.builder()
-                .name("hyunHo")
-                .nickName("changHyun")
-                .age(28)
-                .address(new Address("스터릿 어드레스", "디테일 어드레스", 10000))
-                .build();
-
-        Order order = Order.builder()
-                .uuid(UUID.randomUUID().toString())
-                .orderStatus(OrderStatus.OPENED)
-                .orderDatetime(LocalDateTime.now())
-                .memo("메모1")
-                .build();
-
-        order.setCustomer(customer);
-
         Item item = Item.builder()
                 .name("매운갈비찜")
                 .price(3000)
@@ -141,22 +128,6 @@ class AssociationTest {
     @Test
     @DisplayName("주문 아이템에서 아이템을 조회할 수 있다.")
     void getItemByOrderItem() {
-        Customer customer = Customer.builder()
-                .name("hyunHo")
-                .nickName("changHyun")
-                .age(28)
-                .address(new Address("스터릿 어드레스", "디테일 어드레스", 10000))
-                .build();
-
-        Order order = Order.builder()
-                .uuid(UUID.randomUUID().toString())
-                .orderStatus(OrderStatus.OPENED)
-                .orderDatetime(LocalDateTime.now())
-                .memo("메모1")
-                .build();
-
-        order.setCustomer(customer);
-
         Item item = Item.builder()
                 .name("매운갈비찜")
                 .price(3000)
