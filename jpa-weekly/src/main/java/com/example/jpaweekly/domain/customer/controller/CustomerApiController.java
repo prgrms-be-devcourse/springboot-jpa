@@ -47,6 +47,4 @@ public class CustomerApiController {
         return ResponseEntity.ok(updated);
     }
 
-
-
 }
