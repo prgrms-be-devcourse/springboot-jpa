@@ -26,10 +26,13 @@ class AssociationTest {
 
     @Autowired
     CustomerRepository customerRepository;
+
     @Autowired
     ItemRepository itemRepository;
+
     @Autowired
     OrderItemRepository orderItemRepository;
+
     @Autowired
     OrderRepository orderRepository;
 
