@@ -1,6 +1,6 @@
 package com.programmers.springbootjpa.service;
 
-import com.programmers.springbootjpa.domain.Customer;
+import com.programmers.springbootjpa.domain.customer.Customer;
 import com.programmers.springbootjpa.dto.request.CustomerCreateRequest;
 import com.programmers.springbootjpa.dto.request.CustomerUpdateRequest;
 import com.programmers.springbootjpa.dto.response.CustomerResponse;
@@ -19,7 +19,7 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
 
     @Transactional
-    public void createCustomer(CustomerCreateRequest customerCreateRequest) {
+    public void create(CustomerCreateRequest customerCreateRequest) {
         Customer customer = Customer.builder()
                 .name(customerCreateRequest.getName())
                 .age(customerCreateRequest.getAge())
@@ -30,7 +30,7 @@ public class CustomerService {
         customerRepository.save(customer);
     }
 
-    public List<CustomerResponse> readAllCustomer() {
+    public List<CustomerResponse> readAll() {
         List<Customer> customers = customerRepository.findAll();
 
         return customers.stream()
@@ -38,7 +38,7 @@ public class CustomerService {
                 .toList();
     }
 
-    public CustomerResponse readCustomer(Long id) {
+    public CustomerResponse readById(Long id) {
         Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("찾는 사용자가 없습니다."));
 
@@ -46,8 +46,8 @@ public class CustomerService {
     }
 
     @Transactional
-    public void updateCustomer(CustomerUpdateRequest customerUpdateRequest) {
-        Customer customer = customerRepository.findById(customerUpdateRequest.getId())
+    public void updateById(Long id, CustomerUpdateRequest customerUpdateRequest) {
+        Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("업데이트 할 사용자가 없습니다."));
 
         customer.changeNickName(customerUpdateRequest.getNickName());
@@ -55,7 +55,7 @@ public class CustomerService {
     }
 
     @Transactional
-    public void deleteCustomer(Long id) {
+    public void deleteById(Long id) {
         customerRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("삭제할 사용자가 없습니다."));
 

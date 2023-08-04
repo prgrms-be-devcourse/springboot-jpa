@@ -2,8 +2,8 @@ package com.programmers.springbootjpa;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.programmers.springbootjpa.domain.Address;
-import com.programmers.springbootjpa.domain.Customer;
+import com.programmers.springbootjpa.domain.customer.Address;
+import com.programmers.springbootjpa.domain.customer.Customer;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -13,11 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class PersistenceContextTest {
+class PersistenceContextTest {
 
     @Autowired
     EntityManagerFactory entityManagerFactory;
-    
+
     @Test
     @DisplayName("고객을 영속 상태로 만들 수 있다.")
     void persistCustomer() {

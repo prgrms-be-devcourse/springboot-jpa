@@ -1,7 +1,7 @@
 package com.programmers.springbootjpa.dto.response;
 
-import com.programmers.springbootjpa.domain.Address;
-import com.programmers.springbootjpa.domain.Customer;
+import com.programmers.springbootjpa.domain.customer.Address;
+import com.programmers.springbootjpa.domain.customer.Customer;
 import lombok.Getter;
 
 @Getter
