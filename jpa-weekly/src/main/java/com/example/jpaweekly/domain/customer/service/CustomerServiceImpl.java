@@ -54,8 +54,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional
     public CustomerResponse update(CustomerUpdate request) {
         Customer customer = customerRepository.findById(request.id()).orElseThrow(IllegalArgumentException::new);
-        customer.changeFirstName(request.firstName());
-        customer.changeLastName(request.lastName());
+        customer.changeName(request.firstName(), request.lastName());
 
         return CustomerMapper.convertEntityToResponse(customer);
     }

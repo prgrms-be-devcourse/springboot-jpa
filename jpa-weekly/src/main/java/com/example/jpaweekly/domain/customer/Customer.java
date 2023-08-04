@@ -30,11 +30,8 @@ public class Customer {
         return new CustomerResponse(customer.getFirstName(), customer.getLastName());
     }
 
-    public void changeFirstName(String firstName) {
+    public void changeName(String firstName, String lastName) {
         this.firstName = firstName;
-    }
-
-    public void changeLastName(String lastName) {
         this.lastName = lastName;
     }
 }
