@@ -5,7 +5,6 @@ import com.programmers.week.exception.Message;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
@@ -25,7 +24,7 @@ public abstract class Item extends BaseEntity {
     private static final int MAX_STOCK_QUANTITY = 50;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     private int price;
