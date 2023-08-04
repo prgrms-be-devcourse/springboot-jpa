@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -45,6 +46,18 @@ public class Customer {
         this.age = age;
         this.nickName = nickName;
         this.address = address;
+    }
+
+    public List<Order> getOrders() {
+        return Collections.unmodifiableList(orders);
+    }
+
+    public void add(Order order) {
+        this.orders.add(order);
+    }
+
+    public void remove(Order order) {
+        this.orders.remove(order);
     }
 
     public void changeNickName(String nickName) {

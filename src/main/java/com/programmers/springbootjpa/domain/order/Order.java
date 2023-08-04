@@ -51,10 +51,10 @@ public class Order {
 
     public void setCustomer(Customer customer) {
         if (Objects.nonNull(this.customer)) {
-            this.customer.getOrders().remove(this);
+            this.customer.remove(this);
         }
 
         this.customer = customer;
-        customer.getOrders().add(this);
+        customer.add(this);
     }
 }
