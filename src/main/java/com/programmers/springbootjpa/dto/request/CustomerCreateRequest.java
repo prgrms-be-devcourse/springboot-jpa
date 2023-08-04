@@ -18,7 +18,7 @@ public class CustomerCreateRequest {
     private String name;
 
     @Min(value = 1, message = "나이는 한살보다 많아야합니다.")
-    @Max(value = 100, message = "나이는 백살보다 적여야합니다.")
+    @Max(value = 100, message = "나이는 백살보다 적어야합니다.")
     @NotNull(message = "나이는 값이 없으면 안됩니다.")
     private Integer age;
 
