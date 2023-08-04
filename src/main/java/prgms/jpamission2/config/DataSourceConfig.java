@@ -43,7 +43,7 @@ public class DataSourceConfig {
         LocalContainerEntityManagerFactoryBean em
                 = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
-        em.setPackagesToScan("prgms.jpamission2.config.domain");
+        em.setPackagesToScan("prgms.jpamission2.domain");
         em.setJpaVendorAdapter(jpaVendorAdapter);
 
         Properties properties = new Properties();
