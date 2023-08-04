@@ -30,7 +30,7 @@ public class OrderRepositoryTest {
     private static Order order2;
 
     @BeforeEach
-    void setUp () {
+    void setUp() {
         Member member1 = new Member();
         member1.setName("오세한");
         member1.setAge(27);
@@ -88,7 +88,7 @@ public class OrderRepositoryTest {
     void 연관관계_메소드_테스트_멤버설정() {
         //Given
         Member newMember = new Member();
-        
+
         //When
         order1.setMember(newMember);
         Order order = newMember.getOrders().get(0);
