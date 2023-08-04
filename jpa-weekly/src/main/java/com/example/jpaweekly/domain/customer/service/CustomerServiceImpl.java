@@ -33,9 +33,6 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerResponse findCustomerById(Long id) {
         Customer customer = customerRepository.findById(id).orElseThrow(IllegalArgumentException::new);
 
-//        CustomerResponse customerResponse = new CustomerResponse(customer.getFirstName(), customer.getLastName());
-//        CustomerResponse from = Customer.from(customer);
-
         return CustomerMapper.convertEntityToResponse(customer);
     }
 
@@ -43,7 +40,6 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.findAll().stream()
                 .map(v -> CustomerMapper.convertEntityToResponse(v))
                 .toList();
-//               .map(CustomerMapper::convertEntityToResponse);
     }
 
     public Page<CustomerResponse> findCustomersWithPaging(Pageable pageable) {
