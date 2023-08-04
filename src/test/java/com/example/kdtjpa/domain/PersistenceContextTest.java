@@ -20,16 +20,19 @@ class PersistenceContextTest {
 	@Autowired
 	EntityManagerFactory emf;
 
+	private EntityManager entityManager;
+	private EntityTransaction transaction;
+
 	@BeforeEach
 	void setUp() {
 		repository.deleteAll();
+
+		entityManager = emf.createEntityManager();
+		transaction = entityManager.getTransaction();
 	}
 
 	@Test
 	void 저장() {
-		EntityManager entityManager = emf.createEntityManager();
-		EntityTransaction transaction = entityManager.getTransaction();
-
 		transaction.begin();
 
 		Customer customer = new Customer(1L, "suyeon", "jang"); // 비영속상태
@@ -40,9 +43,6 @@ class PersistenceContextTest {
 
 	@Test
 	void 조회_DB조회() {
-		EntityManager entityManager = emf.createEntityManager();
-		EntityTransaction transaction = entityManager.getTransaction();
-
 		transaction.begin();
 
 		Customer customer = new Customer(2L, "suJJang", "OvO");
@@ -61,9 +61,6 @@ class PersistenceContextTest {
 
 	@Test
 	void 조회_1차캐시_이용() {
-		EntityManager entityManager = emf.createEntityManager();
-		EntityTransaction transaction = entityManager.getTransaction();
-
 		transaction.begin();
 
 		Customer customer = new Customer(1L, "suyeon", "jang"); // 비영속상태
@@ -77,9 +74,6 @@ class PersistenceContextTest {
 
 	@Test
 	void 수정() { // dirty checking
-		EntityManager entityManager = emf.createEntityManager();
-		EntityTransaction transaction = entityManager.getTransaction();
-
 		transaction.begin();
 
 		Customer customer = new Customer(1L, "suyeon", "jang");
@@ -97,9 +91,6 @@ class PersistenceContextTest {
 
 	@Test
 	void 삭제() {
-		EntityManager entityManager = emf.createEntityManager();
-		EntityTransaction transaction = entityManager.getTransaction();
-
 		transaction.begin();
 
 		Customer customer = new Customer(1L, "suyeon", "jang");
