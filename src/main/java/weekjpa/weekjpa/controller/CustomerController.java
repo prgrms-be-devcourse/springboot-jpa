@@ -8,8 +8,7 @@ import weekjpa.weekjpa.dto.CustomerResponse;
 import weekjpa.weekjpa.dto.CustomerUpdateRequest;
 import weekjpa.weekjpa.service.CustomerService;
 
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @RequestMapping("/api/customers")
@@ -31,7 +30,6 @@ public class CustomerController {
     }
 
     @PatchMapping("/{id}")
-    @ResponseStatus(OK)
     public ResponseEntity<Void> updateCustomer(@PathVariable Long id, @RequestBody CustomerUpdateRequest request) {
         customerService.update(id, request);
         return ResponseEntity.noContent().build();
