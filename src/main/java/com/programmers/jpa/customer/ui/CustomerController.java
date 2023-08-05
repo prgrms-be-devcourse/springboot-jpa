@@ -21,33 +21,33 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/api/customers")
 public class CustomerController {
 
     private final CustomerService customerService;
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/customers")
+    @PostMapping
     public Long createCustomer(@RequestBody CreateRequest createRequest) {
         return customerService.create(createRequest);
     }
 
-    @GetMapping("/customers/{id}")
+    @GetMapping("/{id}")
     public FindResponse findCustomer(@PathVariable Long id) {
         return customerService.findById(id);
     }
 
-    @GetMapping("/customers")
+    @GetMapping
     public Page<FindResponse> findCustomers(Pageable pageable) {
         return customerService.findAll(pageable);
     }
 
-    @PatchMapping("/customers")
+    @PatchMapping
     public Long updateCustomer(@RequestBody UpdateRequest updateRequest) {
         return customerService.update(updateRequest);
     }
 
-    @DeleteMapping("/customers/{id}")
+    @DeleteMapping("/{id}")
     public void deleteCustomer(@PathVariable Long id) {
         customerService.deleteById(id);
     }
