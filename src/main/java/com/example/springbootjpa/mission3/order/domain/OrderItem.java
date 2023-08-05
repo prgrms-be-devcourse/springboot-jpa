@@ -1,4 +1,4 @@
-package com.example.springbootjpa.mission3.order.model;
+package com.example.springbootjpa.mission3.order.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,13 +9,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Table(name = "orderItem")
-@Getter
-@Setter
 public class OrderItem {
 
     @Id
@@ -35,5 +31,16 @@ public class OrderItem {
 
     @Column(name = "quantity", nullable = false)
     private int quantity;
+
+    public OrderItem() {
+    }
+
+    public OrderItem(Long id, Order order, Item item, int price, int quantity) {
+        this.id = id;
+        this.order = order;
+        this.item = item;
+        this.price = price;
+        this.quantity = quantity;
+    }
 
 }

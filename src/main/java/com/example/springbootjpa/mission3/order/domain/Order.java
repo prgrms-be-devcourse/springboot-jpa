@@ -1,6 +1,6 @@
-package com.example.springbootjpa.mission3.order.model;
+package com.example.springbootjpa.mission3.order.domain;
 
-import com.example.springbootjpa.mission3.member.model.Member;
+import com.example.springbootjpa.mission3.member.domain.Member;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -9,13 +9,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
-@Table(name = "orders")
-@Getter
-@Setter
+@Table(name = "order")
 public class Order {
 
     @Id
@@ -25,5 +21,13 @@ public class Order {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    public Order() {
+    }
+
+    public Order(Long id, Member member) {
+        this.id = id;
+        this.member = member;
+    }
 
 }
