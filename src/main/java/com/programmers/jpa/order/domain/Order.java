@@ -38,7 +38,7 @@ public class Order extends BaseEntity {
         this.memo = memo;
     }
 
-    void changeOrderStatus(OrderStatus orderStatus) {
+    public void changeOrderStatus(OrderStatus orderStatus) {
         validateOrderStatus(orderStatus);
         this.orderStatus = orderStatus;
     }
@@ -49,7 +49,7 @@ public class Order extends BaseEntity {
         }
     }
 
-    void changeMemo(String memo) {
+    public void changeMemo(String memo) {
         validateMemo(memo);
         this.memo = memo;
     }
