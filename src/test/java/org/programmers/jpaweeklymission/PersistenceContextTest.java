@@ -105,13 +105,16 @@ class PersistenceContextTest {
         } catch (Exception e) {
             tx.rollback();
         }
+        Customer forUpdate = Customer.builder()
+                .firstName("쟁이")
+                .lastName("멋")
+                .build();
 
         // when
         tx.begin();
         try {
             Customer foundCustomer = em.find(Customer.class, customer.getId());
-            foundCustomer.changeFirstName("쟁이");
-            foundCustomer.changeLastName("멋");
+            foundCustomer.changeEntity(forUpdate);
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
@@ -119,8 +122,9 @@ class PersistenceContextTest {
 
         // then
         Customer updated = em.find(Customer.class, customer.getId());
-        assertThat(updated.getFirstName()).isEqualTo("쟁이");
-        assertThat(updated.getLastName()).isEqualTo("멋");
+        assertThat(updated)
+                .extracting(Customer::getFirstName, Customer::getLastName)
+                .containsExactly(forUpdate.getFirstName(), forUpdate.getLastName());
     }
 
     @Test
