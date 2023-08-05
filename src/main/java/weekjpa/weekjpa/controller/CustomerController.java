@@ -1,5 +1,6 @@
 package weekjpa.weekjpa.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,7 +9,8 @@ import weekjpa.weekjpa.dto.CustomerResponse;
 import weekjpa.weekjpa.dto.CustomerUpdateRequest;
 import weekjpa.weekjpa.service.CustomerService;
 
-import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequestMapping("/api/customers")
@@ -19,7 +21,7 @@ public class CustomerController {
 
     @PostMapping
     @ResponseStatus(CREATED)
-    public Long create(@RequestBody CustomerCreateRequest createRequest) {
+    public Long create(@RequestBody @Valid CustomerCreateRequest createRequest) {
         return customerService.create(createRequest);
     }
 
@@ -30,7 +32,8 @@ public class CustomerController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Void> updateCustomer(@PathVariable Long id, @RequestBody CustomerUpdateRequest request) {
+    public ResponseEntity<Void> updateCustomer(@PathVariable Long id,
+                                               @RequestBody @Valid CustomerUpdateRequest request) {
         customerService.update(id, request);
         return ResponseEntity.noContent().build();
     }
