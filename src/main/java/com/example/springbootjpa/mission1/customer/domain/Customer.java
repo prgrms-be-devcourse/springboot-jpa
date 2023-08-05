@@ -9,14 +9,14 @@ import jakarta.persistence.Table;
 public class Customer {
 
     @Id
-    private long id;
+    private Long id;
     private String firstName;
     private String lastName;
 
     protected Customer() {
     }
 
-    public Customer(long id, String firstName, String lastName) {
+    public Customer(Long id, String firstName, String lastName) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
