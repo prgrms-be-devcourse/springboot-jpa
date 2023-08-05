@@ -6,6 +6,7 @@ import com.jpaweekly.domain.customer.dto.CustomerRequest;
 import com.jpaweekly.domain.customer.dto.CustomerResponse;
 import com.jpaweekly.domain.customer.dto.CustomerUpdate;
 import com.jpaweekly.domain.customer.infrastructrue.CustomerRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,7 +27,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     public CustomerResponse findCustomerById(Long id) {
-        Customer customer = customerRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        Customer customer = customerRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         return CustomerConverter.convertEntityToResponse(customer);
     }
 
@@ -37,7 +38,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Transactional
     public void update(Long id, CustomerUpdate request) {
-        Customer customer = customerRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        Customer customer = customerRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         customer.update(request.firstName(), request.lastName());
     }
 

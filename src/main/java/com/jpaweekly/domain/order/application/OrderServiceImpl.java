@@ -11,6 +11,7 @@ import com.jpaweekly.domain.product.Product;
 import com.jpaweekly.domain.product.infrastructrue.ProductRepository;
 import com.jpaweekly.domain.user.User;
 import com.jpaweekly.domain.user.infrastructrue.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +32,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Transactional
     public Long createOrder(Long id, OrderCreateRequest request) {
-        User user = userRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        User user = userRepository.findById(id).orElseThrow(EntityNotFoundException::new);
 
         Order order = Order.builder()
                 .address(request.address())
@@ -43,7 +44,7 @@ public class OrderServiceImpl implements OrderService {
 
         List<OrderProduct> orderProducts = new ArrayList<>();
         request.orderProductCreateList().forEach(item -> {
-            Product product = productRepository.findById(item.productId()).orElseThrow(IllegalArgumentException::new);
+            Product product = productRepository.findById(item.productId()).orElseThrow(EntityNotFoundException::new);
             OrderProduct orderProduct = OrderProduct.builder()
                     .order(order)
                     .product(product)
@@ -56,7 +57,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     public OrderResponse findOrderById(Long id) {
-        Order order = orderRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        Order order = orderRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         return OrderResponse.from(order);
     }
 }
