@@ -1,13 +1,15 @@
 package com.example.springbootjpa.mission1.repository;
 
+import static org.assertj.core.api.AssertionsForClassTypes.*;
 import static org.junit.jupiter.api.Assertions.*;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import com.example.springbootjpa.mission1.customer.model.Customer;
+import com.example.springbootjpa.mission1.customer.domain.Customer;
 import com.example.springbootjpa.mission1.customer.repository.CustomerRepository;
 
 @DataJpaTest
@@ -26,7 +28,7 @@ class CustomerRepositoryTest {
         Customer savedCustomer = customerRepository.save(customer);
 
         // then
-        assertEquals("firstName", savedCustomer.getFirstName());
+        assertThat(savedCustomer).usingRecursiveComparison().isEqualTo(customer);
     }
 
     @Test
@@ -34,10 +36,10 @@ class CustomerRepositoryTest {
     void findByIdTest() {
         // given
         Customer customer = new Customer(1L, "firstName", "lastName");
-        customerRepository.save(customer);
+        customer = customerRepository.save(customer);
 
         // when
-        Optional<Customer> selectedCustomer = customerRepository.findById(1L);
+        Optional<Customer> selectedCustomer = customerRepository.findById(customer.getId());
 
         // then
         assertEquals("firstName", selectedCustomer.get().getFirstName());
@@ -50,8 +52,7 @@ class CustomerRepositoryTest {
         Customer customer1 = new Customer(1L, "firstFirstName", "firstLastName");
         Customer customer2 = new Customer(2L, "secondFirstName", "secondLastName");
 
-        customerRepository.save(customer1);
-        customerRepository.save(customer2);
+        customerRepository.saveAll(Arrays.asList(customer1, customer2));
 
         // when
         List<Customer> selectedCustomer = customerRepository.findAll();
@@ -68,8 +69,7 @@ class CustomerRepositoryTest {
         customerRepository.save(customer);
 
         customer = customerRepository.findById(1L).get();
-        customer.setFirstName("editedFirstName");
-        customer.setLastName("editedLastName");
+        customer.update("editedFirstName", "editedLastName");
         customerRepository.save(customer);
 
         // when
