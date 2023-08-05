@@ -26,10 +26,10 @@ public class OrderItem {
     @JoinColumn(name = "item_id")
     private Item item;
 
-    @Column(name = "price", nullable = false)
+    @Column(nullable = false)
     private int price;
 
-    @Column(name = "quantity", nullable = false)
+    @Column(nullable = false)
     private int quantity;
 
     public OrderItem() {
