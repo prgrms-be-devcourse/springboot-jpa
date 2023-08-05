@@ -12,32 +12,32 @@ import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/customers")
 @RequiredArgsConstructor
 public class CustomerController {
 
     private final CustomerService customerService;
 
-    @PostMapping("/customers")
+    @PostMapping
     @ResponseStatus(CREATED)
     public Long create(@RequestBody CustomerCreateRequest createRequest) {
         return customerService.create(createRequest);
     }
 
-    @GetMapping("/customers/{id}")
+    @GetMapping("/{id}")
     @ResponseStatus(OK)
     public CustomerResponse findCustomer(@PathVariable Long id) {
         return customerService.find(id);
     }
 
-    @PatchMapping("/customers/{id}")
+    @PatchMapping("/{id}")
     @ResponseStatus(OK)
     public ResponseEntity<Void> updateCustomer(@PathVariable Long id, @RequestBody CustomerUpdateRequest request) {
         customerService.update(id, request);
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/customers/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) {
         customerService.delete(id);
         return ResponseEntity.noContent().build();
