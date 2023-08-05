@@ -6,12 +6,12 @@ import jakarta.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
 @MappedSuperclass
-public class BaseEntity {
+public abstract class BaseEntity {
 
-    @Column(columnDefinition = "TIMESTAMP")
+    @Column(columnDefinition = "TIMESTAMP(6)")
     private LocalDateTime createdAt;
 
-    @Column(columnDefinition = "TIMESTAMP")
+    @Column(columnDefinition = "TIMESTAMP(6)")
     private LocalDateTime lastModifiedAt;
 
 }
