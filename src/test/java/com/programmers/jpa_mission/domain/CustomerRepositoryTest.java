@@ -1,5 +1,6 @@
 package com.programmers.jpa_mission.domain;
 
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 class CustomerRepositoryTest {
     @Autowired
     CustomerRepository repository;
+
+    @Autowired
+    EntityManager em;
 
     @BeforeEach
     void setUp() {
@@ -92,8 +96,10 @@ class CustomerRepositoryTest {
     //    Hibernate: select c1_0.id,c1_0.first_name,c1_0.last_name from customers c1_0
     //    Hibernate: select next value for customers_SEQ
     //    Hibernate: insert into customers (first_name,last_name,id) values (?,?,?)
+
     //    Hibernate: select c1_0.id,c1_0.first_name,c1_0.last_name from customers c1_0 where c1_0.id=?
     //    Hibernate: update customers set first_name=?,last_name=? where id=?
+
     //    Hibernate: select c1_0.id,c1_0.first_name,c1_0.last_name from customers c1_0 where c1_0.id=?
     @Test
     void update1() {
@@ -128,13 +134,13 @@ class CustomerRepositoryTest {
         Customer updated = saved;
         updated.update("ChulBeom");
         repository.save(updated);//영속화, flush x
+        em.flush();
 
         //then
         Customer selected = repository.findById(updated.getId()).get();//1차 캐시 조회
         assertThat(selected.getId()).isEqualTo(updated.getId());
         assertThat(selected.getFirstName()).isEqualTo(updated.getFirstName());
         assertThat(selected.getLastName()).isEqualTo(updated.getLastName());
-
     }
 
     @Test
