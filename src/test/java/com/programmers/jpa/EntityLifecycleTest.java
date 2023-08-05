@@ -29,7 +29,9 @@ class EntityLifecycleTest {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
         Customer customer = new Customer("명한", "유");
+        log.info("before persist");
         em.persist(customer);
+        log.info("after persist");
         transaction.commit();
 
         log.info("저장 고객: {}", customer);
