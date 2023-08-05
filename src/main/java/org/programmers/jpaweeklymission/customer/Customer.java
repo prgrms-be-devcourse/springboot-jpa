@@ -13,6 +13,7 @@ import org.programmers.jpaweeklymission.order.domain.Order;
 import java.util.ArrayList;
 import java.util.List;
 
+@Table(name = "customers")
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -36,16 +37,21 @@ public class Customer extends BaseEntity {
     private List<Order> orders = new ArrayList<>();
 
     @Builder
-    public Customer(String firstName, String lastName) {
+    private Customer(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
-    public void changeFirstName(String firstName) {
+    public void changeEntity(Customer customer) {
+        changeFirstName(customer.firstName);
+        changeLastName(customer.lastName);
+    }
+
+    private void changeFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    public void changeLastName(String lastName) {
+    private void changeLastName(String lastName) {
         this.lastName = lastName;
     }
 
