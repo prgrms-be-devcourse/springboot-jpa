@@ -5,11 +5,10 @@ spring:
     password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
-    hibernate:
-      ddl-auto: none
+    open-in-view: false
     properties:
       hibernate:
         format_sql: true
-        jdbc:
+    hibernate:
+      ddl-auto: none
     show-sql: true
-    open-in-view: false
