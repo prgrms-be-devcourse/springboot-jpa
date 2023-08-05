@@ -55,7 +55,7 @@ public class Order extends BaseEntity {
     }
 
     private static void validateMemo(String memo) {
-        if (Objects.isNull(memo)) {
+        if (Objects.isNull(memo) || memo.isBlank()) {
             throw new IllegalArgumentException("메모가 없습니다.");
         }
     }
