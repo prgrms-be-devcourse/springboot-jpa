@@ -41,8 +41,7 @@ public class CustomerService {
     public Long update(UpdateRequest updateRequest) {
         Customer foundCustomer = customerRepository.findById(updateRequest.id())
                 .orElseThrow(() -> new IllegalArgumentException("고객이 존재하지 않습니다."));
-        foundCustomer.changeFirstName(updateRequest.firstName());
-        foundCustomer.changeLastName(updateRequest.lastName());
+        foundCustomer.changeName(updateRequest.firstName(), updateRequest.lastName());
         return foundCustomer.getId();
     }
 

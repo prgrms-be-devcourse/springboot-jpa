@@ -32,13 +32,10 @@ public class Customer extends BaseEntity {
         this.lastName = lastName;
     }
 
-    public void changeFirstName(String firstName) {
+    public void changeName(String firstName, String lastName) {
         validateFirstName(firstName);
-        this.firstName = firstName;
-    }
-
-    public void changeLastName(String lastName) {
         validateLastName(lastName);
+        this.firstName = firstName;
         this.lastName = lastName;
     }
 

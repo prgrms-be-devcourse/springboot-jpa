@@ -75,8 +75,7 @@ class EntityLifecycleTest {
         log.info("변경 전 고객 이름: {}", customer.getLastName() + customer.getFirstName());
 
         transaction.begin();
-        customer.changeLastName("박");
-        customer.changeFirstName("은지");
+        customer.changeName("박", "은직");
         transaction.commit();
 
         log.info("변경 후 고객 이름: {}", customer.getLastName() + customer.getFirstName());
