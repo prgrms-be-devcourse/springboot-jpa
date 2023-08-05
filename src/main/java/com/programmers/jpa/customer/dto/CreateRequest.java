@@ -1,4 +1,6 @@
 package com.programmers.jpa.customer.dto;
 
-public record CreateRequest(String firstName, String lastName) {
+import jakarta.validation.constraints.NotBlank;
+
+public record CreateRequest(@NotBlank String firstName, @NotBlank String lastName) {
 }

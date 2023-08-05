@@ -1,4 +1,7 @@
 package com.programmers.jpa.customer.dto;
 
-public record UpdateRequest(Long id, String firstName, String lastName) {
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+public record UpdateRequest(@NotNull Long id, @NotBlank String firstName, @NotBlank String lastName) {
 }
