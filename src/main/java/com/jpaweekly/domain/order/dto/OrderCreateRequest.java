@@ -7,8 +7,6 @@ import java.util.List;
 
 public record OrderCreateRequest(
         @NotBlank
-        String nickName,
-        @NotBlank
         String address,
         @NotNull
         List<OrderProductCreate> orderProductCreateList
