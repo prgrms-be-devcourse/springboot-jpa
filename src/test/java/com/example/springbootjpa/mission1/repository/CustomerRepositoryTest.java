@@ -2,7 +2,6 @@ package com.example.springbootjpa.mission1.repository;
 
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 import static org.junit.jupiter.api.Assertions.*;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
@@ -49,10 +48,11 @@ class CustomerRepositoryTest {
     @DisplayName("고객 다건 조회기능 테스트")
     void findAllTest() {
         // given
-        Customer customer1 = new Customer(1L, "firstFirstName", "firstLastName");
-        Customer customer2 = new Customer(2L, "secondFirstName", "secondLastName");
-
-        customerRepository.saveAll(Arrays.asList(customer1, customer2));
+        List<Customer> customers = List.of(
+            new Customer(1L, "firstFirstName", "firstLastName"),
+            new Customer(2L, "secondFirstName", "secondLastName")
+        );
+        customerRepository.saveAll(customers);
 
         // when
         List<Customer> selectedCustomer = customerRepository.findAll();
