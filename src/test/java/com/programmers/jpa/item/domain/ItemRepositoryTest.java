@@ -1,22 +1,22 @@
 package com.programmers.jpa.item.domain;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
+import com.programmers.jpa.item.infra.ItemRepository;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @DataJpaTest
 class ItemRepositoryTest {
 
     @Autowired
-    private EntityManagerFactory emf;
+    private ItemRepository<Item> itemRepository;
 
     @DisplayName("자동차 상품을 생성할 수 있다.")
     @ParameterizedTest
@@ -26,56 +26,18 @@ class ItemRepositoryTest {
     })
     void createCar(int price, int stockQuantity, int power) {
         //given
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
-        Item car = Car.of(price, stockQuantity, power);
-        em.persist(car);
-        transaction.commit();
+        Car car = Car.of(price, stockQuantity, power);
 
         //when
-        final long itemId = car.getId();
-
-        em.clear();
-        Item foundCar = em.find(Item.class, itemId);
+        Car savedCar = itemRepository.save(car);
 
         //then
-        final String expectedItemType = "CAR";
-
-        assertThat(foundCar.getPower()).isEqualTo(power);
-        assertThat(foundCar.getPrice()).isEqualTo(price);
-        assertThat(foundCar.getStockQuantity()).isEqualTo(stockQuantity);
-        assertThat(foundCar.getId()).isEqualTo(itemId);
-        assertThat(foundCar.getItemType()).isEqualTo(expectedItemType);
+        assertThat(savedCar.getPower()).isEqualTo(power);
+        assertThat(savedCar.getPrice()).isEqualTo(price);
+        assertThat(savedCar.getStockQuantity()).isEqualTo(stockQuantity);
     }
 
-    @DisplayName("자동차 상품에서 다른 상품의 기능을 사용하면 예외가 발생한다.")
-    @ParameterizedTest
-    @CsvSource(value = {
-            "1000, 10, 1000",
-            "2000, 30, 2000"
-    })
-    void throwExceptionWhenUsingDifferentFeaturesInCarItem(int price, int stockQuantity, int power) {
-        //given
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
-        Item car = Car.of(price, stockQuantity, power);
-        em.persist(car);
-        transaction.commit();
-
-        //when, then
-        final long itemId = car.getId();
-
-        em.clear();
-        Item foundCar = em.find(Item.class, itemId);
-
-        assertThatThrownBy(()->foundCar.getChef())
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("해당 상품은 음식이 아닙니다.");
-    }
-
-    @DisplayName("음식 상품을 생성할 수 있다.")
+    @DisplayName("전체 음식 상품을 생성할 수 있다.")
     @ParameterizedTest
     @CsvSource(value = {
             "1000, 10, 유명한",
@@ -83,52 +45,44 @@ class ItemRepositoryTest {
     })
     void createFood(int price, int stockQuantity, String chef) {
         //given
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
-        Item food = Food.of(price, stockQuantity, chef);
-        em.persist(food);
-        transaction.commit();
+        Food food = Food.of(price, stockQuantity, chef);
 
         //when
-        final long itemId = food.getId();
-
-        em.clear();
-        Item foundFood = em.find(Item.class, itemId);
+        Food savedFood = itemRepository.save(food);
 
         //then
-        final String expectedItemType = "FOOD";
-
-        assertThat(foundFood.getChef()).isEqualTo(chef);
-        assertThat(foundFood.getPrice()).isEqualTo(price);
-        assertThat(foundFood.getStockQuantity()).isEqualTo(stockQuantity);
-        assertThat(foundFood.getId()).isEqualTo(itemId);
-        assertThat(foundFood.getItemType()).isEqualTo(expectedItemType);
+        assertThat(savedFood.getChef()).isEqualTo(chef);
+        assertThat(savedFood.getPrice()).isEqualTo(price);
+        assertThat(savedFood.getStockQuantity()).isEqualTo(stockQuantity);
     }
 
-    @DisplayName("음식 상품에서 다른 상품의 기능을 사용하면 예외가 발생한다.")
-    @ParameterizedTest
-    @CsvSource(value = {
-            "1000, 10, 유명한",
-            "2000, 30, 박은지"
-    })
-    void throwExceptionWhenUsingDifferentFeaturesInFoodItem(int price, int stockQuantity, String chef) {
+    @DisplayName("상품 목록을 타입별 조회할 수 있다.")
+    @Test
+    void findAllCar() {
         //given
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
-        Item food = Food.of(price, stockQuantity, chef);
-        em.persist(food);
-        transaction.commit();
+        final int price = 1000;
+        final int stockQuantity = 10;
+        final int power = 100;
+        final String chef = "chef";
 
-        //when, then
-        final long itemId = food.getId();
+        Car car1 = Car.of(price, stockQuantity, power);
+        Car car2 = Car.of(price, stockQuantity, power);
+        List<Car> carList = List.of(car1, car2);
 
-        em.clear();
-        Item foundFood = em.find(Item.class, itemId);
+        Food food1 = Food.of(price, stockQuantity, chef);
+        Food food2 = Food.of(price, stockQuantity, chef);
+        List<Food> foodList = List.of(food1, food2);
 
-        assertThatThrownBy(()->foundFood.getPower())
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("해당 상품은 자동차가 아닙니다.");
+        itemRepository.saveAll(foodList);
+        itemRepository.saveAll(carList);
+
+        //when
+        List<Item> foundFoodList = itemRepository.findAllByItemType("FOOD");
+        List<Item> foundCarList = itemRepository.findAllByItemType("CAR");
+
+        //then
+        final int expectedSize = 2;
+        assertThat(foundCarList).hasSize(expectedSize);
+        assertThat(foundFoodList).hasSize(expectedSize);
     }
 }
