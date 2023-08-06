@@ -1,4 +1,4 @@
-package com.example.weeklyjpa.Service;
+package com.example.weeklyjpa.service;
 
 import com.example.weeklyjpa.domain.item.Item;
 import com.example.weeklyjpa.domain.member.Member;
