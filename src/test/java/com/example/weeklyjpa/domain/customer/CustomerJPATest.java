@@ -60,7 +60,7 @@ public class CustomerJPATest {
     @DisplayName("고객 정보 삭제에 성공한다.")
     void DELETE_TEST(){
         // when
-        repository.deleteById(savedCustomer.getId()));
+        repository.deleteById(savedCustomer.getId());
 
         // then
         assertThat(repository.existsById(savedCustomer.getId())).isFalse();

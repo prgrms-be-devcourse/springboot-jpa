@@ -31,7 +31,6 @@ class OrderServiceTest {
     @Autowired
     private OrderService orderService;
 
-
     @Test
     @Transactional
     @DisplayName("주문 생성에 성공한다.")

@@ -19,8 +19,8 @@ import static lombok.AccessLevel.PROTECTED;
 @Getter
 @NoArgsConstructor(access = PROTECTED)
 public class Order extends BaseTimeEntity {
+
     @Id
-    @Column(name = "id")
     @GeneratedValue
     private Long id;
 
