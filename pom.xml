@@ -44,7 +44,12 @@
             <version>5.1.1</version>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.instancio</groupId>
+            <artifactId>instancio-junit</artifactId>
+            <version>3.0.0</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
