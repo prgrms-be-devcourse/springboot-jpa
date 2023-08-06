@@ -9,10 +9,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderItem extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,9 +28,6 @@ public class OrderItem extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "item_id")
     private Item item;
-
-    protected OrderItem() {
-    }
 
     public OrderItem(Order order, Item item) {
         this.order = order;

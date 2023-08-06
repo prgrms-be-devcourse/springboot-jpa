@@ -6,12 +6,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Customer extends BaseEntity {
 
     private static final int MAX_LAST_NAME_LENGTH = 2;
@@ -25,9 +28,6 @@ public class Customer extends BaseEntity {
 
     @Column(length = MAX_LAST_NAME_LENGTH, nullable = false)
     private String lastName;
-
-    protected Customer() {
-    }
 
     public Customer(String firstName, String lastName) {
         validateFirstName(firstName);

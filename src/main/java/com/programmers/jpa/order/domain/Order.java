@@ -9,13 +9,16 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 
 @Entity
 @Table(name = "orders")
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order extends BaseEntity {
 
     @Id
@@ -27,9 +30,6 @@ public class Order extends BaseEntity {
 
     @Lob
     private String memo;
-
-    protected Order() {
-    }
 
     public Order(OrderStatus orderStatus, String memo) {
         validateMemo(memo);
