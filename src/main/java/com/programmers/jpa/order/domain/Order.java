@@ -1,6 +1,7 @@
 package com.programmers.jpa.order.domain;
 
 import com.programmers.jpa.base.domain.BaseEntity;
+import com.programmers.jpa.order.exception.OrderStatusException;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -31,22 +32,26 @@ public class Order extends BaseEntity {
     @Lob
     private String memo;
 
-    public Order(OrderStatus orderStatus, String memo) {
+    public Order(String memo) {
         validateMemo(memo);
-        validateOrderStatus(orderStatus);
-        this.orderStatus = orderStatus;
+        this.orderStatus = OrderStatus.SUCCESS;
         this.memo = memo;
     }
 
-    public void changeOrderStatus(OrderStatus orderStatus) {
-        validateOrderStatus(orderStatus);
-        this.orderStatus = orderStatus;
+    public void changeOrderStatusToDelivering() {
+        if (this.orderStatus == OrderStatus.DELIVERY_COMPLETE
+                || this.orderStatus == OrderStatus.DELIVERING) {
+            throw new OrderStatusException("현재 주문 상태가 성공이 아닙니다.");
+        }
+        this.orderStatus = OrderStatus.DELIVERING;
     }
 
-    private static void validateOrderStatus(OrderStatus orderStatus) {
-        if (Objects.isNull(orderStatus)) {
-            throw new IllegalArgumentException("주문 상태가 없습니다.");
+    public void changeOrderStatusToDeliveryComplete() {
+        if (this.orderStatus == OrderStatus.SUCCESS
+                || this.orderStatus == OrderStatus.DELIVERY_COMPLETE) {
+            throw new OrderStatusException("현재 주문 상태가 배달중이 아닙니다.");
         }
+        this.orderStatus = OrderStatus.DELIVERY_COMPLETE;
     }
 
     public void changeMemo(String memo) {
