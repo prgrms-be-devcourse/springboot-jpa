@@ -25,7 +25,6 @@ public class CustomerJPATest {
     @BeforeEach
     void setUp(){
         customer = new Customer("jaehyun","jo");
-        savedCustomer = repository.save(customer);
     }
 
     @AfterEach
@@ -36,6 +35,8 @@ public class CustomerJPATest {
     @Test
     @DisplayName("고객 정보 생성에 성공한다.")
     void CREATE_TEST(){
+        savedCustomer = repository.save(customer);
+
         // then
         assertThat(savedCustomer.getFirstName()).isEqualTo(customer.getFirstName());
         assertThat(savedCustomer.getId()).isEqualTo(1L);
@@ -45,6 +46,8 @@ public class CustomerJPATest {
     @DisplayName("고객 정보 수정에 성공한다.")
     @Transactional // 영속성 컨텍스트 내에서 관리를 하겠다
     void UPDATE_TEST(){
+        savedCustomer = repository.save(customer);
+
         // when
         Customer foundCustomer = repository.findById(savedCustomer.getId()).orElseThrow(NullPointerException::new);
         foundCustomer.changeFirstName("hihi");
@@ -59,6 +62,8 @@ public class CustomerJPATest {
     @Test
     @DisplayName("고객 정보 삭제에 성공한다.")
     void DELETE_TEST(){
+        savedCustomer = repository.save(customer);
+
         // when
         repository.deleteById(savedCustomer.getId());
 
