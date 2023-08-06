@@ -1,5 +1,6 @@
 package com.jpaweekly.domain.order;
 
+import com.jpaweekly.common.BaseEntity;
 import com.jpaweekly.domain.user.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
 @Table(name = "orders")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Order {
+public class Order extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
