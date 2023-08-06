@@ -2,14 +2,12 @@ package com.example.weeklyjpa.domain.member;
 
 import com.example.weeklyjpa.domain.order.Order;
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static lombok.AccessLevel.PROTECTED;
 
 @Entity // 영속성 컨텍스트로 관리할수 있는 객체임을 표현
 @Getter

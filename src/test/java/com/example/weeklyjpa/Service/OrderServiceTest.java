@@ -43,6 +43,8 @@ class OrderServiceTest {
 
         //when
         Long orderId = orderService.createOrder(memberId, itemId, 100);
+
+        //then
         assertThat(orderId).isEqualTo(1L);
     }
 

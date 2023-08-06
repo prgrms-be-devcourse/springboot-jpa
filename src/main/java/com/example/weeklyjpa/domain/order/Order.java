@@ -61,10 +61,10 @@ public class Order extends BaseTimeEntity {
     // 연관관계 편의 메서드
     public void changeMember(Member member){
         if(Objects.nonNull(this.member)){
-            member.getOrders().remove(this);
+            this.member.getOrders().remove(this);
         }
         this.member = member;
-        member.getOrders().add(this);
+        this.member.getOrders().add(this);
     }
 
     public void addOrderItem(OrderItem orderItem){

@@ -30,13 +30,15 @@ public class OrderItem {
     @JoinColumn(name = "item_id")
     private Item item;
 
+    private static final int ZERO_STOCK = 0;
+
     private OrderItem(Item item, int orderItemQuantity){
         this.item = item;
-        this.orderItemQuantity = orderItemQuantity;
-        this.orderItemPrice = orderItemQuantity * item.getPrice(); //질문
+        this.orderItemQuantity = validatePositiveQuantity(orderItemQuantity);
+        this.orderItemPrice = orderItemQuantity * item.getPrice();
     }
 
-    public static OrderItem createOrderItem(Item item, int orderItemQuantity) { //질문
+    public static OrderItem createOrderItem(Item item, int orderItemQuantity) {
         OrderItem orderItem = new OrderItem(item, orderItemQuantity);
 
         item.deductQuantity(orderItemQuantity);
@@ -52,6 +54,13 @@ public class OrderItem {
 
         this.order = order;
         order.getOrderItems().add(this);
+    }
+
+    private int validatePositiveQuantity(int orderItemQuantity){
+        if(orderItemQuantity < ZERO_STOCK){
+            throw new IllegalArgumentException("재고 부족");
+        }
+        return orderItemQuantity;
     }
 
 }
