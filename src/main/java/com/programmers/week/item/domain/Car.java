@@ -22,7 +22,7 @@ public class Car extends Item {
         this.power = power;
     }
 
-    public static Item of(int price, int stockQuantity, long power) {
+    public static Car of(int price, int stockQuantity, long power) {
         validatePower(power);
         return new Car(price, stockQuantity, power);
     }
