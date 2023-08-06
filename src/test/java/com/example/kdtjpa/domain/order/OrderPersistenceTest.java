@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,28 +35,22 @@ class OrderPersistenceTest {
 		transaction = entityManager.getTransaction();
 	}
 
+	@AfterEach
+	void close() {
+		entityManager.clear();
+	}
+
 	@Test
 	void 양방향관계_저장() {
 		transaction.begin();
 
-		Order order = new Order();
-		order.setUuid(UUID.randomUUID().toString());
-		order.setMemo("부재시 전화주세요.");
-		order.setOrderDatetime(LocalDateTime.now());
-		order.setOrderStatus(OPENED);
+		Member member = new Member("kanghonggu", "guppy.kang", 33, "서울시 동작구만 움직이면쏜다.", "KDT 화이팅");
+		entityManager.persist(member);
 
+		Order order = new Order(UUID.randomUUID().toString(), LocalDateTime.now(), OPENED, "부재시 전화주세요.", member);
 		entityManager.persist(order);
 
-		Member member = new Member();
-		member.setName("kanghonggu");
-		member.setNickName("guppy.kang");
-		member.setAge(33);
-		member.setAddress("서울시 동작구만 움직이면쏜다.");
-		member.setDescription("KDT 화이팅");
-
 		member.getOrders().add(order); // 연관관계의 주인이 아닌곳(member)에만 SETTING
-
-		entityManager.persist(member);
 
 		List<Order> orders = member.getOrders();
 
@@ -70,35 +65,19 @@ class OrderPersistenceTest {
 	void 양방향관계_편의메소드_테스트() {
 		transaction.begin();
 
-		Order order = new Order();
-		order.setUuid(UUID.randomUUID().toString());
-		order.setOrderDatetime(LocalDateTime.now());
-		order.setOrderStatus(OPENED);
-		order.setMemo("부재시 연락주세요");
-		// member와 order중 연관관계의 주인은 order
-		// member가 mappedBy를 가지고 있기 때문이다.
-		// order.setMember(member);
+		Member member = new Member( "sueyon", "susu", 23, "deagu", "KDT 화이팅");
+		entityManager.persist(member);
+
+		Order order = new Order(UUID.randomUUID().toString(), LocalDateTime.now(), OPENED, "부재시 전화주세요.", member);
 		entityManager.persist(order);
 
-		Order order2 = new Order();
-		order2.setUuid(UUID.randomUUID().toString());
-		order2.setOrderDatetime(LocalDateTime.now());
-		order2.setOrderStatus(OPENED);
-		order2.setMemo("부재시 2번째인 여기로 연락주세요");
-		// order2.setMember(member);
+		Order order2 = new Order(UUID.randomUUID().toString(), LocalDateTime.now(), OPENED, "부재시 2번째 여기로 전화주세요.", member);
 		entityManager.persist(order2);
-
-		// 하지만 편의메소드(member의 addOrder)로 양방향 매칭을 해줄 수 있다.
-		Member member = new Member();
-		member.setName("suyeon");
-		member.setNickName("nicksuyeon");
-		member.setAge(24);
-		member.setAddress("daegu");
 
 		member.addOrder(order);
 		member.addOrder(order2);
 
-		entityManager.persist(member);
+		transaction.commit();
 
 		// 저장 확인
 		List<Order> orders = member.getOrders();
@@ -107,36 +86,21 @@ class OrderPersistenceTest {
 			log.info("{}", o.toString()); // 위에서 저장된 order 2개나옴
 		}
 
-		transaction.commit();
 	}
 
 	@Test
 	void 객체그래프탐색을_이용한_조회() {
 		transaction.begin();
 
-		Order order = new Order();
-		order.setUuid(UUID.randomUUID().toString());
-		order.setOrderDatetime(LocalDateTime.now());
-		order.setOrderStatus(OPENED);
-		order.setMemo("부재시 연락주세요");
+		Member member = new Member("sueyon", "jjangsu", 23, "deagu", "KDT 화이팅");
+		entityManager.persist(member);
 
+		Order order = new Order(UUID.randomUUID().toString(), LocalDateTime.now(), OPENED, "부재시 전화주세요.", member);
 		entityManager.persist(order);
 
-		// 회원 엔티티
-		Member member = new Member();
-		member.setName("suyeon");
-		member.setNickName("sujjang");
-		member.setAge(24);
-		member.setAddress("daegu");
-
-		entityManager.persist(member);
-
-		member.addOrder(order); // 연관관계 편의 메소드 사용 (member에서  주인인 order 메소드 호출)
-
-		entityManager.persist(member);
+		member.addOrder(order);
 
 		transaction.commit();
-
 		entityManager.clear();
 
 		// 회원 조회 -> 회원의 주문 까지 조회
@@ -152,11 +116,7 @@ class OrderPersistenceTest {
 	void mapped_super_class_test() {
 		transaction.begin();
 
-		Order order = new Order();
-		order.setUuid(UUID.randomUUID().toString());
-		order.setOrderDatetime(LocalDateTime.now());
-		order.setOrderStatus(OPENED);
-		order.setMemo("부재시 연락주세요");
+		Order order = new Order(UUID.randomUUID().toString(), LocalDateTime.now(), OPENED, "부재시 전화주세요.");
 
 		order.setCreatedAt(LocalDateTime.now());
 		order.setCreatedBy("suyeonjang");
