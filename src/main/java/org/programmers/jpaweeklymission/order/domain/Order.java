@@ -25,7 +25,7 @@ public class Order extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     @NotNull
-    OrderStatus status;
+    private OrderStatus status;
 
     @Lob
     @Column(name = "memo")
@@ -33,10 +33,10 @@ public class Order extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
-    Customer customer;
+    private Customer customer;
 
     @OneToMany(mappedBy = "order")
-    List<OrderItem> orderItems;
+    private List<OrderItem> orderItems;
 
     @Builder
     public Order(OrderStatus status, String memo) {
