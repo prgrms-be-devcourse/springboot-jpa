@@ -4,7 +4,7 @@ import com.example.jpaweekly.domain.customer.Customer;
 import com.example.jpaweekly.domain.customer.CustomerMapper;
 import com.example.jpaweekly.domain.customer.dto.CustomerRequest;
 import com.example.jpaweekly.domain.customer.dto.CustomerResponse;
-import com.example.jpaweekly.domain.customer.dto.CustomerUpdate;
+import com.example.jpaweekly.domain.customer.dto.CustomerUpdateRequest;
 import com.example.jpaweekly.domain.customer.repository.CustomerRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -48,7 +48,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Transactional
-    public CustomerResponse update(CustomerUpdate request) {
+    public CustomerResponse update(CustomerUpdateRequest request) {
         Customer customer = customerRepository.findById(request.id()).orElseThrow(IllegalArgumentException::new);
         customer.changeName(request.firstName(), request.lastName());
 

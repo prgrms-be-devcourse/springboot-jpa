@@ -2,7 +2,7 @@ package com.example.jpaweekly.domain.customer.service;
 
 import com.example.jpaweekly.domain.customer.dto.CustomerRequest;
 import com.example.jpaweekly.domain.customer.dto.CustomerResponse;
-import com.example.jpaweekly.domain.customer.dto.CustomerUpdate;
+import com.example.jpaweekly.domain.customer.dto.CustomerUpdateRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -59,11 +59,12 @@ class CustomerServiceImplTest {
         // Given
         CustomerRequest customerRequest = new CustomerRequest("na", "yk");
         Long id = customerService.create(customerRequest);
-        CustomerUpdate customerUpdate = new CustomerUpdate(id, "lee", "hk");
+        CustomerUpdateRequest customerUpdateRequest = new CustomerUpdateRequest(id, "lee", "hk");
         // When
-        CustomerResponse updated = customerService.update(customerUpdate);
+        CustomerResponse updated = customerService.update(customerUpdateRequest);
         // Then
-        assertThat(customerUpdate.firstName()).isEqualTo(updated.firstName());
+        assertThat(customerUpdateRequest.firstName()).isEqualTo(updated.firstName());
+        assertThat(customerUpdateRequest.lastName()).isEqualTo(updated.lastName());
 
     }
 

@@ -2,7 +2,7 @@ package com.example.jpaweekly.domain.customer.controller;
 
 import com.example.jpaweekly.domain.customer.dto.CustomerRequest;
 import com.example.jpaweekly.domain.customer.dto.CustomerResponse;
-import com.example.jpaweekly.domain.customer.dto.CustomerUpdate;
+import com.example.jpaweekly.domain.customer.dto.CustomerUpdateRequest;
 import com.example.jpaweekly.domain.customer.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -45,7 +45,7 @@ public class CustomerApiController {
     }
 
     @PatchMapping("/update")
-    public ResponseEntity<CustomerResponse> customerUpdate(@RequestBody CustomerUpdate request) {
+    public ResponseEntity<CustomerResponse> customerUpdate(@RequestBody CustomerUpdateRequest request) {
         CustomerResponse updated = customerService.update(request);
         return ResponseEntity.ok(updated);
     }

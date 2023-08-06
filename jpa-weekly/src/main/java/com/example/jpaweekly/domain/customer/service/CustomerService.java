@@ -2,7 +2,7 @@ package com.example.jpaweekly.domain.customer.service;
 
 import com.example.jpaweekly.domain.customer.dto.CustomerRequest;
 import com.example.jpaweekly.domain.customer.dto.CustomerResponse;
-import com.example.jpaweekly.domain.customer.dto.CustomerUpdate;
+import com.example.jpaweekly.domain.customer.dto.CustomerUpdateRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -15,7 +15,7 @@ public interface CustomerService {
 
     List<CustomerResponse> findCustomers();
 
-    CustomerResponse update(CustomerUpdate request);
+    CustomerResponse update(CustomerUpdateRequest request);
 
     Page<CustomerResponse> findCustomersWithPaging(Pageable pageable);
 
