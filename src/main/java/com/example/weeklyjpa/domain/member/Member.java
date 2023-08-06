@@ -1,19 +1,20 @@
 package com.example.weeklyjpa.domain.member;
 
+import com.example.weeklyjpa.domain.BaseTimeEntity;
 import com.example.weeklyjpa.domain.order.Order;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import static lombok.AccessLevel.PROTECTED;
 
-@Entity // 영속성 컨텍스트로 관리할수 있는 객체임을 표현
+@Entity
 @Getter
 @Table(name= "members")
-@NoArgsConstructor
-public class Member {
+@NoArgsConstructor(access = PROTECTED)
+public class Member extends BaseTimeEntity {
     @Id
     @GeneratedValue
     private Long id;

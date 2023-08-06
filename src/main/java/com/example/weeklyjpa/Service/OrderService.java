@@ -29,7 +29,6 @@ public class OrderService {
         Item item = itemRepository.findById(itemId).orElseThrow(NoSuchElementException::new);
 
         OrderItem orderItem = OrderItem.createOrderItem(item, orderQuantity);
-
         Order order = Order.createOrder(memo, member, orderItem);
 
         return orderRepository.save(order).getId();

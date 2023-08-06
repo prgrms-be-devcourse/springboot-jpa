@@ -46,7 +46,6 @@ public class OrderItem {
         return orderItem;
     }
 
-    //연관관계 편의 메서드
     public void changeOrder(Order order) {
         if (Objects.nonNull(this.order)){
             this.order.getOrderItems().remove(this);

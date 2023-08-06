@@ -1,16 +1,20 @@
 package com.example.weeklyjpa.domain.item;
 
+import com.example.weeklyjpa.domain.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import static jakarta.persistence.InheritanceType.SINGLE_TABLE;
+import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @Getter
 @Table(name = "items")
 @Inheritance(strategy = SINGLE_TABLE)
 @DiscriminatorColumn(name = "dtype")
-public abstract class Item {
+@NoArgsConstructor(access = PROTECTED)
+public abstract class Item extends BaseTimeEntity {
 
     private static final int ZERO_STOCK = 0;
 
