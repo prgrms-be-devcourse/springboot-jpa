@@ -1,6 +1,8 @@
-package com.programmers.jpa.item.domain;
+package com.programmers.jpa.item.infra;
 
-import com.programmers.jpa.item.infra.ItemRepository;
+import com.programmers.jpa.item.domain.Car;
+import com.programmers.jpa.item.domain.Food;
+import com.programmers.jpa.item.domain.Item;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
