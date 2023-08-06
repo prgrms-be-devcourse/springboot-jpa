@@ -24,25 +24,20 @@ public class CustomerApiController {
 
     private final CustomerService customerService;
 
-    @GetMapping
-    public ResponseEntity<List<CustomerResponse>> customerList() {
-        List<CustomerResponse> customers = customerService.findCustomers();
-        return ResponseEntity.ok(customers);
-    }
 
-    @GetMapping("/page")
+    @GetMapping
     public ResponseEntity<Page<CustomerResponse>> customerPage(@PageableDefault() Pageable pageable) {
         Page<CustomerResponse> customers = customerService.findCustomersWithPaging(pageable);
         return ResponseEntity.ok(customers);
     }
 
-    @PostMapping("/new")
+    @PostMapping
     public ResponseEntity<Long> customerCreate(@RequestBody CustomerRequest request) {
         Long id = customerService.create(request);
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
-    @PatchMapping("/update")
+    @PatchMapping
     public ResponseEntity<CustomerResponse> customerUpdate(@RequestBody CustomerUpdateRequest request) {
         CustomerResponse updated = customerService.update(request);
         return ResponseEntity.ok(updated);
