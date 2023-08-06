@@ -41,6 +41,18 @@ public class Order extends BaseEntity {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems;
 
+    public Order(String uuid, OrderStatus orderStatus, String memo, Member member) {
+        this.uuid = uuid;
+        this.orderStatus = orderStatus;
+        this.memo = memo;
+        this.member = member;
+        this.orderDatetime = LocalDateTime.now();
+    }
+
+    protected Order() {
+
+    }
+
     public String getUuid() {
         return uuid;
     }
@@ -65,36 +77,12 @@ public class Order extends BaseEntity {
         return orderItems;
     }
 
-    public void setMember(Member member) {
+    public void addMember(Member member) {
         if (Objects.nonNull(this.member)) {
             this.member.getOrders().remove(this);
         }
 
         this.member = member;
         member.getOrders().add(this);
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
-
-    public void setOrderDatetime(LocalDateTime orderDatetime) {
-        this.orderDatetime = orderDatetime;
-    }
-
-    public void setOrderStatus(OrderStatus orderStatus) {
-        this.orderStatus = orderStatus;
-    }
-
-    public void setMemo(String memo) {
-        this.memo = memo;
-    }
-
-    public void setOrderItems(List<OrderItem> orderItems) {
-        this.orderItems = orderItems;
-    }
-
-    public void addOrderItem(OrderItem orderItem) {
-        orderItem.setOrder(this);
     }
 }

@@ -14,7 +14,6 @@ import prgms.jpamission2.config.domain.OrderItem;
 import prgms.jpamission2.config.domain.OrderRepository;
 import prgms.jpamission2.config.domain.OrderStatus;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -31,35 +30,34 @@ public class OrderRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        Member member1 = new Member();
-        member1.setName("오세한");
-        member1.setAge(27);
-        member1.setNickName("sehan");
-        member1.setAddress("경기도 용인시");
-        member1.setDescription("백둥이");
+        String name1 = "오세한";
+        int age1 = 27;
+        String nickName1 = "sehan";
+        String address1 = "경기도 용인시";
+        String description1 = "백둥이";
 
-        Member member2 = new Member();
-        member2.setName("세한오");
-        member2.setAge(27);
-        member2.setNickName("hanse");
-        member2.setAddress("충북 청주시");
-        member2.setDescription("프롱이");
+        Member member1 = new Member(name1,nickName1,age1,address1,description1);
 
-        order1 = new Order();
-        order1.setUuid(UUID.randomUUID().toString());
-        order1.setMemo("부재시 전화주세요.");
-        order1.setOrderDatetime(LocalDateTime.now());
-        order1.setOrderStatus(OrderStatus.OPENED);
+        String name2 = "세한오";
+        int age2 = 27;
+        String nickName2 = "hanse";
+        String address2 = "충북 청주시";
+        String description2 = "프롱이";
 
-        order1.setMember(member1);
+        Member member2 = new Member(name2,nickName2,age2,address2,description2);
 
-        order2 = new Order();
-        order2.setUuid(UUID.randomUUID().toString());
-        order2.setMemo("문 앞에 놔주세요");
-        order2.setOrderDatetime(LocalDateTime.now());
-        order2.setOrderStatus(OrderStatus.CANCELLED);
+        String uuid1 = UUID.randomUUID().toString();
+        String memo1 = "부재시 전화주세요.";
+        OrderStatus orderStatus1 = OrderStatus.OPENED;
 
-        order2.setMember(member2);
+        order1 = new Order(uuid1,orderStatus1,memo1,member1);
+
+        String uuid2 = UUID.randomUUID().toString();
+        String memo2 = "문 앞에 놔주세요";
+        OrderStatus orderStatus2 = OrderStatus.CANCELLED;
+
+        order2 = new Order(uuid2,orderStatus2,memo2,member2);
+
     }
 
     @Test
@@ -87,10 +85,10 @@ public class OrderRepositoryTest {
     @Test
     void 연관관계_메소드_테스트_멤버설정() {
         //Given
-        Member newMember = new Member();
+        Member newMember = new Member(null,null,0,null,null);
 
         //When
-        order1.setMember(newMember);
+        order1.addMember(newMember);
         Order order = newMember.getOrders().get(0);
 
         //Then

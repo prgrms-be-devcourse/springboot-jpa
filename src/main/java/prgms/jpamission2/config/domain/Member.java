@@ -35,6 +35,17 @@ public class Member extends BaseEntity {
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
 
+    public Member(String name, String nickName, int age, String address, String description) {
+        this.name = name;
+        this.nickName = nickName;
+        this.age = age;
+        this.address = address;
+        this.description = description;
+    }
+
+    protected Member() {
+    }
+
     public Long getId() {
         return id;
     }
@@ -63,35 +74,7 @@ public class Member extends BaseEntity {
         return orders;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
-
     public void addOrder(Order order) {
-        order.setMember(this);
+        order.addMember(this);
     }
 }
