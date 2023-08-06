@@ -19,8 +19,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class Item extends BaseEntity {
 
-    private static final String FOOD = "FOOD";
-    private static final String CAR = "CAR";
     private static final int MIN = 0;
 
     @Id
