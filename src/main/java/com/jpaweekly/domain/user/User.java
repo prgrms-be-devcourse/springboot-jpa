@@ -28,13 +28,10 @@ public class User extends BaseEntity {
     @Column(unique = true, nullable = false)
     private String nickname;
 
-    private LocalDateTime createdAt;
-
     @Builder
-    private User(String loginId, String nickname, String password, LocalDateTime createdAt) {
+    private User(String loginId, String nickname, String password) {
         this.loginId = loginId;
         this.nickname = nickname;
         this.password = password;
-        this.createdAt = createdAt;
     }
 }
