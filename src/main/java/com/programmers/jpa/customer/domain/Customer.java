@@ -14,13 +14,16 @@ import java.util.Objects;
 @Getter
 public class Customer extends BaseEntity {
 
+    private static final int MAX_LAST_NAME_LENGTH = 2;
+    private static final int MAX_FIRST_NAME_LENGTH = 5;
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 5, nullable = false)
+    @Column(length = MAX_FIRST_NAME_LENGTH, nullable = false)
     private String firstName;
 
-    @Column(length = 2, nullable = false)
+    @Column(length = MAX_LAST_NAME_LENGTH, nullable = false)
     private String lastName;
 
     protected Customer() {
@@ -44,11 +47,17 @@ public class Customer extends BaseEntity {
         if (Objects.isNull(lastName) || lastName.isBlank()) {
             throw new IllegalArgumentException("성이 비어있습니다.");
         }
+        if (lastName.length() > MAX_LAST_NAME_LENGTH) {
+            throw new IllegalArgumentException(String.format("입력한 성이 %s 글자수를 넘었습니다.", MAX_LAST_NAME_LENGTH));
+        }
     }
 
     private static void validateFirstName(String firstName) {
         if (Objects.isNull(firstName) || firstName.isBlank()) {
             throw new IllegalArgumentException("이름이 비어있습니다.");
+        }
+        if (firstName.length() > MAX_FIRST_NAME_LENGTH) {
+            throw new IllegalArgumentException(String.format("입력한 이름이 %s 글자수를 넘었습니다.", MAX_FIRST_NAME_LENGTH));
         }
     }
 }
