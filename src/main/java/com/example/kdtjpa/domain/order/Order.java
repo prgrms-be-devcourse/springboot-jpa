@@ -11,15 +11,12 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "orders")
 public class Order extends BaseEntity {
@@ -41,7 +38,26 @@ public class Order extends BaseEntity {
 	private Member member;
 
 	@OneToMany(mappedBy = "order")
-	private List<OrderItem> orderItems;
+	private List<OrderItem> orderItems = new ArrayList<>();
+
+	protected Order() {
+
+	}
+
+	public Order(String uuid, LocalDateTime orderDatetime, OrderStatus orderStatus, String memo, Member member) {
+		this.uuid = uuid;
+		this.orderDatetime = orderDatetime;
+		this.orderStatus = orderStatus;
+		this.memo = memo;
+		this.member = member;
+	}
+
+	public Order(String uuid, LocalDateTime orderDatetime, OrderStatus orderStatus, String memo) {
+		this.uuid = uuid;
+		this.orderDatetime = orderDatetime;
+		this.orderStatus = orderStatus;
+		this.memo = memo;
+	}
 
 	public void setMember(Member member) {
 		if(Objects.nonNull(this.member)) {
@@ -62,4 +78,25 @@ public class Order extends BaseEntity {
 			"uuid='" + uuid + '\'' +
 			'}';
 	}
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public LocalDateTime getOrderDatetime() {
+		return orderDatetime;
+	}
+
+	public OrderStatus getOrderStatus() {
+		return orderStatus;
+	}
+
+	public String getMemo() {
+		return memo;
+	}
+
+	public Member getMember() {
+		return member;
+	}
+
 }
