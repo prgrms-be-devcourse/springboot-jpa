@@ -23,7 +23,7 @@ public class Food extends Item{
         this.chef = chef;
     }
 
-    public static Item of(int price, int stockQuantity, String chef) {
+    public static Food of(int price, int stockQuantity, String chef) {
         validateChef(chef);
         return new Food(price, stockQuantity, chef);
     }
