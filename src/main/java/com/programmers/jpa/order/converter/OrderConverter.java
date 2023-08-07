@@ -45,31 +45,25 @@ public class OrderConverter {
     }
 
     private Item convertItem(ItemDto itemDto) {
-        switch (itemDto.type()) {
-            case FOOD -> {
-                return Food.builder()
-                        .price(itemDto.price())
-                        .stockQuantity(itemDto.stockQuantity())
-                        .chef(itemDto.chef())
-                        .build();
-            }
-            case FURNITURE -> {
-                return Furniture.builder()
-                        .price(itemDto.price())
-                        .stockQuantity(itemDto.stockQuantity())
-                        .width(itemDto.width())
-                        .height(itemDto.height())
-                        .build();
-            }
-            case CAR -> {
-                return Car.builder()
-                        .price(itemDto.price())
-                        .stockQuantity(itemDto.stockQuantity())
-                        .power(itemDto.power())
-                        .build();
-            }
+        return switch (itemDto.type()) {
+            case FOOD -> Food.builder()
+                    .price(itemDto.price())
+                    .stockQuantity(itemDto.stockQuantity())
+                    .chef(itemDto.chef())
+                    .build();
+            case FURNITURE -> Furniture.builder()
+                    .price(itemDto.price())
+                    .stockQuantity(itemDto.stockQuantity())
+                    .width(itemDto.width())
+                    .height(itemDto.height())
+                    .build();
+            case CAR -> Car.builder()
+                    .price(itemDto.price())
+                    .stockQuantity(itemDto.stockQuantity())
+                    .power(itemDto.power())
+                    .build();
             default -> throw new IllegalArgumentException("잘못된 아이템 타입 입니다.");
-        }
+        };
     }
 
     public OrderDto convertOrderDto (Order order) {
