@@ -1,0 +1,9 @@
+server:
+  port: ${APPLICATION_PORT:8080}
+
+
+spring:
+  profiles:
+    group:
+      "dev": "dev, datasource"
+
