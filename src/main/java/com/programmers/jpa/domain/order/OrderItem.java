@@ -38,12 +38,12 @@ public class OrderItem extends BaseEntity {
         this.item = item;
     }
 
-    public void setOrder(Order order) {
+    public void attachToOrder(Order order) {
         if (Objects.nonNull(this.order)) {
-            this.order.getOrderItems().remove(this);
+            this.order.removeOrderItem(this);
         }
 
         this.order = order;
-        order.getOrderItems().add(this);
+        order.addOrderItem(this);
     }
 }

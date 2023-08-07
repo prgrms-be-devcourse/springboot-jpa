@@ -19,7 +19,7 @@ public class OrderConverter {
                 .orderItems(orderItems)
                 .build();
 
-        orderItems.forEach(orderItem -> orderItem.setOrder(order));
+        orderItems.forEach(orderItem -> orderItem.attachToOrder(order));
 
         return order;
     }

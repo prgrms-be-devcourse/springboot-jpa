@@ -10,6 +10,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -51,6 +52,17 @@ public class Order extends BaseEntity {
     }
 
     public void addOrderItem(OrderItem orderItem) {
-        orderItem.setOrder(this);
+        orderItem.attachToOrder(this);
+    }
+
+    /**
+     * 캡슐화를 위해 깊은 복사까지 해줘야할까?
+     */
+    public List<OrderItem> getOrderItems() {
+        return Collections.unmodifiableList(orderItems);
+    }
+
+    public void removeOrderItem(OrderItem orderItem) {
+        orderItems.remove(orderItem);
     }
 }
