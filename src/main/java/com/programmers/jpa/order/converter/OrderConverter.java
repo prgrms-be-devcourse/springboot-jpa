@@ -45,32 +45,31 @@ public class OrderConverter {
     }
 
     private Item convertItem(ItemDto itemDto) {
-        if (ItemType.FOOD.equals(itemDto.type())) {
-            return Food.builder()
-                    .price(itemDto.price())
-                    .stockQuantity(itemDto.stockQuantity())
-                    .chef(itemDto.chef())
-                    .build();
+        switch (itemDto.type()) {
+            case FOOD -> {
+                return Food.builder()
+                        .price(itemDto.price())
+                        .stockQuantity(itemDto.stockQuantity())
+                        .chef(itemDto.chef())
+                        .build();
+            }
+            case FURNITURE -> {
+                return Furniture.builder()
+                        .price(itemDto.price())
+                        .stockQuantity(itemDto.stockQuantity())
+                        .width(itemDto.width())
+                        .height(itemDto.height())
+                        .build();
+            }
+            case CAR -> {
+                return Car.builder()
+                        .price(itemDto.price())
+                        .stockQuantity(itemDto.stockQuantity())
+                        .power(itemDto.power())
+                        .build();
+            }
+            default -> throw new IllegalArgumentException("잘못된 아이템 타입 입니다.");
         }
-
-        if (ItemType.FURNITURE.equals(itemDto.type())) {
-            return Furniture.builder()
-                    .price(itemDto.price())
-                    .stockQuantity(itemDto.stockQuantity())
-                    .width(itemDto.width())
-                    .height(itemDto.height())
-                    .build();
-        }
-
-        if (ItemType.CAR.equals(itemDto.type())) {
-            return Car.builder()
-                    .price(itemDto.price())
-                    .stockQuantity(itemDto.stockQuantity())
-                    .power(itemDto.power())
-                    .build();
-        }
-
-        throw new IllegalArgumentException("잘못된 아이템 타입 입니다.");
     }
 
     public OrderDto convertOrderDto (Order order) {
@@ -86,7 +85,6 @@ public class OrderConverter {
                 )
                 .build();
     }
-
 
     private MemberDto convertMemberDto (Member member) {
         return MemberDto.builder()
