@@ -24,12 +24,13 @@ public class CustomOrderProductRepositoryImpl implements CustomOrderProductRepos
             SqlParameterSource source = new MapSqlParameterSource()
                     .addValue("order_id", orderProduct.getOrder().getId())
                     .addValue("product_id", orderProduct.getProduct().getId())
-                    .addValue("quantity", orderProduct.getQuantity());
+                    .addValue("quantity", orderProduct.getQuantity())
+                    .addValue("totalPrice", orderProduct.getTotalPrice());
             sqlParameterSources[idx++] = source;
         }
         String sql = """
-                insert into order_product (order_id, product_id, quantity)
-                values(:order_id, :product_id, :quantity)""";
+                insert into order_product (order_id, product_id, quantity, total_price)
+                values(:order_id, :product_id, :quantity, :totalPrice)""";
         jdbcTemplate.batchUpdate(sql, sqlParameterSources);
     }
 
