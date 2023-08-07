@@ -39,7 +39,7 @@ public class Member extends BaseEntity{
     @Nullable
     private String description;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     @NotNull
     private List<Order> orders;
 

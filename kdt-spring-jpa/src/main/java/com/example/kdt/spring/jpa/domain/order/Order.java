@@ -36,7 +36,7 @@ public class Order extends BaseEntity {
     @NotNull
     private OrderStatus orderStatus;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", referencedColumnName = "id")
     @NotNull
     private Member member;
