@@ -1,9 +1,9 @@
 package com.jpaweekly.domain.customer.presentation;
 
+import com.jpaweekly.domain.customer.application.CustomerService;
 import com.jpaweekly.domain.customer.dto.CustomerRequest;
 import com.jpaweekly.domain.customer.dto.CustomerResponse;
 import com.jpaweekly.domain.customer.dto.CustomerUpdate;
-import com.jpaweekly.domain.customer.application.CustomerService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
