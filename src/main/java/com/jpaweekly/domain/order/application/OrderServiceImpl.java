@@ -2,7 +2,6 @@ package com.jpaweekly.domain.order.application;
 
 import com.jpaweekly.domain.order.Order;
 import com.jpaweekly.domain.order.OrderProduct;
-import com.jpaweekly.domain.order.OrderStatus;
 import com.jpaweekly.domain.order.dto.OrderCreateRequest;
 import com.jpaweekly.domain.order.dto.OrderResponse;
 import com.jpaweekly.domain.order.infrastructrue.OrderProductRepository;
@@ -16,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,26 +32,21 @@ public class OrderServiceImpl implements OrderService {
     public Long createOrder(Long id, OrderCreateRequest request) {
         User user = userRepository.findById(id).orElseThrow(EntityNotFoundException::new);
 
-        Order order = Order.builder()
-                .address(request.address())
-                .orderStatus(OrderStatus.READY_FOR_DELIVERY)
-                .createAt(LocalDateTime.now())
-                .user(user)
-                .build();
-        orderRepository.save(order);
+        Order order = request.toEntity(user);
+        Order savedOrder = orderRepository.save(order);
 
         List<OrderProduct> orderProducts = new ArrayList<>();
         request.orderProductCreateList().forEach(item -> {
             Product product = productRepository.findById(item.productId()).orElseThrow(EntityNotFoundException::new);
             OrderProduct orderProduct = OrderProduct.builder()
-                    .order(order)
+                    .order(savedOrder)
                     .product(product)
                     .quantity(item.quantity())
                     .build();
             orderProducts.add(orderProduct);
         });
         orderProductRepository.saveAll(orderProducts);
-        return order.getId();
+        return savedOrder.getId();
     }
 
     public OrderResponse findOrderById(Long id) {
