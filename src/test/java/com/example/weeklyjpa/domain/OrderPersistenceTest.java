@@ -36,11 +36,9 @@ public class OrderPersistenceTest {
 
         entityManager.persist(order);
 
-        Member member = new Member();
-        member.setEmail("bona@gmail.com");
-        member.setPassword("bbonaa");
+        Member member = new Member("bona@gmail.com","bbona");
 
-        // order.setMember(member); <- 연관관계 주인
+        order.setMember(member);// <- 연관관계 주인
         member.getOrderList().add(order); // 연관관계의 주인이 아닌곳에만 SETTING
 
         entityManager.persist(member);
@@ -57,11 +55,7 @@ public class OrderPersistenceTest {
 
         entityManager.persist(order);
 
-        Member member = new Member();
-        member.setEmail("bona@gmail.com");
-        member.setPassword("bbona");
-
-        member.setOrder(order);
+        Member member = new Member("bona@gmail.com","bbona");
 
         entityManager.persist(member);
 
@@ -77,11 +71,10 @@ public class OrderPersistenceTest {
 
         entityManager.persist(order);
 
-        Member member = new Member();
-        member.setEmail("kbona@gmail.com");
-        member.setPassword("bbona");
+        Member member = new Member("bona@gmail.com","bbona");
 
-        member.setOrder(order);
+
+        order.setMember(member);// <- 연관관계 주인
 
         entityManager.persist(member);
 

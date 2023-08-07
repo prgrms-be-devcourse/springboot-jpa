@@ -2,6 +2,7 @@ package com.example.weeklyjpa.domain.member;
 
 import com.example.weeklyjpa.domain.order.Order;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,7 +12,6 @@ import java.util.List;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor
 public class Member {
 
@@ -23,11 +23,20 @@ public class Member {
     private String email;
     private String password;
 
+    public Member(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Order> orderList = new ArrayList<>();
 
-    public void setOrder(Order order){
-        order.setMember(this);
+    public void changeEmail(String email) {
+        this.email = email;
+    }
+
+    public void changePassword(String password) {
+        this.password = password;
     }
 
 }
