@@ -6,6 +6,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.util.StringUtils;
 
 @Entity
 @Getter
@@ -26,5 +27,10 @@ public class Product extends BaseEntity {
     private Product(String productName, int price) {
         this.productName = productName;
         this.price = price;
+    }
+
+    public void update(String ProductName, int price) {
+            this.productName = productName;
+            this.price = price;
     }
 }
