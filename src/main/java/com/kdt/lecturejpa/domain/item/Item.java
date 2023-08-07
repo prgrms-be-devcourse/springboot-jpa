@@ -15,13 +15,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name ="item")
+@Table(name = "item")
 @Getter
 @NoArgsConstructor
 public class Item {
 
 	@Id
-	@GeneratedValue(strategy =  GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 
 	@Column(name = "price", nullable = false)
@@ -33,18 +33,19 @@ public class Item {
 	@Column(name = "name", nullable = false)
 	private String name;
 
+	@OneToMany(mappedBy = "item")
+	private List<OrderItem> orderItems;
+
 	public Item(int price, int stockQuantity, String name) {
 		this.price = price;
 		this.stockQuantity = stockQuantity;
 		this.name = name;
 	}
 
-	@OneToMany(mappedBy = "item")
-	private List<OrderItem> orderItems;
-
 	public void decreaseStockQuantity(int decreaseAmount) {
 		this.stockQuantity = this.stockQuantity - decreaseAmount;
 	}
+
 	public void addOrderItem(OrderItem orderItem) {
 		orderItem.attachItem(this);
 	}

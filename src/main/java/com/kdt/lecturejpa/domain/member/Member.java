@@ -21,6 +21,10 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class Member {
+
+	@OneToMany(mappedBy = "member")
+	private final List<Order> orders = new ArrayList<Order>();
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
@@ -40,9 +44,6 @@ public class Member {
 	@Column(name = "description")
 	private String description;
 
-	@OneToMany(mappedBy = "member")
-	private List<Order> orders = new ArrayList<Order>();
-
 	@Builder
 	public Member(String name, String nickName, int age, String address, String description) {
 		this.name = name;
@@ -56,23 +57,7 @@ public class Member {
 		return id;
 	}
 
-	public String getName() {
-		return name;
-	}
-
 	public String getNickName() {
 		return nickName;
-	}
-	public int getAge() {
-		return age;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public String getDescription() {
-		return description;
-	}
-	public void addOrder(Order order) {
-		order.attachMember(this);
 	}
 }

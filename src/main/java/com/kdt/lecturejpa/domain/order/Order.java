@@ -64,18 +64,6 @@ public class Order {
 		this.memberId = memberId;
 	}
 
-	public void attachMember(Member member) {
-		if (Objects.nonNull(this.member)) {
-			this.member.getOrders().remove(this);
-		}
-
-		this.member = member;
-		member.getOrders().add(this);
-	}
-
-	public void addOrderItem(OrderItem orderItem) {
-		orderItem.attachOrder(this);
-	}
 	public Order(String memo, OrderStatus orderStatus) {
 		this.memo = memo;
 		this.orderStatus = orderStatus;
@@ -87,6 +75,19 @@ public class Order {
 		newOrder.attachMember(member);
 
 		return newOrder;
+	}
+
+	public void attachMember(Member member) {
+		if (Objects.nonNull(this.member)) {
+			this.member.getOrders().remove(this);
+		}
+
+		this.member = member;
+		member.getOrders().add(this);
+	}
+
+	public void addOrderItem(OrderItem orderItem) {
+		orderItem.attachOrder(this);
 	}
 
 }

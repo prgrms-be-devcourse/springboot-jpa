@@ -7,7 +7,6 @@ import javax.sql.DataSource;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -41,7 +40,8 @@ public class DataSourceConfig {
 	}
 
 	@Bean // 엔티티 생성 관리 하는 빈
-	public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, JpaVendorAdapter jpaVendorAdapter,
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource,
+		JpaVendorAdapter jpaVendorAdapter,
 		JpaProperties jpaProperties) {
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 

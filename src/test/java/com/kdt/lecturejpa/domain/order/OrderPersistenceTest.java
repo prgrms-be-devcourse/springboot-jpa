@@ -15,7 +15,6 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import lombok.extern.slf4j.Slf4j;
 
-
 @Slf4j
 @SpringBootTest
 public class OrderPersistenceTest {

@@ -23,6 +23,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 public class OrderItem {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
@@ -33,10 +34,10 @@ public class OrderItem {
 	@Column(name = "quantity", nullable = false)
 	private int quantity;
 
-	@Column(name = "order_id",insertable=false, updatable=false, nullable = false)
+	@Column(name = "order_id", insertable = false, updatable = false, nullable = false)
 	private String orderId;
 
-	@Column(name = "item_id", insertable=false, updatable=false, nullable = false)
+	@Column(name = "item_id", insertable = false, updatable = false, nullable = false)
 	private Long itemId;
 
 	@ManyToOne(fetch = LAZY)
@@ -50,6 +51,14 @@ public class OrderItem {
 	public OrderItem(int price, int quantity) {
 		this.price = price;
 		this.quantity = quantity;
+	}
+
+	public static OrderItem createOrderItem(Item item, int quantity) {
+		OrderItem orderItem = new OrderItem(item.getPrice(), quantity);
+		orderItem.attachItem(item);
+		item.decreaseStockQuantity(quantity);
+		item.addOrderItem(orderItem);
+		return orderItem;
 	}
 
 	public void attachItem(Item item) {
@@ -68,13 +77,5 @@ public class OrderItem {
 
 		this.order = order;
 		order.getOrderItems().add(this);
-	}
-
-	public static OrderItem createOrderItem(Item item, int quantity) {
-		OrderItem orderItem = new OrderItem(item.getPrice(), quantity);
-		orderItem.attachItem(item);
-		item.decreaseStockQuantity(quantity);
-		item.addOrderItem(orderItem);
-		return orderItem;
 	}
 }

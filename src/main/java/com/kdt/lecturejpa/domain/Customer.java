@@ -8,8 +8,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table (name = "customers")
+@Table(name = "customers")
 public class Customer {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id;
@@ -28,15 +29,15 @@ public class Customer {
 		return firstName;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
 	public String getLastName() {
 		return lastName;
 	}
 
-	public void setLastName(String lastName) {
+	public void changeFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public void changeLastName(String lastName) {
 		this.lastName = lastName;
 	}
 }

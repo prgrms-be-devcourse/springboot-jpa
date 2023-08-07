@@ -16,27 +16,18 @@ import com.kdt.lecturejpa.domain.item.ItemRepository;
 import com.kdt.lecturejpa.domain.member.Member;
 import com.kdt.lecturejpa.domain.member.MemberRepository;
 import com.kdt.lecturejpa.domain.order_item.OrderItem;
-import com.kdt.lecturejpa.domain.order_item.OrderItemRepository;
 
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class OrderServiceTest {
-	@Autowired
-	private OrderService orderService;
-
-	@Autowired
-	private OrderRepository orderRepository;
-
-	@Autowired
-	private MemberRepository memberRepository;
-
-	@Autowired
-	private ItemRepository itemRepository;
-
-	@Autowired
-	private OrderItemRepository orderItemRepository;
 	Member member;
 	Item item;
+	@Autowired
+	private OrderService orderService;
+	@Autowired
+	private MemberRepository memberRepository;
+	@Autowired
+	private ItemRepository itemRepository;
 
 	@BeforeAll
 	public void setUp() {
@@ -65,7 +56,7 @@ class OrderServiceTest {
 
 		item = itemRepository.findById(item.getId())
 			.orElseThrow(
-				() ->  new RuntimeException("존재 하지 않는 멤버")
+				() -> new RuntimeException("존재 하지 않는 멤버")
 			);
 
 		// then

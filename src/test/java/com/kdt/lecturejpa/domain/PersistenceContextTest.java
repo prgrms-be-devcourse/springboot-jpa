@@ -1,15 +1,13 @@
 package com.kdt.lecturejpa.domain;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -35,8 +33,8 @@ public class PersistenceContextTest {
 		transaction.begin();
 
 		Customer customer = new Customer(); // 비 영속 상태
-		customer.setFirstName("honggu");
-		customer.setLastName("kang");
+		customer.changeFirstName("honggu");
+		customer.changeLastName("kang");
 
 		entityManager.persist(customer); // 비 영속 -> 영속 (영속화)
 		transaction.commit(); // entityManager.flush();
@@ -50,8 +48,8 @@ public class PersistenceContextTest {
 		transaction.begin();
 
 		Customer customer = new Customer();
-		customer.setLastName("gorani");
-		customer.setFirstName("byeong");
+		customer.changeLastName("gorani");
+		customer.changeFirstName("byeong");
 
 		entityManager.persist(customer);
 		transaction.commit();
@@ -72,8 +70,8 @@ public class PersistenceContextTest {
 		transaction.begin();
 
 		Customer customer = new Customer();
-		customer.setLastName("gorani");
-		customer.setFirstName("byeong");
+		customer.changeLastName("gorani");
+		customer.changeFirstName("byeong");
 
 		entityManager.persist(customer);
 		transaction.commit();
@@ -91,15 +89,15 @@ public class PersistenceContextTest {
 		transaction.begin();
 
 		Customer customer = new Customer();
-		customer.setLastName("gorani");
-		customer.setFirstName("byeong");
+		customer.changeLastName("gorani");
+		customer.changeFirstName("byeong");
 
 		entityManager.persist(customer);
 		transaction.commit();
 
 		transaction.begin();
-		customer.setFirstName("guppy");
-		customer.setLastName("hong");
+		customer.changeFirstName("guppy");
+		customer.changeLastName("hong");
 
 		// 변경 감지가 되어 다음 쿼리 실행
 		// Hibernate: update customers set first_name=?,last_name=? where id=?
@@ -114,8 +112,8 @@ public class PersistenceContextTest {
 		transaction.begin();
 
 		Customer customer = new Customer();
-		customer.setLastName("gorani");
-		customer.setFirstName("byeong");
+		customer.changeLastName("gorani");
+		customer.changeFirstName("byeong");
 
 		entityManager.persist(customer);
 		transaction.commit();
