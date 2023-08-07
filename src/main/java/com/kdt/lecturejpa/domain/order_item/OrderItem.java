@@ -52,6 +52,7 @@ public class OrderItem {
 		orderItem.attachItem(item);
 		item.decreaseStockQuantity(quantity);
 		item.addOrderItem(orderItem);
+
 		return orderItem;
 	}
 

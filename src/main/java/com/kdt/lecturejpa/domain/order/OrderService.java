@@ -38,6 +38,7 @@ public class OrderService {
 		Order order = Order.createOrder(orderItem, member, "", OrderStatus.OPENED);
 		orderItem.attachOrder(order);
 		orderRepository.save(order);
+
 		return order;
 	}
 }
