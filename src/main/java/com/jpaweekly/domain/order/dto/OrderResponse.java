@@ -17,6 +17,6 @@ public record OrderResponse(
                 order.getUser().getNickname(),
                 order.getAddress(),
                 order.getOrderStatus(),
-                order.getCreateAt());
+                order.getCreatedAt());
     }
 }

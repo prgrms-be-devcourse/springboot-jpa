@@ -8,8 +8,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Entity
 @Table(name = "orders")
 @Getter
@@ -25,17 +23,14 @@ public class Order extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
-    private LocalDateTime createAt;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
     @Builder
-    private Order(String address, OrderStatus orderStatus, LocalDateTime createAt, User user) {
+    private Order(String address, OrderStatus orderStatus, User user) {
         this.address = address;
         this.orderStatus = orderStatus;
-        this.createAt = createAt;
         this.user = user;
     }
 
