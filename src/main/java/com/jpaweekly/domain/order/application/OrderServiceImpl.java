@@ -3,6 +3,7 @@ package com.jpaweekly.domain.order.application;
 import com.jpaweekly.domain.order.Order;
 import com.jpaweekly.domain.order.OrderProduct;
 import com.jpaweekly.domain.order.dto.OrderCreateRequest;
+import com.jpaweekly.domain.order.dto.OrderProductResponse;
 import com.jpaweekly.domain.order.dto.OrderResponse;
 import com.jpaweekly.domain.order.infrastructrue.OrderProductRepository;
 import com.jpaweekly.domain.order.infrastructrue.OrderRepository;
@@ -12,6 +13,8 @@ import com.jpaweekly.domain.user.User;
 import com.jpaweekly.domain.user.infrastructrue.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,5 +55,43 @@ public class OrderServiceImpl implements OrderService {
     public OrderResponse findOrderById(Long id) {
         Order order = orderRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         return OrderResponse.from(order);
+    }
+
+    public Page<OrderResponse> findOrders(Pageable pageable) {
+        return orderRepository.findAll(pageable)
+                .map(OrderResponse::from);
+    }
+
+    public Page<OrderProductResponse> findOrderProducts(Pageable pageable) {
+        return orderProductRepository.findAll(pageable)
+                .map(OrderProductResponse::from);
+    }
+
+    public Page<OrderProductResponse> findOrderProductsByOderId(Long orderId, Pageable pageable) {
+        return orderProductRepository.findByOrderId(orderId, pageable)
+                .map(OrderProductResponse::from);
+    }
+
+    @Transactional
+    public void deliverOrder(Long id) {
+        Order order = orderRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        order.changeOrderStatusToDelivering();
+    }
+
+    @Transactional
+    public void completeOrder(Long id) {
+        Order order = orderRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        order.changeOrderStatusToComplete();
+    }
+
+    @Transactional
+    public void cancelOrder(Long id) {
+        Order order = orderRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        order.cancelOrder();
+    }
+
+    @Transactional
+    public void deleteOrder(Long id) {
+        orderRepository.deleteById(id);
     }
 }
