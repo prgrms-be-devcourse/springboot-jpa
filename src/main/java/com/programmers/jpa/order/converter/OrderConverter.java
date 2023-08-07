@@ -9,22 +9,8 @@ import java.util.stream.Collectors;
 
 @Component
 public class OrderConverter {
-    public Order convertOrder(OrderDto orderDto) {
-        List<OrderItem> orderItems = this.convertOrderItems(orderDto.orderItemDtos());
 
-        Order order = Order.builder()
-                .orderStatus(orderDto.orderStatus())
-                .memo(orderDto.memo())
-                .member(this.convertMember(orderDto.memberDto()))
-                .orderItems(orderItems)
-                .build();
-
-        orderItems.forEach(orderItem -> orderItem.attachToOrder(order));
-
-        return order;
-    }
-
-    private Member convertMember(MemberDto memberDto) {
+    public Member convertMember(MemberDto memberDto) {
         return Member.builder()
                 .name(memberDto.name())
                 .nickName(memberDto.nickName())
@@ -34,7 +20,7 @@ public class OrderConverter {
                 .build();
     }
 
-    private List<OrderItem> convertOrderItems(List<OrderItemDto> orderItemDtos) {
+    public List<OrderItem> convertOrderItems(List<OrderItemDto> orderItemDtos) {
         return orderItemDtos.stream()
                 .map(orderItemDto -> OrderItem.builder()
                         .price(orderItemDto.price())

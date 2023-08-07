@@ -2,7 +2,6 @@ package com.programmers.jpa.domain.order;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -42,13 +41,16 @@ public class Order extends BaseEntity {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @Builder
     private Order(OrderStatus orderStatus, String memo, Member member, List<OrderItem> orderItems) {
         this.uuid = UUID.randomUUID().toString();
         this.orderStatus = orderStatus;
         this.memo = memo;
         this.member = member;
         this.orderItems = orderItems;
+    }
+
+    public static Order createOrder(OrderStatus orderStatus, String memo, Member member, List<OrderItem> orderItems) {
+        return new Order(orderStatus, memo, member, orderItems);
     }
 
     public void addOrderItem(OrderItem orderItem) {

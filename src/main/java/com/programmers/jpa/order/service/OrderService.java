@@ -1,6 +1,8 @@
 package com.programmers.jpa.order.service;
 
+import com.programmers.jpa.domain.order.Member;
 import com.programmers.jpa.domain.order.Order;
+import com.programmers.jpa.domain.order.OrderItem;
 import com.programmers.jpa.domain.order.OrderRepository;
 import com.programmers.jpa.order.converter.OrderConverter;
 import com.programmers.jpa.order.dto.OrderDto;
@@ -10,6 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -21,8 +25,13 @@ public class OrderService {
 
     @Transactional
     public String save(OrderDto dto) {
-        Order order = orderConverter.convertOrder(dto);
+        List<OrderItem> orderItems = orderConverter.convertOrderItems(dto.orderItemDtos());
+        Member member = orderConverter.convertMember(dto.memberDto());
+        Order order = Order.createOrder(dto.orderStatus(), dto.memo(), member, orderItems);
+        orderItems.forEach(orderItem -> orderItem.attachToOrder(order));
+
         Order savedOrder = orderRepository.save(order);
+
         return savedOrder.getUuid();
     }
 
