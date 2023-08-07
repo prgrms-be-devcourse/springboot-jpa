@@ -2,7 +2,6 @@ package com.programmers.jpa_mission.domain.order;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -24,35 +23,31 @@ public class OrderItem extends BaseEntity {
     @OneToMany(mappedBy = "orderItem")
     private List<Item> items;
 
-    public Long getId() {
-        return id;
+    public OrderItem() {
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public OrderItem(int price, int quantity) {
+        this.price = price;
+        this.quantity = quantity;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public int getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
     public int getQuantity() {
         return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 
     public Order getOrder() {
         return order;
     }
 
-    public void setOrder(Order order) {
+    public void mappingOrder(Order order) {
         if (Objects.nonNull(this.order)) {
             this.order.getOrderItems().remove(this);
         }
@@ -65,11 +60,7 @@ public class OrderItem extends BaseEntity {
         return items;
     }
 
-    public void setItems(List<Item> items) {
-        this.items = items;
-    }
-
     public void addItem(Item item) {
-        item.setOrderItem(this);
+        item.mappingOrderItem(this);
     }
 }
