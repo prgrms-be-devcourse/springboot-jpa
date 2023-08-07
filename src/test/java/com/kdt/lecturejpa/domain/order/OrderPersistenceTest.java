@@ -3,7 +3,6 @@ package com.kdt.lecturejpa.domain.order;
 import static com.kdt.lecturejpa.domain.order.OrderStatus.*;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +25,13 @@ public class OrderPersistenceTest {
 
 	@Test
 	void member_insert() {
-		Member member = new Member();
-		member.setName("byeonggon");
-		member.setAddress("서울시 관악구 신림동");
-		member.setAge(25);
-		member.setNickName("gorani");
-		member.setDescription("백엔드 개발자에요");
+		Member member = Member.builder()
+			.name("byeonggon")
+			.address("서울시 관악구 신림동")
+			.age(25)
+			.nickName("gorani")
+			.description("백엔드 개발자에요")
+			.build();
 
 		EntityManager entityManager = emf.createEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
@@ -44,12 +44,13 @@ public class OrderPersistenceTest {
 
 	@Test
 	void 잘못된_설계() {
-		Member member = new Member();
-		member.setName("kanghonggu");
-		member.setAddress("서울시 동작구(만) 움직이면 쏜다.");
-		member.setAge(33);
-		member.setNickName("guppy.kang");
-		member.setDescription("백앤드 개발자에요.");
+		Member member = Member.builder()
+			.name("kanghonggu")
+			.address("서울시 동작구(만) 움직이면 쏜다.")
+			.age(33)
+			.nickName("guppy.kang")
+			.description("백앤드 개발자에요.")
+			.build();
 
 		EntityManager entityManager = emf.createEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
@@ -58,11 +59,12 @@ public class OrderPersistenceTest {
 		entityManager.persist(member);
 		Member memberEntity = entityManager.find(Member.class, 1L);
 
-		Order order = new Order();
-		order.setOrderDateTime(LocalDateTime.now());
-		order.setOrderStatus(OPENED);
-		order.setMemo("부재시 전화주세요.");
-		order.setMemberId(memberEntity.getId()); // 외래키를 직접 지정
+		Order order = Order.builder()
+			.orderDateTime(LocalDateTime.now())
+			.orderStatus(OPENED)
+			.memo("부재시 전화주세요.")
+			.memberId(memberEntity.getId()) // 외래키를 직접 지정
+			.build();
 
 		entityManager.persist(order);
 		transaction.commit();
@@ -81,20 +83,21 @@ public class OrderPersistenceTest {
 
 		transaction.begin();
 
-		Member member = new Member();
-		member.setName("byeonggon");
-		member.setNickName("guppy.kang");
-		member.setAddress("서울시 관악구");
-		member.setAge(33);
+		Member member = Member.builder()
+			.name("byeonggon")
+			.nickName("guppy.kang")
+			.address("서울시 관악구")
+			.age(33)
+			.build();
 
 		entityManager.persist(member);
 
-		Order order = new Order();
-		order.setOrderStatus(OPENED);
-		order.setOrderDateTime(LocalDateTime.now());
-		order.setMemo("부재시 연락주세요.");
-		order.setMember(member);
-		//member.setOrders(Lists.newArrayList(order)); //이 코드가 없어도 setMember를 수정해서 양방향으로 업데이트 되
+		Order order = Order.builder()
+			.orderStatus(OPENED)
+			.orderDateTime(LocalDateTime.now())
+			.memo("부재시 연락주세요.")
+			.build();
+		order.attachMember(member);
 
 		entityManager.persist(order);
 		transaction.commit();

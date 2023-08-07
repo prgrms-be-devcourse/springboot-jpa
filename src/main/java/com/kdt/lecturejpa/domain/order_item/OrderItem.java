@@ -4,8 +4,6 @@ import static jakarta.persistence.FetchType.*;
 
 import java.util.Objects;
 
-import org.aspectj.weaver.ast.Or;
-
 import com.kdt.lecturejpa.domain.item.Item;
 import com.kdt.lecturejpa.domain.order.Order;
 
@@ -18,32 +16,35 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 @Table(name = "order_item")
 @Getter
-@Setter
 @Entity
+@NoArgsConstructor
 public class OrderItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 
+	@Column(name = "price", nullable = false)
 	private int price;
+
+	@Column(name = "quantity", nullable = false)
 	private int quantity;
 
-	@Column(name = "order_id",insertable=false, updatable=false)
+	@Column(name = "order_id",insertable=false, updatable=false, nullable = false)
 	private String orderId;
 
-	@Column(name = "item_id", insertable=false, updatable=false)
+	@Column(name = "item_id", insertable=false, updatable=false, nullable = false)
 	private Long itemId;
 
 	@ManyToOne(fetch = LAZY)
-	@JoinColumn(name = "order_id", referencedColumnName = "id")
+	@JoinColumn(name = "order_id", referencedColumnName = "id", nullable = false)
 	private Order order;
 
 	@ManyToOne(fetch = LAZY)
-	@JoinColumn(name = "item_id", referencedColumnName = "id")
+	@JoinColumn(name = "item_id", referencedColumnName = "id", nullable = false)
 	private Item item;
 
 	public OrderItem(int price, int quantity) {
@@ -51,11 +52,7 @@ public class OrderItem {
 		this.quantity = quantity;
 	}
 
-	public OrderItem() {
-
-	}
-
-	public void setItem(Item item) {
+	public void attachItem(Item item) {
 		if (Objects.nonNull(this.item)) {
 			this.item.getOrderItems().remove(this);
 		}
@@ -64,7 +61,7 @@ public class OrderItem {
 		item.getOrderItems().add(this);
 	}
 
-	public void setOrder(Order order) {
+	public void attachOrder(Order order) {
 		if (Objects.nonNull(this.order)) {
 			this.order.getOrderItems().remove(this);
 		}
@@ -75,7 +72,7 @@ public class OrderItem {
 
 	public static OrderItem createOrderItem(Item item, int quantity) {
 		OrderItem orderItem = new OrderItem(item.getPrice(), quantity);
-		orderItem.setItem(item);
+		orderItem.attachItem(item);
 		item.decreaseStockQuantity(quantity);
 		item.addOrderItem(orderItem);
 		return orderItem;

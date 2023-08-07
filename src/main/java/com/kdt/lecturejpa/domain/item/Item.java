@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.kdt.lecturejpa.domain.order_item.OrderItem;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,29 +12,31 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name ="item")
 @Getter
-@Setter
+@NoArgsConstructor
 public class Item {
 
 	@Id
 	@GeneratedValue(strategy =  GenerationType.SEQUENCE)
 	private Long id;
 
+	@Column(name = "price", nullable = false)
 	private int price;
+
+	@Column(name = "stock_quantity", nullable = false)
 	private int stockQuantity;
+
+	@Column(name = "name", nullable = false)
 	private String name;
 
 	public Item(int price, int stockQuantity, String name) {
 		this.price = price;
 		this.stockQuantity = stockQuantity;
 		this.name = name;
-	}
-
-	public Item() {
 	}
 
 	@OneToMany(mappedBy = "item")
@@ -43,6 +46,6 @@ public class Item {
 		this.stockQuantity = this.stockQuantity - decreaseAmount;
 	}
 	public void addOrderItem(OrderItem orderItem) {
-		orderItem.setItem(this);
+		orderItem.attachItem(this);
 	}
 }

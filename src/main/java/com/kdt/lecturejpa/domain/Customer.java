@@ -11,13 +11,13 @@ import jakarta.persistence.Table;
 @Table (name = "customers")
 public class Customer {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id;
 
-	@Column
+	@Column(name = "first_name", nullable = false, length = 5)
 	private String firstName;
 
-	@Column
+	@Column(name = "last_name", nullable = false, length = 5)
 	private String lastName;
 
 	public long getId() {

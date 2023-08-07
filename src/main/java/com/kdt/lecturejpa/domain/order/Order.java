@@ -20,13 +20,14 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "orders")
 @Getter
-@Setter
+@NoArgsConstructor
 public class Order {
 
 	@Id
@@ -34,17 +35,18 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 
-	@Column(name = "memo")
+	@Column(name = "memo", nullable = false)
 	private String memo;
 
 	@Enumerated(value = EnumType.STRING)
+	@Column(name = "order_status", nullable = false)
 	private OrderStatus orderStatus;
 
-	@Column(name = "order_datetime", columnDefinition = "TIMESTAMP")
+	@Column(name = "order_datetime", columnDefinition = "TIMESTAMP", nullable = false)
 	private LocalDateTime orderDateTime;
 
 	// member_fk
-	@Column(name = "member_id", insertable = false, updatable = false)
+	@Column(name = "member_id", insertable = false, updatable = false, nullable = false)
 	private Long memberId;
 
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -54,8 +56,15 @@ public class Order {
 	@OneToMany(mappedBy = "order")
 	private List<OrderItem> orderItems = new ArrayList<>();
 
+	@Builder
+	public Order(String memo, OrderStatus orderStatus, LocalDateTime orderDateTime, Long memberId) {
+		this.memo = memo;
+		this.orderStatus = orderStatus;
+		this.orderDateTime = orderDateTime;
+		this.memberId = memberId;
+	}
 
-	public void setMember(Member member) {
+	public void attachMember(Member member) {
 		if (Objects.nonNull(this.member)) {
 			this.member.getOrders().remove(this);
 		}
@@ -65,12 +74,8 @@ public class Order {
 	}
 
 	public void addOrderItem(OrderItem orderItem) {
-		orderItem.setOrder(this);
+		orderItem.attachOrder(this);
 	}
-
-	public Order() {
-	}
-
 	public Order(String memo, OrderStatus orderStatus) {
 		this.memo = memo;
 		this.orderStatus = orderStatus;
@@ -79,7 +84,7 @@ public class Order {
 	public static Order createOrder(OrderItem orderItem, Member member, String memo, OrderStatus orderStatus) {
 		Order newOrder = new Order(memo, orderStatus);
 		newOrder.addOrderItem(orderItem);
-		newOrder.setMember(member);
+		newOrder.attachMember(member);
 
 		return newOrder;
 	}
