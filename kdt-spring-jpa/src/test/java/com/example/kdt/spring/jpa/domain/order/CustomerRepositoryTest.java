@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
-@SpringBootTest
+@DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @TestPropertySource("classpath:application-test.properties")
 class CustomerRepositoryTest {
@@ -58,7 +58,6 @@ class CustomerRepositoryTest {
 
         // When
         retrievedCustomer.updateFullName("구", "범모");
-        repository.save(retrievedCustomer);
 
         // Then
         Customer updatedCustomer = repository.findById(customer.getId()).get();
