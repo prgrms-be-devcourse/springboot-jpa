@@ -34,12 +34,6 @@ public class OrderItem {
 	@Column(name = "quantity", nullable = false)
 	private int quantity;
 
-	@Column(name = "order_id", insertable = false, updatable = false, nullable = false)
-	private String orderId;
-
-	@Column(name = "item_id", insertable = false, updatable = false, nullable = false)
-	private Long itemId;
-
 	@ManyToOne(fetch = LAZY)
 	@JoinColumn(name = "order_id", referencedColumnName = "id", nullable = false)
 	private Order order;

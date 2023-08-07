@@ -45,15 +45,15 @@ public class Order {
 	@Column(name = "order_datetime", columnDefinition = "TIMESTAMP", nullable = false)
 	private LocalDateTime orderDateTime;
 
-	// member_fk
+	// member_fk,
 	@Column(name = "member_id", insertable = false, updatable = false, nullable = false)
 	private Long memberId;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id", referencedColumnName = "id")
 	private Member member;
 
-	@OneToMany(mappedBy = "order")
+	@OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
 	private List<OrderItem> orderItems = new ArrayList<>();
 
 	@Builder
