@@ -1,9 +1,17 @@
 package com.kdt.mission1.domain.order;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "member")
+@Getter
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class Member {
     @Id
     @GeneratedValue
@@ -18,4 +26,6 @@ public class Member {
     private String address;
     @Column(name = "description", nullable = false)
     private String description;
+    @OneToMany(mappedBy = "member")
+    private List<Order> orders;
 }
