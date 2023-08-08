@@ -31,20 +31,11 @@ public class OrderPersistenceTest {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
-        Order order = new Order();
-        order.setUuid(UUID.randomUUID().toString());
-        order.setMemo("부재시 전화주세요.");
-        order.setOrderDatetime(LocalDateTime.now());
-        order.setOrderStatus(OPENED);
+        Order order = new Order(LocalDateTime.now(), OPENED, "부재시 전화주세요.");
 
         entityManager.persist(order);
 
-        Member member = new Member();
-        member.setName("beomchul");
-        member.setNickName("beombu");
-        member.setAge(26);
-        member.setAddress("서울시 노원구");
-        member.setDescription("KDT 화이팅");
+        Member member = new Member("beomchul", "beombu", 26, "서울시 노원구", "KDT 화이팅");
 
         member.getOrders().add(order);
 
@@ -59,25 +50,16 @@ public class OrderPersistenceTest {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
-        Order order = new Order();
-        order.setUuid(UUID.randomUUID().toString());
-        order.setMemo("부재시 전화주세요.");
-        order.setOrderDatetime(LocalDateTime.now());
-        order.setOrderStatus(OPENED);
-        order.setOrderItems(new ArrayList<>());
+        Order order = new Order(LocalDateTime.now(), OPENED, "부재시 전화주세요.");
 
         entityManager.persist(order);
 
-        OrderItem orderItem = new OrderItem();
-        orderItem.setId(1L);
-        orderItem.setPrice(1000);
+        OrderItem orderItem = new OrderItem(1000, 5);
 
         order.addOrderItem(orderItem);
         entityManager.persist(orderItem);
 
-        Item item = new Item();
-        item.setPrice(1000);
-        item.setStockQuantity(5);
+        Item item = new Item(1000, 5);
 
         orderItem.addItem(item);
         entityManager.persist(item);
@@ -91,21 +73,11 @@ public class OrderPersistenceTest {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
-        Order order = new Order();
-        order.setUuid(UUID.randomUUID().toString());
-        order.setMemo("부재시 전화주세요.");
-        order.setOrderDatetime(LocalDateTime.now());
-        order.setOrderStatus(OPENED);
+        Order order = new Order(LocalDateTime.now(), OPENED, "부재시 전화주세요.");
 
         entityManager.persist(order);
 
-        Member member = new Member();
-        member.setName("beomchul");
-        member.setNickName("beombu");
-        member.setAge(26);
-        member.setAddress("서울시 노원구");
-        member.setDescription("KDT 화이팅");
-
+        Member member = new Member("beomchul", "beombu", 26, "서울시 노원구", "KDT 화이팅");
         member.addOrder(order);
         entityManager.persist(member);
 
@@ -118,20 +90,11 @@ public class OrderPersistenceTest {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
-        Order order = new Order();
-        order.setUuid(UUID.randomUUID().toString());
-        order.setMemo("부재시 전화주세요.");
-        order.setOrderDatetime(LocalDateTime.now());
-        order.setOrderStatus(OPENED);
+        Order order = new Order(LocalDateTime.now(), OPENED, "부재시 전화주세요.");
 
         entityManager.persist(order);
 
-        Member member = new Member();
-        member.setName("beomchul");
-        member.setNickName("beombu");
-        member.setAge(26);
-        member.setAddress("서울시 노원구");
-        member.setDescription("KDT 화이팅");
+        Member member = new Member("beomchul", "beombu", 26, "서울시 노원구", "KDT 화이팅");
         member.addOrder(order);
 
         entityManager.persist(member);

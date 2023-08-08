@@ -25,35 +25,32 @@ public class Item extends BaseEntity {
     @JoinColumn(name = "order_item_id", referencedColumnName = "id")
     private OrderItem orderItem;
 
-    public Long getId() {
-        return id;
+    public Item() {
+
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Item(int price, int stockQuantity) {
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public int getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
     public int getStockQuantity() {
         return stockQuantity;
-    }
-
-    public void setStockQuantity(int stockQuantity) {
-        this.stockQuantity = stockQuantity;
     }
 
     public OrderItem getOrderItem() {
         return orderItem;
     }
 
-    public void setOrderItem(OrderItem orderItem) {
+    public void mappingOrderItem(OrderItem orderItem) {
         if (Objects.nonNull(this.orderItem)) {
             this.orderItem.getItems().remove(this);
         }

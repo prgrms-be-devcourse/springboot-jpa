@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "orders")
@@ -29,30 +30,29 @@ public class Order extends BaseEntity {
     private Member member;
 
     @OneToMany(mappedBy = "order")
-    private List<OrderItem> orderItems;
+    private List<OrderItem> orderItems = new ArrayList<>();
+
+    public Order() {
+
+    }
+
+    public Order(LocalDateTime orderDatetime, OrderStatus orderStatus, String memo) {
+        this.uuid = UUID.randomUUID().toString();
+        this.orderDatetime = orderDatetime;
+        this.orderStatus = orderStatus;
+        this.memo = memo;
+    }
 
     public String getUuid() {
         return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
     }
 
     public LocalDateTime getOrderDatetime() {
         return orderDatetime;
     }
 
-    public void setOrderDatetime(LocalDateTime orderDatetime) {
-        this.orderDatetime = orderDatetime;
-    }
-
     public OrderStatus getOrderStatus() {
         return orderStatus;
-    }
-
-    public void setOrderStatus(OrderStatus orderStatus) {
-        this.orderStatus = orderStatus;
     }
 
     public String getMemo() {
@@ -67,8 +67,8 @@ public class Order extends BaseEntity {
         return member;
     }
 
-    public void setMember(Member member) {
-        if(Objects.nonNull(this.member)) {
+    public void mappingMember(Member member) {
+        if (Objects.nonNull(this.member)) {
             this.member.getOrders().remove(this);
         }
 
@@ -80,11 +80,7 @@ public class Order extends BaseEntity {
         return orderItems;
     }
 
-    public void setOrderItems(List<OrderItem> orderItems) {
-        this.orderItems = orderItems;
-    }
-
     public void addOrderItem(OrderItem orderItem) {
-        orderItem.setOrder(this);
+        orderItem.mappingOrder(this);
     }
 }
