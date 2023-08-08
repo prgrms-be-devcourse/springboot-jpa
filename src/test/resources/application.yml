@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:board
+    username: sa
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show_sql: true
+    properties:
+      hibernate:
+        format_sql: true
