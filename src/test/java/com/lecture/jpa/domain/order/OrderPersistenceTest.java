@@ -2,6 +2,8 @@ package com.lecture.jpa.domain.order;
 
 import static com.lecture.jpa.domain.order.OrderStatus.OPENED;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -47,12 +49,15 @@ public class OrderPersistenceTest {
         member.setAge(26);
         member.setAddress("서울시");
 
-        member.getOrders().add(order); // 연관관계의 주인이 아닌곳에만 SETTING
+        member.getOrders().add(order);
 
 
         entityManager.persist(member);
 
         transaction.commit();
+
+        assertTrue(member.getOrders().contains(order));
+        assertEquals(member, order.getMember());
     }
 
     @Test
@@ -80,6 +85,9 @@ public class OrderPersistenceTest {
         entityManager.persist(member);
 
         transaction.commit();
+
+        assertTrue(member.getOrders().contains(order));
+        assertEquals(member, order.getMember());
     }
 
     @Test
