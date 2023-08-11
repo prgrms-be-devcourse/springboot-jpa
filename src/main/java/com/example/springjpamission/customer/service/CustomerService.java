@@ -7,9 +7,12 @@ import com.example.springjpamission.customer.service.dto.CustomerResponses;
 import com.example.springjpamission.customer.service.dto.SaveCustomerRequest;
 import com.example.springjpamission.customer.service.dto.CustomerResponse;
 import com.example.springjpamission.customer.service.dto.UpdateCustomerRequest;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
 @Service
 public class CustomerService {
 
@@ -19,30 +22,30 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
-    @Transactional
     public CustomerResponse saveCustomer(SaveCustomerRequest saveCustomerRequest) {
         Customer customer = new Customer(
                 new Name(saveCustomerRequest.firstName(), saveCustomerRequest.lastName()));
-        return new CustomerResponse(customerRepository.save(customer));
+        return CustomerResponse.of(customerRepository.save(customer));
     }
 
-    @Transactional
     public CustomerResponse updateCustomer(UpdateCustomerRequest updateCustomerRequest) {
         Customer findCustomer = customerRepository.findById(updateCustomerRequest.id())
-                .orElseThrow(() -> new RuntimeException("해당 customer는 존재하지 않습니다."));
+                .orElseThrow(() ->  new EntityNotFoundException("해당 customer는 존재하지 않습니다."));
 
         findCustomer.changeName(
                 new Name(updateCustomerRequest.firstName(), updateCustomerRequest.lastName()));
-        return new CustomerResponse(findCustomer);
+        return CustomerResponse.of(findCustomer);
     }
 
-    @Transactional
-    public CustomerResponses findAll() {
-        return CustomerResponses.of(customerRepository.findAll());
+    @Transactional(readOnly = true)
+    public CustomerResponses findAll(Pageable pageable) {
+        return CustomerResponses.of(customerRepository.findAll(pageable));
     }
 
-    @Transactional
     public void deleteById(Long id) {
+        customerRepository.findById(id)
+                .orElseThrow(()->new EntityNotFoundException("해당 customer는 존재하지 않습니다."));
+
         customerRepository.deleteById(id);
     }
 

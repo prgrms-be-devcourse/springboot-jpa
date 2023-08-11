@@ -1,26 +1,34 @@
 package com.example.springjpamission.order.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
-@Getter
-@Entity
 @DiscriminatorValue("CAR")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Entity
 public class Car extends Item {
 
+    private static final int ZERO = 0;
+
+    @Column
     private int power;
 
-    public Car(int power) {
+    protected Car() { }
+
+    public Car(Price price, int stockQuantity, int power) {
+        super(price, stockQuantity);
+        validatePower(power);
         this.power = power;
     }
 
-    public Car(int price, int stockQuantity, int power) {
-        super(price, stockQuantity);
-        this.power = power;
+    private void validatePower(int power) {
+        if(power < ZERO) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    public int getPower() {
+        return power;
     }
 
 }

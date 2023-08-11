@@ -1,31 +1,29 @@
 package com.example.springjpamission.order.domain;
 
 import com.example.springjpamission.gobal.BaseEntity;
-import jakarta.persistence.DiscriminatorColumn;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
 
-@Getter
+
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "DTYPE")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "items")
 @Entity
 public abstract class Item extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int price;
+
+    @Embedded
+    @Column(nullable = false)
+    private Price price;
+
+    @Column(nullable = false)
     private int stockQuantity;
 
-    public Item(int price, int stockQuantity) {
+    protected Item() {}
+
+    public Item(Price price, int stockQuantity) {
         this.price = price;
         this.stockQuantity = stockQuantity;
     }

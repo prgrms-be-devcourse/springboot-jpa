@@ -5,17 +5,22 @@ import com.example.springjpamission.customer.service.dto.CustomerResponse;
 import com.example.springjpamission.customer.service.dto.CustomerResponses;
 import com.example.springjpamission.customer.service.dto.SaveCustomerRequest;
 import com.example.springjpamission.customer.service.dto.UpdateCustomerRequest;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
+
 import java.util.List;
+import java.util.Random;
+
 import org.springframework.transaction.annotation.Transactional;
 
-
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchException;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
@@ -27,6 +32,7 @@ class CustomerServiceTest {
 
     @Autowired
     CustomerRepository customerRepository;
+
     Long setUpCustomerId;
 
     @BeforeEach
@@ -71,7 +77,8 @@ class CustomerServiceTest {
     @DisplayName("전체 데이터 조회시 setUp()에 넣은 데이터를 조회하여 사이즈가 1이 된다.")
     void findAll() {
         //when
-        CustomerResponses findCustomers = customerService.findAll();
+        PageRequest pageSize = PageRequest.of(0, 10);
+        CustomerResponses findCustomers = customerService.findAll(pageSize);
 
         //then
         assertThat(findCustomers.customerResponses().size()).isEqualTo(1);
@@ -86,6 +93,16 @@ class CustomerServiceTest {
         //then
         List<Customer> findCustomers = customerRepository.findAll();
         assertThat(findCustomers.size()).isEqualTo(0);
+    }
+
+    @Test
+    @DisplayName("존재하지 않는 고객 아이디로 삭제 요청시 EntityNotFoundException가 발생한다.")
+    void deleteByNotExistId() {
+        //when
+        Exception exception = catchException(() -> customerService.deleteById(new Random().nextLong()));
+
+        //then
+        assertThat(exception).isInstanceOf(EntityNotFoundException.class);
     }
 
 }

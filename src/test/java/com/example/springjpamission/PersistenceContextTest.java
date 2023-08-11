@@ -40,6 +40,8 @@ class PersistenceContextTest {
         //then
         Customer findCustomer = em.find(Customer.class, customer.getId());
         assertThat(findCustomer.getId()).isEqualTo(customer.getId());
+        assertThat(findCustomer.getName().getFirstName()).isEqualTo("영운");
+        assertThat(findCustomer.getName().getLastName()).isEqualTo("윤");
     }
 
     @Test

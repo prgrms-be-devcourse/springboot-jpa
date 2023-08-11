@@ -6,29 +6,31 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import lombok.Getter;
 
-@Getter
 @MappedSuperclass
-public class BaseEntity {
+public abstract class BaseEntity {
 
-    @Column(name = "created_at", updatable = false, nullable = false)
+    private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+
+    @Column(updatable = false, nullable = false)
     private String createAt;
 
-    @Column(name = "last_updated_at", nullable = false)
+    @Column(nullable = false)
     private String lastUpdatedAt;
+
+    protected BaseEntity() { }
 
     @PrePersist
     public void prePersist() {
         LocalDateTime now = LocalDateTime.now();
-        createAt = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        lastUpdatedAt = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        createAt = now.format(DateTimeFormatter.ofPattern(DATE_FORMAT));
+        lastUpdatedAt = now.format(DateTimeFormatter.ofPattern(DATE_FORMAT));
     }
 
     @PreUpdate
     public void preUpdate() {
         lastUpdatedAt = LocalDateTime.now()
-                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                .format(DateTimeFormatter.ofPattern(DATE_FORMAT));
     }
 
 }

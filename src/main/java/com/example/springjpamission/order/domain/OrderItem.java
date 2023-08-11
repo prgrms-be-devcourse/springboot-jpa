@@ -4,38 +4,52 @@ import com.example.springjpamission.gobal.BaseEntity;
 import jakarta.persistence.*;
 
 import java.util.Objects;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
-@Entity
-@Getter
 @Table(name = "order_items")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Entity
 public class OrderItem extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int price;
-    private int quantity;
 
-    @ManyToOne
+    @Embedded
+    @Column(nullable = false)
+    private Price price;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order order;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "item_id", referencedColumnName = "id")
     private Item item;
 
-    public OrderItem(int price, int quantity, Order order, Item items) {
+    protected OrderItem() {}
+
+    public OrderItem(Price price, Order order, Item items) {
         this.price = price;
-        this.quantity = quantity;
         this.order = order;
         this.item = items;
     }
 
-    public void setOrder(Order order) { // 방금 아까 봤던 오더
+    public Long getId() {
+        return id;
+    }
+
+    public Price getPrice() {
+        return price;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void changeOrder(Order order) {
         if (Objects.nonNull(this.order)) {
             this.order.getOrderItems().remove(this);
         }
@@ -44,7 +58,7 @@ public class OrderItem extends BaseEntity {
         order.getOrderItems().add(this);
     }
 
-    public void setItem(Item item) { // 방금 아까 봤던 오더
+    public void changeItem(Item item) { // 방금 아까 봤던 오더
         this.item = item;
     }
 

@@ -1,26 +1,28 @@
 package com.example.springjpamission.order.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
-@Getter
-@Entity
 @DiscriminatorValue("FOOD")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Entity
 public class Food extends Item {
 
+    @Column
     private String chef;
 
-    public Food(String chef) {
+    protected Food() { }
+
+    public Food(Price price, int stockQuantity, String chef) {
+        super(price, stockQuantity);
+        validateChef(chef);
         this.chef = chef;
     }
 
-    public Food(int price, int stockQuantity, String chef) {
-        super(price, stockQuantity);
-        this.chef = chef;
+    private void validateChef(String chef) {
+        if (chef == null || chef.isBlank()) {
+            throw new IllegalArgumentException();
+        }
     }
 
 }

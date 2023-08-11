@@ -2,59 +2,56 @@ package com.example.springjpamission.order.domain;
 
 import com.example.springjpamission.customer.domain.Customer;
 import com.example.springjpamission.gobal.BaseEntity;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
-@Entity
 @Table(name = "orders")
-@Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Entity
 public class Order extends BaseEntity {
 
     @Id
-    private String id;
-    private String memo;
-    private int price;
-    private int quantity;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Column(nullable = false)
+    private String memo;
+
+    @Embedded
+    @Column(nullable = false)
+    private Price price;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private Customer customer;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "order", orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    public Order(String id, String memo) {
-        this.id = id;
+    protected Order() { }
+
+    public Order(String memo) {
         this.memo = memo;
     }
 
-    public Order(String id, String memo, int price, int quantity, Customer customer) {
-        this.id = id;
+    public Order(String memo, Price price, Customer customer) {
         this.memo = memo;
         this.price = price;
-        this.quantity = quantity;
         this.customer = customer;
     }
 
     public void changeCustomer(Customer customer) {
         this.customer = customer;
+        customer.getOrders().add(this);
     }
 
-    public void addOrderItem(OrderItem orderItem) {
-        orderItem.setOrder(this);
+    public Customer getCustomer() {
+        return customer;
     }
 
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
 }

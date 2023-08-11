@@ -16,13 +16,18 @@ import org.springframework.transaction.PlatformTransactionManager;
 @Configuration
 public class DataSourceConfig {
 
+    private static final String DRIVER = "org.h2.Driver";
+    private static final String DB_URL = "jdbc:h2:tcp://localhost/~/test";
+    private static final String USER = "sa";
+    private static final String PASSWORD= "";
+
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("org.h2.Driver");
-        dataSource.setUrl("jdbc:h2:tcp://localhost/~/test");
-        dataSource.setUsername("sa");
-        dataSource.setPassword("");
+        dataSource.setDriverClassName(DRIVER);
+        dataSource.setUrl(DB_URL);
+        dataSource.setUsername(USER);
+        dataSource.setPassword(PASSWORD);
 
         return dataSource;
     }
