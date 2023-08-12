@@ -15,7 +15,9 @@ import java.util.Objects;
 @Getter
 public class Food extends Item{
 
-    @Column(length = 5)
+    public static final int MAX_CHEF_LENGTH = 5;
+
+    @Column(length = MAX_CHEF_LENGTH)
     private String chef;
 
     private Food(int price, int stockQuantity, String chef) {
@@ -31,6 +33,10 @@ public class Food extends Item{
     private static void validateChef(String chef) {
         if (Objects.isNull(chef) || chef.isBlank()) {
             throw new IllegalArgumentException("요리사가 비어있습니다.");
+        }
+
+        if (chef.length() > MAX_CHEF_LENGTH) {
+            throw new IllegalArgumentException(String.format("요리사 이름이 %s 글자수를 넘었습니다.", MAX_CHEF_LENGTH));
         }
     }
 }
