@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class CustomerService {
 
+    public static final String CUSTOMER_NOT_FOUND = "고객이 존재하지 않습니다. {} ";
     private final CustomerRepository customerRepository;
 
     @Transactional
@@ -28,7 +29,7 @@ public class CustomerService {
     public FindResponse findById(Long id) {
         return customerRepository.findById(id)
                 .map(FindResponse::from)
-                .orElseThrow(() -> new IllegalArgumentException("고객이 존재하지 않습니다."));
+                .orElseThrow(() -> new IllegalArgumentException(String.format(CUSTOMER_NOT_FOUND, id)));
     }
 
     public Page<FindResponse> findAll(Pageable pageable) {
@@ -40,7 +41,7 @@ public class CustomerService {
     @Transactional
     public Long update(UpdateRequest updateRequest) {
         Customer foundCustomer = customerRepository.findById(updateRequest.id())
-                .orElseThrow(() -> new IllegalArgumentException("고객이 존재하지 않습니다."));
+                .orElseThrow(() -> new IllegalArgumentException(String.format(CUSTOMER_NOT_FOUND, updateRequest.id())));
         foundCustomer.changeName(updateRequest.firstName(), updateRequest.lastName());
         return foundCustomer.getId();
     }
