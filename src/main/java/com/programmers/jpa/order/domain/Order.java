@@ -39,17 +39,15 @@ public class Order extends BaseEntity {
     }
 
     public void startDelivery() {
-        if (this.orderStatus == OrderStatus.DELIVERY_COMPLETE
-                || this.orderStatus == OrderStatus.DELIVERING) {
-            throw new OrderStatusException("이미 배송 중인 주문이거나 배송 완료된 주문입니다.");
+        if (this.orderStatus == OrderStatus.DELIVERY_COMPLETE) {
+            throw new OrderStatusException("이미 배송 완료된 주문입니다.");
         }
         this.orderStatus = OrderStatus.DELIVERING;
     }
 
     public void completeDelivery() {
-        if (this.orderStatus == OrderStatus.SUCCESS
-                || this.orderStatus == OrderStatus.DELIVERY_COMPLETE) {
-            throw new OrderStatusException("현재 주문 상태가 배달중이 아닙니다.");
+        if (this.orderStatus == OrderStatus.SUCCESS) {
+            throw new OrderStatusException("주문이 아직 배달되지 않았습니다.");
         }
         this.orderStatus = OrderStatus.DELIVERY_COMPLETE;
     }

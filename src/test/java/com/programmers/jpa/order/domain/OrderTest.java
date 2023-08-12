@@ -27,15 +27,10 @@ class OrderTest {
     @Test
     void throwExceptionWhenOrderStatusIsNotSuccess() {
         //given
-        Order order1 = new Order("주문");
-        ReflectionTestUtils.setField(order1, "orderStatus", OrderStatus.DELIVERING);
-
         Order order2 = new Order("주문");
         ReflectionTestUtils.setField(order2, "orderStatus", OrderStatus.DELIVERY_COMPLETE);
 
         //when, then
-        assertThatThrownBy(() -> order1.startDelivery())
-                .isInstanceOf(OrderStatusException.class);
         assertThatThrownBy(() -> order2.startDelivery())
                 .isInstanceOf(OrderStatusException.class);
     }
@@ -60,13 +55,8 @@ class OrderTest {
         //given
         Order order1 = new Order("주문");
 
-        Order order2 = new Order("주문");
-        ReflectionTestUtils.setField(order2, "orderStatus", OrderStatus.DELIVERY_COMPLETE);
-
         //when, then
         assertThatThrownBy(() -> order1.completeDelivery())
-                .isInstanceOf(OrderStatusException.class);
-        assertThatThrownBy(() -> order2.completeDelivery())
                 .isInstanceOf(OrderStatusException.class);
     }
 }
