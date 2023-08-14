@@ -20,3 +20,6 @@
 
 ### 코드리뷰가 마쳤다면! 만족할 코드가 완성되었다면! Merge!
 - merge하면서 conflict가 날 수 있겠죠? Git/Github 특강을 다시보며 해결해봅시다.
+
+## 요구사항 다이어그램
+![img.png](img.png)

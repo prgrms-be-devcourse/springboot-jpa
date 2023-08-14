@@ -1,11 +1,12 @@
 package com.kdt.mission1.domain.order;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
+
+import static javax.persistence.EnumType.STRING;
 
 @Entity
+@Table(name = "order_item")
 public class OrderItem {
     @Id
     @GeneratedValue
@@ -15,4 +16,12 @@ public class OrderItem {
     private int price;
     @Column(name = "quantity", nullable = false)
     private int quantity;
+    @Column(name = "order_status")
+    @Enumerated(value = STRING)
+    private OrderStatus orderStatus;
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
+    @OneToMany(mappedBy = "orderItem")
+    private List<Item> items;
 }
