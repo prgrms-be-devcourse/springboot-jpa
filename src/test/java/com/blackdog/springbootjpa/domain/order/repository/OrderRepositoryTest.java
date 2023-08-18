@@ -3,8 +3,8 @@ package com.blackdog.springbootjpa.domain.order.repository;
 import com.blackdog.springbootjpa.domain.customer.model.Customer;
 import com.blackdog.springbootjpa.domain.customer.repository.CustomerRepository;
 import com.blackdog.springbootjpa.domain.customer.vo.Age;
+import com.blackdog.springbootjpa.domain.customer.vo.CustomerName;
 import com.blackdog.springbootjpa.domain.customer.vo.Email;
-import com.blackdog.springbootjpa.domain.customer.vo.Name;
 import com.blackdog.springbootjpa.domain.item.model.Item;
 import com.blackdog.springbootjpa.domain.item.repository.ItemRepository;
 import com.blackdog.springbootjpa.domain.item.vo.OriginNation;
@@ -12,29 +12,22 @@ import com.blackdog.springbootjpa.domain.item.vo.Price;
 import com.blackdog.springbootjpa.domain.order.model.Order;
 import com.blackdog.springbootjpa.domain.order.model.OrderItem;
 import com.blackdog.springbootjpa.domain.order.model.OrderStatus;
+import global.annotation.JpaTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestPropertySource;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ActiveProfiles("test")
-@DataJpaTest
-@TestPropertySource(locations = "classpath:application-test.yaml")
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@JpaTest
 class OrderRepositoryTest {
 
     @Autowired
     OrderRepository repository;
-
     @Autowired
     CustomerRepository customerRepository;
     @Autowired
@@ -60,6 +53,7 @@ class OrderRepositoryTest {
 
         //then
         Order result = repository.findById(order.getId()).get();
+
         assertThat(result.getId()).isEqualTo(savedOrder.getId());
         assertThat(result.getOrderItems()).hasSameSizeAs(savedOrder.getOrderItems());
     }
@@ -75,8 +69,9 @@ class OrderRepositoryTest {
         repository.deleteById(savedOrder.getId());
 
         //then
-        assertThat(repository.findAll().size()).isEqualTo(0);
         Optional<Order> result = repository.findById(savedOrder.getId());
+
+        assertThat(repository.findAll().size()).isEqualTo(0);
         assertThat(result).isEmpty();
     }
 
@@ -91,7 +86,7 @@ class OrderRepositoryTest {
 
         // then
         assertThat(result.getCustomer()).isNotNull();
-        assertThat(result.getCustomer().getName()).isEqualTo(customer.getName());
+        assertThat(result.getCustomer().getCustomerName()).isEqualTo(customer.getCustomerName());
     }
 
     @Test
@@ -111,7 +106,7 @@ class OrderRepositoryTest {
 
     private void setUpCustomer() {
         customer = Customer.builder()
-                .name(new Name("둘리"))
+                .customerName(new CustomerName("둘리"))
                 .age(new Age(12000))
                 .email(new Email("dooli@naver.com"))
                 .build();

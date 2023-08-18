@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
 
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "orders_items")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderItem extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,6 +45,10 @@ public class OrderItem extends BaseEntity {
         Assert.notNull(order, "Order 가 존재하지 않습니다.");
         Assert.notNull(item, "item 가 존재하지 않습니다.");
         Assert.notNull(count, "count 가 존재하지 않습니다.");
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
 }

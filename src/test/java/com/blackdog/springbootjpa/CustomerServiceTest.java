@@ -7,8 +7,8 @@ import com.blackdog.springbootjpa.domain.customer.model.Customer;
 import com.blackdog.springbootjpa.domain.customer.repository.CustomerRepository;
 import com.blackdog.springbootjpa.domain.customer.service.CustomerService;
 import com.blackdog.springbootjpa.domain.customer.vo.Age;
+import com.blackdog.springbootjpa.domain.customer.vo.CustomerName;
 import com.blackdog.springbootjpa.domain.customer.vo.Email;
-import com.blackdog.springbootjpa.domain.customer.vo.Name;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -35,12 +35,12 @@ class CustomerServiceTest {
     @Autowired
     CustomerRepository customerRepository;
 
-    private Customer customer;
+    Customer customer;
 
     @BeforeEach
     void setCustomer() {
         customer = Customer.builder()
-                .name(new Name("Kim"))
+                .customerName(new CustomerName("Kim"))
                 .age(new Age(34))
                 .email(new Email("kim@naver.com"))
                 .build();
@@ -57,6 +57,7 @@ class CustomerServiceTest {
 
         //then
         Customer customer = customerRepository.findById(response.id()).get();
+
         assertThat(response.id()).isEqualTo(customer.getId());
     }
 
@@ -72,8 +73,9 @@ class CustomerServiceTest {
 
         //then
         Customer updatedCustomer = customerRepository.findById(savedCustomer.getId()).get();
-        assertThat(updatedCustomer.getName().getNameValue()).isEqualTo(request.name());
-        assertThat(updatedCustomer.getAge().getAgeValue()).isEqualTo(request.age());
+
+        assertThat(updatedCustomer.getCustomerName().getValue()).isEqualTo(request.name());
+        assertThat(updatedCustomer.getAge().getValue()).isEqualTo(request.age());
         assertThat(updatedCustomer.getEmail().getEmailAddress()).isEqualTo(request.email());
     }
 
@@ -88,7 +90,8 @@ class CustomerServiceTest {
 
         //then
         Optional<Customer> optionalCustomer = customerRepository.findById(savedCustomer.getId());
-        assertThat(optionalCustomer).isEqualTo(Optional.empty());
+
+        assertThat(optionalCustomer).isEmpty();
     }
 
     @Test
@@ -119,18 +122,19 @@ class CustomerServiceTest {
         List<CustomerResponse> responseExpect = customers.stream()
                 .map(CustomerResponse::toDto)
                 .collect(Collectors.toList());
+
         assertThat(responses).hasSize(customers.size());
         assertThat(responses).usingRecursiveComparison().isEqualTo(responseExpect);
     }
 
     private static Stream<List<Customer>> customerData() {
         Customer customer1 = Customer.builder()
-                .name(new Name("Kim"))
+                .customerName(new CustomerName("Kim"))
                 .age(new Age(34))
                 .email(new Email("kim@naver.com"))
                 .build();
         Customer customer2 = Customer.builder()
-                .name(new Name("park"))
+                .customerName(new CustomerName("park"))
                 .age(new Age(35))
                 .email(new Email("park@naver.com"))
                 .build();

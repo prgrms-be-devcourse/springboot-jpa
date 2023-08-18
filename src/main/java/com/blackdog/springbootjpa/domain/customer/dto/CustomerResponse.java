@@ -13,8 +13,8 @@ public record CustomerResponse(
     public static CustomerResponse toDto(Customer customer) {
         return CustomerResponse.builder()
                 .id(customer.getId())
-                .name(customer.getName().getNameValue())
-                .age(customer.getAge().getAgeValue())
+                .name(customer.getCustomerName().getValue())
+                .age(customer.getAge().getValue())
                 .email(customer.getEmail().getEmailAddress())
                 .build();
     }

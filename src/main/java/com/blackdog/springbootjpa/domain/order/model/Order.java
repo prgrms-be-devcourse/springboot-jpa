@@ -13,9 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "orders")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order extends BaseEntity {
 
     @Id
@@ -49,9 +49,8 @@ public class Order extends BaseEntity {
     }
 
     public void addOrderItem(OrderItem orderItem) {
-        if (!orderItems.contains(orderItem)) {
-            orderItems.add(orderItem);
-        }
+        orderItems.add(orderItem);
+        orderItem.setOrder(this);
     }
 
 }

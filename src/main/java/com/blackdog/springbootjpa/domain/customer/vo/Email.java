@@ -8,10 +8,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@Embeddable
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Embeddable
 public class Email {
-    @Column(name = "email", length = 50, nullable = false)
+    @Column(name = "email", length = 255, nullable = false)
     private String emailAddress;
 }

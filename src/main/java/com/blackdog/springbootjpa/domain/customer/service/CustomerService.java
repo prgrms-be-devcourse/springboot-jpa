@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,7 +45,7 @@ public class CustomerService {
     @Transactional
     public CustomerResponse updateCustomer(long id, @Valid CustomerUpdateRequest customerUpdateRequest) {
         Customer customer = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("해당 고객이 없습니다"));
+                .orElseThrow(() -> new NoSuchElementException("해당 고객이 없습니다"));
 
         customer.changeCustomer(CustomerDto.toDto(customerUpdateRequest));
 
@@ -59,7 +60,7 @@ public class CustomerService {
     @Transactional
     public void deleteCustomer(long id) {
         Customer customer = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("해당 고객이 없습니다"));
+                .orElseThrow(() -> new NoSuchElementException("해당 고객이 없습니다"));
 
         repository.delete(customer);
     }
@@ -70,10 +71,9 @@ public class CustomerService {
      * @param id
      * @return CustomerResponse
      */
-    @Transactional
     public CustomerResponse findCustomerById(long id) {
         Customer customer = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("해당 고객이 없습니다"));
+                .orElseThrow(() -> new NoSuchElementException("해당 고객이 없습니다"));
 
         return CustomerResponse.toDto(customer);
     }
@@ -83,7 +83,6 @@ public class CustomerService {
      *
      * @return List<CustomerResponse>
      */
-    @Transactional
     public List<CustomerResponse> findAllCustomers() {
         List<Customer> customers = repository.findAll();
 

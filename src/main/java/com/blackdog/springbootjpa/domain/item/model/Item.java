@@ -10,21 +10,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
 
-@Table(name = "items")
-@Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "items")
+@Entity
 public class Item extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Embedded
-    @Column(nullable = false)
     private Price price;
 
     @Embedded
-    @Column(nullable = false)
     private OriginNation nation;
 
     @Builder
