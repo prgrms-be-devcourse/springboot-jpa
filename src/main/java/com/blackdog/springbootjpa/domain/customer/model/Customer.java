@@ -41,6 +41,18 @@ public class Customer extends BaseEntity {
         changeEmail(email);
     }
 
+    public String getCustomerNameValue() {
+        return customerName.getValue();
+    }
+
+    public int getAgeValue() {
+        return age.getValue();
+    }
+
+    public String getEmailAddress() {
+        return email.getEmailAddress();
+    }
+
     public void changeCustomer(CustomerDto customerDto) {
         changeName(customerDto.customerName());
         changeAge(customerDto.age());

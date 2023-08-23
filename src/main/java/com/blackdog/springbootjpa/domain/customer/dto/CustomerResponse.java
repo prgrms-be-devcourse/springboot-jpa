@@ -13,9 +13,9 @@ public record CustomerResponse(
     public static CustomerResponse toDto(Customer customer) {
         return CustomerResponse.builder()
                 .id(customer.getId())
-                .name(customer.getCustomerName().getValue())
-                .age(customer.getAge().getValue())
-                .email(customer.getEmail().getEmailAddress())
+                .name(customer.getCustomerNameValue())
+                .age(customer.getAgeValue())
+                .email(customer.getEmailAddress())
                 .build();
     }
 }

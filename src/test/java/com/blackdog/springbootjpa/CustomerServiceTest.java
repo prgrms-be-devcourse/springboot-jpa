@@ -74,9 +74,9 @@ class CustomerServiceTest {
         //then
         Customer updatedCustomer = customerRepository.findById(savedCustomer.getId()).get();
 
-        assertThat(updatedCustomer.getCustomerName().getValue()).isEqualTo(request.name());
-        assertThat(updatedCustomer.getAge().getValue()).isEqualTo(request.age());
-        assertThat(updatedCustomer.getEmail().getEmailAddress()).isEqualTo(request.email());
+        assertThat(updatedCustomer.getCustomerNameValue()).isEqualTo(request.name());
+        assertThat(updatedCustomer.getAgeValue()).isEqualTo(request.age());
+        assertThat(updatedCustomer.getEmailAddress()).isEqualTo(request.email());
     }
 
     @Test
