@@ -1,6 +1,7 @@
 package com.programmers.jpa.order.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.programmers.jpa.domain.order.ItemType;
 import lombok.Builder;
 
 @Builder

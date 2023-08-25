@@ -1,4 +1,4 @@
-package com.programmers.jpa.order.dto;
+package com.programmers.jpa.domain.order;
 
 public enum ItemType {
     FOOD, CAR, FURNITURE
