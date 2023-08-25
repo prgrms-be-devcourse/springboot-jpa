@@ -4,7 +4,6 @@ import com.programmers.jpa.order.ApiResponse;
 import com.programmers.jpa.order.dto.OrderDto;
 import com.programmers.jpa.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,8 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class OrderController {
 
-    @Autowired
-    private OrderService orderService;
+    private final OrderService orderService;
 
     @ExceptionHandler(ChangeSetPersister.NotFoundException.class)
     public ApiResponse<String> notFoundHandler (ChangeSetPersister.NotFoundException e) {
