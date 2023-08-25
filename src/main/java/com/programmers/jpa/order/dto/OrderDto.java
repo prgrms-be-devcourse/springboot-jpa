@@ -9,7 +9,7 @@ import java.util.List;
 @Builder
 public record OrderDto(
         String uuid,
-        LocalDateTime orderDatetime,
+        LocalDateTime updateAt,
         OrderStatus orderStatus,
         String memo,
         MemberDto memberDto,

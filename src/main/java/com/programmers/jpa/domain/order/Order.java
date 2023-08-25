@@ -25,7 +25,7 @@ public class Order extends BaseEntity {
 
     @CreatedDate
     @Column(name = "order_datetime")
-    private LocalDateTime orderDatetime;
+    private LocalDateTime orderAt;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "order_status", nullable = false)
