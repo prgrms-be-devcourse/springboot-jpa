@@ -48,7 +48,6 @@ public class OrderConverter {
                     .stockQuantity(itemDto.stockQuantity())
                     .power(itemDto.power())
                     .build();
-            default -> throw new IllegalArgumentException("잘못된 아이템 타입 입니다.");
         };
     }
 
