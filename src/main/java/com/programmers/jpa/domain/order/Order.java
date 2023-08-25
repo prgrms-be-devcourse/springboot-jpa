@@ -57,9 +57,6 @@ public class Order extends BaseEntity {
         orderItem.attachToOrder(this);
     }
 
-    /**
-     * 캡슐화를 위해 깊은 복사까지 해줘야할까?
-     */
     public List<OrderItem> getOrderItems() {
         return Collections.unmodifiableList(orderItems);
     }
