@@ -1,5 +1,6 @@
 package com.programmers.jpa.domain.order;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.AccessLevel;
@@ -12,7 +13,10 @@ import lombok.NoArgsConstructor;
 @DiscriminatorValue("FURNITURE")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Furniture extends Item {
+    @Column(name = "width")
     private int width;
+
+    @Column(name = "height")
     private int height;
 
     @Builder

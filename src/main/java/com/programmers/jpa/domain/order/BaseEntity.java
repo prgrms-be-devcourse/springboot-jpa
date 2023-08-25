@@ -1,5 +1,6 @@
 package com.programmers.jpa.domain.order;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
@@ -14,8 +15,10 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 public class BaseEntity {
     @CreatedDate
-    private LocalDateTime cratedAt;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
     @LastModifiedDate
-    private LocalDateTime updateAt;
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 }

@@ -56,7 +56,7 @@ public class OrderConverter {
                 .uuid(order.getUuid())
                 .memo(order.getMemo())
                 .orderStatus(order.getOrderStatus())
-                .orderDatetime(order.getOrderDatetime())
+                .orderAt(order.getOrderAt())
                 .memberDto(this.convertMemberDto(order.getMember()))
                 .orderItemDtos(order.getOrderItems().stream()
                         .map(this::convertOrderItemDto)

@@ -41,7 +41,12 @@ public class Order extends BaseEntity {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    private Order(OrderStatus orderStatus, String memo, Member member, List<OrderItem> orderItems) {
+    private Order(
+            OrderStatus orderStatus,
+            String memo,
+            Member member,
+            List<OrderItem> orderItems
+    ) {
         this.uuid = UUID.randomUUID().toString();
         this.orderStatus = orderStatus;
         this.memo = memo;
@@ -49,7 +54,12 @@ public class Order extends BaseEntity {
         this.orderItems = orderItems;
     }
 
-    public static Order createOrder(OrderStatus orderStatus, String memo, Member member, List<OrderItem> orderItems) {
+    public static Order createOrder(
+            OrderStatus orderStatus,
+            String memo,
+            Member member,
+            List<OrderItem> orderItems
+    ) {
         return new Order(orderStatus, memo, member, orderItems);
     }
 

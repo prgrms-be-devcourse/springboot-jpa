@@ -27,7 +27,10 @@ public abstract class Item extends BaseEntity {
     @Column(name = "stock_quantity", nullable = false)
     private int stockQuantity;
 
-    protected Item(int price, int stockQuantity) {
+    protected Item(
+            int price,
+            int stockQuantity
+    ) {
         validationPrice(price);
         validationStockQuantity(stockQuantity);
         this.price = price;

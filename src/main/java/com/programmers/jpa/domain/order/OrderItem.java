@@ -32,7 +32,11 @@ public class OrderItem extends BaseEntity {
     private Item item;
 
     @Builder
-    private OrderItem(int price, int quantity, Item item) {
+    private OrderItem(
+            int price,
+            int quantity,
+            Item item
+    ) {
         this.price = price;
         this.quantity = quantity;
         this.item = item;
