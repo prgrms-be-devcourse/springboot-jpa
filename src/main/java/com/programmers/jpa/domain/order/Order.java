@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @Getter
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 @EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order extends BaseEntity {
