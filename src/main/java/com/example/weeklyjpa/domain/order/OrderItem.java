@@ -18,8 +18,10 @@ public class OrderItem {
     @GeneratedValue
     private Long id;
 
+    @Column(nullable = false)
     private int orderItemPrice;
 
+    @Column(nullable = false)
     private int orderItemQuantity;
 
     @ManyToOne(fetch = LAZY)
@@ -47,10 +49,6 @@ public class OrderItem {
     }
 
     public void changeOrder(Order order) {
-        if (Objects.nonNull(this.order)){
-            this.order.getOrderItems().remove(this);
-        }
-
         this.order = order;
         order.getOrderItems().add(this);
     }

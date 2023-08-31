@@ -1,8 +1,6 @@
 package com.example.weeklyjpa.domain.customer;
 
-import com.example.weeklyjpa.domain.customer.Customer;
 import com.example.weeklyjpa.repository.CustomerRepository;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

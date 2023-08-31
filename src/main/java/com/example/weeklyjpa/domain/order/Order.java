@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static com.example.weeklyjpa.domain.order.OrderStatus.ACCEPTED;
 import static jakarta.persistence.FetchType.LAZY;
@@ -25,14 +24,15 @@ public class Order extends BaseTimeEntity {
     private Long id;
 
     @Lob
-    @Column(name = "memo")
-    private String memo;
+    @Column(name = "description")
+    private String orderDescription;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "member_id", referencedColumnName = "id")
+
+    @JoinColumn(name = "member_id")
     private Member member;
 
     @OneToMany(mappedBy = "order")
@@ -54,14 +54,11 @@ public class Order extends BaseTimeEntity {
         this.orderStatus = orderStatus;
     }
 
-    public void setMemo(String memo) {
-        this.memo = memo;
+    public void setMemo(String orderDescription) {
+        this.orderDescription = orderDescription;
     }
 
     public void changeMember(Member member){
-        if(Objects.nonNull(this.member)){
-            this.member.getOrders().remove(this);
-        }
         this.member = member;
         member.getOrders().add(this);
     }

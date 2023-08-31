@@ -11,8 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.NoSuchElementException;
-
 @Service
 @RequiredArgsConstructor
 public class OrderService {
@@ -25,8 +23,9 @@ public class OrderService {
 
     @Transactional
     public Long createOrder(Long memberId, Long itemId, int orderQuantity) {
-        Member member = memberRepository.findById(memberId).orElseThrow(NoSuchElementException::new);
-        Item item = itemRepository.findById(itemId).orElseThrow(NoSuchElementException::new);
+
+        Member member = memberRepository.findById(memberId).orElseThrow(IllegalArgumentException::new);
+        Item item = itemRepository.findById(itemId).orElseThrow(IllegalArgumentException::new);
 
         OrderItem orderItem = OrderItem.createOrderItem(item, orderQuantity);
         Order order = Order.createOrder(memo, member, orderItem);
@@ -36,7 +35,7 @@ public class OrderService {
 
     public Order findOne(Long orderId) {
 
-        return  orderRepository.findById(orderId).orElseThrow(() -> new NoSuchElementException("주문 정보가 없습니다."));
+        return  orderRepository.findById(orderId).orElseThrow(() -> new IllegalArgumentException("주문 정보가 없습니다."));
     }
 
 }
