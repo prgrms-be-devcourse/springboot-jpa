@@ -1,6 +1,7 @@
 package com.example.weeklyjpa.domain;
 
 import com.example.weeklyjpa.repository.CustomerRepository;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -56,6 +57,11 @@ public class PersistenceContextTest {
 
         entityManager.persist(customer); // 비영속 -> 영속 (영속화)
         transaction.commit(); // entityManager.flush();
+
+        entityManager.detach(customer); // 영속 -> 준영속
+
+        Customer selected = entityManager.find(Customer.class, 1L);
+
     }
 
     @Test
@@ -72,6 +78,8 @@ public class PersistenceContextTest {
 
         entityManager.persist(customer); // 비영속 -> 영속 (영속화)
         transaction.commit(); // entityManager.flush();
+
+        Customer selected = entityManager.find(Customer.class, 1L);
     }
 
     @Test
