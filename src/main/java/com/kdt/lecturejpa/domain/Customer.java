@@ -29,12 +29,12 @@ public class Customer {
 		return firstName;
 	}
 
-	public String getLastName() {
-		return lastName;
-	}
-
 	public void changeFirstName(String firstName) {
 		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
 	}
 
 	public void changeLastName(String lastName) {
