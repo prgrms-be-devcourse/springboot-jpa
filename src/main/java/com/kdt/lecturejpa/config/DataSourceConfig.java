@@ -7,7 +7,6 @@ import javax.sql.DataSource;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -17,14 +16,13 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "com.kdt.lecturejpa.domain")
 public class DataSourceConfig {
 
 	@Bean
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("org.h2.Driver");
-		dataSource.setUrl("jdbc:h2:~/test");
+		dataSource.setUrl("jdbc:h2:~/order-guppy");
 		dataSource.setUsername("sa");
 		dataSource.setPassword("");
 
@@ -42,7 +40,8 @@ public class DataSourceConfig {
 	}
 
 	@Bean // 엔티티 생성 관리 하는 빈
-	public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, JpaVendorAdapter jpaVendorAdapter,
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource,
+		JpaVendorAdapter jpaVendorAdapter,
 		JpaProperties jpaProperties) {
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 
