@@ -4,7 +4,6 @@ spring:
     url: jdbc:mysql://localhost:3308/weeklyjpa
     username: root
     password: root
-    driver-class-name: "com.mysql.cj.jdbc.Driver"
   jpa:
     open-in-view: false
     hibernate:
