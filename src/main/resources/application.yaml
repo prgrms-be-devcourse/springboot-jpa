@@ -4,3 +4,17 @@ spring:
     url: jdbc:mysql://localhost:3308/weeklyjpa
     username: root
     password: root
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: create
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
