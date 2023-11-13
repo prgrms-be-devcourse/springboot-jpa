@@ -6,13 +6,17 @@ spring:
     password: root
     driver-class-name: "com.mysql.cj.jdbc.Driver"
   jpa:
+    generate-ddl: true
+    database: mysql
+    show-sql: true
     open-in-view: false
-    hibernate:
-      ddl-auto: create
-    show-sql: false
     properties:
       hibernate:
-        format_sql: false
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        query.in_clause_parameter_padding: true
+        hbm2ddl:
+          auto: create-drop
 server:
   servlet:
     encoding:
