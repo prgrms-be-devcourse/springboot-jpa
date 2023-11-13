@@ -14,3 +14,5 @@ spring:
         dialect: org.hibernate.dialect.MySQL8Dialect
         query.in_clause_parameter_padding: true
         format_sql: true
+server:
+  port: 8090
