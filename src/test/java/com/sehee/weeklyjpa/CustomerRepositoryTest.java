@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
 @SpringBootTest
-public class JpaTest {
+public class CustomerRepositoryTest {
     @Autowired
     CustomerRepository repository;
 
