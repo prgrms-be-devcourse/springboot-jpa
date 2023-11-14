@@ -72,6 +72,7 @@ public class JpaTest {
         //When
         repository.delete(customer);
 
+        //Then
         Optional<Customer> customerOptional = repository.findById(customer.getId());
         assertThat(customerOptional).isEmpty();
     }
