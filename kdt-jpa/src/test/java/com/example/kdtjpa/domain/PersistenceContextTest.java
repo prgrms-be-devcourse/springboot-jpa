@@ -119,7 +119,7 @@ public class PersistenceContextTest {
 
         transaction.begin();
 
-        entityManager.refresh(customer);
+        entityManager.remove(customer);
 
         transaction.commit();
     }
