@@ -1,5 +1,6 @@
 package com.example.kdtjpa.domain;
 
+import com.example.kdtjpa.domain.order.Member;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -22,6 +23,24 @@ public class PersistenceContextTest {
     @BeforeEach
     void setUp() {
         repository.deleteAll();
+    }
+
+    @Test
+    void member_insert() {
+        Member member = new Member();
+        member.setName("parkeugene");
+        member.setAddress("서울시 노원구");
+        member.setAge(23);
+        member.setNickName("뽀글");
+        member.setDescription("대학생임다.");
+
+        EntityManager entityManager = emf.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        entityManager.persist(member);
+
+        transaction.commit();
     }
 
     @Test
