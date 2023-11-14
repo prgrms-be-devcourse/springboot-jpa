@@ -13,7 +13,6 @@ spring:
     properties:
       hibernate:
         format_sql: true
-        dialect: org.hibernate.dialect.MySQL8Dialect
         query.in_clause_parameter_padding: true
         hbm2ddl:
           auto: create-drop
