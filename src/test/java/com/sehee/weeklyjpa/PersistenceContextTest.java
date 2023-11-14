@@ -65,6 +65,7 @@ public class PersistenceContextTest {
         entityManager.flush(); // TransactionRequiredException: 트랜잭션이 시작 안되면 발생
         log.info("FLUSH!"); // 쿼리 출력(저장은 안되고 DB 동기화가 일어나는 것 같다. DB에 안보임.)
 
+//        repository.findById(customer.getId()).get(); // NoSuchElementException
         customer.setFirstName("kang"); // 영속성 컨텍스트, 1차 캐시에는 반영. DB 동기화 반영이 안됨.
         Customer retrievedCustomer2 = entityManager.find(Customer.class, customer.getId()); // 쿼리 출력X
         log.info("[retrievedCustomer2] {} {}", retrievedCustomer2.getFirstName(), retrievedCustomer2.getLastName()); // kang sehee
@@ -76,6 +77,7 @@ public class PersistenceContextTest {
 
         transaction.commit();
         log.info("COMMIT! REAL SAVE!"); // 이 시점에 실제 DB에 보인다. 커밋이 되어야 실제 DB에 저장된다.
+        repository.findById(customer.getId()).get();
     }
 
     @Test
