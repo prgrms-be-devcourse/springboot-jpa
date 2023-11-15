@@ -1,5 +1,6 @@
 package com.sehee.weeklyjpa.domain.order.item;
 
+import com.sehee.weeklyjpa.domain.BaseEntity;
 import com.sehee.weeklyjpa.domain.order.OrderItem;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -13,7 +14,7 @@ import java.util.List;
 @Setter
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "TYPE")
-public class Item {
+public class Item extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

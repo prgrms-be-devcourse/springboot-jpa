@@ -1,12 +1,13 @@
 package com.sehee.weeklyjpa.domain.customer;
 
+import com.sehee.weeklyjpa.domain.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "customers")
-public class Customer {
+public class Customer extends BaseEntity {
     @Id
     private long id;
     private String lastName;

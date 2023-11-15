@@ -1,5 +1,6 @@
 package com.sehee.weeklyjpa.domain.order;
 
+import com.sehee.weeklyjpa.domain.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +13,7 @@ import java.util.Objects;
 @Table(name = "orders")
 @Getter
 @Setter
-public class Order {
+public class Order extends BaseEntity {
     @Id
     @Column(name = "id")
     private String uuid;

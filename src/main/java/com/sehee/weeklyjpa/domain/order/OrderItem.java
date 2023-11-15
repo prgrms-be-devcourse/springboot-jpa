@@ -1,5 +1,6 @@
 package com.sehee.weeklyjpa.domain.order;
 
+import com.sehee.weeklyjpa.domain.BaseEntity;
 import com.sehee.weeklyjpa.domain.order.item.Item;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -11,7 +12,7 @@ import java.util.Objects;
 @Table(name = "order_item")
 @Getter
 @Setter
-public class OrderItem {
+public class OrderItem extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
