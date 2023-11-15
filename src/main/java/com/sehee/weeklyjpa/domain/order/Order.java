@@ -26,7 +26,7 @@ public class Order {
     @Lob
     private String memo;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "member_id", referencedColumnName = "id")
     private Member member;
 
