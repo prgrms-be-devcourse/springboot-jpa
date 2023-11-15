@@ -8,6 +8,7 @@ import jakarta.persistence.EntityTransaction;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.LazyInitializationException;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -64,6 +65,7 @@ public class ProxyTest {
     }
 
     @Test
+    @DisplayName("FetchType.LAZY일 때 프록시 객체 확인")
     void proxy() {
         entityManager.clear();
         log.info("clear");
@@ -79,6 +81,7 @@ public class ProxyTest {
     }
 
     @Test
+    @DisplayName("프록시가 준영속 상태일 때 초기화 시도하면 LazyInitializationException 발생")
     void proxy2() {
         assertThrows(LazyInitializationException.class, () -> {
                     entityManager.clear(); // 1차 캐시 지우기
@@ -92,5 +95,15 @@ public class ProxyTest {
                     proxyOrders.get(0); // 초기화 -> LazyInitializationException
                 }
         );
+    }
+
+    @Test
+    @DisplayName("orphanRemoval = true로 고아 객체 자동 삭제")
+    void orphan() {
+        Member retrievedMember = entityManager.find(Member.class, member.getId()); // Order도 영속화
+        retrievedMember.getOrders().remove(0); // 0번 Order 고아 객체 자동 삭제
+
+        transaction.begin();
+        transaction.commit(); // orphanRemoval = true이면 delete 쿼리가 보인다.
     }
 }
