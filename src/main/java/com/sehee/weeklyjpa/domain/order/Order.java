@@ -27,15 +27,15 @@ public class Order extends BaseEntity {
     @Lob
     private String memo;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", referencedColumnName = "id")
     private Member member;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
     private List<OrderItem> orderItems;
 
     public void setMember(Member member) {
-        if(Objects.nonNull(this.member)) {
+        if (Objects.nonNull(this.member)) {
             this.member.getOrders().remove(this);
         }
         this.member = member;

@@ -22,7 +22,7 @@ public class Item extends BaseEntity {
     private int price;
     private int stockQuantity;
 
-    @OneToMany(mappedBy = "item")
+    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
     private List<OrderItem> orderItems;
 
     public void addOrderItem(OrderItem orderItem) {
