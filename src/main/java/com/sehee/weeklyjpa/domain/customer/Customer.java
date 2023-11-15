@@ -1,4 +1,4 @@
-package com.sehee.weeklyjpa.domain;
+package com.sehee.weeklyjpa.domain.customer;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

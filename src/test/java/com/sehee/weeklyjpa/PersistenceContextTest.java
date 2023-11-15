@@ -1,7 +1,7 @@
 package com.sehee.weeklyjpa;
 
-import com.sehee.weeklyjpa.domain.Customer;
-import com.sehee.weeklyjpa.domain.CustomerRepository;
+import com.sehee.weeklyjpa.domain.customer.Customer;
+import com.sehee.weeklyjpa.domain.customer.CustomerRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;

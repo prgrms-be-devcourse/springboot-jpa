@@ -1,7 +1,7 @@
 package com.sehee.weeklyjpa;
 
-import com.sehee.weeklyjpa.domain.Customer;
-import com.sehee.weeklyjpa.domain.CustomerRepository;
+import com.sehee.weeklyjpa.domain.customer.Customer;
+import com.sehee.weeklyjpa.domain.customer.CustomerRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -62,6 +62,7 @@ public class CustomerRepositoryTest {
         Customer updatedCustomer = repository.findById(customer.getId()).get();
         log.info("{} {}", updatedCustomer.getFirstName(), updatedCustomer.getLastName());
     }
+
     @Test
     @Transactional
     @DisplayName("고객을 삭제할 수 있다.")
