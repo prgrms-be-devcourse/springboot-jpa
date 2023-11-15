@@ -1,5 +1,6 @@
-package com.sehee.weeklyjpa.domain.order;
+package com.sehee.weeklyjpa.domain.order.item;
 
+import com.sehee.weeklyjpa.domain.order.OrderItem;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,6 +11,7 @@ import java.util.List;
 @Table(name = "item")
 @Getter
 @Setter
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

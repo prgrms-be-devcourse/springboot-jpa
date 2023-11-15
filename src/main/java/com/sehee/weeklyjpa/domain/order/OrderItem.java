@@ -1,5 +1,6 @@
 package com.sehee.weeklyjpa.domain.order;
 
+import com.sehee.weeklyjpa.domain.order.item.Item;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

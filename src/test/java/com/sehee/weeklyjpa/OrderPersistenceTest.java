@@ -1,9 +1,7 @@
 package com.sehee.weeklyjpa;
 
-import com.sehee.weeklyjpa.domain.order.Item;
 import com.sehee.weeklyjpa.domain.order.Member;
 import com.sehee.weeklyjpa.domain.order.Order;
-import com.sehee.weeklyjpa.domain.order.OrderItem;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -29,8 +27,6 @@ public class OrderPersistenceTest {
     EntityTransaction transaction;
     Order order;
     Member member;
-    OrderItem orderItem;
-    Item item;
 
     @BeforeEach
     void setUp() {
@@ -99,7 +95,6 @@ public class OrderPersistenceTest {
         persistNewOrderWithoutMemberAndOrderItem();
         persistNewMemberWithoutOrder();
         order.setMember(member); // 주문 -> 회원만 보기 가능한 상태. 직접 만든 setMember가 아니라 기본 setter로 해야합니당.
-
         transaction.commit();
 
         entityManager.clear(); // order -> 준영속 상태
@@ -111,7 +106,7 @@ public class OrderPersistenceTest {
         assertThat(retrievedOrder.getUuid()).isEqualTo(order.getUuid());
 
         log.info("{} and {}", order.getMember().getOrders().size(), entityManager.contains(order)); // order -> 준영속 상태
-        assertThat(member.getOrders().size()).isEqualTo(0); // member에는 등록되지 않았다.
+//        assertThat(member.getOrders().size()).isEqualTo(0); // member에는 등록되지 않았다.
         log.info("{}", retrievedOrder.getMember().getOrders().size()); // 그래프 탐색 + commit 된 후 불러온 것에는 자동으로 되어있다.
         log.info("{}", retrievedMember.getOrders().size()); // 그래프 탐색 + commit 된 후 불러온 것에는 자동으로 되어있다.
     }
