@@ -31,7 +31,7 @@ public class Member extends BaseEntity {
     @Column(name = "description", nullable = true)
     private String description;
 
-    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();
 
     public void addOrder(Order order) {
