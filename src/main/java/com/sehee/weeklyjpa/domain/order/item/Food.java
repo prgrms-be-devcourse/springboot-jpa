@@ -8,6 +8,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@DiscriminatorValue("FOOD")
 public class Food extends Item {
     private String chef;
 }

@@ -8,6 +8,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@DiscriminatorValue("CAR")
 public class Car extends Item {
     private long power;
 }

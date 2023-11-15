@@ -8,6 +8,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@DiscriminatorValue("FURNITURE")
 public class Furniture extends Item {
     private long width;
     private long height;

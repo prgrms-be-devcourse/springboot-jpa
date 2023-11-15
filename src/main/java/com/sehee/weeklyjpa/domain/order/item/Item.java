@@ -12,6 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "TYPE")
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
