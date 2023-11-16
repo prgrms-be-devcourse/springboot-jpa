@@ -22,7 +22,7 @@ public class Order extends BaseEntity {
     private OrderStatus orderStatus;
 
     @Column(name = "order_datetime", columnDefinition = "TIMESTAMP")
-    private LocalDateTime localDateTime;
+    private LocalDateTime orderDatetime;
 
     @Lob
     private String memo;

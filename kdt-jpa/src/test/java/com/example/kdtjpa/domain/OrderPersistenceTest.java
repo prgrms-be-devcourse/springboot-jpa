@@ -11,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -48,7 +46,7 @@ public class OrderPersistenceTest {
         Order order = new Order();
         order.setUuid(UUID.randomUUID().toString());
         order.setOrderStatus(OrderStatus.OPENED);
-        order.setLocalDateTime(LocalDateTime.now());
+        order.setOrderDatetime(LocalDateTime.now());
         order.setMemo("부재시 연락주세요.");
         order.setMember(member);
 
@@ -76,6 +74,8 @@ public class OrderPersistenceTest {
         member.setNickName("보그리");
         member.setAddress("서울시 노원구");
         member.setAge(23);
+        member.setCreatedAt(LocalDateTime.now());
+        member.setCreatedBy("eugene");
 
         entityManager.persist(member);
 
@@ -83,8 +83,10 @@ public class OrderPersistenceTest {
         Order order = new Order();
         order.setUuid(UUID.randomUUID().toString());
         order.setOrderStatus(OrderStatus.OPENED);
-        order.setLocalDateTime(LocalDateTime.now());
+        order.setOrderDatetime(LocalDateTime.now());
         order.setMemo("부재시 연락주세요.");
+        order.setCreatedAt(LocalDateTime.now());
+        order.setCreatedBy("eugene");
         order.setMember(member);
 
         entityManager.persist(order);
@@ -94,6 +96,8 @@ public class OrderPersistenceTest {
         item.setId(1L);
         item.setPrice(1500);
         item.setStockQuantity(10);
+        item.setCreatedBy("eugene");
+        item.setCreatedAt(LocalDateTime.now());
 
         Item mergedItem = entityManager.merge(item);
 
@@ -102,6 +106,8 @@ public class OrderPersistenceTest {
         orderItem.setOrder(order);
         orderItem.setQuantity(3);
         orderItem.addItem(mergedItem);
+        orderItem.setCreatedBy("eugene");
+        orderItem.setCreatedAt(LocalDateTime.now());
 
         entityManager.persist(orderItem);
 
