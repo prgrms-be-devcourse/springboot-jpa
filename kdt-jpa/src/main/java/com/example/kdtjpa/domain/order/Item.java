@@ -10,7 +10,7 @@ import java.util.Objects;
 @Setter
 @Entity
 @Table(name = "item")
-public class Item {
+public class Item extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
