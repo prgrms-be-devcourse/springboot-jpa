@@ -6,6 +6,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,6 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(propagation = Propagation.NOT_SUPPORTED)
 class CustomerTest {
 
+    static final String DELETE_FROM_CUSTOMER = "DELETE FROM customer";
+
     @Autowired
     EntityManagerFactory emf;
     EntityManager entityManager;
@@ -26,6 +29,20 @@ class CustomerTest {
     @BeforeEach
     void setup() {
         entityManager = emf.createEntityManager();
+    }
+
+    @AfterEach
+    void cleanup() {
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        transaction.begin();
+
+        entityManager.createNativeQuery(DELETE_FROM_CUSTOMER)
+                .executeUpdate();
+
+        transaction.commit();
+
+        entityManager.close();
     }
 
     @DisplayName("빌더로 생성할 수 있다.")
