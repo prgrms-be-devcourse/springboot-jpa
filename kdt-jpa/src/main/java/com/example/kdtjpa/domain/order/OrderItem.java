@@ -29,7 +29,7 @@ public class OrderItem extends BaseEntity {
     private List<Item> items = new ArrayList<>();
 
     public void setOrder(Order order) {
-        if(Objects.nonNull(this.order)) {
+        if (Objects.nonNull(this.order)) {
             this.order.getOrderItems().remove(this);
         }
 
@@ -40,7 +40,7 @@ public class OrderItem extends BaseEntity {
     public void addItem(Item item) {
         item.setOrderItem(this);
         this.price += item.getPrice() * this.quantity;
-        item.setStockQuantity(item.getStockQuantity()-this.quantity);
+        item.setStockQuantity(item.getStockQuantity() - this.quantity);
     }
 
 }

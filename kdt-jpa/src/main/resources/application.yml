@@ -21,4 +21,9 @@ spring:
           auto: create
         format_sql: true
 server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
   port: 8090
