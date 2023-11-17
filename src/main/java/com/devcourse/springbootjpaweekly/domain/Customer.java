@@ -38,4 +38,12 @@ public class Customer {
     @Column(name = "updated_at", nullable = false)
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    public void updateFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void updateLastName(String lastName) {
+        this.lastName = lastName;
+    }
 }
