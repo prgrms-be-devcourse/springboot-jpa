@@ -30,10 +30,10 @@ public class Customer {
     private String name;
     @Column(name = "email", unique = true, nullable = false, length = 100)
     private String email;
-    @Column(name = "created_at", nullable = false, columnDefinition = "timestamp")
+    @Column(name = "created_at", nullable = false)
     @CreationTimestamp
     private LocalDateTime createdAt;
-    @Column(name = "updated_at", nullable = false, columnDefinition = "timestamp")
+    @Column(name = "updated_at", nullable = false)
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 }
