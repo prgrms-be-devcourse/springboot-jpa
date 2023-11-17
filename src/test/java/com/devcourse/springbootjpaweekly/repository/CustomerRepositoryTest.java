@@ -48,7 +48,7 @@ class CustomerRepositoryTest {
     @Test
     void testFindById() {
         // given
-        customerRepository.save(customer);
+        customerRepository.saveAndFlush(customer);
 
         // when
         Optional<Customer> optionalCustomer = customerRepository.findById(customer.getId());
@@ -58,7 +58,45 @@ class CustomerRepositoryTest {
 
         Customer actualCustomer = optionalCustomer.get();
 
+        assertThat(actualCustomer).hasNoNullFieldsOrProperties();
         assertThat(actualCustomer).usingRecursiveComparison()
                 .isEqualTo(customer);
+    }
+
+    @DisplayName("고객 정보를 변경한다.")
+    @Test
+    void testUpdate() {
+        // given
+        customerRepository.saveAndFlush(customer);
+
+        // when
+        customer.updateFirstName("updated-name");
+        customer.updateLastName("updated-kim");
+
+        // then
+        Optional<Customer> optionalCustomer = customerRepository.findById(customer.getId());
+
+        assertThat(optionalCustomer).isNotEmpty();
+
+        Customer actualCustomer = optionalCustomer.get();
+
+        assertThat(actualCustomer).hasNoNullFieldsOrProperties();
+        assertThat(actualCustomer).usingRecursiveComparison()
+                .isEqualTo(customer);
+    }
+
+    @DisplayName("고객을 삭제한다.")
+    @Test
+    void testDelete() {
+        //given
+        customerRepository.saveAndFlush(customer);
+
+        //when
+        customerRepository.deleteById(customer.getId());
+
+        //then
+        Optional<Customer> optionalCustomer = customerRepository.findById(customer.getId());
+
+        assertThat(optionalCustomer).isEmpty();
     }
 }
