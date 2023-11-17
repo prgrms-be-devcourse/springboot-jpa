@@ -109,6 +109,47 @@ public class PersistenceContextTest {
         assertThat(actual).isEqualTo(expected);
     }
 
+    @DisplayName("준영속상태의 엔티티는 변경사항이 DB에 반영되지 않는다.")
+    @Test
+    void testDetachedState() {
+        //given
+        String given = "last";
+
+        transaction = entityManager.getTransaction();
+
+        transaction.begin();
+
+        Customer customer = Customer.builder()
+                .firstName("name")
+                .lastName(given)
+                .email("email@email.com")
+                .build();
+
+        entityManager.persist(customer);
+
+        transaction.commit();
+
+        //when
+        transaction.begin();
+
+        entityManager.detach(customer);
+
+        customer.updateLastName("updated-last");
+
+        transaction.commit();
+
+        //then
+        entityManager.clear();
+
+        Customer foundCustomer = entityManager.find(Customer.class, customer.getId());
+
+        String actual = foundCustomer.getLastName();
+        String updated = customer.getLastName();
+
+        assertThat(actual).isNotEqualTo(updated)
+                .isEqualTo(given);
+    }
+
     @DisplayName("Removed State 엔티티는 flush 후 컨텍스트와 DB 삭제된다.")
     @Test
     void testRemovedState() {
