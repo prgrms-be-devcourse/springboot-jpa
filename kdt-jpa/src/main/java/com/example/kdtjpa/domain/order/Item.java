@@ -8,6 +8,8 @@ import java.util.Objects;
 
 @Getter
 @Setter
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "DTYPE")
 @Entity
 @Table(name = "item")
 public class Item extends BaseEntity {
@@ -23,7 +25,7 @@ public class Item extends BaseEntity {
     private OrderItem orderItem;
 
     public void setOrderItem(OrderItem orderItem) {
-        if(Objects.nonNull(this.orderItem)) {
+        if (Objects.nonNull(this.orderItem)) {
             this.orderItem.getItems().remove(this);
         }
 
