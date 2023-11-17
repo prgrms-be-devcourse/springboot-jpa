@@ -26,8 +26,10 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    @Column(name = "name", nullable = false, length = 30)
-    private String name;
+    @Column(name = "first_name", nullable = false, length = 15)
+    private String firstName;
+    @Column(name = "last_name", nullable = false, length = 15)
+    private String lastName;
     @Column(name = "email", unique = true, nullable = false, length = 100)
     private String email;
     @Column(name = "created_at", nullable = false)

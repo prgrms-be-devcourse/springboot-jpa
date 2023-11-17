@@ -55,7 +55,8 @@ class CustomerTest {
         transaction.begin();
 
         Customer customer = Customer.builder()
-                .name("kim")
+                .firstName("name")
+                .lastName("kim")
                 .email("kim@kim.kim")
                 .build();
 
