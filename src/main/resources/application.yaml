@@ -7,3 +7,16 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+---
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3300/test_code
+    username: root
+    password: test
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+  config:
+    activate:
+      on-profile: test
