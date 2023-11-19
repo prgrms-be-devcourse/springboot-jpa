@@ -75,13 +75,49 @@ public class OrderItemMappingTest {
         Item actualItem = foundOrderItem.getItem();
 
         //then
-        boolean isPracticallyFetched = entityManager.getEntityManagerFactory()
-                .getPersistenceUnitUtil()
+        boolean isPracticallyFetched = emf.getPersistenceUnitUtil()
                 .isLoaded(actualItem);
 
         assertThat(isPracticallyFetched).isTrue();
         assertThat(actualItem)
                 .hasFieldOrPropertyWithValue("id", item.getId())
                 .hasFieldOrPropertyWithValue("price", item.getPrice());
+    }
+
+    @DisplayName("")
+    @Test
+    void testOrderMappingTest() {
+        //given
+        transaction = entityManager.getTransaction();
+
+        transaction.begin();
+
+        Order order = Order.builder()
+                .orderStatus(OrderStatus.OPENED)
+                .memo("전자 기기")
+                .build();
+        OrderItem orderItem = OrderItem.builder()
+                .order(order)
+                .build();
+
+        entityManager.persist(order);
+        entityManager.persist(orderItem);
+
+        transaction.commit();
+
+        //when
+        entityManager.clear();
+
+        OrderItem foundOrderItem = entityManager.find(OrderItem.class, orderItem.getId());
+        Order actualOrder = foundOrderItem.getOrder();
+
+        //then
+        boolean isPracticallyFetched = emf.getPersistenceUnitUtil()
+                .isLoaded(actualOrder);
+
+        assertThat(isPracticallyFetched).isFalse();
+        assertThat(actualOrder).isNotNull()
+                .hasFieldOrPropertyWithValue("id", order.getId())
+                .hasFieldOrPropertyWithValue("memo", order.getMemo());
     }
 }
