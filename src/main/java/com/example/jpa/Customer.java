@@ -20,7 +20,7 @@ public class Customer {
     private String password;
     private String name;
     private String nickname;
-    @Builder
+
     private Customer (String name, String nickname, String password, String username){
         this.name = name;
         this.nickname = nickname;
@@ -29,12 +29,12 @@ public class Customer {
     }
 
     public static Customer of(CustomerSaveRequestDto requestDto) {
-        return Customer.builder()
-                .name(requestDto.name())
-                .nickname(requestDto.nickname())
-                .password(requestDto.password())
-                .username(requestDto.username())
-                .build();
+        return new Customer(
+                requestDto.name(),
+                requestDto.nickname(),
+                requestDto.password(),
+                requestDto.username()
+        );
     }
 
     public Long updateInfo(CustomerUpdateRequestDto requestDto) {
