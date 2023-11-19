@@ -13,17 +13,22 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @GetMapping()
-    public List<CustomerResponseDto> getCustomerList(){
+    public List<CustomerResponseDto> getCustomerList() {
         return customerService.getCustomers();
     }
 
+    @GetMapping("/{customerId}")
+    public CustomerResponseDto getCustomer(@PathVariable Long customerId) {
+        return customerService.getCustomer(customerId);
+    }
+
     @PostMapping()
-    public Long saveNewCustomer(@RequestBody CustomerSaveRequestDto requestDto){
+    public Long saveNewCustomer(@RequestBody CustomerSaveRequestDto requestDto) {
         return customerService.saveCustomer(requestDto);
     }
 
     @PatchMapping("/{customerId}")
-    public Long updateCustomerInfo(@RequestBody CustomerUpdateRequestDto requestDto, @PathVariable Long customerId){
+    public Long updateCustomerInfo(@RequestBody CustomerUpdateRequestDto requestDto, @PathVariable Long customerId) {
         return customerService.updateCustomer(requestDto, customerId);
     }
 
