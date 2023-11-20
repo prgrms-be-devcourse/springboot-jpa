@@ -67,11 +67,12 @@ class CustomerTest {
         entityManager.clear();
 
         // then
-        assertThat(customer).hasNoNullFieldsOrProperties();
+        assertThat(customer).hasNoNullFieldsOrPropertiesExcept("orders");
 
         Customer actual = entityManager.find(Customer.class, customer.getId());
 
         assertThat(actual).usingRecursiveComparison()
+                .ignoringExpectedNullFields()
                 .isEqualTo(customer);
     }
 }

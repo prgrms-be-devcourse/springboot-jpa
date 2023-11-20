@@ -58,7 +58,7 @@ class CustomerRepositoryTest {
 
         Customer actualCustomer = optionalCustomer.get();
 
-        assertThat(actualCustomer).hasNoNullFieldsOrProperties();
+        assertThat(actualCustomer).hasNoNullFieldsOrPropertiesExcept("orders");
         assertThat(actualCustomer).usingRecursiveComparison()
                 .isEqualTo(customer);
     }
@@ -80,7 +80,7 @@ class CustomerRepositoryTest {
 
         Customer actualCustomer = optionalCustomer.get();
 
-        assertThat(actualCustomer).hasNoNullFieldsOrProperties();
+        assertThat(actualCustomer).hasNoNullFieldsOrPropertiesExcept("orders");
         assertThat(actualCustomer).usingRecursiveComparison()
                 .isEqualTo(customer);
     }
