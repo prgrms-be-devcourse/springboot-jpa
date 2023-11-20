@@ -26,6 +26,8 @@ public class OrderItem extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    @Column(name = "price", nullable = false)
+    private int price;
     @Column(name = "quantity", nullable = false)
     private int quantity;
     @ManyToOne

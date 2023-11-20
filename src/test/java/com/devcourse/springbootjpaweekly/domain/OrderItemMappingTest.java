@@ -60,6 +60,7 @@ public class OrderItemMappingTest {
                 .build();
         OrderItem orderItem = OrderItem.builder()
                 .item(item)
+                .price(1170)
                 .quantity(10)
                 .build();
 
@@ -81,10 +82,10 @@ public class OrderItemMappingTest {
         assertThat(isPracticallyFetched).isTrue();
         assertThat(actualItem)
                 .hasFieldOrPropertyWithValue("id", item.getId())
-                .hasFieldOrPropertyWithValue("price", item.getPrice());
+                .hasFieldOrPropertyWithValue("price", foundOrderItem.getPrice() + 130);
     }
 
-    @DisplayName("")
+    @DisplayName("주문 상품 엔티티에서 매핑된 대상 주문을 게으르게 가져온다.")
     @Test
     void testOrderMappingTest() {
         //given
