@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Objects;
 import java.util.UUID;
 
 @Getter
@@ -19,11 +20,30 @@ public class OrderItem {
     private int price;
     private int quantity;
 
-    // fk
-    @Column(name = "order_id")
-    private UUID orderId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    private Order order;
 
-    @Column(name = "item_id")
-    private Long itemId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "item_id", referencedColumnName = "id")
+    private Item item;
+
+    public void setOrder(Order order) {
+        if (Objects.nonNull(this.order)) {
+            this.order.getOrderItems().remove(this);
+        }
+
+        this.order = order;
+        order.getOrderItems().add(this);
+    }
+
+    public void setItem(Item item) {
+        if (Objects.nonNull(this.item)) {
+            this.item.getOrderItems().remove(this);
+        }
+
+        this.item = item;
+        item.getOrderItems().add(this);
+    }
 
 }
