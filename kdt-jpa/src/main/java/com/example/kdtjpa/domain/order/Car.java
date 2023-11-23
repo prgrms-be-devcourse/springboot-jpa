@@ -1,5 +1,6 @@
 package com.example.kdtjpa.domain.order;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.AccessLevel;
@@ -13,5 +14,6 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @DiscriminatorValue("CAR")
 public class Car extends Item {
+    @Column(name = "power")
     private int power;
 }
