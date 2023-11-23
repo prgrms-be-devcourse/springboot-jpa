@@ -1,8 +1,10 @@
 package com.example.kdtjpa.domain.order;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -10,8 +12,8 @@ import java.util.List;
 import java.util.Objects;
 
 @Getter
-@Setter
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "orders")
 public class Order extends BaseEntity {
     @Id
@@ -34,8 +36,16 @@ public class Order extends BaseEntity {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
 
+    @Builder
+    public Order(String uuid, OrderStatus orderStatus, LocalDateTime orderDatetime, String memo) {
+        this.uuid = uuid;
+        this.orderStatus = orderStatus;
+        this.orderDatetime = orderDatetime;
+        this.memo = memo;
+    }
+
     public void setMember(Member member) {
-        if(Objects.nonNull(this.member)) {
+        if (Objects.nonNull(this.member)) {
             member.getOrders().remove(this);
         }
 

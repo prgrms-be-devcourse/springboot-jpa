@@ -19,13 +19,12 @@ class OrderRepositoryTest {
     @Test
     void test() {
         String uuid = UUID.randomUUID().toString();
-        Order order = new Order();
-        order.setUuid(uuid);
-        order.setOrderStatus(OrderStatus.OPENED);
-        order.setOrderDatetime(LocalDateTime.now());
-        order.setMemo("----");
+        Order order = Order.builder()
+                .uuid(uuid)
+                .orderStatus(OrderStatus.OPENED)
+                .orderDatetime(LocalDateTime.now())
+                .memo("---").build();
         order.setCreatedBy("eugene Park");
-        order.setCreatedAt(LocalDateTime.now());
 
         orderRepository.save(order);
 

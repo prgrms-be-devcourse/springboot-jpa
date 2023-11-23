@@ -29,12 +29,14 @@ public class PersistenceContextTest {
 
     @Test
     void member_insert() {
-        Member member = new Member();
-        member.setName("parkeugene");
-        member.setAddress("서울시 노원구");
-        member.setAge(23);
-        member.setNickName("뽀글");
-        member.setDescription("대학생임다.");
+        Member member = Member.builder()
+                .name("parkeugene")
+                .nickName("보그리")
+                .address("뽀글")
+                .age(23)
+                .description("대학생임다")
+                .build();
+        member.setCreatedBy("eugene");
 
         EntityManager entityManager = emf.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();

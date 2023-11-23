@@ -1,24 +1,26 @@
 package com.example.kdtjpa.domain.order.order.converter;
 
 import com.example.kdtjpa.domain.order.*;
-import com.example.kdtjpa.domain.order.dto.*;
+import com.example.kdtjpa.domain.order.dto.ItemDto;
+import com.example.kdtjpa.domain.order.dto.ItemType;
+import com.example.kdtjpa.domain.order.dto.MemberDto;
 import com.example.kdtjpa.domain.order.order.dto.OrderDto;
 import com.example.kdtjpa.domain.order.order.dto.OrderItemDto;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
 public class OrderConverter {
     public Order convertOrder(OrderDto orderDto) {
-        Order order = new Order();
-        order.setUuid(orderDto.getUuid());
-        order.setMemo(orderDto.getMemo());
-        order.setOrderStatus(orderDto.getOrderStatus());
-        order.setOrderDatetime(LocalDateTime.now());
-        order.setCreatedAt(LocalDateTime.now());
+        Order order = Order.builder()
+                .uuid(UUID.randomUUID().toString())
+                .orderStatus(OrderStatus.OPENED)
+                .orderDatetime(LocalDateTime.now())
+                .memo("---").build();
         order.setCreatedBy(orderDto.getMemberDto().getName());
 
         order.setMember(this.convertMember(orderDto.getMemberDto()));
@@ -28,12 +30,14 @@ public class OrderConverter {
     }
 
     private Member convertMember(MemberDto memberDto) {
-        Member member = new Member();
-        member.setName(memberDto.getName());
-        member.setNickName(memberDto.getNickName());
-        member.setAge(memberDto.getAge());
-        member.setAddress(memberDto.getAddress());
-        member.setDescription(memberDto.getDescription());
+        Member member = Member.builder()
+                .name("parkeugene")
+                .nickName("보그리")
+                .address("뽀글")
+                .age(23)
+                .description("대학생임다")
+                .build();
+        member.setCreatedBy("eugene");
 
         return member;
     }
@@ -41,12 +45,12 @@ public class OrderConverter {
     private List<OrderItem> convertOrderItems(OrderDto orderDto) {
         return orderDto.getOrderItemDtos().stream()
                 .map(orderItemDto -> {
-                    OrderItem orderItem = new OrderItem();
-                    orderItem.setPrice(orderItemDto.getPrice());
-                    orderItem.setQuantity(orderItemDto.getQuantity());
+                    OrderItem orderItem = OrderItem.builder()
+                            .price(orderItemDto.getPrice())
+                            .quantity(orderItemDto.getQuantity()).build();
                     List<Item> items = orderItemDto.getItemDtos().stream()
                             .map(this::convertItem)
-                            .collect(Collectors.toList());
+                            .toList();
                     items.forEach(orderItem::addItem);
                     return orderItem;
                 })
@@ -55,35 +59,32 @@ public class OrderConverter {
 
     private Item convertItem(ItemDto itemDto) {
         if (ItemType.FOOD.equals(itemDto.getType())) {
-            Food food = new Food();
-            food.setPrice(itemDto.getPrice());
-            food.setStockQuantity(itemDto.getStockQuantity());
-            food.setChef(itemDto.getChef());
-            return food;
+            return Food.builder()
+                    .price(itemDto.getPrice())
+                    .stockQuantity(itemDto.getStockQuantity())
+                    .chef(itemDto.getChef()).build();
         }
 
         if (ItemType.FURNITURE.equals(itemDto.getType())) {
-            Furniture furniture = new Furniture();
-            furniture.setPrice(itemDto.getPrice());
-            furniture.setStockQuantity(itemDto.getStockQuantity());
-            furniture.setHeight(itemDto.getHeight());
-            furniture.setWidth(itemDto.getWidth());
-            return furniture;
+            return Furniture.builder()
+                    .price(itemDto.getPrice())
+                    .stockQuantity(itemDto.getStockQuantity())
+                    .width(itemDto.getWidth())
+                    .height(itemDto.getHeight()).build();
         }
 
         if (ItemType.CAR.equals(itemDto.getType())) {
-            Car car = new Car();
-            car.setPrice(itemDto.getPrice());
-            car.setStockQuantity(itemDto.getStockQuantity());
-            car.setPower(itemDto.getPower());
-            return car;
+            return Car.builder()
+                    .price(itemDto.getPrice())
+                    .stockQuantity(itemDto.getStockQuantity())
+                    .power(itemDto.getPower()).build();
         }
 
         throw new IllegalArgumentException("잘못된 아이템 타입 입니다.");
     }
 
 
-    public OrderDto convertOrderDto (Order order) {
+    public OrderDto convertOrderDto(Order order) {
         return OrderDto.builder()
                 .uuid(order.getUuid())
                 .memo(order.getMemo())
@@ -98,7 +99,7 @@ public class OrderConverter {
     }
 
 
-    private MemberDto convertMemberDto (Member member) {
+    private MemberDto convertMemberDto(Member member) {
         return MemberDto.builder()
                 .id(member.getId())
                 .name(member.getName())
@@ -109,7 +110,7 @@ public class OrderConverter {
                 .build();
     }
 
-    private OrderItemDto convertOrderItemDto (OrderItem orderItem) {
+    private OrderItemDto convertOrderItemDto(OrderItem orderItem) {
         return OrderItemDto.builder()
                 .id(orderItem.getId())
                 .price(orderItem.getPrice())
@@ -121,7 +122,7 @@ public class OrderConverter {
                 .build();
     }
 
-    private ItemDto convertItemDto (Item item) {
+    private ItemDto convertItemDto(Item item) {
         if (item instanceof Food) {
             return ItemDto.builder()
                     .id(item.getId())

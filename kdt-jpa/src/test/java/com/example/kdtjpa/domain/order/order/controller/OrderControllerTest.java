@@ -21,8 +21,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -33,13 +31,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 class OrderControllerTest {
     @Autowired
+    ObjectMapper objectMapper;
+    String uuid = UUID.randomUUID().toString();
+    @Autowired
     private MockMvc mockMvc;
     @Autowired
     private OrderService orderService;
-    @Autowired
-    ObjectMapper objectMapper;
-
-    String uuid = UUID.randomUUID().toString();
 
     @BeforeEach
     void save_test() {
@@ -114,8 +111,8 @@ class OrderControllerTest {
 
         // When // Then
         mockMvc.perform(post("/orders")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(orderDto)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(orderDto)))
                 .andExpect(status().isOk())
                 .andDo(print());
     }
@@ -123,7 +120,7 @@ class OrderControllerTest {
     @Test
     void getOne() throws Exception {
         mockMvc.perform(get("/orders/{uuid}", uuid)
-                .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print());
     }
@@ -131,9 +128,9 @@ class OrderControllerTest {
     @Test
     void getAll() throws Exception {
         mockMvc.perform(get("/orders")
-                .param("page", String.valueOf(0))
-                .param("size", String.valueOf(10))
-                .contentType(MediaType.APPLICATION_JSON))
+                        .param("page", String.valueOf(0))
+                        .param("size", String.valueOf(10))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print());
     }

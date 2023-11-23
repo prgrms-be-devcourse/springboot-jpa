@@ -1,16 +1,18 @@
 package com.example.kdtjpa.domain.order;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Setter
 @Entity
 @Table(name = "member")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -27,10 +29,15 @@ public class Member extends BaseEntity {
     private String description;
 
     @OneToMany(mappedBy = "member")
-    private List<Order> orders = new ArrayList<>();
+    private final List<Order> orders = new ArrayList<>();
 
-    public void addOrder(Order order) {
-        order.setMember(this);
+    @Builder
+    public Member(String name, String nickName, int age, String address, String description) {
+        this.name = name;
+        this.nickName = nickName;
+        this.age = age;
+        this.address = address;
+        this.description = description;
     }
 
 }

@@ -39,19 +39,17 @@ public class OrderPersistenceTest {
 
         transaction.begin();
 
-        Member member = new Member();
-        member.setName("parkeugene");
-        member.setNickName("보그리");
-        member.setAddress("서울시 노원구");
-        member.setAge(23);
+        Member member = Member.builder().name("parkeugene").nickName("보그리").address("서울시 노원구").age(23).build();
+        member.setCreatedBy("eugene");
 
         entityManager.persist(member);
 
-        Order order = new Order();
-        order.setUuid(UUID.randomUUID().toString());
-        order.setOrderStatus(OrderStatus.OPENED);
-        order.setOrderDatetime(LocalDateTime.now());
-        order.setMemo("부재시 연락주세요.");
+        Order order = Order.builder()
+                .uuid(UUID.randomUUID().toString())
+                .orderStatus(OrderStatus.OPENED)
+                .orderDatetime(LocalDateTime.now())
+                .memo("부재시 연락주세요").build();
+        order.setCreatedBy("eugene Park");
         order.setMember(member);
 
         entityManager.persist(order);
@@ -73,49 +71,44 @@ public class OrderPersistenceTest {
         transaction.begin();
 
         // 회원
-        Member member = new Member();
-        member.setName("parkeugene");
-        member.setNickName("보그리");
-        member.setAddress("서울시 노원구");
-        member.setAge(23);
-        member.setCreatedAt(LocalDateTime.now());
+        Member member = Member.builder().name("parkeugene").nickName("보그리").address("서울시 노원구").age(23).build();
         member.setCreatedBy("eugene");
 
         entityManager.persist(member);
 
         // 주문
-        Order order = new Order();
-        order.setUuid(UUID.randomUUID().toString());
-        order.setOrderStatus(OrderStatus.OPENED);
-        order.setOrderDatetime(LocalDateTime.now());
-        order.setMemo("부재시 연락주세요.");
-        order.setCreatedAt(LocalDateTime.now());
+        Order order = Order.builder()
+                .uuid(UUID.randomUUID().toString())
+                .orderStatus(OrderStatus.OPENED)
+                .orderDatetime(LocalDateTime.now())
+                .memo("---").build();
+        order.setCreatedBy("eugene Park");
         order.setCreatedBy("eugene");
         order.setMember(member);
 
         entityManager.persist(order);
 
         // 상품
-        Item item = new Item();
-        item.setId(1L);
-        item.setPrice(1500);
-        item.setStockQuantity(10);
+        Item item = Item.builder()
+                .price(1200)
+                .stockQuantity(20)
+                .build();
         item.setCreatedBy("eugene");
-        item.setCreatedAt(LocalDateTime.now());
 
-        Item mergedItem = entityManager.merge(item);
+        entityManager.persist(item);
 
-        // 주문 아이템
-        OrderItem orderItem = new OrderItem();
-        orderItem.setOrder(order);
-        orderItem.setQuantity(3);
-        orderItem.addItem(mergedItem);
+        OrderItem orderItem = OrderItem.builder()
+                .quantity(3).build();
         orderItem.setCreatedBy("eugene");
-        orderItem.setCreatedAt(LocalDateTime.now());
+
+        orderItem.setOrder(order);
+        orderItem.addItem(item);
+
         item.setOrderItem(orderItem);
         order.addOrderItem(orderItem);
 
         entityManager.persist(orderItem);
+
 
         transaction.commit();
 
