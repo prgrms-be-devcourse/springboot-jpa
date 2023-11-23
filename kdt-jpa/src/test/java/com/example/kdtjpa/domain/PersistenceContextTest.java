@@ -35,8 +35,8 @@ public class PersistenceContextTest {
                 .address("뽀글")
                 .age(23)
                 .description("대학생임다")
+                .createdBy("eugene")
                 .build();
-        member.setCreatedBy("eugene");
 
         EntityManager entityManager = emf.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();

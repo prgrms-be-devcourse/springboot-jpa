@@ -20,8 +20,8 @@ public class OrderConverter {
                 .uuid(UUID.randomUUID().toString())
                 .orderStatus(OrderStatus.OPENED)
                 .orderDatetime(LocalDateTime.now())
+                .createdBy(orderDto.getMemberDto().getName())
                 .memo("---").build();
-        order.setCreatedBy(orderDto.getMemberDto().getName());
 
         order.setMember(this.convertMember(orderDto.getMemberDto()));
         this.convertOrderItems(orderDto).forEach(order::addOrderItem);
@@ -36,8 +36,8 @@ public class OrderConverter {
                 .address("뽀글")
                 .age(23)
                 .description("대학생임다")
+                .createdBy("eugene")
                 .build();
-        member.setCreatedBy("eugene");
 
         return member;
     }

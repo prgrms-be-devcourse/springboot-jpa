@@ -2,18 +2,23 @@ package com.example.kdtjpa.domain.order;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Entity
+@SuperBuilder
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "member")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends BaseEntity {
+    @OneToMany(mappedBy = "member")
+    private final List<Order> orders = new ArrayList<>();
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
@@ -27,17 +32,5 @@ public class Member extends BaseEntity {
     private String address;
     @Column(name = "description")
     private String description;
-
-    @OneToMany(mappedBy = "member")
-    private final List<Order> orders = new ArrayList<>();
-
-    @Builder
-    public Member(String name, String nickName, int age, String address, String description) {
-        this.name = name;
-        this.nickName = nickName;
-        this.age = age;
-        this.address = address;
-        this.description = description;
-    }
 
 }

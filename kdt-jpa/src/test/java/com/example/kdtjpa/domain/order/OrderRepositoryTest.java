@@ -23,8 +23,8 @@ class OrderRepositoryTest {
                 .uuid(uuid)
                 .orderStatus(OrderStatus.OPENED)
                 .orderDatetime(LocalDateTime.now())
-                .memo("---").build();
-        order.setCreatedBy("eugene Park");
+                .memo("---")
+                .createdBy("eugene Park").build();
 
         orderRepository.save(order);
 

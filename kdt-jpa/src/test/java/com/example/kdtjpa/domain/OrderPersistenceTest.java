@@ -39,8 +39,12 @@ public class OrderPersistenceTest {
 
         transaction.begin();
 
-        Member member = Member.builder().name("parkeugene").nickName("보그리").address("서울시 노원구").age(23).build();
-        member.setCreatedBy("eugene");
+        Member member = Member.builder()
+                .name("parkeugene")
+                .nickName("보그리")
+                .address("서울시 노원구")
+                .age(23)
+                .createdBy("eugene").build();
 
         entityManager.persist(member);
 
@@ -48,8 +52,8 @@ public class OrderPersistenceTest {
                 .uuid(UUID.randomUUID().toString())
                 .orderStatus(OrderStatus.OPENED)
                 .orderDatetime(LocalDateTime.now())
-                .memo("부재시 연락주세요").build();
-        order.setCreatedBy("eugene Park");
+                .memo("부재시 연락주세요")
+                .createdBy("eugene Park").build();
         order.setMember(member);
 
         entityManager.persist(order);
@@ -71,8 +75,12 @@ public class OrderPersistenceTest {
         transaction.begin();
 
         // 회원
-        Member member = Member.builder().name("parkeugene").nickName("보그리").address("서울시 노원구").age(23).build();
-        member.setCreatedBy("eugene");
+        Member member = Member.builder()
+                .name("parkeugene")
+                .nickName("보그리")
+                .address("서울시 노원구")
+                .age(23)
+                .createdBy("eugene").build();
 
         entityManager.persist(member);
 
@@ -81,9 +89,8 @@ public class OrderPersistenceTest {
                 .uuid(UUID.randomUUID().toString())
                 .orderStatus(OrderStatus.OPENED)
                 .orderDatetime(LocalDateTime.now())
+                .createdBy("eugene Park")
                 .memo("---").build();
-        order.setCreatedBy("eugene Park");
-        order.setCreatedBy("eugene");
         order.setMember(member);
 
         entityManager.persist(order);
@@ -92,14 +99,14 @@ public class OrderPersistenceTest {
         Item item = Item.builder()
                 .price(1200)
                 .stockQuantity(20)
+                .createdBy("eugene")
                 .build();
-        item.setCreatedBy("eugene");
 
         entityManager.persist(item);
 
         OrderItem orderItem = OrderItem.builder()
-                .quantity(3).build();
-        orderItem.setCreatedBy("eugene");
+                .quantity(3)
+                .createdBy("eugene").build();
 
         orderItem.setOrder(order);
         orderItem.addItem(item);

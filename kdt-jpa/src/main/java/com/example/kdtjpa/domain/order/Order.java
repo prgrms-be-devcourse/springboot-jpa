@@ -2,9 +2,10 @@ package com.example.kdtjpa.domain.order;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -13,6 +14,8 @@ import java.util.Objects;
 
 @Getter
 @Entity
+@SuperBuilder
+@EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "orders")
 public class Order extends BaseEntity {
@@ -35,14 +38,6 @@ public class Order extends BaseEntity {
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
-
-    @Builder
-    public Order(String uuid, OrderStatus orderStatus, LocalDateTime orderDatetime, String memo) {
-        this.uuid = uuid;
-        this.orderStatus = orderStatus;
-        this.orderDatetime = orderDatetime;
-        this.memo = memo;
-    }
 
     public void setMember(Member member) {
         if (Objects.nonNull(this.member)) {

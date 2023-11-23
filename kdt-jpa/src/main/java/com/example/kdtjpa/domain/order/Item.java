@@ -1,7 +1,11 @@
 package com.example.kdtjpa.domain.order;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.Objects;
 
@@ -9,6 +13,8 @@ import java.util.Objects;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "DTYPE")
 @Entity
+@SuperBuilder
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "item")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Item extends BaseEntity {
@@ -22,12 +28,6 @@ public class Item extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "order_item_id", referencedColumnName = "id")
     private OrderItem orderItem;
-
-    @Builder
-    public Item(int price, int stockQuantity) {
-        this.price = price;
-        this.stockQuantity = stockQuantity;
-    }
 
     public void setOrderItem(OrderItem orderItem) {
         if (Objects.nonNull(this.orderItem)) {
