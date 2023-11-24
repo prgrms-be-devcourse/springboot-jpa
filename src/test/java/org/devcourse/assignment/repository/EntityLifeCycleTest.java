@@ -3,7 +3,6 @@ package org.devcourse.assignment.repository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
-import lombok.extern.slf4j.Slf4j;
 import org.devcourse.assignment.domain.customer.Address;
 import org.devcourse.assignment.domain.customer.Customer;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +19,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@Slf4j
 public class EntityLifeCycleTest {
     @Autowired
     private EntityManagerFactory emf;
