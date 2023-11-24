@@ -1,4 +1,4 @@
-package com.example.jpa;
+package com.example.jpa.customer;
 
 public record CustomerResponseDto (
         Long customerId,

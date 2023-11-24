@@ -1,4 +1,4 @@
-package com.example.jpa;
+package com.example.jpa.customer;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

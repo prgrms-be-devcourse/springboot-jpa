@@ -1,14 +1,18 @@
-package com.example.jpa;
+package com.example.jpa.customer;
 
+import com.example.jpa.order.Order;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Setter
+@NoArgsConstructor
 @Table(name = "customers")
 public class Customer {
 
@@ -21,7 +25,10 @@ public class Customer {
     private String name;
     private String nickname;
 
-    private Customer (String name, String nickname, String password, String username){
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Order> orders = new ArrayList<>();
+
+    private Customer(String name, String nickname, String password, String username) {
         this.name = name;
         this.nickname = nickname;
         this.password = password;
@@ -42,5 +49,9 @@ public class Customer {
         this.password = requestDto.password();
         this.nickname = requestDto.nickname();
         return this.id;
+    }
+
+    public void addOrder(Order order) {
+        order.setMember(this);
     }
 }

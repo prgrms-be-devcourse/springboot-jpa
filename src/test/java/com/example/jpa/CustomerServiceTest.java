@@ -1,5 +1,9 @@
 package com.example.jpa;
 
+import com.example.jpa.customer.CustomerResponseDto;
+import com.example.jpa.customer.CustomerSaveRequestDto;
+import com.example.jpa.customer.CustomerService;
+import com.example.jpa.customer.CustomerUpdateRequestDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
