@@ -1,4 +1,4 @@
-package org.devcourse.assignment.domain;
+package org.devcourse.assignment.domain.customer;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
