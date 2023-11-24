@@ -1,7 +1,7 @@
 package org.devcourse.assignment.repository;
 
-import org.devcourse.assignment.domain.Address;
-import org.devcourse.assignment.domain.Customer;
+import org.devcourse.assignment.domain.customer.Address;
+import org.devcourse.assignment.domain.customer.Customer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

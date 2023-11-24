@@ -1,6 +1,6 @@
 package org.devcourse.assignment.repository;
 
-import org.devcourse.assignment.domain.Customer;
+import org.devcourse.assignment.domain.customer.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
