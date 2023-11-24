@@ -9,7 +9,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
-@Table (name = "order_item")
+@Table (name = "order_items")
 public class OrderItem {
 
     @Id
