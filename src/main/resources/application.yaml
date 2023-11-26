@@ -17,6 +17,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
+    show-sql: true
   config:
     activate:
       on-profile: test

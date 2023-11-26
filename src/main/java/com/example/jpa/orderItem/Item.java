@@ -3,6 +3,7 @@ package com.example.jpa.orderItem;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.Objects;
 
@@ -10,6 +11,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @Table(name = "item")
+@ToString
 public class Item extends BaseEntity{
 
     @Id
