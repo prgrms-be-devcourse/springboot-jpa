@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "member")
+@Table(name = "members")
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -19,7 +19,7 @@ public class Member {
     @Column(name = "name", nullable = false, length = 30)
     private String name;
 
-    @Column(unique = true, length = 30, nullable = false)
+    @Column(length = 30, nullable = false)
     private String nickName;
 
     private int age;

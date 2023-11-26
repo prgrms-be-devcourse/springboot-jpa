@@ -6,16 +6,20 @@ import com.programmers.springbootjpa.domain.entity.OrderStatus;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Transactional
 @DisplayName("Order 양방향 매핑 테스트")
 class OrderPersistenceTest {
 
@@ -23,6 +27,7 @@ class OrderPersistenceTest {
 
     @Autowired
     EntityManagerFactory emf;
+
 
     private EntityManager entityManager;
     private EntityTransaction transaction;
@@ -63,7 +68,7 @@ class OrderPersistenceTest {
         entityManager.persist(order);
         member.addOrder(order);
         entityManager.persist(member);
-        transaction.commit();
+        transaction.rollback();
     }
 
     @Test

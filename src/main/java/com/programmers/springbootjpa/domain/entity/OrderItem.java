@@ -5,12 +5,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Objects;
-import java.util.UUID;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "order_item")
+@Table(name = "order_items")
 public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
