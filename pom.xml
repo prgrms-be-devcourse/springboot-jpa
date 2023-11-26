@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.devcourse</groupId>
-    <artifactId>jpaTutorial</artifactId>
+    <artifactId>springboot-jpa</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>jpaTutorial</name>
     <description>jpaTutorial</description>
