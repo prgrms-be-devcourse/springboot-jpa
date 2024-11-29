@@ -66,7 +66,9 @@ class CustomerJpaRepositoryTest {
         // then
         Optional<Customer> updated = repository.findById(customer.getId());
         assertThat(updated).isPresent();
-        assertThat(updated.get()).usingRecursiveComparison().isEqualTo(customer);
+        assertThat(updated.get())
+                .extracting(Customer::getFirstName, Customer::getLastName)
+                .containsExactly(forUpdate.getFirstName(), forUpdate.getLastName());
     }
 
     @Test
