@@ -1,0 +1,47 @@
+classDiagram
+%%    Order : OrderItem = 일대다
+%%    OrderItem : Item = 일대다//다대일ㄹㅣ
+%%    Customer : Order = 일대다
+%%    Order - OrderItem - Item
+
+    class Customer {
+        Long id
+        Name customerName
+        Age age
+        Email email
+    }
+    Customer --> Order
+
+    class Order {
+        Long id
+        OrderStatus orderStatus
+        Customer customer
+        List< OrderItem > orderItems
+    }
+
+    class OrderStatus {
+        <<enumeration>>
+        ACCEPTED
+        PAYMENT_DONE
+    }
+    Order --> OrderStatus
+
+    class OrderItem {
+        Long id
+        Order order
+        Item item
+        Integer count
+    }
+    Order <--> OrderItem
+
+    class Item {
+        Long id
+        Price price
+        OriginNation nation
+    }
+    OrderItem --> Item
+
+    class BaseEntity {
+        String createdAt
+        String updatedAt
+    }
